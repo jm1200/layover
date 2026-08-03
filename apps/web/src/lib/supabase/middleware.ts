@@ -1,0 +1,63 @@
+import { createServerClient } from "@supabase/ssr";
+import { NextResponse, type NextRequest } from "next/server";
+import { isProtectedPath } from "@/features/auth/paths";
+
+function redirectToLogin(request: NextRequest, source: NextResponse) {
+  const loginUrl = request.nextUrl.clone();
+  loginUrl.pathname = "/login";
+  loginUrl.search = "";
+  loginUrl.searchParams.set("error", "need_login");
+  const redirect = NextResponse.redirect(loginUrl);
+  // Forward any cookies Supabase set while refreshing the session
+  source.cookies.getAll().forEach((cookie) => {
+    redirect.cookies.set(cookie.name, cookie.value);
+  });
+  return redirect;
+}
+
+export async function updateSession(request: NextRequest) {
+  let supabaseResponse = NextResponse.next({ request });
+  const pathname = request.nextUrl.pathname;
+  const protectedPath = isProtectedPath(pathname);
+
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key =
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+
+  // Misconfigured deploy: fail closed on protected routes
+  if ((!url || !key) && protectedPath) {
+    return redirectToLogin(request, supabaseResponse);
+  }
+
+  if (!url || !key) {
+    return supabaseResponse;
+  }
+
+  const supabase = createServerClient(url, key, {
+    cookies: {
+      getAll() {
+        return request.cookies.getAll();
+      },
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value }) =>
+          request.cookies.set(name, value),
+        );
+        supabaseResponse = NextResponse.next({ request });
+        cookiesToSet.forEach(({ name, value, options }) =>
+          supabaseResponse.cookies.set(name, value, options),
+        );
+      },
+    },
+  });
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (protectedPath && !user) {
+    return redirectToLogin(request, supabaseResponse);
+  }
+
+  return supabaseResponse;
+}
