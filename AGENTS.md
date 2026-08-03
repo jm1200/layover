@@ -55,7 +55,7 @@ The app **exists**. Do not invent tables, routes, or “we already shipped X” 
 5. **No drive-by refactors.** No drive-by dependency upgrades. No drive-by UI rewrites.
 6. **AI features stay server-side.** API keys never go to the browser. AI imports are draft-then-confirm, rate-limited, logged.
 7. **Prefer boring tech** already listed in STACK/MAP. Do not introduce a new framework without updating docs and getting owner approval.
-8. **Do not start Phase 2** until shareholder yes and gate file is respected.
+8. **Commit after every change set (shareholder rule).** When you finish a coherent unit of work (feature slice, fix pack, doc gate update), create a git commit before stopping or starting unrelated work. Do **not** leave a dirty tree at end of a task. Never commit secrets (`.env.local`, keys). Prefer one clear commit message per unit; do not amend published history.
 
 ## Roles (summary)
 

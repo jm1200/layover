@@ -36,8 +36,13 @@ Skills:
 | `docs/board/CEO-LOG.md` | Decision history |
 | Everything else | Only if curious; CEO owns it |
 
+## Git discipline
+
+**Shareholder rule:** Commit after every coherent change set so there is always a revert point. Engineer updates `AGENTS.md` and does not leave uncommitted work at end of a task. Secrets never committed.
+
 ## Decision log
 
 | Date | Decision |
 |------|----------|
 | 2026-08-04 | Org: Shareholder (human) → CEO agent → Chief Engineer (Grok Build). |
+| 2026-08-04 | Git: commit after every change set; initial snapshot `4ac0203`. |
