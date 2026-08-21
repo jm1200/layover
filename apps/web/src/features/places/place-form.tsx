@@ -2,6 +2,13 @@
 
 import { useActionState, useMemo, useState } from "react";
 import type { PlaceFormState } from "@/features/places/actions";
+import {
+  recKindFromCategory,
+  REC_KIND_HINT,
+  REC_KIND_LABEL,
+  REC_KINDS,
+  type RecKind,
+} from "@/features/places/kind";
 import type { City, Zone } from "@/features/places/types";
 import { ZONE_LABELS, type ZoneType } from "@/features/places/types";
 
@@ -20,8 +27,10 @@ type Props = {
     category?: string | null;
     status?: string;
   };
+  /** When set, category is locked (add chooser). */
+  lockKind?: RecKind;
   submitLabel: string;
-  showDishFields?: boolean;
+  showItemFields?: boolean;
   allowHidden?: boolean;
 };
 
@@ -32,13 +41,17 @@ export function PlaceForm({
   cities,
   zones,
   defaults,
+  lockKind,
   submitLabel,
-  showDishFields,
+  showItemFields,
   allowHidden,
 }: Props) {
   const [state, formAction, pending] = useActionState(action, initial);
   const [cityId, setCityId] = useState(defaults?.city_id ?? "");
   const [zoneId, setZoneId] = useState(defaults?.zone_id ?? "");
+  const [kind, setKind] = useState<RecKind>(
+    lockKind ?? recKindFromCategory(defaults?.category),
+  );
 
   const cityZones = useMemo(
     () => zones.filter((z) => z.city_id === cityId),
@@ -112,15 +125,31 @@ export function PlaceForm({
         />
       </label>
 
-      <label className="flex flex-col gap-1 text-sm">
-        <span className="font-medium">Category</span>
-        <input
-          name="category"
-          placeholder="restaurant, bar, grocery, activity…"
-          defaultValue={defaults?.category ?? ""}
-          className="rounded-lg border border-zinc-300 px-3 py-2"
-        />
-      </label>
+      {lockKind ? (
+        <p className="text-sm text-zinc-600">
+          <input type="hidden" name="category" value={lockKind} />
+          <span className="font-medium">{REC_KIND_LABEL[lockKind]}</span>
+          <span className="text-zinc-500"> — {REC_KIND_HINT[lockKind]}</span>
+        </p>
+      ) : (
+        <label className="flex flex-col gap-1 text-sm">
+          <span className="font-medium">Type</span>
+          <select
+            name="category"
+            required
+            value={kind}
+            onChange={(e) => setKind(e.target.value as RecKind)}
+            className="rounded-lg border border-zinc-300 px-3 py-2"
+          >
+            {REC_KINDS.map((k) => (
+              <option key={k} value={k}>
+                {REC_KIND_LABEL[k]}
+              </option>
+            ))}
+          </select>
+          <span className="text-xs text-zinc-500">{REC_KIND_HINT[kind]}</span>
+        </label>
+      )}
 
       <label className="flex flex-col gap-1 text-sm">
         <span className="font-medium">Blurb</span>
@@ -145,7 +174,7 @@ export function PlaceForm({
         </select>
       </label>
 
-      {showDishFields ? (
+      {showItemFields && kind === "eat" ? (
         <fieldset className="rounded-lg border border-zinc-200 p-3">
           <legend className="px-1 text-sm font-medium">
             Optional signature dish
@@ -155,6 +184,28 @@ export function PlaceForm({
             <input
               name="dish_name"
               placeholder="Truffle raclette"
+              className="rounded-lg border border-zinc-300 px-3 py-2"
+            />
+          </label>
+          <label className="mt-2 flex flex-col gap-1 text-sm">
+            <span>Note</span>
+            <input
+              name="dish_note"
+              className="rounded-lg border border-zinc-300 px-3 py-2"
+            />
+          </label>
+        </fieldset>
+      ) : null}
+      {showItemFields && kind === "shop" ? (
+        <fieldset className="rounded-lg border border-zinc-200 p-3">
+          <legend className="px-1 text-sm font-medium">
+            Optional — what to get
+          </legend>
+          <label className="mt-2 flex flex-col gap-1 text-sm">
+            <span>Item</span>
+            <input
+              name="dish_name"
+              placeholder="Munich mustard, Roman wine…"
               className="rounded-lg border border-zinc-300 px-3 py-2"
             />
           </label>

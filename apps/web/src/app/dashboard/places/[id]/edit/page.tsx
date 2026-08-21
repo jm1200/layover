@@ -29,7 +29,7 @@ export default async function EditPlacePage({
   const bound = updatePlace.bind(null, id);
 
   return (
-    <AppShell profile={profile} title="Edit place">
+    <AppShell profile={profile} title="Edit rec">
       <PlaceForm
         action={bound}
         cities={cities}

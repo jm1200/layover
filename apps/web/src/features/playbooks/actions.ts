@@ -66,7 +66,7 @@ export async function createPlaybook(
     .single();
 
   if (error || !pb) {
-    return { error: error?.message ?? "Could not create playbook." };
+    return { error: error?.message ?? "Could not create layover plan." };
   }
 
   if (stops.length) {
@@ -82,7 +82,7 @@ export async function createPlaybook(
     if (stopErr) {
       await supabase.from("playbooks").delete().eq("id", pb.id);
       return {
-        error: `Could not save stops: ${stopErr.message}. Playbook was not created.`,
+        error: `Could not save stops: ${stopErr.message}. Layover plan was not created.`,
       };
     }
   }

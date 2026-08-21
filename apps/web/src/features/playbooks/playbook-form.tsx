@@ -133,7 +133,7 @@ export function PlaybookForm({
                 />
               </label>
               <label className="mt-2 flex flex-col gap-1 text-sm">
-                <span>Linked place (optional — same city only)</span>
+                <span>Linked rec (optional — same city only)</span>
                 <select
                   name={`stop_${i}_place_id`}
                   className="rounded-lg border border-zinc-300 px-3 py-2"

@@ -71,12 +71,13 @@ export async function listMyPlaces(authorId: string): Promise<
     name: string;
     status: string;
     city_id: string;
+    category: string | null;
   }[]
 > {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("places")
-    .select("id, name, status, city_id")
+    .select("id, name, status, city_id, category")
     .eq("author_id", authorId)
     .order("updated_at", { ascending: false });
   if (error) {

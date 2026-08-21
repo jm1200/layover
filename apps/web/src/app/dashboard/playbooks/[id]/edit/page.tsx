@@ -29,7 +29,7 @@ export default async function EditPlaybookPage({
   const bound = updatePlaybookMeta.bind(null, id);
 
   return (
-    <AppShell profile={profile} title="Edit playbook">
+    <AppShell profile={profile} title="Edit layover plan">
       <PlaybookForm
         action={bound}
         cities={cities}
@@ -47,7 +47,7 @@ export default async function EditPlaybookPage({
       />
       <p className="mt-6 max-w-xl text-sm text-zinc-500">
         Stop list editing is create-time only in this cut. To rebuild stops,
-        create a new playbook version later.
+        create a new layover plan later.
       </p>
     </AppShell>
   );

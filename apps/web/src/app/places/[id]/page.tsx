@@ -7,6 +7,10 @@ import {
   listDishesForPlace,
   listZonesForCity,
 } from "@/features/places/queries";
+import {
+  recKindFromCategory,
+  REC_KIND_LABEL,
+} from "@/features/places/kind";
 import { ZONE_LABELS, type ZoneType } from "@/features/places/types";
 
 export default async function PlacePage({
@@ -65,7 +69,7 @@ export default async function PlacePage({
               {city.name}
             </Link>
           ) : null}
-          {place.category ? ` · ${place.category}` : null}
+          {` · ${REC_KIND_LABEL[recKindFromCategory(place.category)]}`}
           {zone
             ? ` · zone: ${zone.name || ZONE_LABELS[zone.type as ZoneType] || zone.type}`
             : null}

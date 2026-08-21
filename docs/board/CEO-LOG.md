@@ -4,6 +4,18 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-21 — Shareholder: ship Full layover (built)
+
+**Source:** Shareholder — “ok full layover.”
+
+Chip 1 + 4-chip city page **approved**. Engineering shipped the UX/copy cut: jump chips, Eat/Do/Shop groups, dashboard chooser, layover-plan copy. No schema change. No Phase 3.
+
+**Shareholder ask:** Refresh Zurich / Delhi.
+
+**Status:** Built.
+
+---
+
 ## 2026-08-21 — Chip 1 locked: Full layover
 
 **Source:** Shareholder — “full recommendations by other crews… the whole shebang. look no further. copy paste. full package. itineraries? Guides?” Naming chip 1 on **Full layover? · Eat · Do · Shop**.

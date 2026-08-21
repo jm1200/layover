@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Layover",
   description:
-    "High-trust layover playbooks for flight crew — places, food, activities, and labeled sponsor ideas.",
+    "High-trust layover plans for flight crew — eat, do, shop, and labeled sponsor ideas.",
 };
 
 export default function RootLayout({

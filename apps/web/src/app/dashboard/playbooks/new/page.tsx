@@ -16,12 +16,12 @@ export default async function NewPlaybookPage() {
   ]);
 
   return (
-    <AppShell profile={profile} title="New playbook">
+    <AppShell profile={profile} title="New layover plan">
       <PlaybookForm
         action={createPlaybook}
         cities={cities}
         places={places}
-        submitLabel="Create playbook"
+        submitLabel="Create layover plan"
       />
     </AppShell>
   );

@@ -32,9 +32,9 @@ export async function assertPlaceInCity(
     .eq("id", placeId)
     .maybeSingle();
   if (error) return error.message;
-  if (!data) return "Linked place was not found or is not available.";
+  if (!data) return "Linked rec was not found or is not available.";
   if (data.city_id !== cityId) {
-    return "Linked place must be in the same city as the playbook.";
+    return "Linked rec must be in the same city as the layover plan.";
   }
   return null;
 }

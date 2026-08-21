@@ -47,7 +47,7 @@ export default async function HomePage() {
           What to do on a layover — from people who actually fly.
         </h1>
         <p className="mt-4 max-w-xl text-lg text-zinc-600">
-          High-trust playbooks: places, food, activities. Organic staples stay
+          High-trust layover plans: eat, do, shop. Organic staples stay
           primary. Logistics use zones — never crew hotel lists.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">

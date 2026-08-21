@@ -27,12 +27,11 @@ Ordered layover stories (the product quality bar).
 - Social / AI / Sponsored rails  
 - Full stop re-edit after create (meta edit only for now)
 
-## UI copy (chip + object **locked** — do not build until shareholder yes)
+## UI copy (shipped 2026-08-21)
 
-- Customer name for the object: **layover plan**. Do not say “playbook” on city, dashboard, or forms. Do not say “full package adventure.” Do not say **guide** as a product noun.
-- Chip / section label: **Full layover**. Job: stealable full crew layover (whole shebang / copy-paste / look no further) — ordered complete layover vs one Eat/Do/Shop rec. Count on the chip is fine; section heading may pluralize as **Full layovers**.
+- [x] Customer name for the object: **layover plan**. Do not say “playbook” on city, dashboard, or forms. Do not say “full package adventure.” Do not say **guide** as a product noun.
+- [x] Chip / section label: **Full layover**. Job: stealable full crew layover — ordered complete layover vs one Eat/Do/Shop rec. Section heading: **Full layovers**.
 - **Not the chip:** Plan (object / add-flow only), Itineraries (optional later sentence copy, not the tab), Guides, Ideas / Layover ideas, Play, tour, adventure, Full (alone), Full package, crew recs / crew staples (those names are the whole organic rail).
 - Internal table/routes may stay `playbooks` this cut (no rename migration).
-- Add chooser offers **Add a layover plan** next to Eat / Do / Shop (those three are places).
-- City page: layover-plan list stays first (destination-first plans), then Eat/Do/Shop groups from the places spec. Jump chip **Full layover** with count. No separate `/plans` IA this cut.
-- **Do not ship** chips until shareholder says **yes** to **Full layover · Eat · Do · Shop**.  
+- [x] Add chooser offers **Full layover** next to Eat / Do / Shop (those three are places).
+- [x] City page: layover-plan list stays first, then Eat/Do/Shop groups. Jump chip **Full layover** with count. No separate `/plans` IA this cut.  

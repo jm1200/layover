@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/features/auth/get-profile";
+import { parseRecKind } from "@/features/places/kind";
 import type { ContentStatus } from "@/features/places/types";
 import { assertZoneInCity } from "@/features/places/validate";
 
@@ -27,15 +28,19 @@ export async function createPlace(
   const cityId = String(formData.get("city_id") ?? "");
   const name = String(formData.get("name") ?? "").trim();
   const blurb = String(formData.get("blurb") ?? "").trim() || null;
-  const category = String(formData.get("category") ?? "").trim() || null;
+  const kind = parseRecKind(String(formData.get("category") ?? ""));
   const zoneId = String(formData.get("zone_id") ?? "") || null;
   const status = (String(formData.get("status") ?? "draft") ||
     "draft") as ContentStatus;
-  const dishName = String(formData.get("dish_name") ?? "").trim();
+  const dishName =
+    kind === "do" ? "" : String(formData.get("dish_name") ?? "").trim();
   const dishNote = String(formData.get("dish_note") ?? "").trim() || null;
 
   if (!cityId || !name) {
-    return { error: "City and place name are required." };
+    return { error: "City and name are required." };
+  }
+  if (!kind) {
+    return { error: "Pick Eat, Do, or Shop." };
   }
   if (!["draft", "published"].includes(status)) {
     return { error: "Invalid status." };
@@ -53,7 +58,7 @@ export async function createPlace(
       zone_id: zoneId || null,
       name,
       blurb,
-      category,
+      category: kind,
       status,
       author_id: profile.id,
     })
@@ -61,7 +66,7 @@ export async function createPlace(
     .single();
 
   if (error || !place) {
-    return { error: error?.message ?? "Could not create place." };
+    return { error: error?.message ?? "Could not create rec." };
   }
 
   if (dishName) {
@@ -74,7 +79,7 @@ export async function createPlace(
     if (dishErr) {
       await supabase.from("places").delete().eq("id", place.id);
       return {
-        error: `Could not save dish: ${dishErr.message}. Place was not created.`,
+        error: `Could not save item: ${dishErr.message}. Rec was not created.`,
       };
     }
   }
@@ -103,12 +108,13 @@ export async function updatePlace(
   const cityId = String(formData.get("city_id") ?? "").trim();
   const name = String(formData.get("name") ?? "").trim();
   const blurb = String(formData.get("blurb") ?? "").trim() || null;
-  const category = String(formData.get("category") ?? "").trim() || null;
+  const kind = parseRecKind(String(formData.get("category") ?? ""));
   const zoneId = String(formData.get("zone_id") ?? "") || null;
   const status = String(formData.get("status") ?? "draft") as ContentStatus;
 
   if (!name) return { error: "Name is required." };
   if (!cityId) return { error: "City is required." };
+  if (!kind) return { error: "Pick Eat, Do, or Shop." };
   if (!["draft", "published", "hidden"].includes(status)) {
     return { error: "Invalid status." };
   }
@@ -136,7 +142,7 @@ export async function updatePlace(
       city_id: cityId,
       name,
       blurb,
-      category,
+      category: kind,
       zone_id: zoneId || null,
       status,
     })
