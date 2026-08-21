@@ -4,6 +4,39 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-21 — Chip 1 locked: Full layover
+
+**Source:** Shareholder — “full recommendations by other crews… the whole shebang. look no further. copy paste. full package. itineraries? Guides?” Naming chip 1 on **Full layover? · Eat · Do · Shop**.
+
+**Job-to-be-done (locked):** A **stealable full crew layover** — complete, operational, copy-paste, look no further. Not a travel blog. Not one eat/do/shop rec.
+
+### Decision (locked)
+
+| Item | Decision |
+|------|----------|
+| Chip 1 | **Full layover** |
+| Object | **layover plan** (unchanged). Add flow: “Add a layover plan.” |
+| Itineraries | **Rejected as chip.** Accurate as later sentence copy (“copy this itinerary”). Tourism-generic as a tab; no crew flavor; does not say *complete*. |
+| Guides | **Rejected.** Sounds like a person (“follow this guide”) or a PDF. Fights destination-first (city is hero, not the poster). |
+| Plan as chip | **Rejected.** Right as the object name; too thin as the tab next to Eat/Do/Shop. Completeness is the differentiator — that word is **Full**. |
+| Full package / full recs / crew recs / crew staples | **Rejected as chip.** Package ≈ sold tour (already bounced with adventure). Eat/Do/Shop are already recs. “Crew staples” is the *whole organic rail*, not this group only. |
+| Copy-paste / whole shebang / look no further | **Marketing line**, not a chip. City H1/tagline later is fine. |
+| Still rejected | Ideas / Layover ideas, Play, tour, adventure, Full (alone), playbook (customer-facing) |
+
+### Why Full layover (not another round of three names)
+
+Shareholder’s new words all point at **completeness**, not a new product type. Chip 1 must scan as “take the whole ordered layover”; Eat · Do · Shop stay à la carte. Two-word chip is acceptable — cadence with Eat/Do/Shop matters less than telling the truth.
+
+### Engineering implication
+
+**No `apps/` until shareholder says yes to this lock.** Then the already-specified Phase 2.1 UX/copy cut: **Full layover · Eat · Do · Shop**, grouped lists, layover-plan copy, add chooser. No schema change. No Phase 3.
+
+**Shareholder ask:** Yes/no — ship **Full layover · Eat · Do · Shop**.
+
+**Status:** Chip 1 **locked** (pending yes to build). Brief + PRODUCT + playbooks spec aligned.
+
+---
+
 ## 2026-08-21 — Chip 1: no on Ideas / Layover ideas
 
 **Source:** Shareholder — “How about Layover Ideas. or just Ideas.” Naming chip 1 (ordered itinerary group). Eat · Do · Shop already yes.

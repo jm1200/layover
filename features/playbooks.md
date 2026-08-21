@@ -27,11 +27,12 @@ Ordered layover stories (the product quality bar).
 - Social / AI / Sponsored rails  
 - Full stop re-edit after create (meta edit only for now)
 
-## UI copy (object name locked; chip label **open** — do not build until named)
+## UI copy (chip + object **locked** — do not build until shareholder yes)
 
-- Customer name for the object: **layover plan**. Do not say “playbook” on city, dashboard, or forms. Do not say “full package adventure.”
-- Chip / section label: **still open** between **Full layover** / **Full layovers** (CEO default) and **Plan**. Not Play (collides with Do). Not tour/adventure (oversell). Not “Full” alone (vague). **Not Ideas / Layover ideas** — Eat/Do/Shop are already ideas; sponsored rail is “New idea…”; “Layover ideas” is whole-page copy later, not this chip.
+- Customer name for the object: **layover plan**. Do not say “playbook” on city, dashboard, or forms. Do not say “full package adventure.” Do not say **guide** as a product noun.
+- Chip / section label: **Full layover**. Job: stealable full crew layover (whole shebang / copy-paste / look no further) — ordered complete layover vs one Eat/Do/Shop rec. Count on the chip is fine; section heading may pluralize as **Full layovers**.
+- **Not the chip:** Plan (object / add-flow only), Itineraries (optional later sentence copy, not the tab), Guides, Ideas / Layover ideas, Play, tour, adventure, Full (alone), Full package, crew recs / crew staples (those names are the whole organic rail).
 - Internal table/routes may stay `playbooks` this cut (no rename migration).
 - Add chooser offers **Add a layover plan** next to Eat / Do / Shop (those three are places).
-- City page: layover-plan list stays first (destination-first plans), then Eat/Do/Shop groups from the places spec. Jump chip with count. No separate `/plans` IA this cut.
-- **Do not ship** chips until shareholder picks **Full layover** or **Plan** (or says “use CEO default”). Ideas / Layover ideas are rejected for this chip.  
+- City page: layover-plan list stays first (destination-first plans), then Eat/Do/Shop groups from the places spec. Jump chip **Full layover** with count. No separate `/plans` IA this cut.
+- **Do not ship** chips until shareholder says **yes** to **Full layover · Eat · Do · Shop**.  

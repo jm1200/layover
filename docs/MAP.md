@@ -13,7 +13,7 @@
 | **1 — Auth + roles** | **Complete + hardened** | Live signup/login + roles; fix pack + second review cleanups |
 | **1.1 — Pre–Phase 2 gate** | **Complete** | Docs/MAP honesty + `PRE-PHASE-2-GATE.md`; code re-reviewed |
 | **2 — Cities, zones, places, playbooks** | **Code + Important fixes** | Harden pack in app; run migrations 002–**004** |
-| **2.1 — Verify + harden** | **Code done; smoke pending** | Fixes shipped; RLS smoke: `docs/board/RLS-SMOKE.md`. **City IA:** 4 chips on the same page = **yes**. First-chip name **open** (**Full layover** vs **Plan**). **Ideas / Layover ideas rejected** for chip 1. No `apps/` until the name is locked. |
+| **2.1 — Verify + harden** | **Code done; smoke pending** | Fixes shipped; RLS smoke: `docs/board/RLS-SMOKE.md`. **City IA:** 4 chips on the same page = **yes**. Chip 1 **locked: Full layover**. Object: **layover plan**. No `apps/` until shareholder **yes** to build. |
 | 3 — Social | Not started | after 2.1 green; like, comment, follow |
 | 4 — AI story import | Not started | draft + quotas |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
@@ -105,7 +105,7 @@ ModerationAction / MetricSnapshot            — Phase 6
 | `/sponsor` | Sponsor | Campaigns, billing, creatives | Phase 1 stub |
 | `/admin` | Admin | Moderation, metrics, kill switches | Phase 1 stub |
 | `/cities` | Public | City list | Phase 2 |
-| `/cities/[slug]` | Public | 4-chip IA yes: **[first chip TBD] · Eat · Do · Shop** (today: two lists; do not build until first-chip name locked) | Phase 2 |
+| `/cities/[slug]` | Public | 4-chip IA yes: **Full layover · Eat · Do · Shop** (today: two lists; do not build until shareholder yes) | Phase 2 |
 | `/playbooks/[id]` | Public | Playbook detail | Phase 2 |
 | `/places/[id]` | Public | Place + dishes | Phase 2 |
 | `/dashboard/places/new` | Auth | Create place | Phase 2 |

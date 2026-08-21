@@ -4,7 +4,7 @@
 
 **Last updated:** 2026-08-21  
 **Company:** Layover (working name)  
-**Stage:** Phase 2.1 code shipped · smoke in progress · **4-chip city IA yes · Ideas rejected for chip 1 · name still Full layover vs Plan (do not build)**
+**Stage:** Phase 2.1 code shipped · smoke in progress · **4-chip city IA yes · chip 1 locked Full layover · waiting yes to build**
 
 **Not this cut:** Phase 3 social, photos, events, Stripe, role-switcher, Rx shopping policy, admin city form.
 
@@ -22,45 +22,41 @@ High-trust layover **plans** for flight crew, plus clearly labeled paid “new i
 | Phase 2 content code | **Shipped** |
 | Important fixes (2.1) | **Shipped** — smoke still yours if not done |
 | City page today | Two lists: “Crew playbooks” then “Places” — not yet the 4 chips |
-| 4-chip structure | **Yes** — same city page: **[first chip] · Eat · Do · Shop** |
-| First chip name | **Open** between **Full layover** and **Plan**. **Ideas / Layover ideas = no** for this chip |
+| 4-chip structure | **Yes** — same city page: **Full layover · Eat · Do · Shop** |
+| First chip name | **Locked: Full layover.** Object stays **layover plan**. **No** on Ideas, Guides, Itineraries (as the chip) |
 | Add flow (when we build) | Four choices: eat / do / shop / layover plan. Stop saying **place** |
 | City create | Users **blocked on purpose**. Admin has **no city form** — SQL only |
 | Roles | Guest / user / admin already differ. No in-app switcher. Try them yourself |
-| Phase 3 Social | After you confirm cities work **and** this IA is named + built |
+| Phase 3 Social | After you confirm cities work **and** this IA is built |
 
 ## Recommendation
 
-**No on Ideas / Layover ideas for chip 1.** Stick with **Full layover** (default) or **Plan**. Do not build until you pick one of those two.
+**Chip 1 = Full layover.** Ship **Full layover · Eat · Do · Shop**. Object stays **layover plan**.
 
-Chip 1 is the *ordered whole layover*, not “another rec.” Eat · Do · Shop are already ideas. Paid ads later already say **“New idea for a ZRH layover.”** Calling organic plans Ideas mixes staples with ads. “Layover ideas” is the *whole city page* job — keep it as a possible tagline later, not this chip.
+These are stealable full crew layovers — copy-paste, look no further — not a single eat/do/shop rec. **Full** is the job. **Layover** is the unit.
 
 | Candidate | Verdict |
 |-----------|---------|
-| **Full layover** | **Default.** Whole ordered layover vs one rec |
-| **Plan** | OK one-word alt if you want Eat/Do/Shop cadence |
-| Ideas / Layover ideas | **No** for chip 1 — collides with Eat/Do/Shop *and* the sponsored “new ideas” rail |
-| Play | No — collides with **Do** |
-| Tour / adventure | No — oversells an 8h airport-strip night |
-| Full | No — Full *what?* |
+| **Full layover** | **Locked chip.** Whole ordered layover vs one rec |
+| Plan | Not the chip. Already the object: **layover plan** / “Add a layover plan” |
+| Itineraries | **No** as chip — accurate later in a sentence, tourism-generic as a tab |
+| Guides | **No** — sounds like a person or a PDF; fights destination-first |
+| Full package / full recs | **No** as chip — sold-tour vibe; Eat/Do/Shop are already recs |
+| Ideas / Play / tour / adventure | Still **no** |
 
-**Shop stays.** Delhi has shopping. Chip is the label; density is content.
-
-**Pharma / Viagra / Party Smart:** parked. Not this UX cut. Different legal classes (supplement vs Rx in many countries). Options later — do not decide now.
-
-**Roles:** yes, privileges already differ. Try **guest** (logged out), a **second signup as user**, and your current **admin**. Dashboard looks almost the same as user plus an Admin link. No role-switcher this cut.
+**Shop stays.** Rx shopping parked. Roles: try guest / a second user / your admin. No role-switcher.
 
 ## Why
 
-Trust and density beat a pretty empty directory. Four chips make the jobs obvious without four empty sites. Naming chip 1 **Ideas** would blur organic plans with later labeled ads — trust loss for a cute word. Rx shopping is legal + trust risk, not a city-page problem. User-created cities stay blocked (spam + hotel-leak).
+Money and trust both want a chip that means “take the whole thing,” not “another idea” or “follow this person.” Guides would turn the city page into a people product. Itineraries is TripAdvisor. Plan is the *thing you open*; the chip has to scream *complete*. Copy-paste / whole shebang is the **tagline**, not the tab.
 
 ## What I need from you
 
-**Pick one:** **Full layover** (CEO default) or **Plan**.
+**Yes or no:** ship **Full layover · Eat · Do · Shop**.
 
-Not Ideas. Not Layover ideas. Engineering waits.
+Not a new name. Veto only if Full layover is wrong.
 
-## What engineering will do if you approve the name
+## What engineering will do if you approve
 
 Small Phase 2.1 **UX/copy cut** — not a rewrite, not Phase 3, no new tables:
 
