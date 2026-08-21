@@ -88,3 +88,4 @@ Optional later precision for verified crew only:
 |------|----------|
 | 2026-08-03 | Public product uses zones, not crew hotels. Hotel-level public tips are out of scope. |
 | 2026-08-03 | Crew-only higher precision deferred to Phase 7 with light verification, not biometrics. |
+| 2026-08-21 | Rx / pharma shopping (Viagra, Party Smart, etc.) **parked** — not decided. Options later: ban Rx/controlled; OTC/convenience pharmacy only; allow with “not medical advice / check local law.” Never attach to crew hotels. Do not publish how-to-buy medical advice. Party Smart vs sildenafil are different legal classes. |

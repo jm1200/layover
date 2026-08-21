@@ -4,6 +4,50 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-21 — 4-chip city IA yes; first-chip name still open
+
+**Source:** Shareholder — Delhi shopping is real; pharma (Party Smart, Viagra) as a later legal question; **“i think 4 chips. that makes it clear.”** Rejects “full package adventure.” Considering Play / tour / adventure / Full. Also wants to try guest / user / admin themselves.
+
+**Facts (engineer):** Roles exist: guest (public browse published), user (create/edit own; no hide; no `/admin`; no city insert), sponsor stub, admin (all of that + `/admin` stub + hide + SQL city insert). Dashboard ≈ user plus Admin link. **No in-app role switcher.** 4-chip city page **not built** until first-chip name is locked.
+
+### Decision (locked)
+
+| Item | Decision |
+|------|----------|
+| Chip count / structure | **Yes — 4 chips, same city page.** **[name TBD] · Eat · Do · Shop**, then grouped lists. City stays hero. Zone chips stay. Not 4 category sites. Not 2 jargon lists. |
+| First chip name | **Still open.** Do **not** build until shareholder picks or says “use CEO default.” |
+| CEO default (tie-break) | Chip **Full layover**. Object **layover plan**. Internal table may stay `playbooks`. |
+| Rejected | “Full package adventure.” |
+| Play | **Not recommended** — collides with **Do** (two activity verbs). |
+| Tour / adventure | **Not recommended** — oversells an 8h airport-strip night. |
+| Full (alone) | **Not recommended** — too vague (Full *what?*). |
+| Plan (one-word alt) | Acceptable if they want Eat/Do/Shop cadence. Not the default. |
+| Shop chip | **Keep first-class.** Delhi shopping is real crew work. Empty-looking Shop is a **content** problem, not a reason to drop the chip or add extra pages. |
+| Pharma / Rx shopping | **Parked — not decided.** Not this UX cut. Do not write how-to-buy medical advice. Never attach to crew hotels. |
+| Roles try-path | Privileges already differ. Shareholder should try **guest** (logged out), a **second signup as user**, current **admin**. |
+| Role-switcher | **No** this cut. Extra product for a one-time smoke. |
+| Schema / Phase 3 | **No** expand schema. **No** Phase 3. |
+
+### Pharma / Rx (parked policy — do not lock)
+
+Shareholder is not sure yet. Flag only:
+
+- **Party Smart** (typically sold as a supplement / “party” product) and **sildenafil / Viagra** (prescription-controlled in many countries, not all; crews also fly from places where it is not Rx) are **different legal classes**. Do not treat them as one “Delhi pharmacy” tip type.
+- Later options (pick when we write content policy, not now): **ban Rx/controlled**; **allow OTC / convenience pharmacy only**; **allow with “not medical advice / check local law.”**
+- Locked regardless: zones not hotels; no medical advice; no buy-guides for controlled drugs.
+
+### Engineering implication
+
+**No `apps/` work** until first-chip name is locked (pick, or “use CEO default”). Then the already-specified Phase 2.1 UX/copy cut: chips + grouped lists + add chooser + Eat/Do/Shop category select. Empty group = “None yet.”
+
+**Non-goals:** admin city CRUD, role-switcher, Rx policy engine, events, photos, social, enum migration.
+
+**Shareholder ask:** Pick first-chip name, or say **use CEO default** (Full layover). Then try guest / user / admin yourself.
+
+**Status:** 4-chip **yes**. First-chip name **open**. Brief updated.
+
+---
+
 ## 2026-08-21 — City browse IA: hybrid Eat/Do/Shop + layover plan (pending yes)
 
 **Source:** Shareholder review of Phase 2.1 city page. Three questions: (1) playbook vs place is unclear; (2) add flow should maybe be restaurant/shopping/activity not “place”; (3) users can’t add a city — is that on purpose, and can admin?
