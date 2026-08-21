@@ -37,7 +37,7 @@ export async function getProfile(): Promise<Profile | null> {
     .maybeSingle();
 
   if (error) {
-    console.error("[getProfile] profiles read failed:", error.message);
+    console.warn("[getProfile] profiles read failed:", error.message);
     return null;
   }
 

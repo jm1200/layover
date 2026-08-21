@@ -11,7 +11,7 @@ export async function listPlaybooksForCity(cityId: string): Promise<Playbook[]> 
     .eq("city_id", cityId)
     .order("title");
   if (error) {
-    console.error("[listPlaybooksForCity]", error.message);
+    console.warn("[listPlaybooksForCity]", error.message);
     return [];
   }
   return (data ?? []) as Playbook[];
@@ -27,7 +27,7 @@ export async function getPlaybook(id: string): Promise<Playbook | null> {
     .eq("id", id)
     .maybeSingle();
   if (error) {
-    console.error("[getPlaybook]", error.message);
+    console.warn("[getPlaybook]", error.message);
     return null;
   }
   return data as Playbook | null;
@@ -43,7 +43,7 @@ export async function listStopsForPlaybook(
     .eq("playbook_id", playbookId)
     .order("position");
   if (error) {
-    console.error("[listStopsForPlaybook]", error.message);
+    console.warn("[listStopsForPlaybook]", error.message);
     return [];
   }
   return (data ?? []) as PlaybookStop[];
@@ -59,7 +59,7 @@ export async function listMyPlaybooks(authorId: string): Promise<Playbook[]> {
     .eq("author_id", authorId)
     .order("updated_at", { ascending: false });
   if (error) {
-    console.error("[listMyPlaybooks]", error.message);
+    console.warn("[listMyPlaybooks]", error.message);
     return [];
   }
   return (data ?? []) as Playbook[];
@@ -80,7 +80,7 @@ export async function listMyPlaces(authorId: string): Promise<
     .eq("author_id", authorId)
     .order("updated_at", { ascending: false });
   if (error) {
-    console.error("[listMyPlaces]", error.message);
+    console.warn("[listMyPlaces]", error.message);
     return [];
   }
   return data ?? [];

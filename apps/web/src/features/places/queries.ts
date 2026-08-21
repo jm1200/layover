@@ -8,7 +8,7 @@ export async function listCities(): Promise<City[]> {
     .select("id, slug, name, country, airport_code")
     .order("name");
   if (error) {
-    console.error("[listCities]", error.message);
+    console.warn("[listCities]", error.message);
     return [];
   }
   return (data ?? []) as City[];
@@ -22,7 +22,7 @@ export async function getCityBySlug(slug: string): Promise<City | null> {
     .eq("slug", slug)
     .maybeSingle();
   if (error) {
-    console.error("[getCityBySlug]", error.message);
+    console.warn("[getCityBySlug]", error.message);
     return null;
   }
   return data as City | null;
@@ -36,7 +36,7 @@ export async function listZonesForCity(cityId: string): Promise<Zone[]> {
     .eq("city_id", cityId)
     .order("type");
   if (error) {
-    console.error("[listZonesForCity]", error.message);
+    console.warn("[listZonesForCity]", error.message);
     return [];
   }
   return (data ?? []) as Zone[];
@@ -49,7 +49,7 @@ export async function listAllZones(): Promise<Zone[]> {
     .select("id, city_id, type, name")
     .order("type");
   if (error) {
-    console.error("[listAllZones]", error.message);
+    console.warn("[listAllZones]", error.message);
     return [];
   }
   return (data ?? []) as Zone[];
@@ -65,7 +65,7 @@ export async function listPublishedPlaces(): Promise<Place[]> {
     .eq("status", "published")
     .order("name");
   if (error) {
-    console.error("[listPublishedPlaces]", error.message);
+    console.warn("[listPublishedPlaces]", error.message);
     return [];
   }
   return (data ?? []) as Place[];
@@ -81,7 +81,7 @@ export async function listPlacesForCity(cityId: string): Promise<Place[]> {
     .eq("city_id", cityId)
     .order("name");
   if (error) {
-    console.error("[listPlacesForCity]", error.message);
+    console.warn("[listPlacesForCity]", error.message);
     return [];
   }
   return (data ?? []) as Place[];
@@ -97,7 +97,7 @@ export async function getPlace(id: string): Promise<Place | null> {
     .eq("id", id)
     .maybeSingle();
   if (error) {
-    console.error("[getPlace]", error.message);
+    console.warn("[getPlace]", error.message);
     return null;
   }
   return data as Place | null;
@@ -111,7 +111,7 @@ export async function listDishesForPlace(placeId: string): Promise<Dish[]> {
     .eq("place_id", placeId)
     .order("sort_order");
   if (error) {
-    console.error("[listDishesForPlace]", error.message);
+    console.warn("[listDishesForPlace]", error.message);
     return [];
   }
   return (data ?? []) as Dish[];
