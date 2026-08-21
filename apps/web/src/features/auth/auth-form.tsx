@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import type { AuthFormState } from "@/features/auth/actions";
+import type { AuthFormState } from "@/features/auth/types";
 
 type Props = {
   action: (

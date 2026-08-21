@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { signOut } from "@/features/auth/actions";
 import type { Profile } from "@/features/auth/types";
 import { SignOutButton } from "@/features/auth/sign-out-button";
 
@@ -22,7 +23,7 @@ export function AppShell({
             <span className="hidden sm:inline">
               {profile.email} · <span className="font-medium">{profile.role}</span>
             </span>
-            <SignOutButton />
+            <SignOutButton action={signOut} />
           </div>
         </div>
       </header>

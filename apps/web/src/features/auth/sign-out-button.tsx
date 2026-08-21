@@ -1,10 +1,9 @@
 "use client";
 
-import { signOut } from "@/features/auth/actions";
-
-export function SignOutButton() {
+/** Server action is passed in so this client module never imports `actions.ts`. */
+export function SignOutButton({ action }: { action: () => Promise<void> }) {
   return (
-    <form action={signOut}>
+    <form action={action}>
       <button
         type="submit"
         className="rounded-lg border border-zinc-300 px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50"

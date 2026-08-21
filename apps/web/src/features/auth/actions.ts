@@ -4,11 +4,9 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getProfile, homeForRole } from "@/features/auth/get-profile";
+import type { AuthFormState } from "@/features/auth/types";
 
-export type AuthFormState = {
-  error?: string;
-  success?: string;
-};
+export type { AuthFormState };
 
 export async function signUp(
   _prev: AuthFormState,

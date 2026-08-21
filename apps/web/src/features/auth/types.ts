@@ -8,3 +8,8 @@ export type Profile = {
   status: AccountStatus;
   display_name: string | null;
 };
+
+export type AuthFormState = {
+  error?: string;
+  success?: string;
+};
