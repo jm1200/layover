@@ -30,8 +30,8 @@ Ordered layover stories (the product quality bar).
 ## UI copy (object name locked; chip label **open** — do not build until named)
 
 - Customer name for the object: **layover plan**. Do not say “playbook” on city, dashboard, or forms. Do not say “full package adventure.”
-- Chip / section label: **still open.** CEO default: **Full layover** / **Full layovers**. Not Play (collides with Do). Not tour/adventure (oversell). Not “Full” alone (vague).
+- Chip / section label: **still open** between **Full layover** / **Full layovers** (CEO default) and **Plan**. Not Play (collides with Do). Not tour/adventure (oversell). Not “Full” alone (vague). **Not Ideas / Layover ideas** — Eat/Do/Shop are already ideas; sponsored rail is “New idea…”; “Layover ideas” is whole-page copy later, not this chip.
 - Internal table/routes may stay `playbooks` this cut (no rename migration).
 - Add chooser offers **Add a layover plan** next to Eat / Do / Shop (those three are places).
 - City page: layover-plan list stays first (destination-first plans), then Eat/Do/Shop groups from the places spec. Jump chip with count. No separate `/plans` IA this cut.
-- **Do not ship** chips until shareholder picks the first-chip name or says “use CEO default.”  
+- **Do not ship** chips until shareholder picks **Full layover** or **Plan** (or says “use CEO default”). Ideas / Layover ideas are rejected for this chip.  

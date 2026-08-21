@@ -4,7 +4,7 @@
 
 **Last updated:** 2026-08-21  
 **Company:** Layover (working name)  
-**Stage:** Phase 2.1 code shipped · smoke in progress · **4-chip city IA yes · first-chip name still open (do not build)**
+**Stage:** Phase 2.1 code shipped · smoke in progress · **4-chip city IA yes · Ideas rejected for chip 1 · name still Full layover vs Plan (do not build)**
 
 **Not this cut:** Phase 3 social, photos, events, Stripe, role-switcher, Rx shopping policy, admin city form.
 
@@ -23,7 +23,7 @@ High-trust layover **plans** for flight crew, plus clearly labeled paid “new i
 | Important fixes (2.1) | **Shipped** — smoke still yours if not done |
 | City page today | Two lists: “Crew playbooks” then “Places” — not yet the 4 chips |
 | 4-chip structure | **Yes** — same city page: **[first chip] · Eat · Do · Shop** |
-| First chip name | **Open** — not “full package adventure.” Engineering will not guess |
+| First chip name | **Open** between **Full layover** and **Plan**. **Ideas / Layover ideas = no** for this chip |
 | Add flow (when we build) | Four choices: eat / do / shop / layover plan. Stop saying **place** |
 | City create | Users **blocked on purpose**. Admin has **no city form** — SQL only |
 | Roles | Guest / user / admin already differ. No in-app switcher. Try them yourself |
@@ -31,16 +31,17 @@ High-trust layover **plans** for flight crew, plus clearly labeled paid “new i
 
 ## Recommendation
 
-**Build the 4 chips only after you name chip 1.**
+**No on Ideas / Layover ideas for chip 1.** Stick with **Full layover** (default) or **Plan**. Do not build until you pick one of those two.
 
-CEO default if you want a tie-break: chip **Full layover**, object **layover plan**.
+Chip 1 is the *ordered whole layover*, not “another rec.” Eat · Do · Shop are already ideas. Paid ads later already say **“New idea for a ZRH layover.”** Calling organic plans Ideas mixes staples with ads. “Layover ideas” is the *whole city page* job — keep it as a possible tagline later, not this chip.
 
 | Candidate | Verdict |
 |-----------|---------|
-| **Full layover** | **Default.** The job: whole ordered layover vs one rec |
-| Plan | OK one-word alt if you want Eat/Do/Shop cadence |
+| **Full layover** | **Default.** Whole ordered layover vs one rec |
+| **Plan** | OK one-word alt if you want Eat/Do/Shop cadence |
+| Ideas / Layover ideas | **No** for chip 1 — collides with Eat/Do/Shop *and* the sponsored “new ideas” rail |
 | Play | No — collides with **Do** |
-| Tour / adventure | No — oversells an 8h airport-strip night (you already rejected “full package adventure”) |
+| Tour / adventure | No — oversells an 8h airport-strip night |
 | Full | No — Full *what?* |
 
 **Shop stays.** Delhi has shopping. Chip is the label; density is content.
@@ -51,13 +52,13 @@ CEO default if you want a tie-break: chip **Full layover**, object **layover pla
 
 ## Why
 
-Trust and density beat a pretty empty directory. Four chips make the jobs obvious without four empty sites. Naming chip 1 wrong (Play ≈ Do, Tour = oversell) is worse than waiting one reply. Rx shopping is legal + trust risk, not a city-page problem. User-created cities stay blocked (spam + hotel-leak).
+Trust and density beat a pretty empty directory. Four chips make the jobs obvious without four empty sites. Naming chip 1 **Ideas** would blur organic plans with later labeled ads — trust loss for a cute word. Rx shopping is legal + trust risk, not a city-page problem. User-created cities stay blocked (spam + hotel-leak).
 
 ## What I need from you
 
-**Pick the first-chip name**, or say **“use CEO default”** (Full layover).
+**Pick one:** **Full layover** (CEO default) or **Plan**.
 
-Engineering does not build the 4-chip page until that sentence exists.
+Not Ideas. Not Layover ideas. Engineering waits.
 
 ## What engineering will do if you approve the name
 

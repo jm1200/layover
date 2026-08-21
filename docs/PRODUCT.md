@@ -25,7 +25,7 @@ A destination hub (Zurich, Delhi, Vienna). Browse starts here, often with **hour
 
 **UX rule (locked intent):** **Destination-first.** Opening a city should answer “what to do / eat / buy here,” not “who is posting.” Experiential photos (fun, food, products) and layover plans / Eat·Do·Shop recs lead; the poster is secondary credit, not the brand. We are not a person-centric social network.
 
-**City browse IA (4-chip structure locked 2026-08-21; first-chip name still open):** Hybrid on the **same** city page — not four category sites. Jump chips **[name TBD] · Eat · Do · Shop**, then grouped lists. CEO default for chip 1: **Full layover** (object: **layover plan**). Do not ship the chips until the name is locked. **Shop stays first-class** (Delhi shopping is real; density from content, not extra pages). Zones stay. Users do not create cities. Rx / pharma shopping policy is **parked**, not this cut.
+**City browse IA (4-chip structure locked 2026-08-21; first-chip name still open):** Hybrid on the **same** city page — not four category sites. Jump chips **[name TBD] · Eat · Do · Shop**, then grouped lists. CEO default for chip 1: **Full layover** (object: **layover plan**). One-word alt: **Plan**. **Rejected for chip 1:** Ideas / Layover ideas (Eat·Do·Shop are already ideas; Phase 5 ads already use “New idea…” — organic vs sponsored must stay distinct). “Layover ideas” may be a *city page* tagline later; it is not this chip. Do not ship the chips until the name is locked. **Shop stays first-class** (Delhi shopping is real; density from content, not extra pages). Zones stay. Users do not create cities. Rx / pharma shopping policy is **parked**, not this cut.
 
 ### Layover zone
 

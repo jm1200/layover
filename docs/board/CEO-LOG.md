@@ -4,6 +4,33 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-21 — Chip 1: no on Ideas / Layover ideas
+
+**Source:** Shareholder — “How about Layover Ideas. or just Ideas.” Naming chip 1 (ordered itinerary group). Eat · Do · Shop already yes.
+
+**Facts:** Chip 1 is an *ordered full layover*, not a single rec. Eat/Do/Shop are already “ideas” colloquially. PRODUCT + sponsorship spec already use **“new ideas” / “New idea for a ZRH layover”** for the Phase 5 labeled-ad rail. Object name stays **layover plan**. No `apps/` until chip 1 is named.
+
+### Decision (locked)
+
+| Item | Decision |
+|------|----------|
+| Ideas | **Rejected** as chip 1 label |
+| Layover ideas | **Rejected** as chip 1 label |
+| Why | Trust: organic plans must not share a name with paid “new ideas.” Scan: chip 1 would look like another rec, not the whole ordered layover. Product: “layover ideas” is the *whole city page* job (plans + eat + do + shop), not one chip. |
+| Keep as later copy | “Layover ideas” may be a city-page tagline / H1 later. Do not steal it for chip 1. Do not rename the sponsored rail to free this word. |
+| Still open | Chip **Full layover** (CEO default) vs **Plan** (one-word alt). Object **layover plan**. |
+| Still rejected | Play, tour, adventure, Full (alone), full package adventure |
+
+### Engineering implication
+
+**No `apps/` work.** Wait for shareholder to pick **Full layover** or **Plan**. Then the already-specified Phase 2.1 UX/copy cut.
+
+**Shareholder ask:** Pick **Full layover** (default) or **Plan**. Not Ideas.
+
+**Status:** Ideas rejected. Name still open. Brief + PRODUCT + playbooks spec aligned.
+
+---
+
 ## 2026-08-21 — 4-chip city IA yes; first-chip name still open
 
 **Source:** Shareholder — Delhi shopping is real; pharma (Party Smart, Viagra) as a later legal question; **“i think 4 chips. that makes it clear.”** Rejects “full package adventure.” Considering Play / tour / adventure / Full. Also wants to try guest / user / admin themselves.
