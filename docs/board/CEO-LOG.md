@@ -4,6 +4,122 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-21 — City browse IA: hybrid Eat/Do/Shop + layover plan (pending yes)
+
+**Source:** Shareholder review of Phase 2.1 city page. Three questions: (1) playbook vs place is unclear; (2) add flow should maybe be restaurant/shopping/activity not “place”; (3) users can’t add a city — is that on purpose, and can admin?
+
+**Facts (engineer):** City page is two lists (“Crew playbooks”, “Places”), not cards. Place = one table, free-text `category` (seed: activity, restaurant, bar, grocery). Playbook = ordered story. Users cannot insert cities/zones (migration 004). Admin UI is still a Phase 1 stub — city insert is SQL-only. No Phase 3 until shareholder says so.
+
+### Decision (locked pending shareholder yes)
+
+| Item | Decision |
+|------|----------|
+| City browse | **Hybrid, same page.** Four jump chips with counts: **Full layover · Eat · Do · Shop**, then grouped lists. City stays hero. Zone chips stay. |
+| Not this cut | Four separate category landing pages; two jargon lists (playbooks / places); media grid; events; Stripe; Phase 3 |
+| Why not 4 pages | Sparse seed (Shop would be empty on Delhi). Format (full plan) is not the same kind of thing as Eat/Do/Shop. Extra routes for no density. |
+| Why not 2 cards only | Hides eat vs do vs shop — the actual scan job, and the parked shopping vision’s cheap label |
+| UI name for playbook | **Layover plan** (short: plan). “Playbook” is internal-only. “Adventure” oversells an 8h airport-strip night. |
+| UI name for place | Do not headline **Place**. Browse and add use **Eat / Do / Shop** (a recommendation). Internal table stays `places`. |
+| Add flow | Chooser: recommend food / activity / shop / add a layover plan. No generic “Add place”. Category required via chooser, not free-text. Eat keeps optional dish; Shop relabels to “what to get”; Do hides dish. |
+| Category storage | No schema change. UI constrains to eat/do/shop. Map legacy: restaurant/bar/cafe → Eat; activity and similar → Do; grocery/shop → Shop; unknown → Do so nothing vanishes. |
+| User city create | **Stay blocked.** By design (trust, spam, hotel-leak, empty shells). |
+| Admin city form | **Not this cut.** SQL is fine at 2 seed cities. Build a tiny admin form when we want city #3, not now. Phase 6 remains moderation. |
+
+### Engineering implication (only if shareholder says yes)
+
+Small Phase 2.1 **UX/copy cut** — not a rewrite, not Phase 3, no new tables:
+
+- City page: jump chips + grouped lists + rename
+- Dashboard: add chooser
+- Place form: required Eat/Do/Shop select; dish label rules
+- Empty group: one line “None yet” (logged-in can still add). Do not invent category routes.
+
+**Non-goals:** admin city CRUD, user-requested-city form, enum migration, events, photos, social.
+
+**Shareholder ask:** Yes/no on this IA. If no, pick 2-chip (plan vs one rec) or 4 separate pages.
+
+**Status:** Recommendation written. **No `apps/` work until yes.**
+
+---
+
+## 2026-08-05 — Destination-first UX (city as hero, not influencer social)
+
+**Source:** Shareholder — when you open a city, photos of fun / food / products should lead; destination is the focus, not the poster. People should think “what to do in Zurich,” not “who posted it.”
+
+### Stance (locked product DNA)
+
+| Principle | Decision |
+|-----------|----------|
+| Primary browse frame | **Destination-first** — city → playbooks, places, items, experiential photos |
+| Not building | Person-as-brand Instagram clone; main city UI is not a creator feed |
+| Phase 3 “Social” means | Trust **signals** (like, comment, follow) to rank content + surface reliable tipsters — not make the poster the hero on city pages |
+| City photos | Mood / experience grid (fun, food, product) — deferred with multi-photo vision; not shipped |
+| Author credit | Small / secondary (byline on detail), useful for follow/trust; never the city-page center |
+
+### Coexists with earlier vision (same day)
+
+- Shopping + multi-photo posting + creator rewards still parked.  
+- Creator rewards reward **contribution quality**, not turning Layover into a personality network.  
+- Phase order unchanged: 2.1 green → Phase 3 social signals → later media-rich city surfaces.
+
+### Guardrails
+
+- Zones not hotels; labeled sponsored vs organic staples; photos must not leak lodging patterns.
+
+### Engineering implication (when Phase 3 opens)
+
+Spec social as **reputation under content**, not “home feed of people.” City page stays content/destination-led.
+
+**Shareholder ask:** None.
+
+**Status:** Vision logged. PRODUCT + `features/social.md` lightly aligned. No build, no phase change.
+
+---
+
+## 2026-08-05 — Shareholder vision: shopping, products, photo-first posting, creator rewards
+
+**Source:** Shareholder message (not a phase-change ask). FAs are heavy shoppers — best mustard Munich, best wine Rome, best places to buy. Want to reward high-signal posters. Posting must feel enjoyable and Instagram-easy (multi-photo). Expand beyond restaurant dishes to **products**.
+
+### How it maps today (no new build)
+
+| Idea | Existing product fit |
+|------|----------------------|
+| Best shop / boutique / specialty store | **Place** already includes shops (not food-only) |
+| Specific thing to buy (mustard, wine) | **Dish / item** is already “specific order at a place”; stretch language → “what to get” including products |
+| Who to trust | **Social** (Phase 3): follow/like/comment as reputation substrate |
+| Ordered layover including shopping | **Playbook** stops can already point at places + free-text notes |
+
+### What’s new / expanded (deferred vision — not Phase 2/3 scope)
+
+1. **Products as first-class tips** — “what to buy in this city” as a clear content type (or item kind), not only menu dishes; still tied to a Place/zone when possible.  
+2. **Photo-first, multi-image posting** — Instagram-easy UX (lots of pictures, low friction). Phase 2 is text/structure first; media pipeline is a later product cut.  
+3. **Creator rewards** — surface and reward people who post high-trust tips. Phase 3 = social signals only. Paid/gifted rewards, badges, payouts = later (trust + ops design; no fake “crew staple” buy-ins).
+
+### Guardrails (locked)
+
+- Zones, not crew hotels — shopping tips use city/zone/landmarks, never “walk out of [airline] hotel.”  
+- Organic staples stay organic; sponsored product placement must be **labeled**.  
+- Products must not become affiliate spam or anonymous buy-link dumps — place + story + creator signal.  
+- Trust > growth hacks on rewards.
+
+### Priority vs roadmap (provisional stance)
+
+| Decision | Status |
+|----------|--------|
+| Derail Phase 2.1 smoke / Phase 3 Social for shopping UX | **No** |
+| Expand Dish language to cover products in docs | **Soft yes** (PRODUCT vision only) |
+| Multi-photo Instagram flow | **Deferred** until after content density + Social basics |
+| Creator rewards beyond follow/like | **Deferred**; design when Social exists |
+| Separate Product entity / marketplace | **Not locked** — prefer reusing Place + item until proven need |
+
+**Phase order unchanged:** 2.1 green → Phase 3 Social → later AI / Stripe. Shopping + photos + rewards park as **content-model + UX vision** for when phases unlock.
+
+**Shareholder ask:** None blocking. Optional later: whether “item” = one type for dish *and* product, or two labels in UI.
+
+**Status:** Vision logged. No phase change. No `apps/` work from this note.
+
+---
+
 ## 2026-08-04 — Important fix pack implemented (Phase 2.1 code)
 
 Shareholder: “fix important items.”

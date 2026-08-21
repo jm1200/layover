@@ -23,6 +23,10 @@ Crew layover knowledge is word-of-mouth. Staples exist (e.g. “the only bar” 
 
 A destination hub (Zurich, Delhi, Vienna). Browse starts here, often with **hours available** later.
 
+**UX rule (locked intent):** **Destination-first.** Opening a city should answer “what to do / eat / buy here,” not “who is posting.” Experiential photos (fun, food, products) and layover plans / Eat·Do·Shop recs lead; the poster is secondary credit, not the brand. We are not a person-centric social network.
+
+**City browse IA (locked 2026-08-21, pending build yes):** Hybrid on the **same** city page — not four category sites. Jump chips **Full layover · Eat · Do · Shop**, then grouped lists. Zones stay. Users do not create cities.
+
 ### Layover zone
 
 Abstract geography for logistics **without naming crew hotels**:
@@ -34,13 +38,19 @@ Abstract geography for logistics **without naming crew hotels**:
 
 Tips like “closest grocery” attach to **zones**, not employer hotels. See `SECURITY.md`.
 
-### Place
+### Place (internal) — Eat / Do / Shop in the UI
 
-Restaurant, bar, gym, shop, rental, museum, etc.
+Restaurant, bar, gym, shop, rental, museum, etc. One table. **Customer copy does not say “place.”** Browse and add group as **Eat · Do · Shop**.
+
+| UI | Typical `category` |
+|----|-------------------|
+| Eat | restaurant, bar, cafe |
+| Do | activity, gym, museum, rental |
+| Shop | shop, grocery, boutique |
 
 ### Dish / item
 
-Specific order at a place (truffle raclette, lava cake).
+Specific thing to get at a place — menu dishes (truffle raclette, lava cake) **and** products to buy (Munich mustard, Roman wine). Same idea: name the *thing*, not only the venue. Full “shopping tips” product surface + multi-photo UX is **deferred** (see board CEO log 2026-08-05); Phase 2 still treats this as a simple place child.
 
 ### Activity
 
@@ -50,15 +60,15 @@ Things you do (float the Limmat with gear, climb, run).
 
 Time-bound (string quartet in Vienna). Needs dates; can expire.
 
-### Playbook
+### Layover plan (internal: playbook)
 
-Ordered story/itinerary: stops + notes + transit + gear. Example:
+Ordered story/itinerary: stops + notes + transit + gear. **UI name: layover plan** — not “playbook”, not “adventure.” Example:
 
 > 22h Zurich → innertube + dry bag + climbing gear → float Limmat to climbing gym → streetcar downtown → raclette factory (truffle raclette + lava cake).
 
 ### Social
 
-Like, comment, follow users who give good recommendations. Reputation > vanity metrics.
+Like, comment, follow — **trust signals under content**, not a creator-celebrity product. Reputation ranks playbooks/places/items; city browse stays destination-led. Later: photo-first posting + reward high-signal creators (signals first; paid rewards only with trust-safe design). Phase 3 = basic signals only — not a person feed as the home experience.
 
 ### Sponsorship (labeled)
 
@@ -68,7 +78,7 @@ Paid placement on city pages / “new ideas” rails. **Never** sold as organic 
 
 On city (and similar) views, keep two mental rails:
 
-1. **Crew staples (organic)** — ranked by community signals (saves, likes, follows, recency).
+1. **Crew staples (organic)** — layover plans + Eat/Do/Shop recs, ranked later by community signals (saves, likes, follows, recency).
 2. **Fresh / sponsored ideas** — clearly **Sponsored** (friendly copy OK: “New idea for a ZRH layover”).
 
 Caps so the page does not become a billboard (product detail in sponsorship feature spec).
@@ -92,6 +102,9 @@ Trust rule: if a monetization idea requires looking organic, reject it.
 - Full open-ended AI travel chatbot
 - Automated unsupervised site redesign by AI
 - DM network / heavy gamification on day one
+- Affiliate / product marketplace spam (shopping tips stay place-tied and labeled if paid)
+- Creator payouts or complex reward economy before basic social + content density
+- Influencer-style “follow people as the product” — destination and layover utility stay primary
 
 ## Success signals
 

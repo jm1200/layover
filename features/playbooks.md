@@ -25,4 +25,11 @@ Ordered layover stories (the product quality bar).
 - Events as first-class stops  
 - Separate Activity table  
 - Social / AI / Sponsored rails  
-- Full stop re-edit after create (meta edit only for now)  
+- Full stop re-edit after create (meta edit only for now)
+
+## UI copy (locked 2026-08-21 — build only after shareholder yes)
+
+- Customer name: **layover plan** (section: **Full layovers**). Do not say “playbook” on city, dashboard, or forms.
+- Internal table/routes may stay `playbooks` this cut (no rename migration).
+- Add chooser offers **Add a layover plan** next to Eat / Do / Shop (those three are places).
+- City page: Full layover list stays first (destination-first plans), then Eat/Do/Shop groups from the places spec. Jump chip with count. No separate `/plans` IA this cut.  
