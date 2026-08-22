@@ -4,6 +4,49 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-22 — A locked: crew-layover wedge; one object, not two sites
+
+**Source:** Shareholder — rejects B (general fun = worse income). Locks crew-layover primary because it solves word-of-mouth-only recs. Pushes back on “two websites”: Cypress Lake camping vs 12h Zurich is the same stealable done-for-you sequence.
+
+### Decision (locked)
+
+| Item | Decision |
+|------|----------|
+| Fork | **A** — crew-layover primary. Other travelers welcome on the same city content. |
+| B | **Rejected.** Broader “everyone fun” is less likely to make money and does not solve the crew recs problem. |
+| C | Not the pick. The object is allowed to grow later; we do not hide that. |
+| One site / one object | **Locked.** Ordered stealable plan is the object. Hours in a city vs days at a park is **timing**, not a second product. |
+| Wedge / money | Crew layover **now**: city density, labeled venue sponsors, crew-trust. |
+| Ontario / multi-day | Same object **later**. Not this year. Not on `/` until it exists and can be browsed. |
+| City IA | **Unchanged.** Full layover · Eat · Do · Shop. |
+| Homepage | **Greenlit:** small `/` copy/layout cut. Zurich + Delhi. Crew as source. Sell stealable full layover. |
+
+### Why this is not B in disguise
+
+Shareholder is right that camping *feels* like the same product. That does not mean we build it now. Camping first-class would re-scope IA, seed, SEO, and the sponsor buyer (parks/guides vs city venues). A stays the **money and trust wedge**. Later expansion reuses the object — it does not split the company.
+
+### Correction from last brief
+
+Prior note called Ontario a “different product.” **Wrong frame.** Same object, later. Wedge stays crew-layover so we actually have a buyer.
+
+### Engineering implication
+
+**Do the homepage copy cut.** Constraints:
+
+- Rewrite `/` copy/layout using existing Zurich/Delhi
+- Keep “from people who fly” / crew as source
+- Sell stealable full layover
+- No Ontario, no brand pass, no new tables, no Phase 3
+- Do not re-scope city IA
+
+**Non-goals:** second site, camping seed, trip-type IA, design system.
+
+**Shareholder ask:** None. A locked.
+
+**Status:** Locked. PRODUCT audience aligned. Brief updated. Engineer implements `/` copy. No `apps/` from CEO.
+
+---
+
 ## 2026-08-22 — Homepage vs brand; audience fork (pending pick)
 
 **Source:** Shareholder — uninspired by homepage; wonders if UI is too soon. Feels the site has shifted from “for flight crew” to “for everyone looking for something fun.” Ontario camping trip (Cypress Lake, Sauble Falls, Halfway Dump bouldering, The Grotto — 4d/3n) “belongs on this website.” Wants done-for-you full experiences.

@@ -1,10 +1,16 @@
 import Link from "next/link";
 import { getProfile, homeForRole } from "@/features/auth/get-profile";
 import { listCities } from "@/features/places/queries";
+import { listPublishedPlaybooks } from "@/features/playbooks/queries";
 
 export default async function HomePage() {
-  const [profile, cities] = await Promise.all([getProfile(), listCities()]);
+  const [profile, cities, playbooks] = await Promise.all([
+    getProfile(),
+    listCities(),
+    listPublishedPlaybooks(),
+  ]);
   const appHome = profile ? homeForRole(profile.role) : null;
+  const cityById = Object.fromEntries(cities.map((c) => [c.id, c]));
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
@@ -41,14 +47,14 @@ export default async function HomePage() {
 
       <main className="mx-auto max-w-3xl px-4 py-16">
         <p className="text-sm font-medium uppercase tracking-wide text-zinc-500">
-          For flight crew (and friends)
+          From people who fly
         </p>
         <h1 className="mt-3 text-4xl font-semibold tracking-tight">
-          What to do on a layover — from people who actually fly.
+          Steal the whole layover.
         </h1>
         <p className="mt-4 max-w-xl text-lg text-zinc-600">
-          High-trust layover plans: eat, do, shop. Organic staples stay
-          primary. Logistics use zones — never crew hotel lists.
+          Crew recs used to live as word of mouth. Here the day is already
+          sequenced — copy the plan. Or pick one eat / do / shop rec.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Link
@@ -74,9 +80,46 @@ export default async function HomePage() {
           )}
         </div>
 
+        {playbooks.length > 0 ? (
+          <section className="mt-16">
+            <h2 className="text-sm font-medium text-zinc-500">Full layovers</h2>
+            <ul className="mt-3 space-y-3">
+              {playbooks.map((pb) => {
+                const city = cityById[pb.city_id];
+                return (
+                  <li key={pb.id}>
+                    <Link
+                      href={`/playbooks/${pb.id}`}
+                      className="block rounded-xl border border-zinc-200 bg-white px-4 py-3 hover:border-zinc-400"
+                    >
+                      <span className="font-medium">{pb.title}</span>
+                      {pb.hours_available ? (
+                        <span className="ml-2 text-sm text-zinc-500">
+                          ~{pb.hours_available}h
+                        </span>
+                      ) : null}
+                      {city ? (
+                        <p className="mt-0.5 text-sm text-zinc-500">
+                          {city.name}
+                          {city.airport_code ? ` (${city.airport_code})` : ""}
+                        </p>
+                      ) : null}
+                      {pb.narrative ? (
+                        <p className="mt-1 line-clamp-2 text-sm text-zinc-600">
+                          {pb.narrative}
+                        </p>
+                      ) : null}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ) : null}
+
         {cities.length > 0 ? (
-          <section className="mt-14">
-            <h2 className="text-sm font-medium text-zinc-500">On the map</h2>
+          <section className="mt-12">
+            <h2 className="text-sm font-medium text-zinc-500">Cities</h2>
             <ul className="mt-3 flex flex-wrap gap-2">
               {cities.map((c) => (
                 <li key={c.id}>

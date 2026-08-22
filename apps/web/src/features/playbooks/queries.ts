@@ -49,6 +49,22 @@ export async function listStopsForPlaybook(
   return (data ?? []) as PlaybookStop[];
 }
 
+export async function listPublishedPlaybooks(): Promise<Playbook[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("playbooks")
+    .select(
+      "id, city_id, title, narrative, hours_available, status, author_id",
+    )
+    .eq("status", "published")
+    .order("title");
+  if (error) {
+    console.warn("[listPublishedPlaybooks]", error.message);
+    return [];
+  }
+  return (data ?? []) as Playbook[];
+}
+
 export async function listMyPlaybooks(authorId: string): Promise<Playbook[]> {
   const supabase = await createClient();
   const { data, error } = await supabase

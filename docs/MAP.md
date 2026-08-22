@@ -99,13 +99,13 @@ ModerationAction / MetricSnapshot            — Phase 6
 
 | Path | Audience | Purpose | Status |
 |------|----------|---------|--------|
-| `/` | Public | Marketing + later city search | Phase 1 stub |
+| `/` | Public | Stealable full layovers + city chips | Phase 2 copy (A locked) |
 | `/login` | Public | Auth | Phase 1 |
 | `/dashboard` | User | Profile, drafts, following | Phase 1 stub |
 | `/sponsor` | Sponsor | Campaigns, billing, creatives | Phase 1 stub |
 | `/admin` | Admin | Moderation, metrics, kill switches | Phase 1 stub |
 | `/cities` | Public | City list | Phase 2 |
-| `/cities/[slug]` | Public | 4-chip IA yes: **Full layover · Eat · Do · Shop** (today: two lists; do not build until shareholder yes) | Phase 2 |
+| `/cities/[slug]` | Public | **Full layover · Eat · Do · Shop** | Phase 2 |
 | `/playbooks/[id]` | Public | Playbook detail | Phase 2 |
 | `/places/[id]` | Public | Place + dishes | Phase 2 |
 | `/dashboard/places/new` | Auth | Create place | Phase 2 |

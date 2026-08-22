@@ -10,11 +10,13 @@ Crew layover knowledge is word-of-mouth. Staples exist (e.g. “the only bar” 
 
 ## Audience
 
+**Locked 2026-08-22 (A):** Crew-layover **primary**. Other travelers welcome to steal the same city plans. Not a general “fun itineraries” site this year. One product, one object (ordered stealable plan). Multi-day camping/climbing is that same object **later** — not a second site, not on the homepage until it exists.
+
 | Segment | Need |
 |---------|------|
-| Flight crew | “What do I do with 12–24h in this city?” ordered plans, food, activities, events |
-| Other travelers | Same content; lower priority for verification features |
-| Sponsors | Restaurants, activities (e.g. boat rental), events, destinations — pay for labeled discovery |
+| Flight crew | “What do I do with 12–24h in this city?” Durable recs instead of word-of-mouth only. Ordered layover plans, food, activities, events. |
+| Other travelers | Same city content; steal the plan. Lower priority for verification. |
+| Sponsors | Restaurants, activities (e.g. boat rental), events, destinations — pay for labeled discovery of **crew density in cities** |
 | Owner (admin) | Revenue + health metrics; minimal daily work |
 
 ## Core concepts
@@ -62,7 +64,7 @@ Time-bound (string quartet in Vienna). Needs dates; can expire.
 
 ### Layover plan (internal: playbook)
 
-Ordered story/itinerary: stops + notes + transit + gear. **UI name: layover plan** — not “playbook”, not “adventure.” Example:
+Ordered story/itinerary: stops + notes + transit + gear. **UI name: layover plan** — not “playbook”, not “adventure.” This is the product object (stealable, look-no-further sequence). Crew layover in a city is the wedge we ship now; a multi-day park trip is the same object later, not a second product. Example:
 
 > 22h Zurich → innertube + dry bag + climbing gear → float Limmat to climbing gym → streetcar downtown → raclette factory (truffle raclette + lava cake).
 
@@ -106,6 +108,7 @@ Trust rule: if a monetization idea requires looking organic, reject it.
 - Creator payouts or complex reward economy before basic social + content density
 - Influencer-style “follow people as the product” — destination and layover utility stay primary
 - **Rx / controlled-drug shopping policy** — parked (ban vs OTC-only vs disclaimer). Do not publish how-to-buy medical advice. Party Smart vs sildenafil are different legal classes; do not treat as one tip type until policy exists.
+- **General-fun / camping-first this year** — same object later; do not put Ontario-scale trips on `/` or re-scope city IA until layover density exists
 
 ## Success signals
 
