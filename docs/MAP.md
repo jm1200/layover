@@ -99,7 +99,7 @@ ModerationAction / MetricSnapshot            — Phase 6
 
 | Path | Audience | Purpose | Status |
 |------|----------|---------|--------|
-| `/` | Public | Intel for crew, by crew — Eat/Do/Buy cards + **The perfect layover** subsection | Phase 2 copy (re-lock 2026-08-22) |
+| `/` | Public | Eat/Do/Buy photo ideas + “Where are you headed?” city search | Phase 2 |
 | `/login` | Public | Auth | Phase 1 |
 | `/dashboard` | User | Profile, drafts, following | Phase 1 stub |
 | `/sponsor` | Sponsor | Campaigns, billing, creatives | Phase 1 stub |

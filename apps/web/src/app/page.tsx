@@ -1,22 +1,33 @@
+import Image from "next/image";
 import Link from "next/link";
+import { CitySearch } from "@/features/places/city-search";
 import { getProfile, homeForRole } from "@/features/auth/get-profile";
 import { listCities } from "@/features/places/queries";
-import { listPublishedPlaybooks } from "@/features/playbooks/queries";
 
-const JOBS = [
-  { href: "/cities", label: "Eat", hint: "Where to eat" },
-  { href: "/cities", label: "Do", hint: "What to do" },
-  { href: "/cities", label: "Buy", hint: "What to buy" },
+const IDEAS = [
+  {
+    kind: "Eat",
+    idea: "Baseball steak in Santiago",
+    src: "/landing/eat-santiago.jpg",
+    alt: "Thick grilled baseball-cut steak with pebre",
+  },
+  {
+    kind: "Do",
+    idea: "Float the Limmat in Zurich",
+    src: "/landing/do-zurich.jpg",
+    alt: "People floating the Limmat on inflatable rings",
+  },
+  {
+    kind: "Buy",
+    idea: "Don't miss the mustard in Munich",
+    src: "/landing/buy-munich.jpg",
+    alt: "Jars of Bavarian sweet mustard at a market stall",
+  },
 ] as const;
 
 export default async function HomePage() {
-  const [profile, cities, playbooks] = await Promise.all([
-    getProfile(),
-    listCities(),
-    listPublishedPlaybooks(),
-  ]);
+  const [profile, cities] = await Promise.all([getProfile(), listCities()]);
   const appHome = profile ? homeForRole(profile.role) : null;
-  const cityById = Object.fromEntries(cities.map((c) => [c.id, c]));
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
@@ -24,9 +35,6 @@ export default async function HomePage() {
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
           <span className="text-lg font-semibold tracking-tight">Layover</span>
           <nav className="flex items-center gap-3 text-sm">
-            <Link href="/cities" className="text-zinc-700 hover:text-zinc-900">
-              Cities
-            </Link>
             {appHome ? (
               <Link
                 href={appHome}
@@ -51,69 +59,40 @@ export default async function HomePage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-3xl px-4 py-14">
-        <h1 className="text-2xl font-semibold tracking-tight">
-          Intel for crew, by crew.
-        </h1>
+      <main className="mx-auto max-w-3xl px-4 py-12">
+        <p className="text-sm font-medium uppercase tracking-wide text-zinc-500">
+          Intel for crew, by crew
+        </p>
 
-        <section className="mt-8 grid gap-3 sm:grid-cols-3">
-          {JOBS.map((job) => (
-            <Link
-              key={job.label}
-              href={job.href}
-              className="rounded-xl border border-zinc-200 bg-white px-4 py-8 text-center hover:border-zinc-400"
+        <section className="mt-6 grid gap-3 sm:grid-cols-3">
+          {IDEAS.map((card) => (
+            <article
+              key={card.kind}
+              className="overflow-hidden rounded-xl border border-zinc-200 bg-white"
             >
-              <span className="text-xl font-semibold">{job.label}</span>
-              <p className="mt-1 text-sm text-zinc-500">{job.hint}</p>
-            </Link>
+              <div className="relative aspect-[4/3]">
+                <Image
+                  src={card.src}
+                  alt={card.alt}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 640px) 33vw, 100vw"
+                  priority
+                />
+              </div>
+              <div className="px-3 py-3">
+                <p className="text-xs font-medium uppercase tracking-wide text-zinc-400">
+                  {card.kind}
+                </p>
+                <p className="mt-0.5 text-sm font-medium">{card.idea}</p>
+              </div>
+            </article>
           ))}
         </section>
 
-        {cities.length > 0 ? (
-          <ul className="mt-6 flex flex-wrap gap-2">
-            {cities.map((c) => (
-              <li key={c.id}>
-                <Link
-                  href={`/cities/${c.slug}`}
-                  className="inline-block rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm hover:border-zinc-400"
-                >
-                  {c.name}
-                  {c.airport_code ? ` (${c.airport_code})` : ""}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        ) : null}
-
-        {playbooks.length > 0 ? (
-          <section className="mt-16">
-            <h2 className="text-lg font-semibold tracking-tight">
-              The perfect layover
-            </h2>
-            <ul className="mt-4 space-y-3">
-              {playbooks.map((pb) => {
-                const city = cityById[pb.city_id];
-                return (
-                  <li key={pb.id}>
-                    <Link
-                      href={`/playbooks/${pb.id}`}
-                      className="block rounded-xl border border-zinc-200 bg-white px-4 py-3 hover:border-zinc-400"
-                    >
-                      <p className="font-medium">
-                        The perfect layover does not exist
-                        {city ? `… ${city.name} edition` : "."}
-                      </p>
-                      <p className="mt-1 text-sm text-zinc-500">
-                        {pb.title}
-                        {pb.hours_available ? ` · ~${pb.hours_available}h` : ""}
-                      </p>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
-        ) : null}
+        <div className="mt-8">
+          <CitySearch cities={cities} />
+        </div>
       </main>
     </div>
   );

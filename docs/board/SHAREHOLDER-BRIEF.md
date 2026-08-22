@@ -4,7 +4,7 @@
 
 **Last updated:** 2026-08-22  
 **Company:** Layover (working name)  
-**Stage:** Phase 2.1 · city IA **shipped** · **A locked** · homepage **re-lock** (intel + Eat/Do/Buy)
+**Stage:** Phase 2.1 · city IA **shipped** · **A locked** · homepage = photo ideas + city search
 
 **Not this cut:** Design system / brand pass. Ontario on `/`. Phase 3 social. Stripe. New tables. City photo grid. Fake venue photos.
 
@@ -28,8 +28,8 @@ Hard-refresh **http://localhost:3000** after engineering ships. Yes/no if the la
 
 ## What engineering did
 
-- `/` is intel for crew, by crew. Three cards Eat / Do / Buy. Subsection **The perfect layover** (Zurich + Delhi editions).
-- City page still text: **Full layover · Eat · Do · Buy**. No photo grid.
+- `/`: Eat / Do / Buy photo cards (Santiago steak, Limmat float, Munich mustard) + **Where are you headed?** city search. No city chips. No perfect-layover block on landing.
+- City page still text: **Full layover · Eat · Do · Buy**. Photo grid still parked.
 
 ---
 
