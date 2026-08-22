@@ -4,6 +4,55 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-22 — Homepage vs brand; audience fork (pending pick)
+
+**Source:** Shareholder — uninspired by homepage; wonders if UI is too soon. Feels the site has shifted from “for flight crew” to “for everyone looking for something fun.” Ontario camping trip (Cypress Lake, Sauble Falls, Halfway Dump bouldering, The Grotto — 4d/3n) “belongs on this website.” Wants done-for-you full experiences.
+
+**Facts:** Homepage is still a Phase 1 stub (crew headline + Browse cities). City IA (Full layover · Eat · Do · Shop) and Zurich/Delhi seed are the real product. No design system. Phase 3 not started. PRODUCT already lists other travelers as same content, lower verification priority. Ontario trip is playbook-shaped, **not a layover**.
+
+### Split (locked as CEO stance)
+
+| Topic | Too soon? |
+|-------|-----------|
+| **Copy / positioning on `/`** | **No.** Timely now that city pages exist. Cheap. Must stay honest to Zurich/Delhi. |
+| **Visual brand / design system / marketing-site rewrite** | **Yes, still later.** Do not greenlight. Uninspired homepage ≠ need a brand pass. |
+| **Promise Ontario camping on `/`** | **No.** Cannot browse it. Dishonest. |
+
+### Product fork (not a vibe)
+
+| Option | Meaning |
+|--------|---------|
+| **A (CEO rec — tight)** | Stay **crew-layover primary**. Other travelers welcome on the same city content. Homepage may talk stealable **full sequenced experiences** without dropping crew as the source. |
+| **B** | Broaden now to general done-for-you itineraries. Camping in scope. Layover becomes one trip type. Changes homepage, IA (city vs trip), seed, SEO, sponsorship (venues vs parks/guides), crew-trust story. **Do not pretend we built this.** |
+| **C** | Park general experiences. Keep layover wedge. Log Ontario as *future* proof that the object (layover plan) wants to grow into “full experience plans.” Homepage can stay stub. |
+
+**Default unless they abandon crew: A (tight), with C’s parking of Ontario-scale trips.** They did not clearly abandon crew; they named a new feeling after a non-layover trip.
+
+### Why not B now
+
+- Money still rests on **crew density in cities** + later labeled city sponsors. General “fun” has no wedge and a different buyer.
+- Phase 2.1 city IA just shipped — do not throw it away for trip-type IA we don’t have tables for.
+- Time scale (hours vs days) and geography (airport/city zones vs parks/crags) are different products, same object *shape*.
+- Trust: crew as source is the supply. Other people stealing the plan is already allowed. “For everyone” as the headline on a two-city layover site is worse than a stub.
+
+### Ontario trip (logged, not built)
+
+Proof that the **object** (ordered, stealable, look-no-further plan) is the thing they love. **Parked:** multi-day, non-city, general-audience experience plans. Revisit after layover density + city IA is proven — not this cut. Crew hotels remain forbidden on the public site regardless.
+
+### Engineering implication
+
+- **If A:** small `/` copy/layout cut only. Point at Zurich + Delhi full layovers. Keep crew as source. No new tables. No design system. No camping seed. No Phase 3. City IA unchanged.
+- **If B:** stop. Re-scope as a different product. No small copy cut.
+- **If C:** no homepage rewrite required. Optional one-line polish. Ontario stays a log note.
+
+**Non-goals this cut:** brand/theme pass, marketing site, new trip type, schema, Phase 3, renaming the company.
+
+**Shareholder ask:** Pick **A / B / C**. CEO rec = **A**.
+
+**Status:** Recommendation written. PRODUCT **not** changed until they pick. Brief updated. No `apps/` until yes on A (or explicit B/C).
+
+---
+
 ## 2026-08-21 — Shareholder: ship Full layover (built)
 
 **Source:** Shareholder — “ok full layover.”
