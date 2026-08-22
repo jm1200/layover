@@ -5,7 +5,7 @@ export const REC_KINDS: RecKind[] = ["eat", "do", "shop"];
 export const REC_KIND_LABEL: Record<RecKind, string> = {
   eat: "Eat",
   do: "Do",
-  shop: "Shop",
+  shop: "Buy",
 };
 
 export const REC_KIND_HINT: Record<RecKind, string> = {

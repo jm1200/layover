@@ -25,9 +25,11 @@ Crew layover knowledge is word-of-mouth. Staples exist (e.g. “the only bar” 
 
 A destination hub (Zurich, Delhi, Vienna). Browse starts here, often with **hours available** later.
 
-**UX rule (locked intent):** **Destination-first.** Opening a city should answer “what to do / eat / buy here,” not “who is posting.” Experiential photos (fun, food, products) and layover plans / Eat·Do·Shop recs lead; the poster is secondary credit, not the brand. We are not a person-centric social network.
+**UX rule (locked intent):** **Destination-first.** Opening a city should answer “what to do / eat / buy here,” not “who is posting.” Eat · Do · Buy recs and layover plans lead; the poster is secondary credit, not the brand. We are not a person-centric social network. Experiential photos (fun, food, products) are the **later** city surface — parked until we have real images (no stock of real venues). Phase 2 city pages stay **text lists**.
 
-**City browse IA (4-chip structure + first chip locked 2026-08-21):** Hybrid on the **same** city page — not four category sites. Jump chips **Full layover · Eat · Do · Shop**, then grouped lists. Chip 1 is the *stealable full crew layover* (copy-paste, look no further) — not one rec. Object name: **layover plan**. **Rejected for chip 1:** Ideas / Layover ideas (Eat·Do·Shop are already ideas; Phase 5 ads already use “New idea…”); Guides (sounds like a person or PDF; fights destination-first); Itineraries (OK later in a sentence, not the tab); Plan as the chip (object only); Play / tour / adventure / Full package. “Layover ideas” / “copy-paste a full layover” may be *city page* tagline later; they are not this chip. Shipped 2026-08-21. **Shop stays first-class** (Delhi shopping is real; density from content, not extra pages). Zones stay. Users do not create cities. Rx / pharma shopping policy is **parked**, not this cut.
+**Homepage IA (locked 2026-08-22):** Intel for crew, by crew. Minimal reading. Three main cards **Eat / Do / Buy**, then a subsection **The perfect layover** — not a steal pitch, not “places” as a word. Series line: “The perfect layover does not exist… {City} edition.” Object is still **layover plan**. **Rejected on `/`:** “Steal the whole layover.” Do not put camping/Ontario here.
+
+**City browse IA (4-chip structure + first chip locked 2026-08-21; Buy locked 2026-08-22):** Hybrid on the **same** city page — not four category sites. Jump chips **Full layover · Eat · Do · Buy**, then grouped **text** lists. Chip 1 stays **Full layover** (shareholder reordered the *landing*, not this page). Object name: **layover plan**. Public third verb is **Buy** (not Shop) — one word with the homepage. Internal category may stay `shop`. **Rejected for chip 1:** Ideas / Layover ideas (Eat·Do·Buy are already ideas; Phase 5 ads already use “New idea…”); Guides; Itineraries (OK later in a sentence, not the tab); Plan as the chip; Play / tour / adventure / Full package; **The perfect layover** as a city chip (that name is the homepage *series* only). **Buy stays first-class** (Delhi shopping is real; density from content, not extra pages). Zones stay. Users do not create cities. Rx / pharma shopping policy is **parked**, not this cut. Photo grid on city = **parked**.
 
 ### Layover zone
 
@@ -40,15 +42,15 @@ Abstract geography for logistics **without naming crew hotels**:
 
 Tips like “closest grocery” attach to **zones**, not employer hotels. See `SECURITY.md`.
 
-### Place (internal) — Eat / Do / Shop in the UI
+### Place (internal) — Eat / Do / Buy in the UI
 
-Restaurant, bar, gym, shop, rental, museum, etc. One table. **Customer copy does not say “place.”** Browse and add group as **Eat · Do · Shop**.
+Restaurant, bar, gym, shop, rental, museum, etc. One table. **Customer copy does not say “place.”** Browse and add group as **Eat · Do · Buy**.
 
 | UI | Typical `category` |
 |----|-------------------|
 | Eat | restaurant, bar, cafe |
 | Do | activity, gym, museum, rental |
-| Shop | shop, grocery, boutique |
+| Buy | shop, grocery, boutique (persist `shop`) |
 
 ### Dish / item
 
@@ -64,7 +66,7 @@ Time-bound (string quartet in Vienna). Needs dates; can expire.
 
 ### Layover plan (internal: playbook)
 
-Ordered story/itinerary: stops + notes + transit + gear. **UI name: layover plan** — not “playbook”, not “adventure.” This is the product object (stealable, look-no-further sequence). Crew layover in a city is the wedge we ship now; a multi-day park trip is the same object later, not a second product. Example:
+Ordered story/itinerary: stops + notes + transit + gear. **UI name: layover plan** — not “playbook”, not “adventure.” This is the product object (complete, look-no-further sequence). On `/`, those plans sit in the organic series **The perfect layover** (“The perfect layover does not exist… {City} edition”). That series name is **not** a city chip and **not** a sponsored rail (Phase 5 stays “New idea…” / **Sponsored**). Crew layover in a city is the wedge we ship now; a multi-day park trip is the same object later, not a second product. Example:
 
 > 22h Zurich → innertube + dry bag + climbing gear → float Limmat to climbing gym → streetcar downtown → raclette factory (truffle raclette + lava cake).
 
@@ -80,7 +82,7 @@ Paid placement on city pages / “new ideas” rails. **Never** sold as organic 
 
 On city (and similar) views, keep two mental rails:
 
-1. **Crew staples (organic)** — layover plans + Eat/Do/Shop recs, ranked later by community signals (saves, likes, follows, recency).
+1. **Crew staples (organic)** — layover plans (homepage series: **The perfect layover**) + Eat/Do/Buy recs, ranked later by community signals (saves, likes, follows, recency).
 2. **Fresh / sponsored ideas** — clearly **Sponsored** (friendly copy OK: “New idea for a ZRH layover”).
 
 Caps so the page does not become a billboard (product detail in sponsorship feature spec).

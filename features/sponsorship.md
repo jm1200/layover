@@ -22,7 +22,7 @@ Hands-off money: sponsor signs up, pays, labeled placement appears. Trust preser
 
 ## Creative tone
 
-Friendly “New idea for a layover activity” is OK. Must not impersonate crew review.
+Friendly “New idea for a layover activity” is OK. Must not impersonate crew review. **Never** use **The perfect layover** (homepage organic series) as a campaign name or ad label.
 
 ## Out of scope (v1)
 

@@ -4,6 +4,58 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-22 — Homepage re-lock: intel + Eat/Do/Buy; Perfect layover is a subsection
+
+**Source:** Shareholder — rejects “Steal the whole layover.” Product is intel for crew, by crew: what to do, where to eat, what to buy, or the full suggested layover. Landing = three main cards, then a subsection for the full experience. Running Instagram theme: “The perfect layover does not exist… {City} edition.” Minimal reading on `/`. Clicking a city should *eventually* be pics of eat / do / buy.
+
+**Facts:** Homepage just shipped steal-the-layover + featured plans. City page is 4-chip **text** (Full layover · Eat · Do · Shop), not photos. Multi-photo / city grid deferred 2026-08-05. No image pipeline, no place photos in DB. Do not fake stock of real venues. A still locked. Zones not hotels. Phase 5 ads already use “New idea…” — do not steal that voice for organic plans.
+
+### Decision (locked)
+
+| Item | Decision |
+|------|----------|
+| Steal headline | **Killed.** Not the product. |
+| Homepage job | **Intel for crew, by crew.** Minimal copy. |
+| Primary scan on `/` | Three cards: **Eat / Do / Buy**. |
+| Full sequenced layover on `/` | **Subsection**, not a fourth hero card. Series name: **The perfect layover**. Line: “The perfect layover does not exist… {City} edition.” Body = existing Zurich + Delhi layover plans. |
+| Public third verb | **Buy** — one word, everywhere customer-facing (homepage cards, city chip, add chooser, place groups). |
+| Shop | **Retired as public copy.** Internal category may stay `shop`. Do not run Shop and Buy together. |
+| Object | Still **layover plan**. “The perfect layover” is the *homepage series*, not a new object, not chip 1, not an ad name. |
+| City chip 1 | **Keep Full layover.** Shareholder reordered the **landing**, not the city page. Landing vs city may differ. |
+| City photos | **Parked.** Destination-first intent stands. Ship when we have real images. Do not promise Barcelona pics. Do not greenlight stock of real venues. |
+| Ads | Labeled **“New idea…”** only. Never sell “The perfect layover” as sponsorship. |
+
+### Why Buy not Shop
+
+Shareholder verbs are eat / do / buy. Destination-first already said “what to do / eat / buy.” Shop is a store; Buy is the job. One public word.
+
+### Why Full layover stays on the city page
+
+City page is the à-la-carte + complete-plan scan. Chip 1 still means “copy-paste the whole ordered layover.” Homepage leads with the three recs and tucks the series under **The perfect layover**. Same object, different surface.
+
+### Why photos wait
+
+Phase 2 is text/structure. No photo rows, no upload pipeline, no honest Barcelona grid. Fake venue photos would burn trust. Same destination-first city surface **later**.
+
+### Engineering implication
+
+**Ship `/` now.** Constraints:
+
+- Kill “Steal the whole layover.”
+- Minimal intel line. Three cards Eat / Do / Buy.
+- Subsection The perfect layover + IG series titles on existing Zurich/Delhi plans.
+- Rename customer **Shop → Buy** (city chip, groups, add chooser). No schema change.
+- Keep city **Full layover** chip and text lists.
+- No brand pass, no new tables, no Ontario, no image pipeline, no stock photos.
+
+**Non-goals:** city photo grid, Barcelona edition (no Barcelona city), Phase 3, Stripe, turning Perfect layover into an ad rail.
+
+**Shareholder ask:** Hard-refresh `/` after ship. Yes/no on the landing.
+
+**Status:** Locked. Brief + PRODUCT + specs aligned. Engineer implements. No `apps/` from CEO.
+
+---
+
 ## 2026-08-22 — A locked: crew-layover wedge; one object, not two sites
 
 **Source:** Shareholder — rejects B (general fun = worse income). Locks crew-layover primary because it solves word-of-mouth-only recs. Pushes back on “two websites”: Cypress Lake camping vs 12h Zurich is the same stealable done-for-you sequence.

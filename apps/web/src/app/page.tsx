@@ -3,6 +3,12 @@ import { getProfile, homeForRole } from "@/features/auth/get-profile";
 import { listCities } from "@/features/places/queries";
 import { listPublishedPlaybooks } from "@/features/playbooks/queries";
 
+const JOBS = [
+  { href: "/cities", label: "Eat", hint: "Where to eat" },
+  { href: "/cities", label: "Do", hint: "What to do" },
+  { href: "/cities", label: "Buy", hint: "What to buy" },
+] as const;
+
 export default async function HomePage() {
   const [profile, cities, playbooks] = await Promise.all([
     getProfile(),
@@ -45,45 +51,46 @@ export default async function HomePage() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-3xl px-4 py-16">
-        <p className="text-sm font-medium uppercase tracking-wide text-zinc-500">
-          From people who fly
-        </p>
-        <h1 className="mt-3 text-4xl font-semibold tracking-tight">
-          Steal the whole layover.
+      <main className="mx-auto max-w-3xl px-4 py-14">
+        <h1 className="text-2xl font-semibold tracking-tight">
+          Intel for crew, by crew.
         </h1>
-        <p className="mt-4 max-w-xl text-lg text-zinc-600">
-          Crew recs used to live as word of mouth. Here the day is already
-          sequenced — copy the plan. Or pick one eat / do / shop rec.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <Link
-            href="/cities"
-            className="rounded-lg bg-zinc-900 px-5 py-2.5 text-sm font-medium text-white"
-          >
-            Browse cities
-          </Link>
-          {appHome ? (
+
+        <section className="mt-8 grid gap-3 sm:grid-cols-3">
+          {JOBS.map((job) => (
             <Link
-              href={appHome}
-              className="rounded-lg border border-zinc-300 bg-white px-5 py-2.5 text-sm font-medium"
+              key={job.label}
+              href={job.href}
+              className="rounded-xl border border-zinc-200 bg-white px-4 py-8 text-center hover:border-zinc-400"
             >
-              Dashboard
+              <span className="text-xl font-semibold">{job.label}</span>
+              <p className="mt-1 text-sm text-zinc-500">{job.hint}</p>
             </Link>
-          ) : (
-            <Link
-              href="/signup"
-              className="rounded-lg border border-zinc-300 bg-white px-5 py-2.5 text-sm font-medium"
-            >
-              Create account
-            </Link>
-          )}
-        </div>
+          ))}
+        </section>
+
+        {cities.length > 0 ? (
+          <ul className="mt-6 flex flex-wrap gap-2">
+            {cities.map((c) => (
+              <li key={c.id}>
+                <Link
+                  href={`/cities/${c.slug}`}
+                  className="inline-block rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm hover:border-zinc-400"
+                >
+                  {c.name}
+                  {c.airport_code ? ` (${c.airport_code})` : ""}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : null}
 
         {playbooks.length > 0 ? (
           <section className="mt-16">
-            <h2 className="text-sm font-medium text-zinc-500">Full layovers</h2>
-            <ul className="mt-3 space-y-3">
+            <h2 className="text-lg font-semibold tracking-tight">
+              The perfect layover
+            </h2>
+            <ul className="mt-4 space-y-3">
               {playbooks.map((pb) => {
                 const city = cityById[pb.city_id];
                 return (
@@ -92,46 +99,18 @@ export default async function HomePage() {
                       href={`/playbooks/${pb.id}`}
                       className="block rounded-xl border border-zinc-200 bg-white px-4 py-3 hover:border-zinc-400"
                     >
-                      <span className="font-medium">{pb.title}</span>
-                      {pb.hours_available ? (
-                        <span className="ml-2 text-sm text-zinc-500">
-                          ~{pb.hours_available}h
-                        </span>
-                      ) : null}
-                      {city ? (
-                        <p className="mt-0.5 text-sm text-zinc-500">
-                          {city.name}
-                          {city.airport_code ? ` (${city.airport_code})` : ""}
-                        </p>
-                      ) : null}
-                      {pb.narrative ? (
-                        <p className="mt-1 line-clamp-2 text-sm text-zinc-600">
-                          {pb.narrative}
-                        </p>
-                      ) : null}
+                      <p className="font-medium">
+                        The perfect layover does not exist
+                        {city ? `… ${city.name} edition` : "."}
+                      </p>
+                      <p className="mt-1 text-sm text-zinc-500">
+                        {pb.title}
+                        {pb.hours_available ? ` · ~${pb.hours_available}h` : ""}
+                      </p>
                     </Link>
                   </li>
                 );
               })}
-            </ul>
-          </section>
-        ) : null}
-
-        {cities.length > 0 ? (
-          <section className="mt-12">
-            <h2 className="text-sm font-medium text-zinc-500">Cities</h2>
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {cities.map((c) => (
-                <li key={c.id}>
-                  <Link
-                    href={`/cities/${c.slug}`}
-                    className="inline-block rounded-full border border-zinc-200 bg-white px-3 py-1 text-sm hover:border-zinc-400"
-                  >
-                    {c.name}
-                    {c.airport_code ? ` (${c.airport_code})` : ""}
-                  </Link>
-                </li>
-              ))}
             </ul>
           </section>
         ) : null}

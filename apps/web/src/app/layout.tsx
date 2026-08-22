@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Layover",
   description:
-    "Steal the whole layover — sequenced plans from people who fly. Eat, do, shop.",
+    "Intel for crew, by crew — eat, do, buy, and the perfect layover."
 };
 
 export default function RootLayout({

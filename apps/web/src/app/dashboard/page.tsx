@@ -30,7 +30,7 @@ const ADD_CARDS = [
   },
   {
     href: "/dashboard/places/new?kind=shop",
-    title: "Shop",
+    title: "Buy",
     body: "A store or a thing to buy.",
   },
 ] as const;
@@ -52,7 +52,7 @@ export default async function DashboardPage() {
   return (
     <AppShell profile={profile} title="Your dashboard">
       <p className="text-zinc-600">
-        Browse cities. Add a full layover, or one eat / do / shop rec. Zones
+        Browse cities. Add a full layover, or one eat / do / buy rec. Zones
         only — no crew hotels.
       </p>
 

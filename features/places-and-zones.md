@@ -30,17 +30,19 @@ Cities, layover zones, places, and dishes — without crew hotel identity. Manua
 
 Follow `docs/SECURITY.md`. Public copy uses zones and landmarks only.
 
-## UI copy (shipped 2026-08-21 — Full layover · Eat · Do · Shop)
+## UI copy (shipped 2026-08-21 — Full layover · Eat · Do · Shop; public verb **Buy** 2026-08-22)
 
-Not a schema change. Not Phase 3. Not four new routes.
+Not a schema change. Not Phase 3. Not four new routes. Not a photo grid.
 
-- [x] Do **not** headline the city page **Places**. Group published places as **Eat · Do · Shop**.
-- [x] Four jump chips on the **same** city page, with counts: **Full layover · Eat · Do · Shop**. Chip 1 is the playbooks feature (stealable full crew layover); this spec owns the three rec groups. **Shop stays first-class** even if a seed city looks thin — Delhi shopping is real; density is content, not extra routes.
-- [x] Add flow: no generic “Add place.” Chooser → food / activity / shop (all insert `places` with a required category).
-- [x] Category field: required select, not free-text. Persist `eat`/`do`/`shop`. Map legacy seed: restaurant/bar/cafe → Eat; activity → Do; grocery → Shop; unknown → Do (do not hide rows).
-- [x] Optional child item: Eat = “signature dish”; Shop = “what to get”; Do = hide the dish fields.
+- [x] Do **not** headline the city page **Places**. Group published places as **Eat · Do · Buy**.
+- [x] Four jump chips on the **same** city page, with counts: **Full layover · Eat · Do · Buy**. Chip 1 stays **Full layover** (playbooks); this spec owns the three rec groups. Public third verb is **Buy** (not Shop) — same word as homepage cards. **Buy stays first-class** even if a seed city looks thin — Delhi shopping is real; density is content, not extra routes.
+- Homepage `/`: three cards **Eat / Do / Buy** first; layover plans are the **The perfect layover** subsection (playbooks spec). No “Steal the whole layover.”
+- [x] Add flow: no generic “Add place.” Chooser → food / activity / buy (all insert `places` with a required category).
+- [x] Category field: required select, not free-text. Persist `eat`/`do`/`shop`. Customer label for `shop` = **Buy**. Map legacy seed: restaurant/bar/cafe → Eat; activity → Do; grocery/shop → Buy; unknown → Do (do not hide rows).
+- [x] Optional child item: Eat = “signature dish”; Buy = “what to get”; Do = hide the dish fields.
 - [x] Empty group: one line “None yet.” Do not build `/cities/[slug]/eat` style landings this cut.
 - **Cities/zones:** users cannot insert (004). **No admin city form this cut** — SQL until we need city #3.
+- **Photos:** parked. City page stays text lists until real images exist.
 
 ## Out of scope (this IA cut)
 

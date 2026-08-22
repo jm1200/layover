@@ -47,7 +47,7 @@ export default async function CityPage({
     { id: "full-layover", label: "Full layover", count: publishedPlaybooks.length },
     { id: "eat", label: "Eat", count: byKind.eat.length },
     { id: "do", label: "Do", count: byKind.do.length },
-    { id: "shop", label: "Shop", count: byKind.shop.length },
+    { id: "shop", label: "Buy", count: byKind.shop.length },
   ];
 
   return (

@@ -40,7 +40,7 @@ export async function createPlace(
     return { error: "City and name are required." };
   }
   if (!kind) {
-    return { error: "Pick Eat, Do, or Shop." };
+    return { error: "Pick Eat, Do, or Buy." };
   }
   if (!["draft", "published"].includes(status)) {
     return { error: "Invalid status." };
@@ -114,7 +114,7 @@ export async function updatePlace(
 
   if (!name) return { error: "Name is required." };
   if (!cityId) return { error: "City is required." };
-  if (!kind) return { error: "Pick Eat, Do, or Shop." };
+  if (!kind) return { error: "Pick Eat, Do, or Buy." };
   if (!["draft", "published", "hidden"].includes(status)) {
     return { error: "Invalid status." };
   }
