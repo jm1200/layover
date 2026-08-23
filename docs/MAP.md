@@ -110,6 +110,7 @@ ModerationAction / MetricSnapshot            — Phase 6
 | `/cities` | Public | City list | Phase 2 |
 | `/cities/[slug]` | Public | Dark hero · Eat/Do/Buy preview (top 3) · full layover below | Phase 2 |
 | `/cities/[slug]/eat` `/do` `/buy` | Public | Full list for one verb | Phase 2 |
+| `/cities/[slug]/layovers` | Public | All sequenced days | Phase 2 |
 | `/playbooks/[id]` | Public | Playbook detail | Phase 2 |
 | `/places/[id]` | Public | Place + dishes | Phase 2 |
 | `/dashboard/places/new` | Auth | Create place | Phase 2 |

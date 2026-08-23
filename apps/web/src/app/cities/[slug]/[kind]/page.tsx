@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProfile } from "@/features/auth/get-profile";
+import { AiStill } from "@/features/places/ai-still";
 import { CityHero } from "@/features/places/city-chrome";
 import {
   parseRecKind,
@@ -125,12 +125,11 @@ function KindPlaceCard({
     <Link href={`/places/${p.id}`} className="group block">
       <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-900">
         {still ? (
-          <Image
+          <AiStill
             src={still.src}
             alt={still.alt}
-            fill
-            className="object-cover transition duration-300 group-hover:scale-[1.03]"
             sizes="(min-width: 640px) 33vw, 100vw"
+            className="object-cover transition duration-300 group-hover:scale-[1.03]"
           />
         ) : null}
         <span className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/70 to-transparent px-3 pb-12 pt-4 text-center font-mono text-xl font-semibold uppercase tracking-[0.28em] text-white">

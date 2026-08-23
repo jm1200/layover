@@ -17,4 +17,6 @@ export type PlaybookStop = {
   place_id: string | null;
   title: string | null;
   body: string | null;
+  duration_minutes: number | null;
+  cost_note: string | null;
 };

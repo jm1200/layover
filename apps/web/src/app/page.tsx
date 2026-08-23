@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import { CitySearch } from "@/features/places/city-search";
+import { AiStill } from "@/features/places/ai-still";
 import { getProfile } from "@/features/auth/get-profile";
 import { listCities } from "@/features/places/queries";
 
@@ -36,13 +36,11 @@ export default async function HomePage() {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-900">
       <section className="relative min-h-[78vh] text-white">
-        <Image
+        <AiStill
           src="/landing/hero.jpg"
           alt="Evening cafe tables on a cobbled street at blue hour"
-          fill
-          priority
-          className="object-cover object-[50%_60%]"
           sizes="100vw"
+          className="object-cover object-[50%_60%]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/25" />
 
@@ -91,12 +89,11 @@ export default async function HomePage() {
               className="group block"
             >
               <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
-                <Image
+                <AiStill
                   src={card.src}
                   alt={card.alt}
-                  fill
-                  className="object-cover transition duration-300 group-hover:scale-[1.03]"
                   sizes="(min-width: 640px) 33vw, 100vw"
+                  className="object-cover transition duration-300 group-hover:scale-[1.03]"
                 />
                 <span className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/75 to-transparent px-3 pb-16 pt-4 text-center font-mono text-2xl font-semibold uppercase tracking-[0.28em] text-white sm:text-3xl">
                   {card.kind}

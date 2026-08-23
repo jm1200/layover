@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProfile } from "@/features/auth/get-profile";
+import { AiStill } from "@/features/places/ai-still";
 import { CityHero } from "@/features/places/city-chrome";
 import {
   recKindFromCategory,
@@ -24,8 +24,11 @@ import {
 } from "@/features/places/queries";
 import type { Place, Zone } from "@/features/places/types";
 import { ZONE_LABELS, type ZoneType } from "@/features/places/types";
-import { listPlaybooksForCity } from "@/features/playbooks/queries";
-import type { Playbook } from "@/features/playbooks/types";
+import {
+  listPlaybooksForCity,
+  listStopsForPlaybook,
+} from "@/features/playbooks/queries";
+import type { Playbook, PlaybookStop } from "@/features/playbooks/types";
 
 export async function generateMetadata({
   params,
@@ -71,6 +74,13 @@ export default async function CityPage({
   }
 
   const hero = CITY_HERO[city.slug] ?? null;
+  const previewPlans = publishedPlaybooks.slice(0, PREVIEW_COUNT);
+  const planStops: Record<string, PlaybookStop[]> = {};
+  await Promise.all(
+    previewPlans.map(async (pb) => {
+      planStops[pb.id] = await listStopsForPlaybook(pb.id);
+    }),
+  );
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
@@ -94,12 +104,24 @@ export default async function CityPage({
         ))}
 
         <section id="full-layover" className="mt-16 scroll-mt-6">
-          <p className="font-mono text-xs uppercase tracking-[0.28em] text-zinc-400">
-            Full layover
-          </p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight">
-            A day, sequenced
-          </h2>
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <p className="font-mono text-xs uppercase tracking-[0.28em] text-zinc-400">
+                Full layover
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight">
+                A day, sequenced
+              </h2>
+            </div>
+            {publishedPlaybooks.length > 0 ? (
+              <Link
+                href={`/cities/${city.slug}/layovers`}
+                className="text-sm text-zinc-600 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900"
+              >
+                All layovers
+              </Link>
+            ) : null}
+          </div>
           {publishedPlaybooks.length === 0 ? (
             <EmptyInvite
               cityName={city.name}
@@ -107,10 +129,10 @@ export default async function CityPage({
               loggedIn={Boolean(profile)}
             />
           ) : (
-            <ul className="mt-6 space-y-4">
-              {publishedPlaybooks.map((pb) => (
+            <ul className="mt-6 grid gap-6 lg:grid-cols-3">
+              {previewPlans.map((pb) => (
                 <li key={pb.id}>
-                  <PlaybookCard playbook={pb} />
+                  <PlaybookCard playbook={pb} stops={planStops[pb.id] ?? []} />
                 </li>
               ))}
             </ul>
@@ -213,12 +235,11 @@ function PlaceCard({
     <Link href={`/places/${p.id}`} className="group block">
       <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-900">
         {still ? (
-          <Image
+          <AiStill
             src={still.src}
             alt={still.alt}
-            fill
-            className="object-cover transition duration-300 group-hover:scale-[1.03]"
             sizes="(min-width: 640px) 33vw, 100vw"
+            className="object-cover transition duration-300 group-hover:scale-[1.03]"
           />
         ) : null}
         <span className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/70 to-transparent px-3 pb-12 pt-4 text-center font-mono text-xl font-semibold uppercase tracking-[0.28em] text-white">
@@ -243,21 +264,51 @@ function PlaceCard({
   );
 }
 
-function PlaybookCard({ playbook: pb }: { playbook: Playbook }) {
+function PlaybookCard({
+  playbook: pb,
+  stops,
+}: {
+  playbook: Playbook;
+  stops: PlaybookStop[];
+}) {
   return (
     <Link
       href={`/playbooks/${pb.id}`}
-      className="block rounded-xl bg-white px-5 py-5 shadow-sm ring-1 ring-zinc-200 hover:ring-zinc-400"
+      className="block overflow-hidden rounded-xl bg-white ring-1 ring-zinc-200 hover:ring-zinc-400"
     >
-      {pb.hours_available ? (
-        <p className="font-mono text-3xl font-semibold tracking-tight">
-          ~{pb.hours_available}h
-        </p>
-      ) : null}
-      <p className="mt-2 text-lg font-medium">{pb.title}</p>
-      {pb.narrative ? (
-        <p className="mt-2 line-clamp-3 text-sm text-zinc-600">{pb.narrative}</p>
-      ) : null}
+      <div className="grid grid-cols-4 gap-0.5 bg-zinc-900">
+        {stops.slice(0, 4).map((s) => {
+          const still = s.place_id ? PLACE_STILL[s.place_id] : undefined;
+          return (
+            <div key={s.id} className="relative aspect-square">
+              {still ? (
+                <AiStill
+                  src={still.src}
+                  alt={still.alt}
+                  sizes="15vw"
+                  className="object-cover"
+                  badge={null}
+                />
+              ) : (
+                <div className="h-full bg-zinc-800" />
+              )}
+            </div>
+          );
+        })}
+      </div>
+      <div className="px-5 py-4">
+        {pb.hours_available ? (
+          <p className="font-mono text-3xl font-semibold tracking-tight">
+            ~{pb.hours_available}h
+          </p>
+        ) : null}
+        <p className="mt-2 font-medium">{pb.title}</p>
+        {pb.narrative ? (
+          <p className="mt-2 line-clamp-3 text-sm text-zinc-600">
+            {pb.narrative}
+          </p>
+        ) : null}
+      </div>
     </Link>
   );
 }

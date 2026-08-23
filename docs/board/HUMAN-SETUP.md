@@ -62,9 +62,10 @@ In Supabase: **SQL Editor** → New query → paste → **Run**:
 3. `apps/web/supabase/migrations/003_seed_zurich_delhi.sql` — Zurich + Delhi seed  
 4. `apps/web/supabase/migrations/004_phase2_harden.sql` — admin-only city/zone create + status lock  
 5. `apps/web/supabase/migrations/005_seed_santiago_munich.sql` — Santiago steak + Munich mustard  
-6. `apps/web/supabase/migrations/006_zurich_density.sql` — extra Zurich recs for a dense city page
+6. `apps/web/supabase/migrations/006_zurich_density.sql` — extra Zurich recs  
+7. `apps/web/supabase/migrations/007_stop_timing.sql` — stop duration / cost notes
 
-If earlier files already ran, only run the ones you have not applied yet (usually **006**).
+If earlier files already ran, only run the ones you have not applied yet (usually **006** then **007**).
 
 ### 5. Auth URL config (so login redirects work)
 
