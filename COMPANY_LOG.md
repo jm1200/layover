@@ -33,7 +33,7 @@ Durable history only. Not a chat transcript.
 - **Next build after homepage:** city page should inherit this mood. **Then:** how to add data — AI fills a draft (asks for missing bits, e.g. a dish), user approves. Almost no forms. That is the AI moderator v0. Not built.
 - Generated stills get a visible **AI** flag + hover note. Sponsored flag reserved, not live. No Google scrape. **No dark placeholder bands** — every city and rec we have gets a still. Lumen’s rule.
 - Place pages: photo hero, blurb, Google Maps embed (search query, zoom 16). Itinerary pages: sell the day, stop stills, cost/time notes, start-clock (not hotel, not fake buses). AI ticket/directions parked.
-- 2026-08-23: City page v1 shipped. Chips gone. Eat/Do/Buy first (top 3 + kind pages). Full layover below, hours loud. Empty groups invite Share your intel (not hidden). Zurich photo hero (dense demo). Delhi type-only dark hero + forced-empty demo (`CITY_PAGE_FORCE_EMPTY`). SCL/MUC mixed. No carousel. Dedicated `/eat` `/do` `/buy`. Run SQL **006** for Zurich extra recs.
+- 2026-08-23: City pages have photo heroes for all four cities. Delhi empty-demo flag **removed**. Every seeded rec has a still.
 - Seed cities (after 005): Zurich, Delhi, Santiago, Munich. Homepage cards: SCL steak, ZRH Limmat, MUC mustard. Photos are still generated stand-ins until crew uploads exist.
 - **AI-maintained, almost no forms** is John’s contribution model (dictate → draft place/plan, follow-up questions, optional generated image + map). Not built. Phase 4 territory. Forms stay until that ships.
 - Live rotating homepage from “where crew have been going” needs either a human moderator or the AI pipeline. Not hired. Not built.
