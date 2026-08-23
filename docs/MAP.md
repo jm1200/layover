@@ -8,12 +8,12 @@
 | Phase | Status | Notes |
 |-------|--------|--------|
 | **0 — Baseline docs** | **Complete** | Product brain in `docs/` + `features/` |
-| **0.1 — Org / CEO** | **Complete** | Shareholder → CEO agent → Chief Engineer; see `docs/ORG.md`, `.grok/agents/ceo.md` |
+| **0.1 — Org / CEO** | **Complete** | Founder John → Maya (CEO) + Theo / Milo / Sofia; see `docs/ORG.md`, `agents/`, `.grok/agents/` |
 | **0.2 — Stack lock** | **Approved** | Next.js + Supabase + Vercel + Stripe later + xAI later — `docs/STACK.md` |
 | **1 — Auth + roles** | **Complete + hardened** | Live signup/login + roles; fix pack + second review cleanups |
 | **1.1 — Pre–Phase 2 gate** | **Complete** | Docs/MAP honesty + `PRE-PHASE-2-GATE.md`; code re-reviewed |
 | **2 — Cities, zones, places, playbooks** | **Code + Important fixes** | Harden pack in app; run migrations 002–**004** |
-| **2.1 — Verify + harden** | **Code done; city IA shipped; smoke pending** | Fixes shipped; RLS smoke: `docs/board/RLS-SMOKE.md`. City page: **Full layover · Eat · Do · Buy**. Object: **layover plan**. Homepage: intel + Eat/Do/Buy cards + **The perfect layover** subsection. |
+| **2.1 — Verify + harden** | **Code done; city IA shipped; smoke pending** | Fixes shipped; RLS smoke: `docs/board/RLS-SMOKE.md`. City page: **Full layover · Eat · Do · Buy**. Homepage: Eat/Do/Buy photo cards + city search. |
 | 3 — Social | Not started | after 2.1 green; like, comment, follow |
 | 4 — AI story import | Not started | draft + quotas |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
@@ -26,7 +26,10 @@
 
 ```text
 layover/
-  AGENTS.md
+  AGENTS.md              # company charter (auto-loaded)
+  COMPANY_LOG.md         # durable decisions
+  agents/                # Maya, Theo, Milo, Sofia (personalities)
+  .grok/agents/          # spawnable copies (ceo, senior-engineer, …)
   README.md
   docs/
     PRODUCT.md
@@ -123,7 +126,8 @@ Exact paths may adjust; update this table when implementing.
 - [x] `docs/board/CEO-LOG.md`
 - [x] `docs/board/PRE-PHASE-2-GATE.md` — agent gate before Phase 2 code
 - [x] `features/*.md` (auth complete; Phase 2 specs locked to Board #2)
-- [x] `.grok/agents/ceo.md`, skills `ceo` / `board-meeting`
+- [x] `agents/*.md` + `.grok/agents/` (Maya, Theo, Milo, Sofia), skills `ceo` / `board-meeting`
+- [x] `COMPANY_LOG.md`
 - [x] Application code — `apps/web` Phase 1 auth shell + fix pack
 - [x] Migration — `001_profiles.sql` (shareholder runs in Supabase)
 - [x] Phase 2 app code — places + playbooks features, public routes, forms

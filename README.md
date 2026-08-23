@@ -18,13 +18,15 @@ Read **only**:
 1. [docs/board/SHAREHOLDER-BRIEF.md](./docs/board/SHAREHOLDER-BRIEF.md) — status in ~90 seconds  
 2. Optionally [docs/ORG.md](./docs/ORG.md) — who is CEO vs engineer  
 
-Talk to **CEO** for strategy (`ceo` skill / board meeting). Default chat here is **Chief Engineer** (builds things after you approve).
+Talk to the **company**: Maya (CEO), Theo / Milo (engineering), Sofia (experience). Strategy via Maya (`ceo` skill / board meeting). John does not need to review diffs.
 
 ## Agent / engineer reading order
 
 | Doc | What it is |
 |-----|------------|
-| [AGENTS.md](./AGENTS.md) | Rules for AI/agents working in this repo |
+| [AGENTS.md](./AGENTS.md) | Company charter (auto-loaded) |
+| [agents/](./agents/) | Maya, Theo, Milo, Sofia |
+| [COMPANY_LOG.md](./COMPANY_LOG.md) | Durable company decisions |
 | [docs/PRODUCT.md](./docs/PRODUCT.md) | What we build and why |
 | [docs/MAP.md](./docs/MAP.md) | Phases, folders, feature index |
 | [docs/SECURITY.md](./docs/SECURITY.md) | Zones not hotels; crew privacy |
@@ -32,7 +34,7 @@ Talk to **CEO** for strategy (`ceo` skill / board meeting). Default chat here is
 | [docs/OPS.md](./docs/OPS.md) | Money, AI cost, metrics, hands-off ops |
 | [docs/STACK.md](./docs/STACK.md) | Next.js + Supabase + Vercel + Stripe + xAI |
 | [features/](./features/) | One short spec per feature |
-| [.grok/agents/ceo.md](./.grok/agents/ceo.md) | CEO agent definition |
+| [.grok/agents/](./.grok/agents/) | Spawnable employees (`ceo`, `senior-engineer`, `product-engineer`, `marketing-director`) |
 
 ## Phases (summary)
 

@@ -4,7 +4,7 @@
 
 **Last updated:** 2026-08-22  
 **Company:** Layover (working name)  
-**Stage:** Phase 2.1 · city IA **shipped** · **A locked** · homepage = photo ideas + city search
+**Stage:** Phase 2.1 · **A locked** · named team (Maya / Theo / Milo / Sofia) · homepage restyle **pending your yes**
 
 **Not this cut:** Design system / brand pass. Ontario on `/`. Phase 3 social. Stripe. New tables. City photo grid. Fake venue photos.
 
@@ -24,7 +24,7 @@ Ship `/` now. Three cards **Eat / Do / Buy**. Subsection **The perfect layover**
 
 ## What I need from you
 
-Hard-refresh **http://localhost:3000** after engineering ships. Yes/no if the landing feels like intel, not a steal pitch.
+Yes/no on the **scoped homepage pass** (Maya’s rec): real headline, search first on a phone, don’t pretend Santiago/Munich are live cities, fix empty Enter in search. No photo pipeline. No city-as-pics. No rebuild.
 
 ## What engineering did
 

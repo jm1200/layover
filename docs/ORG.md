@@ -1,48 +1,43 @@
 # ORG.md — Who does what
 
-**You only need this page + `docs/board/SHAREHOLDER-BRIEF.md`.** Everything else is for agents.
+**You only need this page + `docs/board/SHAREHOLDER-BRIEF.md`.** Everything else is for the team.
 
 ## Seats
 
-| Seat | Who | Job | You talk to them how |
+| Seat | Who | Job | How you talk to them |
 |------|-----|-----|----------------------|
-| **Shareholder / angel** | You | Vision, veto, capital | Natural language in this chat |
-| **CEO** | Agent `ceo` | Priorities, money, trust policy, short briefs | Say **CEO** or **board meeting** / skill `/ceo` |
-| **Chief Engineer** | This Grok Build session | Design, code, feasibility, shipping | Default chat; implements after you approve |
+| **Founder** | John | Vision, veto, capital | Natural language. You own the company. |
+| **CEO** | Maya Chen | Priorities, money, trust, what next | Default for strategy; say **Maya** / **CEO** |
+| **Senior engineer** | Theo Mercer | Architecture, hard builds, review of Milo | Implementation and risk |
+| **Product engineer** | Milo Patel | Product implementation, tests, review of Theo | Implementation and review |
+| **Marketing & experience** | Sofia Reyes | Homepage, voice, attention | Visual/emotional calls |
 
-## Recommendation (locked for Phase 0.1)
+Charter: `AGENTS.md`. People: `agents/*.md`. Spawnable: `.grok/agents/` (`ceo`, `senior-engineer`, `product-engineer`, `marketing-director`). History: `COMPANY_LOG.md`.
 
-- **Do not** make the coding session the CEO. Same brain tries to optimize code *and* strategy and you get thrash.  
-- **Do** keep Grok Build as **Chief Engineer**.  
-- **Do** use a dedicated **CEO agent** for docs, roadmap, and shareholder briefs.  
-- **You** stay above both: approve or redirect in one sentence when possible.
+## How this works
 
-## Multi-agent reality
+- Default chat is the **company** — Maya often frames, the right person leads.
+- John should not have to read diffs. Engineers review each other on substantial work.
+- Strategy still goes through Maya so coding and positioning do not thrash in one brain.
+- Trust rails (zones not hotels, labeled ads) are not optional.
 
-Yes — Grok Build can spawn multiple agents. Project agent definition:
-
-- `.grok/agents/ceo.md` → `subagent_type: "ceo"`
-
-Skills:
-
-- `.grok/skills/ceo/` — strategy ask  
-- `.grok/skills/board-meeting/` — CEO propose → engineer pushback → CEO brief  
+Skills: `ceo`, `board-meeting` (now a small team room, not only CEO ↔ one engineer).
 
 ## What you should read
 
 | File | When |
 |------|------|
-| `docs/board/SHAREHOLDER-BRIEF.md` | Anytime you want status (1 page) |
-| `docs/board/CEO-LOG.md` | Decision history |
-| Everything else | Only if curious; CEO owns it |
+| `docs/board/SHAREHOLDER-BRIEF.md` | Status (1 page) |
+| `COMPANY_LOG.md` | Durable decisions |
+| Everything else | Only if curious |
 
-## Git discipline
+## Git
 
-**Shareholder rule:** Commit after every coherent change set so there is always a revert point. Engineer updates `AGENTS.md` and does not leave uncommitted work at end of a task. Secrets never committed.
+Commit after every coherent change set. Secrets never committed.
 
 ## Decision log
 
 | Date | Decision |
 |------|----------|
-| 2026-08-04 | Org: Shareholder (human) → CEO agent → Chief Engineer (Grok Build). |
-| 2026-08-04 | Git: commit after every change set; initial snapshot `4ac0203`. |
+| 2026-08-04 | Org: founder → CEO agent → engineer. Git: commit after every change set. |
+| 2026-08-22 | Named team: Maya, Theo, Milo, Sofia. Company-management layer on top of existing product rules. |
