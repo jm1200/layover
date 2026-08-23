@@ -105,7 +105,7 @@ export default async function CityPage({
         <section id="full-layover" className="mt-10 scroll-mt-6">
           <h2 className="text-lg font-semibold">Full layovers</h2>
           <p className="mt-1 text-sm text-zinc-500">
-            Steal the whole day — a layover plan from crew.
+            A sequenced day from crew — copy it if it fits your hours.
           </p>
           <ul className="mt-4 space-y-3">
             {publishedPlaybooks.length === 0 ? (

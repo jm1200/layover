@@ -102,7 +102,7 @@ ModerationAction / MetricSnapshot            — Phase 6
 
 | Path | Audience | Purpose | Status |
 |------|----------|---------|--------|
-| `/` | Public | Eat/Do/Buy photo ideas + “Where are you headed?” city search | Phase 2 |
+| `/` | Public | Layover Intel; collage + tappable Eat/Do/Buy + city search | Phase 2 |
 | `/login` | Public | Auth | Phase 1 |
 | `/dashboard` | User | Profile, drafts, following | Phase 1 stub |
 | `/sponsor` | Sponsor | Campaigns, billing, creatives | Phase 1 stub |
@@ -132,6 +132,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] Migration — `001_profiles.sql` (shareholder runs in Supabase)
 - [x] Phase 2 app code — places + playbooks features, public routes, forms
 - [x] Migrations `002`, `003`, `004_phase2_harden.sql` (shareholder runs in Supabase)
+- [x] Migration `005_seed_santiago_munich.sql` (homepage Eat/Buy cards — run in SQL Editor)
 - [x] Phase 2.1 Important fix pack (zone/city, stop city, admin city insert, partial writes)
 - [ ] Deployed site — optional Vercel later
 

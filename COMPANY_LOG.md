@@ -23,7 +23,10 @@ Durable history only. Not a chat transcript.
 - City browse: **Full layover · Eat · Do · Buy** (public word is Buy, not Shop). Object: **layover plan**.
 - Audience **A:** crew-layover primary. Word-of-mouth-only recs is the problem. Sponsor money later = labeled placement against crew density in cities.
 - Homepage pitch **rejected:** “Steal the whole layover.”
-- Homepage **current (2026-08-22):** three editorial photo cards (Eat / Do / Buy examples) + “Where are you headed?” city search. Generated stand-in images, not crew photos. Santiago and Munich are examples, not seed cities. Seed cities: Zurich, Delhi.
+- Homepage pitch: **Layover Intel — For Crew, By Crew.** Search is the primary action after a visual scene. Eat / Do / Buy cards tappable to real place rows.
+- Seed cities (after 005): Zurich, Delhi, Santiago, Munich. Homepage cards: SCL steak, ZRH Limmat, MUC mustard. Photos are still generated stand-ins until crew uploads exist.
+- **AI-maintained, almost no forms** is John’s contribution model (dictate → draft place/plan, follow-up questions, optional generated image + map). Not built. Phase 4 territory. Forms stay until that ships.
+- Live rotating homepage from “where crew have been going” needs either a human moderator or the AI pipeline. Not hired. Not built.
 - “The perfect layover does not exist… {City} edition” is John’s Instagram series voice — for full plans, not ads. Ads later: “New idea…”
 - Rx / pharma shopping policy **parked**.
 - Users cannot create cities. Admin city form not built (SQL).
@@ -48,7 +51,7 @@ Durable history only. Not a chat transcript.
 
 - Keep the name **Layover**?
 - Homepage redesign beyond current cards+search. Sofia’s “pairing brief” vs CSS-only scoped pass — needs John’s yes. Do not implement until he says so.
-- Empty-submit on city search currently navigates to the first city (Delhi). Fix is cheap; waiting on homepage yes so we don’t nibble twice.
+- Empty-submit on city search used to navigate to the first city; fixed 2026-08-22 (no-op unless the box has text).
 - When (if) to add cities beyond Zurich/Delhi, and whether Santiago/Munich become real inventory.
 - Photo pipeline / city-as-pictures.
 - Rx shopping policy.

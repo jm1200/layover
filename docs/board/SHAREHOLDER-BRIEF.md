@@ -4,7 +4,7 @@
 
 **Last updated:** 2026-08-22  
 **Company:** Layover (working name)  
-**Stage:** Phase 2.1 · **A locked** · named team (Maya / Theo / Milo / Sofia) · homepage restyle **pending your yes**
+**Stage:** Phase 2.1 · **A locked** · homepage restyle **shipped (run SQL 005)**
 
 **Not this cut:** Design system / brand pass. Ontario on `/`. Phase 3 social. Stripe. New tables. City photo grid. Fake venue photos.
 
@@ -24,7 +24,9 @@ Ship `/` now. Three cards **Eat / Do / Buy**. Subsection **The perfect layover**
 
 ## What I need from you
 
-Yes/no on the **scoped homepage pass** (Maya’s rec): real headline, search first on a phone, don’t pretend Santiago/Munich are live cities, fix empty Enter in search. No photo pipeline. No city-as-pics. No rebuild.
+Supabase SQL Editor → run **`005_seed_santiago_munich.sql`**. Then hard-refresh `/`. Eat/Buy cards 404 until that runs. Limmat (Zurich) already works.
+
+AI-without-forms is **not** this cut — next strategy call.
 
 ## What engineering did
 

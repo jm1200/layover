@@ -31,3 +31,5 @@ Energetic, visual, specific. What the user sees, feels, does. Not “engagement�
 - John hated “Steal the whole layover.” Pitch is intel, by crew.
 - Landing he asked for: three idea cards with pictures + “Where are you headed?”
 - Generated stand-in photos are not crew content. Say so if asked.
+- Public verb: **Buy** (the souvenir / the thing). Shop is the venue type. Cards say Buy.
+- John wants a drawing-in hero (collage / “kaleidoscope”) that does not drown Eat / Do / Buy. Cards tappable to real recs. Live homepage photos should eventually rotate from what crew actually used — that needs a moderator or AI pipeline, not a static JPEG forever.
