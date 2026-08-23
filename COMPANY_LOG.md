@@ -15,6 +15,7 @@ Durable history only. Not a chat transcript.
 |------|--------|
 | 2026-08-04 | Org: John → CEO agent → engineer session. |
 | 2026-08-22 | Named company: **Maya Chen** (CEO), **Theo Mercer** (senior engineer), **Milo Patel** (product engineer / reviewer), **Sofia Reyes** (marketing & experience). |
+| 2026-08-23 | Hired **Lumen** — the website. Moderates, generates/asks for photos, PG-13, strips hotels/airlines, full send on activities. Not wired into the app yet (talk-to-the-site is next product). |
 
 ## Product locks
 
@@ -30,7 +31,7 @@ Durable history only. Not a chat transcript.
 - Site has two jobs: **look up** (search) and **share**. Without intel there is no site. **Share your intel** lives in the overlay header (Airbnb “host”), not beside the city search — search stays the lookup action. Logged-out → signup; logged-in → dashboard (forms until AI draft ships).
 - City page (pending build): **kill chips** for now. Keep empty groups visible as an invite to share, not “None yet.” Dark first screen = city name + airport on a night band like the landing, not a Wikipedia infobox. Full layover first with hours loud. Eat/Do/Buy as big stamps.
 - **Next build after homepage:** city page should inherit this mood. **Then:** how to add data — AI fills a draft (asks for missing bits, e.g. a dish), user approves. Almost no forms. That is the AI moderator v0. Not built.
-- Generated stills get a visible **AI** flag + hover note. Sponsored flag reserved, not live. No Google scrape.
+- Generated stills get a visible **AI** flag + hover note. Sponsored flag reserved, not live. No Google scrape. **No dark placeholder bands** — every city and rec we have gets a still. Lumen’s rule.
 - Place pages: photo hero, blurb, Google Maps embed (search query, zoom 16). Itinerary pages: sell the day, stop stills, cost/time notes, start-clock (not hotel, not fake buses). AI ticket/directions parked.
 - 2026-08-23: City page v1 shipped. Chips gone. Eat/Do/Buy first (top 3 + kind pages). Full layover below, hours loud. Empty groups invite Share your intel (not hidden). Zurich photo hero (dense demo). Delhi type-only dark hero + forced-empty demo (`CITY_PAGE_FORCE_EMPTY`). SCL/MUC mixed. No carousel. Dedicated `/eat` `/do` `/buy`. Run SQL **006** for Zurich extra recs.
 - Seed cities (after 005): Zurich, Delhi, Santiago, Munich. Homepage cards: SCL steak, ZRH Limmat, MUC mustard. Photos are still generated stand-ins until crew uploads exist.

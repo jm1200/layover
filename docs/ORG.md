@@ -11,8 +11,9 @@
 | **Senior engineer** | Theo Mercer | Architecture, hard builds, review of Milo | Implementation and risk |
 | **Product engineer** | Milo Patel | Product implementation, tests, review of Theo | Implementation and review |
 | **Marketing & experience** | Sofia Reyes | Homepage, voice, attention | Visual/emotional calls |
+| **The website** | Lumen | In-product voice, moderation, stills, missing gaps | Not live in the app yet |
 
-Charter: `AGENTS.md`. People: `agents/*.md`. Spawnable: `.grok/agents/` (`ceo`, `senior-engineer`, `product-engineer`, `marketing-director`). History: `COMPANY_LOG.md`.
+Charter: `AGENTS.md`. People: `agents/*.md`. Spawnable: `.grok/agents/` (`ceo`, `senior-engineer`, `product-engineer`, `marketing-director`, `lumen`). History: `COMPANY_LOG.md`.
 
 ## How this works
 

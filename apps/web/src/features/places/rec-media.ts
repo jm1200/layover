@@ -5,10 +5,19 @@ export const CITY_HERO: Record<string, { src: string; alt: string }> = {
     src: "/landing/hero-zurich.jpg",
     alt: "Zurich river and old town at blue hour",
   },
+  delhi: {
+    src: "/landing/hero-delhi.jpg",
+    alt: "Delhi colonnades at blue hour",
+  },
+  santiago: {
+    src: "/landing/hero-santiago.jpg",
+    alt: "Santiago grill and Andes at dusk",
+  },
+  munich: {
+    src: "/landing/hero-munich.jpg",
+    alt: "Munich market at blue hour",
+  },
 };
-
-/** Delhi is the sparse first-screen demo: no hero photo, no recs on the city page. Data still in the DB. */
-export const CITY_PAGE_FORCE_EMPTY = new Set(["delhi"]);
 
 export const PLACE_STILL: Record<string, { src: string; alt: string }> = {
   "c1000000-0000-4000-8000-000000000001": {
@@ -55,6 +64,18 @@ export const PLACE_STILL: Record<string, { src: string; alt: string }> = {
     src: "/landing/buy-munich.jpg",
     alt: "Mustard jars",
   },
+  "c1000000-0000-4000-8000-000000000011": {
+    src: "/landing/eat-delhi-bar.jpg",
+    alt: "Bar interior",
+  },
+  "c1000000-0000-4000-8000-000000000012": {
+    src: "/landing/do-delhi-connaught.jpg",
+    alt: "Colonnade wander",
+  },
+  "c1000000-0000-4000-8000-000000000013": {
+    src: "/landing/eat-delhi-late.jpg",
+    alt: "Late-night plate",
+  },
 };
 
 export const PREVIEW_COUNT = 3;
@@ -80,8 +101,7 @@ export function stillForStop(stop: {
 export const CITY_FEEL: Record<string, string> = {
   zurich:
     "River in summer, raclette when it isn’t, trams instead of taxis.",
-  delhi:
-    "Late nights, a bar everyone names, a city that still needs your recs.",
+  delhi: "Heat after dark, a bar everyone still names, a walk if you have the hours.",
   santiago: "Grill smoke, a long lunch, mountains if the air is clear.",
   munich: "Market bags, sweet mustard, something for the jumpseat.",
 };

@@ -11,11 +11,7 @@ import {
   REC_KIND_LABEL,
   type RecKind,
 } from "@/features/places/kind";
-import {
-  CITY_HERO,
-  CITY_PAGE_FORCE_EMPTY,
-  PLACE_STILL,
-} from "@/features/places/rec-media";
+import { CITY_HERO, PLACE_STILL } from "@/features/places/rec-media";
 import {
   getCityBySlug,
   listPlacesForCity,
@@ -56,12 +52,9 @@ export default async function CityKindPage({
   ]);
 
   const zoneById = Object.fromEntries(zones.map((z) => [z.id, z]));
-  const list = CITY_PAGE_FORCE_EMPTY.has(city.slug)
-    ? []
-    : places.filter(
-        (p) =>
-          p.status === "published" && recKindFromCategory(p.category) === kind,
-      );
+  const list = places.filter(
+    (p) => p.status === "published" && recKindFromCategory(p.category) === kind,
+  );
   const label = REC_KIND_LABEL[kind];
 
   return (

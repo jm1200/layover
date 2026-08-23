@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { getProfile } from "@/features/auth/get-profile";
 import { AiStill } from "@/features/places/ai-still";
 import { CityPublicHeader } from "@/features/places/city-chrome";
-import { stillForStop } from "@/features/places/rec-media";
+import { CITY_HERO, stillForStop } from "@/features/places/rec-media";
 import { getPlace, listCities } from "@/features/places/queries";
 import { StartItinerary } from "@/features/playbooks/start-itinerary";
 import {
@@ -62,9 +62,20 @@ export default async function PlaybookPage({
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
-      <section className="relative bg-zinc-950 px-4 pb-12 pt-28 text-white">
+      <section className="relative min-h-[42vh] overflow-hidden px-4 pb-12 pt-28 text-white">
+        {city && CITY_HERO[city.slug] ? (
+          <div className="absolute inset-0">
+            <AiStill
+              src={CITY_HERO[city.slug].src}
+              alt={CITY_HERO[city.slug].alt}
+              sizes="100vw"
+              className="object-cover"
+            />
+          </div>
+        ) : null}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/25" />
         <CityPublicHeader loggedIn={Boolean(profile)} />
-        <div className="mx-auto max-w-6xl">
+        <div className="relative z-10 mx-auto max-w-6xl">
           {city ? (
             <Link
               href={`/cities/${city.slug}`}

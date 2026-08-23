@@ -13,7 +13,6 @@ import {
 } from "@/features/places/kind";
 import {
   CITY_HERO,
-  CITY_PAGE_FORCE_EMPTY,
   PLACE_STILL,
   PREVIEW_COUNT,
   stillForStop,
@@ -60,13 +59,8 @@ export default async function CityPage({
     getProfile(),
   ]);
 
-  const emptyDemo = CITY_PAGE_FORCE_EMPTY.has(city.slug);
-  const publishedPlaces = emptyDemo
-    ? []
-    : places.filter((p) => p.status === "published");
-  const publishedPlaybooks = emptyDemo
-    ? []
-    : playbooks.filter((p) => p.status === "published");
+  const publishedPlaces = places.filter((p) => p.status === "published");
+  const publishedPlaybooks = playbooks.filter((p) => p.status === "published");
   const zoneById = Object.fromEntries(zones.map((z) => [z.id, z]));
 
   const byKind: Record<RecKind, Place[]> = { eat: [], do: [], shop: [] };
