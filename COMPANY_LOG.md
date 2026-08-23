@@ -24,6 +24,10 @@ Durable history only. Not a chat transcript.
 - Audience **A:** crew-layover primary. Word-of-mouth-only recs is the problem. Sponsor money later = labeled placement against crew density in cities.
 - Homepage pitch **rejected:** “Steal the whole layover.”
 - Homepage pitch: **Layover Intel — For Crew, By Crew.** Full-bleed blue-hour hero with search on the photo (Airbnb). Then three 4:5 Eat/Do/Buy posts (Instagram). Collage **rejected** — John hated it. Hero is editorial mood, not a city we claim.
+- **Banner job (locked 2026-08-22, John):** the first screen is a place you want to be. Later: rotate the hero when an AI moderator (or similar) picks a *quality* new pic. Same for the three rec cards. Source of those pics (crew upload vs generated vs licensed) **unresolved** — not a silent Google scrape.
+- Eat / Do / Buy stamps on the cards are the site’s job labels. Keep them large and obvious.
+- Header stays thin overlay (no fat toolbar). Logged-in CTA is **Dashboard**, not “Open app” (that dumped John into `/admin`).
+- **Next build after homepage:** city page should inherit this mood. **Then:** how to add data — AI fills a draft (asks for missing bits, e.g. a dish), user approves. Almost no forms. That is the AI moderator v0. Not built.
 - Seed cities (after 005): Zurich, Delhi, Santiago, Munich. Homepage cards: SCL steak, ZRH Limmat, MUC mustard. Photos are still generated stand-ins until crew uploads exist.
 - **AI-maintained, almost no forms** is John’s contribution model (dictate → draft place/plan, follow-up questions, optional generated image + map). Not built. Phase 4 territory. Forms stay until that ships.
 - Live rotating homepage from “where crew have been going” needs either a human moderator or the AI pipeline. Not hired. Not built.
@@ -50,8 +54,6 @@ Durable history only. Not a chat transcript.
 ## Unresolved founder decisions
 
 - Keep the name **Layover**?
-- Homepage redesign beyond current cards+search. Sofia’s “pairing brief” vs CSS-only scoped pass — needs John’s yes. Do not implement until he says so.
-- Empty-submit on city search used to navigate to the first city; fixed 2026-08-22 (no-op unless the box has text).
-- When (if) to add cities beyond Zurich/Delhi, and whether Santiago/Munich become real inventory.
-- Photo pipeline / city-as-pictures.
+- Source of rotating hero/card photos (crew vs generated vs licensed). Not scraping Google by default.
+- How obvious the top nav should be — thin overlay is current lock; revisit if people miss Log in.
 - Rx shopping policy.

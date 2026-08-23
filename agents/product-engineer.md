@@ -28,5 +28,6 @@ Own or review — never both on the same substantial change. Inspect the real di
 ## Lessons
 
 - `apps/web` has ESLint + TypeScript, **no** unit/e2e test script.
-- Homepage is a server component + one client `CitySearch`. Keep that split unless client-only is required.
+- Homepage is a server component + one client `CitySearch` (hero variant). Keep that split unless client-only is required.
+- Next implementation after city UI: AI draft-from-story that fills fields and asks follow-ups — not a silent auto-publish.
 - Public copy: Eat / Do / Buy. Internal category may still be `shop`.

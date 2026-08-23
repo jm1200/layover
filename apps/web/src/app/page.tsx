@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { CitySearch } from "@/features/places/city-search";
-import { getProfile, homeForRole } from "@/features/auth/get-profile";
+import { getProfile } from "@/features/auth/get-profile";
 import { listCities } from "@/features/places/queries";
 
 /** Seed IDs from 003 (Limmat) and 005 (Santiago steak, Munich mustard). */
@@ -31,7 +31,7 @@ const IDEAS = [
 
 export default async function HomePage() {
   const [profile, cities] = await Promise.all([getProfile(), listCities()]);
-  const appHome = profile ? homeForRole(profile.role) : null;
+  const loggedIn = Boolean(profile);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-900">
@@ -50,9 +50,9 @@ export default async function HomePage() {
           <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5">
             <span className="text-lg font-semibold tracking-tight">Layover</span>
             <nav className="flex items-center gap-4 text-sm text-white/90">
-              {appHome ? (
-                <Link href={appHome} className="hover:text-white">
-                  Open app
+              {loggedIn ? (
+                <Link href="/dashboard" className="hover:text-white">
+                  Dashboard
                 </Link>
               ) : (
                 <>
@@ -97,7 +97,7 @@ export default async function HomePage() {
                   className="object-cover transition duration-300 group-hover:scale-[1.03]"
                   sizes="(min-width: 640px) 33vw, 100vw"
                 />
-                <span className="absolute left-3 top-3 rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-medium uppercase tracking-widest text-white">
+                <span className="absolute left-3 top-3 rounded-full bg-black/60 px-3.5 py-1.5 text-sm font-semibold uppercase tracking-widest text-white">
                   {card.kind}
                 </span>
               </div>

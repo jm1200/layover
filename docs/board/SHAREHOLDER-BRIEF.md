@@ -4,7 +4,7 @@
 
 **Last updated:** 2026-08-22  
 **Company:** Layover (working name)  
-**Stage:** Phase 2.1 · homepage **full-bleed hero + IG posts** (run 005 if Eat/Buy 404)
+**Stage:** Phase 2.1 · homepage mood **locked** · **next = city page** · then AI draft-from-story
 
 **Not this cut:** Design system / brand pass. Ontario on `/`. Phase 3 social. Stripe. New tables. City photo grid. Fake venue photos.
 

@@ -34,3 +34,5 @@ Energetic, visual, specific. What the user sees, feels, does. Not “engagement�
 - Public verb: **Buy** (the souvenir / the thing). Shop is the venue type. Cards say Buy.
 - John wants a drawing-in hero (collage / “kaleidoscope”) that does not drown Eat / Do / Buy. Cards tappable to real recs. Live homepage photos should eventually rotate from what crew actually used — that needs a moderator or AI pipeline, not a static JPEG forever.
 - Collage made John want to scrap the project. Direction he hired me for: **Airbnb first screen (full-bleed night + search on the photo) then Instagram posts (Eat/Do/Buy 4:5, stamp on the image).** One anonymous blue-hour street — not the Limmat twice, not a named city we don’t have.
+- Banner job, never forget: **the first screen is a place you want to be.** John said fuck-yes to the mood. Eat/Do/Buy stamps are the only thing telling people what the site *does* — keep them big.
+- Next visual: city page gets this mood. Do not go back to writing memos while the screen is ugly.
