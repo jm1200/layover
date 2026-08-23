@@ -1,5 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
+import { AiStill } from "@/features/places/ai-still";
+import { CITY_FEEL } from "@/features/places/rec-media";
 import type { City } from "@/features/places/types";
 
 export function CityPublicHeader({ loggedIn }: { loggedIn: boolean }) {
@@ -12,7 +13,7 @@ export function CityPublicHeader({ loggedIn }: { loggedIn: boolean }) {
         <nav className="flex items-center gap-4 text-sm text-white/90">
           <Link
             href={loggedIn ? "/dashboard" : "/signup"}
-            className="font-medium text-white hover:text-white/80"
+            className="rounded-full bg-white px-4 py-2 text-xs font-bold uppercase tracking-wider text-zinc-950 hover:bg-white/90"
           >
             Share your intel
           </Link>
@@ -40,17 +41,18 @@ export function CityHero({
   hero: { src: string; alt: string } | null;
   loggedIn: boolean;
 }) {
+  const feel = CITY_FEEL[city.slug];
   return (
-    <section className="relative min-h-[52vh] text-white sm:min-h-[60vh]">
+    <section className="relative min-h-[34vh] text-white sm:min-h-[40vh]">
       {hero ? (
-        <Image
-          src={hero.src}
-          alt={hero.alt}
-          fill
-          priority
-          className="object-cover object-[50%_55%]"
-          sizes="100vw"
-        />
+        <div className="absolute inset-0">
+          <AiStill
+            src={hero.src}
+            alt={hero.alt}
+            sizes="100vw"
+            className="object-cover object-[50%_55%]"
+          />
+        </div>
       ) : (
         <div className="absolute inset-0 bg-zinc-950" />
       )}
@@ -62,7 +64,7 @@ export function CityHero({
         }
       />
       <CityPublicHeader loggedIn={loggedIn} />
-      <div className="relative z-10 flex min-h-[52vh] flex-col justify-end px-4 pb-12 pt-28 sm:min-h-[60vh]">
+      <div className="relative z-10 flex min-h-[34vh] flex-col justify-end px-4 pb-8 pt-24 sm:min-h-[40vh]">
         <div className="mx-auto w-full max-w-6xl">
           <p className="font-mono text-sm uppercase tracking-[0.35em] text-white/70">
             {city.airport_code ?? "Layover"}
@@ -70,7 +72,9 @@ export function CityHero({
           <h1 className="mt-2 text-4xl font-semibold tracking-tight sm:text-6xl">
             {city.name}
           </h1>
-          {city.country ? (
+          {feel ? (
+            <p className="mt-3 max-w-xl text-lg text-white/90">{feel}</p>
+          ) : city.country ? (
             <p className="mt-2 text-white/75">{city.country}</p>
           ) : null}
         </div>

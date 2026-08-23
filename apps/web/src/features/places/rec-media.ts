@@ -58,3 +58,30 @@ export const PLACE_STILL: Record<string, { src: string; alt: string }> = {
 };
 
 export const PREVIEW_COUNT = 3;
+
+/** Stops with no place_id (e.g. Zurich streetcar). */
+export const STOP_STILL: Record<string, { src: string; alt: string }> = {
+  "f1000000-0000-4000-8000-000000000003": {
+    src: "/landing/do-zurich-tram.jpg",
+    alt: "Zurich streetcar",
+  },
+};
+
+export function stillForStop(stop: {
+  id: string;
+  place_id: string | null;
+}): { src: string; alt: string } | undefined {
+  if (stop.place_id && PLACE_STILL[stop.place_id]) {
+    return PLACE_STILL[stop.place_id];
+  }
+  return STOP_STILL[stop.id];
+}
+
+export const CITY_FEEL: Record<string, string> = {
+  zurich:
+    "River in summer, raclette when it isn’t, trams instead of taxis.",
+  delhi:
+    "Late nights, a bar everyone names, a city that still needs your recs.",
+  santiago: "Grill smoke, a long lunch, mountains if the air is clear.",
+  munich: "Market bags, sweet mustard, something for the jumpseat.",
+};

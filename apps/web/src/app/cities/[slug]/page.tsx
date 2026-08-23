@@ -16,6 +16,7 @@ import {
   CITY_PAGE_FORCE_EMPTY,
   PLACE_STILL,
   PREVIEW_COUNT,
+  stillForStop,
 } from "@/features/places/rec-media";
 import {
   getCityBySlug,
@@ -90,7 +91,7 @@ export default async function CityPage({
         loggedIn={Boolean(profile)}
       />
 
-      <main className="mx-auto max-w-6xl px-4 py-12">
+      <main className="mx-auto max-w-6xl px-4 py-8">
         {REC_KINDS.map((kind) => (
           <KindPreview
             key={kind}
@@ -278,7 +279,7 @@ function PlaybookCard({
     >
       <div className="grid grid-cols-4 gap-0.5 bg-zinc-900">
         {stops.slice(0, 4).map((s) => {
-          const still = s.place_id ? PLACE_STILL[s.place_id] : undefined;
+          const still = stillForStop(s);
           return (
             <div key={s.id} className="relative aspect-square">
               {still ? (

@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { getProfile } from "@/features/auth/get-profile";
 import { AiStill } from "@/features/places/ai-still";
 import { CityPublicHeader } from "@/features/places/city-chrome";
-import { PLACE_STILL } from "@/features/places/rec-media";
+import { stillForStop } from "@/features/places/rec-media";
 import { getPlace, listCities } from "@/features/places/queries";
 import { StartItinerary } from "@/features/playbooks/start-itinerary";
 import {
@@ -110,7 +110,7 @@ export default async function PlaybookPage({
         <ol className="space-y-10">
           {stops.map((s) => {
             const pl = s.place_id ? placesById[s.place_id] : null;
-            const still = s.place_id ? PLACE_STILL[s.place_id] : undefined;
+            const still = stillForStop(s);
             return (
               <li
                 key={s.id}

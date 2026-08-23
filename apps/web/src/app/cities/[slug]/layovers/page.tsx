@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { getProfile } from "@/features/auth/get-profile";
 import { AiStill } from "@/features/places/ai-still";
 import { CityHero } from "@/features/places/city-chrome";
-import { CITY_HERO, PLACE_STILL } from "@/features/places/rec-media";
+import { CITY_HERO, stillForStop } from "@/features/places/rec-media";
 import { getCityBySlug } from "@/features/places/queries";
 import {
   listPlaybooksForCity,
@@ -99,7 +99,7 @@ function PlanCard({
     >
       <div className="grid grid-cols-4 gap-0.5 bg-zinc-900">
         {stops.slice(0, 4).map((s) => {
-          const still = s.place_id ? PLACE_STILL[s.place_id] : undefined;
+          const still = stillForStop(s);
           return (
             <div key={s.id} className="relative aspect-square">
               {still ? (

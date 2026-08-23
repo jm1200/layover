@@ -50,7 +50,7 @@ export default async function HomePage() {
             <nav className="flex items-center gap-4 text-sm text-white/90">
               <Link
                 href={loggedIn ? "/dashboard" : "/signup"}
-                className="font-medium text-white hover:text-white/80"
+                className="rounded-full bg-white px-4 py-2 text-xs font-bold uppercase tracking-wider text-zinc-950 hover:bg-white/90"
               >
                 Share your intel
               </Link>
