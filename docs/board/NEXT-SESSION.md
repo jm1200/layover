@@ -4,16 +4,14 @@
 
 ## First up when you return
 
-**City page.** Team inspected. Waiting on your yes.
+**City page** — John 2026-08-23:
 
-Maya’s rec (no new tables, no fake venues):
+1. Kill chips for now (counts maybe later)
+2. “Dark first screen” still needs a yes after we explain it
+3–4. Full layover first / hours / stamps — see chat
+5. **Don’t hide empty groups** — invite people to share intel
 
-1. Dark first screen: **city + airport** (type-led, don’t claim the landing street is Zurich)
-2. Overlay header. Dashboard, not Open app
-3. Full layover first, hours loud
-4. Eat / Do / Buy as big stamps. Cards: name, zone, **blurb**. Limmat may keep its photo; others type-forward
-5. Empty groups: hide when count is 0 (Sofia) vs keep Buy at 0 (Theo/Milo) — you still pick
-6. Fix `#buy` and the tab title
+Landing: **Share your intel** in the header (lookup vs share).
 
 Sofia wanted the city page to *be* the landing with a name on it (kill chips, 4:5 posts). Theo: inherit chrome, not inventory. Photo grid still parked.
 

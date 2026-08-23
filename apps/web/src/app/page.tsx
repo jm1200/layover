@@ -50,19 +50,20 @@ export default async function HomePage() {
           <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5">
             <span className="text-lg font-semibold tracking-tight">Layover</span>
             <nav className="flex items-center gap-4 text-sm text-white/90">
+              <Link
+                href={loggedIn ? "/dashboard" : "/signup"}
+                className="font-medium text-white hover:text-white/80"
+              >
+                Share your intel
+              </Link>
               {loggedIn ? (
                 <Link href="/dashboard" className="hover:text-white">
                   Dashboard
                 </Link>
               ) : (
-                <>
-                  <Link href="/login" className="hover:text-white">
-                    Log in
-                  </Link>
-                  <Link href="/signup" className="hover:text-white">
-                    Sign up
-                  </Link>
-                </>
+                <Link href="/login" className="hover:text-white">
+                  Log in
+                </Link>
               )}
             </nav>
           </div>

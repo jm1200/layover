@@ -27,6 +27,8 @@ Durable history only. Not a chat transcript.
 - **Banner job (locked 2026-08-22, John):** the first screen is a place you want to be. Later: rotate the hero when an AI moderator (or similar) picks a *quality* new pic. Same for the three rec cards. Source of those pics (crew upload vs generated vs licensed) **unresolved** — not a silent Google scrape.
 - Eat / Do / Buy stamps on the cards are the site’s job labels. Keep them large and obvious.
 - Header stays thin overlay (no fat toolbar). Logged-in CTA is **Dashboard**, not “Open app” (that dumped John into `/admin`).
+- Site has two jobs: **look up** (search) and **share**. Without intel there is no site. **Share your intel** lives in the overlay header (Airbnb “host”), not beside the city search — search stays the lookup action. Logged-out → signup; logged-in → dashboard (forms until AI draft ships).
+- City page (pending build): **kill chips** for now. Keep empty groups visible as an invite to share, not “None yet.” Dark first screen = city name + airport on a night band like the landing, not a Wikipedia infobox. Full layover first with hours loud. Eat/Do/Buy as big stamps.
 - **Next build after homepage:** city page should inherit this mood. **Then:** how to add data — AI fills a draft (asks for missing bits, e.g. a dish), user approves. Almost no forms. That is the AI moderator v0. Not built.
 - 2026-08-22 night pause: city page **inspected, not built**. Waiting on John (Maya mood pass vs Sofia pictorial vs stay text; empty Buy hide vs keep).
 - Seed cities (after 005): Zurich, Delhi, Santiago, Munich. Homepage cards: SCL steak, ZRH Limmat, MUC mustard. Photos are still generated stand-ins until crew uploads exist.
