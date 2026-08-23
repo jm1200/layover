@@ -97,7 +97,7 @@ export default async function HomePage() {
                   className="object-cover transition duration-300 group-hover:scale-[1.03]"
                   sizes="(min-width: 640px) 33vw, 100vw"
                 />
-                <span className="absolute left-3 top-3 rounded-full bg-black/60 px-3.5 py-1.5 text-sm font-semibold uppercase tracking-widest text-white">
+                <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent px-3 pb-4 pt-16 text-center font-mono text-2xl font-semibold uppercase tracking-[0.28em] text-white sm:text-3xl">
                   {card.kind}
                 </span>
               </div>
