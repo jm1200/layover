@@ -108,7 +108,8 @@ ModerationAction / MetricSnapshot            — Phase 6
 | `/sponsor` | Sponsor | Campaigns, billing, creatives | Phase 1 stub |
 | `/admin` | Admin | Moderation, metrics, kill switches | Phase 1 stub |
 | `/cities` | Public | City list | Phase 2 |
-| `/cities/[slug]` | Public | **Full layover · Eat · Do · Buy** (text lists; photo grid parked) | Phase 2 |
+| `/cities/[slug]` | Public | Dark hero · Eat/Do/Buy preview (top 3) · full layover below | Phase 2 |
+| `/cities/[slug]/eat` `/do` `/buy` | Public | Full list for one verb | Phase 2 |
 | `/playbooks/[id]` | Public | Playbook detail | Phase 2 |
 | `/places/[id]` | Public | Place + dishes | Phase 2 |
 | `/dashboard/places/new` | Auth | Create place | Phase 2 |
@@ -133,6 +134,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] Phase 2 app code — places + playbooks features, public routes, forms
 - [x] Migrations `002`, `003`, `004_phase2_harden.sql` (shareholder runs in Supabase)
 - [x] Migration `005_seed_santiago_munich.sql` (homepage Eat/Buy cards — run in SQL Editor)
+- [x] Migration `006_zurich_density.sql` (extra Zurich recs — run in SQL Editor)
 - [x] Phase 2.1 Important fix pack (zone/city, stop city, admin city insert, partial writes)
 - [ ] Deployed site — optional Vercel later
 

@@ -32,5 +32,10 @@ export function parseRecKind(
 ): RecKind | null {
   const c = (value ?? "").trim().toLowerCase();
   if (c === "eat" || c === "do" || c === "shop") return c;
+  if (c === "buy") return "shop";
   return null;
+}
+
+export function recKindPath(kind: RecKind): string {
+  return kind === "shop" ? "buy" : kind;
 }
