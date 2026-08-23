@@ -28,6 +28,7 @@ Durable history only. Not a chat transcript.
 - Eat / Do / Buy stamps on the cards are the site’s job labels. Keep them large and obvious.
 - Header stays thin overlay (no fat toolbar). Logged-in CTA is **Dashboard**, not “Open app” (that dumped John into `/admin`).
 - **Next build after homepage:** city page should inherit this mood. **Then:** how to add data — AI fills a draft (asks for missing bits, e.g. a dish), user approves. Almost no forms. That is the AI moderator v0. Not built.
+- 2026-08-22 night pause: city page **inspected, not built**. Waiting on John (Maya mood pass vs Sofia pictorial vs stay text; empty Buy hide vs keep).
 - Seed cities (after 005): Zurich, Delhi, Santiago, Munich. Homepage cards: SCL steak, ZRH Limmat, MUC mustard. Photos are still generated stand-ins until crew uploads exist.
 - **AI-maintained, almost no forms** is John’s contribution model (dictate → draft place/plan, follow-up questions, optional generated image + map). Not built. Phase 4 territory. Forms stay until that ships.
 - Live rotating homepage from “where crew have been going” needs either a human moderator or the AI pipeline. Not hired. Not built.

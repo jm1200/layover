@@ -1,32 +1,37 @@
-# Next session — shareholder notes
+# Next session — founder notes
 
-**Paused:** 2026-08-04 (evening)
+**Paused:** 2026-08-22 (night)
 
 ## First up when you return
 
-You (shareholder) want a **slower pass**, not more features:
+**City page.** Team inspected. Waiting on your yes.
 
-1. **Look at the website** — click through what’s live on localhost  
-2. **Look at the data** — Supabase tables / seed Zurich & Delhi  
-3. **Stuff you don’t understand** — ask; engineer/CEO explain in plain language  
-4. **Check the user flow** — signup/login → cities → playbook → create place/playbook → roles (user vs admin)
+Maya’s rec (no new tables, no fake venues):
+
+1. Dark first screen: **city + airport** (type-led, don’t claim the landing street is Zurich)
+2. Overlay header. Dashboard, not Open app
+3. Full layover first, hours loud
+4. Eat / Do / Buy as big stamps. Cards: name, zone, **blurb**. Limmat may keep its photo; others type-forward
+5. Empty groups: hide when count is 0 (Sofia) vs keep Buy at 0 (Theo/Milo) — you still pick
+6. Fix `#buy` and the tab title
+
+Sofia wanted the city page to *be* the landing with a name on it (kill chips, 4:5 posts). Theo: inherit chrome, not inventory. Photo grid still parked.
 
 ## Do not start unless you ask
 
-- Phase 3 Social  
-- AI / Stripe  
-- Big redesign  
+- AI draft-from-story (that’s **after** city UI)
+- Photo pipeline / rotating banner
+- Phase 3 social, Stripe
 
 ## Status at pause
 
-- Phase 1 auth + Phase 2 content + Important harden pack: **in code**  
-- Migrations 001–004: **you said run**  
-- Git snapshot: `main` clean; last commits include always-commit rule  
-- Dev: `cd apps/web && npm run dev` → http://localhost:3000  
+- Homepage mood **locked** (full-bleed night + search on the photo + Eat/Do/Buy posts). John signed off.
+- Git: `main`; last landing commit `ed30fe0` (stamps at top of cards). City page not coded yet.
+- Dev: `cd apps/web && npm run dev` → http://localhost:3000
+- Seed **005** (Santiago/Munich) you said ran
 
-## Suggested click path (user flow)
+## Suggested click path
 
-1. Home → Cities → Zurich → open playbook  
-2. Delhi → Only Bar / short-turn playbook  
-3. Log in as admin → Dashboard → Add place / New playbook  
-4. Incognito: confirm drafts (if any) stay private; published stay public  
+1. `/` — should still feel like a place you want to be
+2. Search **ZRH** — that’s the ugly drop into the CMS city page
+3. Same for SCL / MUC / DEL

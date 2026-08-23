@@ -2,37 +2,20 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-08-22  
+**Last updated:** 2026-08-22 (paused for the night)  
 **Company:** Layover (working name)  
-**Stage:** Phase 2.1 · homepage mood **locked** · **next = city page** · then AI draft-from-story
+**Stage:** Homepage mood **locked** · **next = city page (waiting your yes)** · then AI draft-from-story
 
-**Not this cut:** Design system / brand pass. Ontario on `/`. Phase 3 social. Stripe. New tables. City photo grid. Fake venue photos.
+**Not this cut:** Photo grid, fake venue pics, AI forms, Stripe, social.
 
 ## Status
 
-“Steal the whole layover” is out. This is intel for crew, by crew — eat, do, buy — with the full sequenced layover as a subsection, not the headline. City pages stay text. Photos later, only with real images.
+Landing is the night + search + Eat/Do/Buy posts. You signed off. City page is still a zinc directory — that’s the drop after you type ZRH.
 
-## Recommendation
+## What I need from you (when you’re back)
 
-Ship `/` now. Three cards **Eat / Do / Buy**. Subsection **The perfect layover** in the Instagram series voice. City chip **Full layover** stays. Public word is **Buy** (not Shop).
+Yes / no / amend on the city mood pass (see `docs/board/NEXT-SESSION.md`). Empty Buy: hide vs keep the verb at 0.
 
-## Why (money / trust / speed)
+## Still true
 
-- **Trust:** Crew-by-crew intel is the product. Steal-the-layover sounded like a grab. “The perfect layover” is your organic series — never an ad name (ads stay “New idea…”).
-- **Money:** Sponsors still buy labeled placement against city density. Eat / Do / Buy is what venues actually pay to sit next to.
-- **Speed:** Homepage copy plus one chip rename. No image pipeline. No new tables.
-
-## What I need from you
-
-Supabase SQL Editor → run **`005_seed_santiago_munich.sql`**. Then hard-refresh `/`. Eat/Buy cards 404 until that runs. Limmat (Zurich) already works.
-
-AI-without-forms is **not** this cut — next strategy call.
-
-## What engineering did
-
-- `/`: Eat / Do / Buy photo cards (Santiago steak, Limmat float, Munich mustard) + **Where are you headed?** city search. No city chips. No perfect-layover block on landing.
-- City page still text: **Full layover · Eat · Do · Buy**. Photo grid still parked.
-
----
-
-**Still true:** Zones only — never crew hotels. A locked (crew-layover wedge). Other travelers can still use the same plans.
+Crew-layover wedge. Zones, not hotels. Sofia on the screen, not the wiki.
