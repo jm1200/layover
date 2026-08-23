@@ -4,10 +4,17 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { City } from "@/features/places/types";
 
-export function CitySearch({ cities }: { cities: City[] }) {
+export function CitySearch({
+  cities,
+  variant = "light",
+}: {
+  cities: City[];
+  variant?: "light" | "hero";
+}) {
   const router = useRouter();
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
+  const hero = variant === "hero";
 
   const matches = useMemo(() => {
     const n = q.trim().toLowerCase();
@@ -57,13 +64,23 @@ export function CitySearch({ cities }: { cities: City[] }) {
         }}
         placeholder="Where are you headed?"
         autoComplete="off"
-        className="w-full rounded-xl border border-zinc-300 bg-white px-4 py-3 text-base outline-none focus:border-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900/20"
+        className={
+          hero
+            ? "w-full rounded-full border-0 bg-white px-6 py-4 text-base text-zinc-900 shadow-lg outline-none placeholder:text-zinc-400 focus-visible:ring-2 focus-visible:ring-white/80"
+            : "w-full rounded-xl border border-zinc-300 bg-white px-4 py-3 text-base outline-none focus:border-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900/20"
+        }
       />
-      <p className="mt-2 text-xs text-zinc-500">
+      <p
+        className={
+          hero
+            ? "mt-3 text-xs text-white/70"
+            : "mt-2 text-xs text-zinc-500"
+        }
+      >
         Try an airport code — ZRH, DEL, SCL, MUC.
       </p>
       {open ? (
-        <ul className="absolute z-10 mt-1 max-h-56 w-full overflow-y-auto rounded-xl border border-zinc-200 bg-white shadow-sm">
+        <ul className="absolute z-30 mt-1 max-h-56 w-full overflow-y-auto rounded-xl border border-zinc-200 bg-white text-left text-zinc-900 shadow-lg">
           {matches.length === 0 ? (
             <li className="px-4 py-3 text-sm text-zinc-500">
               We don’t have that city yet.

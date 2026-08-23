@@ -34,97 +34,80 @@ export default async function HomePage() {
   const appHome = profile ? homeForRole(profile.role) : null;
 
   return (
-    <div className="min-h-screen bg-zinc-50 text-zinc-900">
-      <header className="border-b border-zinc-200 bg-white">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
-          <span className="text-lg font-semibold tracking-tight">Layover</span>
-          <nav className="flex items-center gap-3 text-sm">
-            {appHome ? (
-              <Link
-                href={appHome}
-                className="text-zinc-700 hover:text-zinc-900"
-              >
-                Open app
-              </Link>
-            ) : (
-              <>
-                <Link href="/login" className="text-zinc-700 hover:text-zinc-900">
-                  Log in
-                </Link>
-                <Link href="/signup" className="text-zinc-700 hover:text-zinc-900">
-                  Sign up
-                </Link>
-              </>
-            )}
-          </nav>
-        </div>
-      </header>
+    <div className="min-h-screen bg-zinc-950 text-zinc-900">
+      <section className="relative min-h-[78vh] text-white">
+        <Image
+          src="/landing/hero.jpg"
+          alt="Evening cafe tables on a cobbled street at blue hour"
+          fill
+          priority
+          className="object-cover object-[50%_60%]"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/25" />
 
-      <main className="mx-auto max-w-3xl px-4 py-10">
-        <div
-          className="relative h-48 overflow-hidden rounded-2xl sm:h-56"
-          aria-hidden
-        >
-          {IDEAS.map((card, i) => (
-            <div
-              key={card.src}
-              className={[
-                "absolute inset-y-[-12%] w-[48%] overflow-hidden",
-                i === 0
-                  ? "left-[-6%] rotate-[-8deg]"
-                  : i === 1
-                    ? "left-[26%] rotate-[4deg]"
-                    : "right-[-6%] rotate-[-5deg]",
-              ].join(" ")}
-            >
-              <Image
-                src={card.src}
-                alt=""
-                fill
-                priority={i === 0}
-                className="object-cover"
-                sizes="50vw"
-              />
+        <header className="absolute inset-x-0 top-0 z-20">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5">
+            <span className="text-lg font-semibold tracking-tight">Layover</span>
+            <nav className="flex items-center gap-4 text-sm text-white/90">
+              {appHome ? (
+                <Link href={appHome} className="hover:text-white">
+                  Open app
+                </Link>
+              ) : (
+                <>
+                  <Link href="/login" className="hover:text-white">
+                    Log in
+                  </Link>
+                  <Link href="/signup" className="hover:text-white">
+                    Sign up
+                  </Link>
+                </>
+              )}
+            </nav>
+          </div>
+        </header>
+
+        <div className="relative z-10 flex min-h-[78vh] flex-col justify-end px-4 pb-14 pt-28">
+          <div className="mx-auto w-full max-w-xl text-center">
+            <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">
+              Layover Intel
+            </h1>
+            <p className="mt-2 text-lg text-white/85">For Crew, By Crew.</p>
+            <div className="mt-8">
+              <CitySearch cities={cities} variant="hero" />
             </div>
-          ))}
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/25 to-transparent" />
+          </div>
         </div>
+      </section>
 
-        <h1 className="mt-8 text-3xl font-semibold tracking-tight">
-          Layover Intel
-        </h1>
-        <p className="mt-1 text-zinc-600">For Crew, By Crew.</p>
-
-        <section className="mt-8 grid gap-3 sm:grid-cols-3">
+      <section className="bg-zinc-50 px-4 py-12 sm:py-16">
+        <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-3">
           {IDEAS.map((card) => (
             <Link
               key={card.kind}
               href={card.href}
-              className="overflow-hidden rounded-xl border border-zinc-200 bg-white hover:border-zinc-400"
+              className="group block"
             >
-              <div className="relative aspect-[4/3]">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
                 <Image
                   src={card.src}
                   alt={card.alt}
                   fill
-                  className="object-cover"
+                  className="object-cover transition duration-300 group-hover:scale-[1.03]"
                   sizes="(min-width: 640px) 33vw, 100vw"
                 />
-              </div>
-              <div className="px-3 py-3">
-                <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+                <span className="absolute left-3 top-3 rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-medium uppercase tracking-widest text-white">
                   {card.kind}
-                </p>
-                <p className="mt-0.5 text-sm font-medium">{card.idea}</p>
+                </span>
               </div>
+              <p className="mt-3 text-sm font-medium text-zinc-900">
+                {card.idea}
+              </p>
             </Link>
           ))}
-        </section>
-
-        <div className="mt-8">
-          <CitySearch cities={cities} />
         </div>
-      </main>
+      </section>
     </div>
   );
 }
