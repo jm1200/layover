@@ -13,9 +13,9 @@
 | **1 — Auth + roles** | **Complete + hardened** | Live signup/login + roles; fix pack + second review cleanups |
 | **1.1 — Pre–Phase 2 gate** | **Complete** | Docs/MAP honesty + `PRE-PHASE-2-GATE.md`; code re-reviewed |
 | **2 — Cities, zones, places, playbooks** | **Code + Important fixes** | Harden pack in app; run migrations 002–**004** |
-| **2.1 — Verify + harden** | **Homepage mood locked; city page next** | RLS smoke: `docs/board/RLS-SMOKE.md`. City page still text lists. Homepage: full-bleed hero + Eat/Do/Buy posts. After city UI: AI draft-from-story. |
-| 3 — Social | Not started | after 2.1 green; like, comment, follow |
-| 4 — AI story import | Not started | draft + quotas |
+| **2.1 — Verify + harden** | **Homepage + city UI in** | RLS smoke: `docs/board/RLS-SMOKE.md`. City pages: dark hero · Eat/Do/Buy · full layover. Homepage: full-bleed hero + Eat/Do/Buy posts. |
+| 3 — Social | Not started | **waits** — supply first (Phase 4 before likes) |
+| 4 — AI story import | **Not started** | Lumen v1: draft-from-story; layover unpacks to places; 1 still/place. **Waiting John yes + xAI key.** |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
 | 6 — Metrics + admin moderation | Not started | money/trust dashboard |
 | 7 — Crew-only precision | Not started | optional; after verification story |

@@ -42,7 +42,7 @@ Not a schema change. Not Phase 3. Not four new routes. Not a photo grid.
 - [x] Optional child item: Eat = “signature dish”; Buy = “what to get”; Do = hide the dish fields.
 - [x] Empty group: one line “None yet.” Do not build `/cities/[slug]/eat` style landings this cut.
 - **Cities/zones:** users cannot insert (004). **No admin city form this cut** — SQL until we need city #3.
-- **Photos:** parked. City page stays text lists until real images exist.
+- **Photos (locked 2026-08-24):** **1 still per place.** User upload first; if none, one cheap AI still on publish, stamped **AI**. City: **one hero**, refresh rarely (Lumen asks John before spending). Upload = Supabase Storage when Phase 4 ships. Seed cities still use static JPEGs in `public/landing/` until then.
 
 ## Out of scope (this IA cut)
 

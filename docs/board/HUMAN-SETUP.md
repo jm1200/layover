@@ -124,7 +124,7 @@ Upgrade Vercel/Supabase to **Pro** only when free limits or commercial use requi
 | Account | When |
 |---------|------|
 | Stripe | Phase 5 (sponsors pay) |
-| xAI API key | Phase 4 (AI story import) |
+| xAI API key | **Phase 4 — next if you say yes.** [console.x.ai](https://console.x.ai/) → API key → `XAI_API_KEY` in `apps/web/.env.local` (never commit). |
 | Google OAuth (optional) | If you want “Log in with Google” — create OAuth client, paste into Supabase Auth providers |
 
 ---

@@ -12,7 +12,8 @@ Do not swap this stack without updating this file, `docs/MAP.md`, `AGENTS.md`, a
 | Database | **Supabase Postgres** | Real PostgreSQL |
 | Auth | **Supabase Auth** | Same project as DB; roles in app `profiles` / `users` keyed to `auth.uid` |
 | Payments | **Stripe** | Phase 5 only — self-serve sponsorship |
-| AI | **xAI** (`XAI_API_KEY`, `https://api.x.ai/v1`) | Phase 4 only — story → draft, server-side, quotas |
+| AI | **xAI** (`XAI_API_KEY`, `https://api.x.ai/v1`) | Phase 4 — story → draft, server-side. Product extract: `grok-4.3`. Stills: `grok-imagine-image`. Quotas in `docs/OPS.md`. |
+| Files | **Supabase Storage** | Phase 4 with Lumen — user photos (compress on upload). Not a new vendor. |
 | Repo layout | Monorepo intent | `apps/web` + `docs/` + `features/` |
 
 ## Why this stack

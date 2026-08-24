@@ -34,20 +34,54 @@ Grok (or another agent) helps in **sessions** using metrics and docs — not uns
 ### Provider
 
 - **xAI / SpaceXAI** via `XAI_API_KEY`, base URL `https://api.x.ai/v1`
-- Default model intent: `grok-4.5` (confirm live docs at implement time)
+- Product extract: **`grok-4.3`** (JSON form fill). Do not use grok-4.6 / grok-4.5 on every crew post.
+- Stills: **`grok-imagine-image`** (~$0.02). Not Imagine 2.0 / quality on the hot path.
+- Stay on xAI. Cheaper text vendors save pennies; pictures were the dollar.
 - Structured JSON output for extraction
+
+### Cheap v1 (locked 2026-08-24)
+
+Target **~2–5¢ per published post**. Worst we allow **~5¢** (one-shot + one cheap still).
+
+| Rule | Intent |
+|------|--------|
+| One-shot extract | No 3-turn chat; one question only if required fields missing |
+| No reasoning / no web search on the hot path | Extra tokens for no gain |
+| Photo-first | User upload = $0 image |
+| **1 still per new place** | Not per stop, not a gallery |
+| Layover = combo of places | Plan has **no** extra still; reuse place stills |
+| Generate still **on publish** | Abandoned drafts cost text only |
+| No regen in v1 | Hate it → upload |
+| City hero: one per city | Refresh rarely. Lumen **asks John before spending** |
+| Input cap | ~4k characters |
+| Daily quota | 3 drafts / user / day (tune later) |
+| Monthly $ hard stop | Default **$20** until John sets another |
+
+A full layover that unpacks into 4 **new** places with no user photos is 4 × $0.02 stills + a few cents of text ≈ **~10¢** — the only time we blow 5¢, and only if nobody uploaded. Prefer their pictures.
+
+### User photos / storage (not the expensive part)
+
+Upload is **not hard** and **not expensive to store**. Use **Supabase Storage** (already on the stack). No new vendor.
+
+| Meter | Reality |
+|-------|---------|
+| File storage | ~$0.021 / GB / month. Free includes **1 GB**; Pro **100 GB**. A compressed rec JPEG (~0.3–0.8 MB) → thousands of photos in 1 GB. |
+| Bandwidth | The real meter if we serve fat originals. Free ~5+5 GB; Pro 250+250 GB. Cached CDN egress is cheaper ($0.03/GB overage vs $0.09 uncached). |
+| Transform API | Skip in v1 (Pro: 100 included, then ~$5 / 1k). Compress on upload instead. |
+
+v1 upload rails (ship with Phase 4, not a separate phase): JPEG/WebP, client compress, max ~2 MB, no video, bucket RLS (author write, public read published). Hard part is the phone UX, not the invoice.
 
 ### Cost controls (must ship with AI feature — Phase 4)
 
 | Control | Intent |
 |---------|--------|
 | Auth required | No anonymous extract |
-| Daily quota per user | e.g. N imports/day (tune later) |
-| Max input length | Cap characters / tokens |
+| Daily quota per user | 3 drafts/day (tune later) |
+| Max input length | ~4k characters |
 | One-shot extract | Prefer single request per import, not long chat |
-| `AiImportLog` | tokens, user, timestamp, success/fail |
+| `AiImportLog` | tokens, images, user, timestamp, success/fail, estimated $ |
 | Admin kill switch | Disable AI globally |
-| Monthly budget alert | Metric + optional hard stop |
+| Monthly budget hard stop | Default $20; Lumen/city-hero spend needs John |
 
 ## Metrics the site must expose (Phase 6)
 
@@ -141,3 +175,5 @@ CEO/engineer do not own these accounts; document required steps in STACK.
 | 2026-08-03 | Metrics-first ops; agent optimizes in sessions, not fully autonomous. |
 | 2026-08-03 | AI = gated extraction; xAI server-side. |
 | 2026-08-04 | Host Vercel + Supabase free→Pro path; see STACK.md. |
+| 2026-08-24 | Lumen v1 = Grok one-shot extract into existing forms; 1–2 follow-ups max; no auto-publish; no unbounded chat. Phase 4 waits on shareholder yes + `XAI_API_KEY`. |
+| 2026-08-24 | Cheap rails: `grok-4.3` + $0.02 Imagine; 1 still per place; photo-first; generate on publish; layover unpacks to places (no plan still); city hero refresh needs John’s yes; $20/mo default cap. |

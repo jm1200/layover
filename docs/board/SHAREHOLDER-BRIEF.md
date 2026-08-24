@@ -2,20 +2,26 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-08-22 (paused for the night)  
+**Last updated:** 2026-08-24 (cheap Lumen rails locked; Phase 4 not started)  
 **Company:** Layover (working name)  
-**Stage:** Homepage mood **locked** · **next = city page (waiting your yes)** · then AI draft-from-story
+**Stage:** City pages **exist**. **Next = Lumen / Phase 4 — waiting your yes.** Not built.
 
-**Not this cut:** Photo grid, fake venue pics, AI forms, Stripe, social.
+**Not this cut:** Auto-post chatbot, unbounded chat, Stripe, social likes.
 
 ## Status
 
-Landing is the night + search + Eat/Do/Buy posts. You signed off. City page is still a zinc directory — that’s the drop after you type ZRH.
+Stay on Grok. Cheap SKUs: `grok-4.3` to fill the form, $0.02 stills. **1 still per place**, their photo first. A full layover **unpacks into the places** + the plan (no extra itinerary pics). City: **one hero**; Lumen asks you before spending to refresh. Target **~2–5¢/post**. Upload storage is cheap (Supabase). Default AI cap **$20/mo**.
 
-## What I need from you (when you’re back)
+## What I need from you
 
-Yes / no / amend on the city mood pass (see `docs/board/NEXT-SESSION.md`). Empty Buy: hide vs keep the verb at 0.
+**Yes / no** to open Phase 4. If yes:
+
+1. Create an [xAI](https://console.x.ai/) account, get an API key.
+2. Put `XAI_API_KEY=...` in `apps/web/.env.local` (never commit it).
+3. $20/mo cap unless you pick another number.
+
+Engineering wires the server extract, quotas, hotel strip, kill switch. No `apps/` until you say go.
 
 ## Still true
 
-Crew-layover wedge. Zones, not hotels. Sofia on the screen, not the wiki.
+Crew-layover wedge. Zones, not hotels. Trust > revenue. Draft-then-confirm.

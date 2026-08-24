@@ -27,6 +27,10 @@ Ordered layover stories (the product quality bar).
 - Social / AI / Sponsored rails  
 - Full stop re-edit after create (meta edit only for now)
 
+## Phase 4 (not this cut — see `features/ai-import.md`)
+
+A **full layover** is a combo of places. When Lumen drafts a plan from a story, she also drafts each stop as an Eat/Do/Buy place (or links an existing same-city place) and the user confirms the bundle. Plan pages reuse place stills — no extra itinerary gallery. Max 4 stops (same as the form).
+
 ## UI copy (shipped 2026-08-21; homepage series + Buy 2026-08-22)
 
 - [x] Customer name for the object: **layover plan**. Do not say “playbook” on city, dashboard, or forms. Do not say “full package adventure.” Do not say **guide** as a product noun.

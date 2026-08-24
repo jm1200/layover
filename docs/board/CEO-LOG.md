@@ -4,6 +4,66 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-24 — Cheap media: 1 still/place; layover unpacks to places; city hero needs John
+
+**Source:** Shareholder — dollar/post is too high; then: one city hero, 1 still per place, hope for user pics, layover = combo of places, Lumen should file those places too.
+
+### Decision (locked — still not building Phase 4)
+
+| Item | Decision |
+|------|----------|
+| Text | Stay xAI. Product extract = **`grok-4.3`**, not 4.6. |
+| Still | **`grok-imagine-image`** (~$0.02). Photo-first. **One still per new place.** Generate on publish. No regen. |
+| Plan | **No extra still.** Stops reuse place stills. |
+| Unpack | Full layover draft = **places for each stop** (or link existing) + the plan. Max 4. User confirms the bundle. |
+| City hero | **One per city.** Rare refresh. Lumen **asks John before spending.** |
+| Upload | Supabase Storage. Cheap to keep (~2¢/GB-mo). Compress so bandwidth doesn’t bite. Ship with Phase 4. |
+| Cap | Default **$20/mo** hard stop. Target **~2–5¢/post**. |
+| Leave xAI? | **No.** Pictures were the dollar. Other text models save pennies. |
+
+Phase 4 still waits on yes + `XAI_API_KEY`.
+
+---
+
+## 2026-08-24 — Lumen v1: Grok drafts the form; no auto-post; Phase 4 waiting yes
+
+**Source:** Shareholder — how do we bring AI to life? Grok? Can Lumen fill the form and draft a post?
+
+**Facts:** Phase 4 is spec only (`features/ai-import.md`). Stack already locked: xAI, `XAI_API_KEY`, `https://api.x.ai/v1`, grok-4.5, server-side. City pages exist (Eat/Do/Buy + plans). Lumen hired as the site; not wired. OPS forbids unbounded travel-agent chat billed to the owner and auto-publish. Board #3 once said Phase 3 Social next; later locks (08-22/23) put AI draft-from-story after city UI. City UI is in. Social still not started.
+
+### Decision (locked as CEO stance — Phase 4 does **not** start until shareholder yes + key)
+
+| Item | Decision |
+|------|----------|
+| Provider | **Grok / xAI. Still yes.** Already locked. Structured JSON extract. Do not swap to a browser ChatGPT toy. |
+| Lumen v1 | She **fills the existing form** from a story. Auth required. One-shot extract preferred. 1–2 follow-ups if the post is thin (dish, zone, hours). Photo: ask first; else generate and stamp **AI**. User edits and publishes. Same RLS. Hotels → zones. PG-13. |
+| Not v1 | Chatbot that auto-posts. Unbounded “plan my layover” chat on John’s bill. Client keys. City concierge. Voice. Auto-publish. |
+| Phase 3 Social | **Wait.** Likes on empty cities is theater. Supply engine first. |
+| City polish | **Not a blocker.** Do not restyle city pages to delay AI. |
+| Phase 4 start | **Blocked** on John yes + `XAI_API_KEY` in `.env.local`. Do not pretend we started. |
+
+### Why Grok, not “whatever chat”
+
+We already bought the stack. OpenAI-compatible, server-only, JSON schema. Lumen’s job is extraction + a short missing-field ask, not a personality companion. Switching providers now is founder fidgeting.
+
+### Why this is not a third product
+
+Lumen is the **site**, talking. The object is still Eat/Do/Buy recs and layover plans. She drafts those rows. She does not become a travel agent, a moderator dashboard, or a second app.
+
+### Why Social waits
+
+John’s bet is **AI-maintained, almost no forms**. Empty forms are why cities stay thin. Social amplifies trust **after** there is intel to trust. Board #3’s Phase 3-next is superseded by that bet + city UI being in.
+
+### Engineering implication (only if shareholder says yes)
+
+Milo/Theo implement `features/ai-import.md` as Lumen on the add flow: server extract, quotas, `AiImportLog`, kill switch, hotel strip, draft-then-confirm. No unbounded chat UI. No auto-publish. No `apps/` from CEO.
+
+**Shareholder ask:** Yes/no to open Phase 4. If yes: xAI key in `.env.local`. Optional monthly $ cap.
+
+**Status:** v1 meaning **locked**. Build **not** started.
+
+---
+
 ## 2026-08-22 — Homepage re-lock: intel + Eat/Do/Buy; Perfect layover is a subsection
 
 **Source:** Shareholder — rejects “Steal the whole layover.” Product is intel for crew, by crew: what to do, where to eat, what to buy, or the full suggested layover. Landing = three main cards, then a subsection for the full experience. Running Instagram theme: “The perfect layover does not exist… {City} edition.” Minimal reading on `/`. Clicking a city should *eventually* be pics of eat / do / buy.

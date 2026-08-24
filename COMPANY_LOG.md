@@ -25,7 +25,7 @@ Durable history only. Not a chat transcript.
 - Audience **A:** crew-layover primary. Word-of-mouth-only recs is the problem. Sponsor money later = labeled placement against crew density in cities.
 - Homepage pitch **rejected:** “Steal the whole layover.”
 - Homepage pitch: **Layover Intel — For Crew, By Crew.** Full-bleed blue-hour hero with search on the photo (Airbnb). Then three 4:5 Eat/Do/Buy posts (Instagram). Collage **rejected** — John hated it. Hero is editorial mood, not a city we claim.
-- **Banner job (locked 2026-08-22, John):** the first screen is a place you want to be. Later: rotate the hero when an AI moderator (or similar) picks a *quality* new pic. Same for the three rec cards. Source of those pics (crew upload vs generated vs licensed) **unresolved** — not a silent Google scrape.
+- **Banner job (locked 2026-08-22, John):** the first screen is a place you want to be. City: **one hero**, refresh rarely — Lumen asks John before spending (2026-08-24). Rec cards: **1 still per place** (user photo first). Not a silent Google scrape. Homepage rotation from live quality pics is later, not a per-post spend.
 - Eat / Do / Buy stamps on the cards are the site’s job labels. Keep them large and obvious.
 - Header stays thin overlay (no fat toolbar). Logged-in CTA is **Dashboard**, not “Open app” (that dumped John into `/admin`).
 - Site has two jobs: **look up** (search) and **share**. Without intel there is no site. **Share your intel** lives in the overlay header (Airbnb “host”), not beside the city search — search stays the lookup action. Logged-out → signup; logged-in → dashboard (forms until AI draft ships).
@@ -36,6 +36,8 @@ Durable history only. Not a chat transcript.
 - 2026-08-23: City pages have photo heroes for all four cities. Delhi empty-demo flag **removed**. Every seeded rec has a still.
 - Seed cities (after 005): Zurich, Delhi, Santiago, Munich. Homepage cards: SCL steak, ZRH Limmat, MUC mustard. Photos are still generated stand-ins until crew uploads exist.
 - **AI-maintained, almost no forms** is John’s contribution model (dictate → draft place/plan, follow-up questions, optional generated image + map). Not built. Phase 4 territory. Forms stay until that ships.
+- **2026-08-24 — Lumen v1 locked (not built):** Grok/xAI still the provider. Lumen fills the **existing** Eat/Do/Buy or layover-plan form from a story (one-shot extract, 1–2 questions if thin, photo ask or **AI**-stamped still). User publishes. **Not** an auto-post chatbot, not unbounded travel-agent chat, not client keys. Phase 4 waits on John’s yes + `XAI_API_KEY`. Phase 3 social waits (supply first). City polish is not a blocker.
+- **2026-08-24 — Cheap media + unpack (not built):** Product extract = `grok-4.3`; stills = `grok-imagine-image` ($0.02). **1 still per place**, photo-first, generate on publish, no regen. A **full layover unpacks into places** (max 4) + a linked plan; the plan has no extra still. **City: one hero**; Lumen asks John before spending to refresh. User photos via **Supabase Storage** (cheap to keep; compress so bandwidth doesn’t bite). Default AI cap **$20/mo**. Stay on xAI — don’t swap vendors for pennies.
 - Live rotating homepage from “where crew have been going” needs either a human moderator or the AI pipeline. Not hired. Not built.
 - “The perfect layover does not exist… {City} edition” is John’s Instagram series voice — for full plans, not ads. Ads later: “New idea…”
 - Rx / pharma shopping policy **parked**.
@@ -54,7 +56,7 @@ Durable history only. Not a chat transcript.
 
 - `apps/web`: Next 15 App Router, React 19, Tailwind 4, Supabase SSR. No unit/e2e test script yet (eslint + tsc).
 - Routes thin; features in `src/features/{auth,places,playbooks}`.
-- No media table / upload pipeline. Landing JPEGs are static files in `public/landing/`.
+- No media table / upload pipeline **yet**. Landing JPEGs are static files in `public/landing/`. Phase 4: Supabase Storage for user photos (1 still per place).
 - RLS: published public; authors edit own; admin hide; cities/zones insert admin-only.
 
 ## Unresolved founder decisions
