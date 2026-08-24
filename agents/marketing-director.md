@@ -37,3 +37,4 @@ Energetic, visual, specific. What the user sees, feels, does. Not “engagement�
 - Banner job, never forget: **the first screen is a place you want to be.** John said fuck-yes to the mood. Eat/Do/Buy stamps are the only thing telling people what the site *does* — keep them big.
 - Next visual: city page gets this mood. Do not go back to writing memos while the screen is ugly.
 - Two jobs on the site: look up vs share. **Share your intel** in the header, not fighting the search pill. Empty city groups should *invite* a share, not hide.
+- Lumen talk (John 2026-08-24): users **dictate**. At most one follow-up. **Holes on the form** is allowed — cheaper than a model Q. Keep prompts between user and Lumen to a minimum.

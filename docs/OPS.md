@@ -15,7 +15,25 @@ Grok (or another agent) helps in **sessions** using metrics and docs — not uns
 1. Do not destroy trust  
 2. Increase sponsor revenue (paying campaigns, CTR that justifies renewal)  
 3. Grow useful organic content per city  
-4. Keep AI token spend under a set budget  
+4. **Contain cost.** No production spend without John’s authorization. Tight caps until we have real invoices.
+
+## Shareholder spend lock (do not forget)
+
+**John’s money. John’s yes.** Agents and engineers do not turn on, raise, or “just try” paid usage.
+
+| Locked | Meaning |
+|--------|---------|
+| Production AI | **Off** until John puts `XAI_API_KEY` in env **and** names the monthly $ cap. That is the authorization. |
+| Monthly $ cap | Default **$20**. Raising it = John. Hard stop. |
+| User interaction caps | Stay **tight** until measured: **3 drafts / user / day**, **~4k chars**, **one extract** per story. Raising quotas = John. |
+| Dictate | Phone **keyboard / OS mic** (text in the box). Token cost = the text, same as typing. Paid STT / in-app waveform = **John**. |
+| Follow-up | **Holes on the draft form** (Sofia lock). No second model call for dish/zone/hours. **One** spoken/typed Q only if she cannot draft (no city / no place). Not a chat. |
+| SKU / quality upgrades | Imagine quality, extra stills, regen, web search, grok-4.6 on the hot path = **John**. |
+| City hero refresh | Lumen asks John **before** spending. |
+| Kill switch | Ships with Phase 4. Admin (John) can kill AI globally. Default: stay off until the yes above. |
+| Other paid cloud | Supabase Pro, Vercel Pro, new vendors, paid SKUs = John. Do not upgrade “to be safe.” |
+
+Until invoices exist, assume we do not know the real cost. Do not loosen caps from a session vibe.
 
 ## AI usage policy
 
@@ -26,7 +44,9 @@ Grok (or another agent) helps in **sessions** using metrics and docs — not uns
 
 ### Not allowed (v1)
 
-- Unbounded multi-turn “travel agent chat” billed to the owner without strict caps
+- Any production AI call before John’s key + cap
+- Unbounded multi-turn “travel agent chat” billed to the owner
+- Raising quotas / SKUs / stills / search / monthly $ without John
 - Client-side API keys
 - Auto-publish without user review
 - Auto-mutate live site layout/pricing without owner session
@@ -45,8 +65,8 @@ Target **~2–5¢ per published post**. Worst we allow **~5¢** (one-shot + one 
 
 | Rule | Intent |
 |------|--------|
-| One-shot extract | No 3-turn chat; one question only if required fields missing |
-| No reasoning / no web search on the hot path | Extra tokens for no gain |
+| One-shot extract | Dictate once (OS mic or type). No 3-turn chat. Missing bits = **empty fields**. One Q only if undraftable (no city / no place). |
+| No reasoning / no web search on the hot path | Extra tokens for no gain. Web search = John. |
 | Photo-first | User upload = $0 image |
 | **1 still per new place** | Not per stop, not a gallery |
 | Layover = combo of places | Plan has **no** extra still; reuse place stills |
@@ -54,8 +74,8 @@ Target **~2–5¢ per published post**. Worst we allow **~5¢** (one-shot + one 
 | No regen in v1 | Hate it → upload |
 | City hero: one per city | Refresh rarely. Lumen **asks John before spending** |
 | Input cap | ~4k characters |
-| Daily quota | 3 drafts / user / day (tune later) |
-| Monthly $ hard stop | Default **$20** until John sets another |
+| Daily quota | **3 drafts / user / day** until John raises it after we see invoices |
+| Monthly $ hard stop | Default **$20**. Raising it = John. |
 
 A full layover that unpacks into 4 **new** places with no user photos is 4 × $0.02 stills + a few cents of text ≈ **~10¢** — the only time we blow 5¢, and only if nobody uploaded. Prefer their pictures.
 
@@ -76,12 +96,12 @@ v1 upload rails (ship with Phase 4, not a separate phase): JPEG/WebP, client com
 | Control | Intent |
 |---------|--------|
 | Auth required | No anonymous extract |
-| Daily quota per user | 3 drafts/day (tune later) |
+| Daily quota per user | **3 drafts/day.** Engineers do not “tune later.” John raises after invoices. |
 | Max input length | ~4k characters |
-| One-shot extract | Prefer single request per import, not long chat |
+| One-shot extract | One request per story. Holes on the form. One Q only if undraftable. |
 | `AiImportLog` | tokens, images, user, timestamp, success/fail, estimated $ |
-| Admin kill switch | Disable AI globally |
-| Monthly budget hard stop | Default $20; Lumen/city-hero spend needs John |
+| Admin kill switch | Disable AI globally. Must ship. Default off until John’s yes. |
+| Monthly budget hard stop | Default $20. Raising $, Imagine quality, extra stills, web search, city-hero refresh = John. |
 
 ## Metrics the site must expose (Phase 6)
 
@@ -175,5 +195,7 @@ CEO/engineer do not own these accounts; document required steps in STACK.
 | 2026-08-03 | Metrics-first ops; agent optimizes in sessions, not fully autonomous. |
 | 2026-08-03 | AI = gated extraction; xAI server-side. |
 | 2026-08-04 | Host Vercel + Supabase free→Pro path; see STACK.md. |
-| 2026-08-24 | Lumen v1 = Grok one-shot extract into existing forms; 1–2 follow-ups max; no auto-publish; no unbounded chat. Phase 4 waits on shareholder yes + `XAI_API_KEY`. |
+| 2026-08-24 | Lumen v1 = Grok one-shot extract into existing forms; no auto-publish; no unbounded chat. Phase 4 waits on shareholder yes + `XAI_API_KEY`. |
 | 2026-08-24 | Cheap rails: `grok-4.3` + $0.02 Imagine; 1 still per place; photo-first; generate on publish; layover unpacks to places (no plan still); city hero refresh needs John’s yes; $20/mo default cap. |
+| 2026-08-24 | **Spend lock:** no production AI/cloud spend without John’s yes (key + cap). Tight user caps until measured (3 drafts/day, one extract). Raising quotas / SKUs / stills / STT / search / monthly $ / city-hero = John. Kill switch. |
+| 2026-08-24 | **Share UX (Sofia):** dump once (OS dictate or type) → one extract → holes on the form. One Q only if no city/place. Paid STT not v1. |

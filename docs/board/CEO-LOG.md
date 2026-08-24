@@ -4,6 +4,31 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-24 — Spend lock: no AI/money without John; tight user caps until invoices
+
+**Source:** Shareholder — cost must be contained; no spending without his authorization; caps on user interactions until we know the real bill. Also: keep Lumen prompts to a minimum (users dictate; one follow-up if needed). Sofia owns that UX.
+
+**Facts:** Phase 4 is still not built. Cheap rails already locked (`grok-4.3`, $0.02 stills, 1 still/place, $20/mo, city hero needs John). This entry makes the *authorization* unforgettable — not a new product.
+
+### Decision (locked — still not building Phase 4)
+
+| Item | Decision |
+|------|----------|
+| Production AI | **Off** until John puts the key in **and** names the monthly cap. That pair is the yes. |
+| Raise anything | Quotas, $20 cap, Imagine quality, extra stills, regen, web search, city-hero refresh = **John**. Not Maya, not engineering “tuning.” |
+| User caps (until measured) | **3 drafts / user / day.** **One extract** per story. **At most one** follow-up. |
+| Lumen talk | Users **dictate**. One clarifying Q if a required field is missing. Sofia may instead leave **holes on the form** (cheaper — no extra model turn). Do not fight that. |
+| Kill switch | Ships with Phase 4. John/admin can kill AI globally. Default off until the yes above. |
+| Other paid cloud | Supabase Pro, Vercel Pro, new vendors = John. |
+
+Supersedes same-day Lumen v1 “1–2 follow-ups”: **one** is the max, and zero is better if Sofia can show the holes.
+
+**Shareholder ask:** None new. Phase 4 still waits on yes + key + cap.
+
+**Status:** Locked in OPS + brief. Build **not** started.
+
+---
+
 ## 2026-08-24 — Cheap media: 1 still/place; layover unpacks to places; city hero needs John
 
 **Source:** Shareholder — dollar/post is too high; then: one city hero, 1 still per place, hope for user pics, layover = combo of places, Lumen should file those places too.

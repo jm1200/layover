@@ -29,5 +29,5 @@ Own or review — never both on the same substantial change. Inspect the real di
 
 - `apps/web` has ESLint + TypeScript, **no** unit/e2e test script.
 - Homepage is a server component + one client `CitySearch` (hero variant). Keep that split unless client-only is required.
-- Next implementation after city UI: AI draft-from-story that fills fields and asks follow-ups — not a silent auto-publish.
+- Next implementation after city UI: AI draft-from-story that fills fields — users dictate, **at most one** follow-up (or form holes). Not a silent auto-publish. Tight quotas + kill switch; no production calls without John’s key + cap.
 - Public copy: Eat / Do / Buy. Internal category may still be `shop`.

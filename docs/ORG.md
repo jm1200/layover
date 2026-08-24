@@ -6,7 +6,7 @@
 
 | Seat | Who | Job | How you talk to them |
 |------|-----|-----|----------------------|
-| **Founder** | John | Vision, veto, capital | Natural language. You own the company. |
+| **Founder** | John | Vision, veto, capital. **All production spend** (AI key + cap, quota raises, paid cloud) | Natural language. You own the company. |
 | **CEO** | Maya Chen | Priorities, money, trust, what next | Default for strategy; say **Maya** / **CEO** |
 | **Senior engineer** | Theo Mercer | Architecture, hard builds, review of Milo | Implementation and risk |
 | **Product engineer** | Milo Patel | Product implementation, tests, review of Theo | Implementation and review |
@@ -42,3 +42,4 @@ Commit after every coherent change set. Secrets never committed.
 |------|----------|
 | 2026-08-04 | Org: founder → CEO agent → engineer. Git: commit after every change set. |
 | 2026-08-22 | Named team: Maya, Theo, Milo, Sofia. Company-management layer on top of existing product rules. |
+| 2026-08-24 | John authorizes all production spend (AI key + cap, quota/SKU raises, paid cloud). See OPS spend lock. |

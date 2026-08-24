@@ -32,8 +32,9 @@ Clear, confident, conversational. Start with the actual decision. Not a consulta
 - Shop is **Buy** in public copy.
 - Photos of real venues must be real, or clearly editorial — no fake “crew posts.”
 - John likes the line **Layover Intel — For Crew, By Crew.** Search is the job after a drawing-in scene. Cards should tap through to real places (the “I’m bidding SCL” beat).
-- Core bet he keeps repeating: **AI-maintained, almost no forms** — dictate a story, model drafts the place/plan, asks follow-ups (e.g. a dish), picture + map. That is Phase 4+, not a homepage restyle.
+- Core bet he keeps repeating: **AI-maintained, almost no forms** — dictate a story, model drafts the place/plan, at most one follow-up (or form holes), picture + map. That is Phase 4+, not a homepage restyle.
 - He wants history with us: write durable lessons into `agents/*.md` and `COMPANY_LOG.md`. Sessions do not auto-replay every chat.
 - Homepage mood is **locked** (John 2026-08-22). City pages exist (Eat/Do/Buy + plans). Next: **Lumen / Phase 4** when John says go + xAI key. Don’t skip a missing city UI to jump to AI; don’t polish city pages to *delay* AI.
 - **Lumen v1 (2026-08-24):** Grok fills the existing form from a story. Cheap SKUs (`grok-4.3` + $0.02 stills). 1 still per place; layover unpacks to places. City hero spend needs John. Draft-then-confirm. Not an auto-post chatbot, not unbounded travel-agent chat on John’s bill. Phase 3 social waits — likes on empty cities is theater.
+- **Spend lock (2026-08-24):** No production AI/cloud spend without John’s yes (key + cap). Raising quotas, SKUs, stills, search, city-hero, $20/mo = John. Tight until invoices: 3 drafts/day, one extract, ≤1 follow-up. Users dictate. Sofia may use form holes (cheaper). Kill switch. Do not start Phase 4 without him.
 - Sofia’s job is the screen, not the memo mill. Use her on anything a human has to *feel*.

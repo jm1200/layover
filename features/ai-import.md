@@ -10,8 +10,8 @@
 
 ## v1 (locked 2026-08-24; media + unpack 2026-08-24)
 
-- Auth required. One-shot extract preferred. Text model: **`grok-4.3`** (cheap JSON fill). Not grok-4.6 on every post.
-- If the story is thin: **one question** if city / name / a stop is missing. Then extract. Default: no chat.
+- Auth required. One-shot extract. Text model: **`grok-4.3`** (cheap JSON fill). Not grok-4.6 on every post.
+- Users **dictate**. If the story is thin: **at most one** follow-up if city / name / a stop is missing — or leave **holes on the form** (Sofia; cheaper, no extra model turn). Default: no chat.
 - **Share a rec (Eat / Do / Buy):** one place draft.
 - **Share a full layover:** Lumen drafts the **plan and each stop as a place** (Eat / Do / Buy), then links the stops. Match an existing place in that city by name if it already exists — do not duplicate. Cap: same as the form (**4 stops**). User confirms the bundle. This is how one story densifies the city, not a second form farm.
 - **Pictures (photo-first):**
@@ -22,7 +22,7 @@
 - **City heroes** are not part of user import. One hero per city; refresh rarely. Lumen may say a hero is stale; she **asks John before spending**.
 - Draft only. User hits publish. Same RLS as manual create.
 - Strip crew hotel names / airline lodging → zones. PG-13.
-- Quotas, `AiImportLog`, admin kill switch. Failures never leak the key.
+- Quotas, `AiImportLog`, admin kill switch. Failures never leak the key. **No production calls** until John’s key + cap. Daily cap **3 drafts/user**. Raising quotas / stills / search / $ cap / city-hero = John.
 
 ## Not v1
 
@@ -49,4 +49,4 @@
 
 ## Cost
 
-See `docs/OPS.md`. Cheap SKUs, one still per place, city-hero spend needs John. Target ~2–5¢/post.
+See `docs/OPS.md` spend lock. Cheap SKUs, one still per place, city-hero spend needs John. Target ~2–5¢/post. **Off until John authorizes.**
