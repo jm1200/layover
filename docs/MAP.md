@@ -12,8 +12,8 @@
 | **0.2 — Stack lock** | **Approved** | Next.js + Supabase + Vercel + Stripe later + xAI later — `docs/STACK.md` |
 | **1 — Auth + roles** | **Complete + hardened** | Live signup/login + roles; fix pack + second review cleanups |
 | **1.1 — Pre–Phase 2 gate** | **Complete** | Docs/MAP honesty + `PRE-PHASE-2-GATE.md`; code re-reviewed |
-| **2 — Cities, zones, places, playbooks** | **Code + Important fixes** | Harden pack in app; run migrations 002–**004** |
-| **2.1 — Verify + harden** | **Homepage + city UI in** | RLS smoke: `docs/board/RLS-SMOKE.md`. City pages: dark hero · Eat/Do/Buy · full layover. Homepage: full-bleed hero + Eat/Do/Buy posts. |
+| **2 — Cities, zones, places, playbooks** | **Complete** | Content model + public browse + forms. Migrations 002–004 (+ seeds 003, 005, 006; stop timing 007). Gate in `PRE-PHASE-2-GATE.md` is met. |
+| **2.1 — Verify + harden** | **Complete** | Homepage + city/place/plan UI in (heroes, Eat/Do/Buy, full layover). RLS smoke: `docs/board/RLS-SMOKE.md`. **Parked (not blockers):** admin city form (SQL), Vercel deploy, photo upload (Phase 4). |
 | 3 — Social | Not started | **waits** — supply first (Phase 4 before likes) |
 | 4 — AI story import | **Not started** | Lumen v1: draft-from-story; layover unpacks to places; 1 still/place. **Waiting John yes + xAI key.** |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
@@ -71,8 +71,8 @@ layover/
 | Feature | Spec | Code (when exists) | Depends on | Phase |
 |---------|------|--------------------|------------|-------|
 | Auth & roles | `features/auth.md` | `apps/web/src/features/auth/` | — | 1 **done** |
-| Places & zones | `features/places-and-zones.md` | `apps/web/src/features/places/` | Auth (for write) | 2 **code** |
-| Playbooks | `features/playbooks.md` | `apps/web/src/features/playbooks/` | Places, Auth | 2 **code** |
+| Places & zones | `features/places-and-zones.md` | `apps/web/src/features/places/` | Auth (for write) | 2 **done** |
+| Playbooks | `features/playbooks.md` | `apps/web/src/features/playbooks/` | Places, Auth | 2 **done** |
 | Social | `features/social.md` | `.../social/` | Auth, content | 3 |
 | AI import | `features/ai-import.md` | `.../ai-import/` | Playbooks, Auth, OPS quotas | 4 |
 | Sponsorship | `features/sponsorship.md` | `.../sponsorship/` | Auth sponsor, Stripe, cities | 5 |
@@ -137,12 +137,16 @@ Exact paths may adjust; update this table when implementing.
 - [x] Migration `005_seed_santiago_munich.sql` (homepage Eat/Buy cards — run in SQL Editor)
 - [x] Migration `006_zurich_density.sql` (extra Zurich recs — run in SQL Editor)
 - [x] Phase 2.1 Important fix pack (zone/city, stop city, admin city insert, partial writes)
+- [x] Migration `007_stop_timing.sql` (optional duration/cost on stops — run in SQL Editor)
+- [x] Homepage + city/place/plan UI (2.1)
 - [ ] Deployed site — optional Vercel later
+- [ ] Admin city form — parked (SQL)
+- [ ] Photo upload — Phase 4
 
 ## Session checklist for agents
 
 1. Read `AGENTS.md` + this file (+ `docs/STACK.md` before infra/auth work).
-2. Confirm current phase with owner if doing implementation. Phase 2 → also `docs/board/PRE-PHASE-2-GATE.md` + shareholder yes.
+2. Confirm current phase with owner if doing implementation. Phase 2 is **done**. Phase 4 needs John yes + key + $ cap.
 3. Touch only the feature folder + its spec + this map.
 4. End of session: MAP and feature spec reflect reality. Prefer “unknown / not built” over inventing.
 

@@ -1,7 +1,7 @@
 # Feature: Places & zones
 
 **Phase:** 2  
-**Status:** Implemented in app — requires Supabase migrations 002 (+ seed 003)  
+**Status:** Phase 2 **done** in app — requires Supabase migrations 002–004 (+ seeds 003, 005, 006)  
 **Code:** `apps/web/src/features/places/`  
 **Gate:** `docs/board/PRE-PHASE-2-GATE.md`
 

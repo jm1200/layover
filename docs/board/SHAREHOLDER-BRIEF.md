@@ -2,9 +2,9 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-08-24 (spend lock: no AI money without you)  
+**Last updated:** 2026-08-24 (Phase 2 + 2.1 complete; Lumen required fields locked)  
 **Company:** Layover (working name)  
-**Stage:** City pages **exist**. **Next = Lumen / Phase 4 — waiting your yes.** Not built.
+**Stage:** **Phase 2 done.** Homepage + cities + recs + plans are in. **Next = Lumen / Phase 4 — waiting your yes.** Not built.
 
 **Not this cut:** Auto-post chatbot, unbounded chat, Stripe, social likes.
 
@@ -12,11 +12,15 @@
 
 **No production AI spend without your explicit yes** — that’s the key in env **plus** the monthly $ cap. Nobody on this team raises quotas, turns on Imagine quality, adds stills, turns on web search, refreshes a city hero, or lifts the **$20/mo** default. Kill switch ships with Phase 4; AI stays off until you say go.
 
-Until we have real invoices, user rails stay tight: **3 drafts/person/day**, **one extract**, **~4k chars**. They dictate on the **phone keyboard mic** (free). Lumen fills the form; missing bits are **holes they tap** — not a chat. **One** question only if she cannot draft (no city / no place). Paid speech-to-text is off unless you say so.
+Until we have real invoices, user rails stay tight: **3 drafts/person/day**, **one extract**, **~4k chars**. They dictate on the **phone keyboard mic** (free). Lumen fills the form; missing bits are **holes they tap** — not a chat. **One** question only if a **required** field is missing (city, place name; layover also needs a title + one stop). Paid speech-to-text is off unless you say so.
 
 ## Status
 
-Stay on Grok. Cheap SKUs: `grok-4.3` to fill the form, $0.02 stills. **1 still per place**, their photo first. A full layover **unpacks into the places** + the plan (no extra itinerary pics). City: **one hero**; Lumen asks you before spending to refresh. Target **~2–5¢/post**. Upload storage is cheap (Supabase).
+**Phase 2 + 2.1 are finished** (content + the look). Parked on purpose: admin city form, public Vercel, photo upload (comes with Lumen). Phase 3 likes wait.
+
+Lumen **required to even draft:** city + place name (and type, which she guesses). Full layover: city + title + one named stop. Everything else is a hole they tap. Thin posts may publish.
+
+Stay on Grok. Cheap SKUs: `grok-4.3`, $0.02 stills. **1 still per place**. Target **~2–5¢/post**.
 
 ## What I need from you
 

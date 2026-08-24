@@ -18,7 +18,7 @@ Hotel room, one thumb, ~60 seconds. Lumen talks as little as possible.
 2. **One extract.** `grok-4.3` fills the existing Eat/Do/Buy form, or a full layover (places + plan, max 4 stops). Wrong type → they tap Type on the form. **No second model call** to chase a dish, zone, or hours.
 3. **Holes are the follow-up.** Draft screen, same fields we have today. Empty bits sit obvious. Lumen one-liner: *“I filled what I heard. Tap the blanks, add a pic, publish.”* They tap. They do not answer her.
 4. **Photo on that same screen.** Camera roll per new place. Skip → one **AI**-stamped still **on publish**.
-5. **One question only if she cannot draft at all** — no city (and they did not come from a city page) or no place/stop. Same screen, one line: *“Which city?”* or *“What’s the place called?”* They answer once in the box. Then extract. Never a third turn. Never “what dish?” as a chat.
+5. **One question only if a required field is missing** (table below). Same screen, one line. They answer once. Then extract. Never a third turn. Never “what dish?” as chat.
 
 **Quotas they see (do not hide as a crash):** 3 drafts/day → *“Three for today. Drop another tomorrow.”* Over ~4k chars → *“Keep it to one layover.”* Monthly cap / kill switch → *“Lumen’s taking a nap.”*
 
@@ -26,10 +26,40 @@ Hotel room, one thumb, ~60 seconds. Lumen talks as little as possible.
 
 John’s “one follow-up Q then extract” is the **emergency brake** (step 5), not the default. Default is cheaper and less chatty: dump → form holes.
 
+## Required fields (bare minimum — locked 2026-08-24)
+
+Matches what the live forms already refuse to save. Lumen does **not** invent extra gates.
+
+**Cannot draft at all** (one question, then stop): missing anything in this table.
+
+| Post | Must have | Her one question if missing |
+|------|-----------|-----------------------------|
+| Eat / Do / Buy | **City** we already have + **place name** + **type** (she classifies Eat/Do/Buy; they can retap) | *“Which city?”* or *“What’s the place called?”* (type: she guesses; hole on the form, not a question) |
+| Full layover | **City** + **title** + **≥1 stop with a place name** | *“Which city?”* or *“What’s the first stop called?”* |
+
+Type is required on the rec form today (`eat` / `do` / `shop`). She infers it. Wrong guess → they tap Type. Not a spoken Q.
+
+**Holes — not required, they tap or skip:**
+
+| Field | Rec | Plan |
+|-------|-----|------|
+| Why / blurb / narrative | hole | hole |
+| Zone | hole (encouraged) | — |
+| Dish / what to get | hole (Eat / Buy) | — |
+| Hours available | — | hole |
+| Extra stops (2–4) | — | hole |
+| Photo | hole; skip → 1 AI still **on publish** | none (reuse place stills) |
+
+**Publish succeeds** with the required row only. Thin is allowed. She does not block publish because the dish is empty. Draft vs published is their tap, default **draft**.
+
+**She still strips:** crew hotel names, airline lodging → zone if she can, else blank zone. PG-13. She does not require a zone.
+
+Auth required to run extract. Anonymous: no post.
+
 ## v1 (locked 2026-08-24; media + unpack 2026-08-24; share UX 2026-08-24)
 
 - Auth required. **One extract per story.** Text model: **`grok-4.3`**. Not grok-4.6 on every post.
-- Missing dish / zone / hours / title → **empty fields on the draft.** Not a second prompt.
+- Missing dish / zone / hours / blurb → **empty fields on the draft.** Not a second prompt. Missing **required** city / name / (layover) title+one stop → one question, then extract.
 - **Share a rec (Eat / Do / Buy):** one place draft.
 - **Share a full layover:** Lumen drafts the **plan and each stop as a place** (Eat / Do / Buy), then links the stops. Match an existing place in that city by name if it already exists — do not duplicate. Cap: same as the form (**4 stops**). User confirms the bundle.
 - **Pictures (photo-first):**
@@ -61,7 +91,7 @@ John’s “one follow-up Q then extract” is the **emergency brake** (step 5),
 - [ ] Full-layover extract also returns place drafts per stop (or links an existing same-city place)
 - [ ] Schema/prompt: **no crew hotel names** in public fields; map to zones
 - [ ] Returns draft only — user must confirm to publish
-- [ ] Thin story → prefilled form with holes, not a second extract (except undraftable city/place → one Q)
+- [ ] Thin story → prefilled form with holes, not a second extract (except missing **required** city / name / layover title+one stop → one Q)
 - [ ] Photo-first; at most one still per new place, generated on publish; no plan-level still
 - [ ] Dictate via OS keyboard mic (text in the box). No paid STT
 - [ ] `AiImportLog` for cost and abuse

@@ -4,8 +4,8 @@
 
 ## Where we left it
 
-- Homepage mood locked. City pages exist (Eat/Do/Buy + plans).
-- **Lumen + spend lock:** No AI money without your key **and** $ cap. 3 drafts/day. Dump once (phone mic) → form holes. One Q only if no city/place. Phase 4 **not started.**
+- **Phase 2 + 2.1 complete.** Homepage, cities, recs, plans. Next is Lumen, not more city polish.
+- **Lumen + spend lock:** No AI money without your key **and** $ cap. Required to draft: city + name (layover: + title + one stop). Dump once → form holes. Phase 4 **not started.**
 - Phase 3 social waits (supply first).
 
 ## First up when you return

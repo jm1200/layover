@@ -1,7 +1,7 @@
 # Feature: Playbooks
 
 **Phase:** 2  
-**Status:** Implemented in app — requires Supabase migrations 002 (+ seed 003)  
+**Status:** Phase 2 **done** in app — requires Supabase migrations 002–004 (+ seed 003; stop timing 007)  
 **Code:** `apps/web/src/features/playbooks/`  
 **Gate:** `docs/board/PRE-PHASE-2-GATE.md`
 
