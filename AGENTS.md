@@ -121,6 +121,7 @@ Current phase: `docs/MAP.md`. Do not jump phases without John. Phase 0 docs are 
 - Prefer zone-level info over hotel-level info.
 - Prefer labeled “Sponsored / New idea” over blending with staples.
 - Ask John only for product forks; make reversible calls yourselves.
+- **No production spend without John.** AI, paid SKUs, quota raises, cloud upgrades — see `docs/OPS.md` spend lock.
 
 ## Stack (locked — `docs/STACK.md`)
 

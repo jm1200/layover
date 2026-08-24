@@ -5,12 +5,12 @@
 ## Where we left it
 
 - Homepage mood locked. City pages exist (Eat/Do/Buy + plans).
-- **Lumen v1 framed + cheap rails locked:** Grok drafts the form. Full layover unpacks to places. 1 still/place, photo-first. City hero spend needs John. Phase 4 **not started.**
+- **Lumen + spend lock:** No AI money without your key **and** $ cap. 3 drafts/day. Dump once (phone mic) → form holes. One Q only if no city/place. Phase 4 **not started.**
 - Phase 3 social waits (supply first).
 
 ## First up when you return
 
-**Yes / no** to open Phase 4. If yes: xAI API key in `apps/web/.env.local`, then engineering wires Lumen (draft-then-confirm).
+**Yes / no** to open Phase 4. If yes: xAI API key in `apps/web/.env.local` **and** confirm the $20/mo cap (that pair is the spend yes). Then we build Lumen (dump → draft, not a chat).
 
 ## Dev
 

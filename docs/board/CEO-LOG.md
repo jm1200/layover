@@ -17,7 +17,7 @@ Append-only decisions and board outcomes. Newest first.
 | Production AI | **Off** until John puts the key in **and** names the monthly cap. That pair is the yes. |
 | Raise anything | Quotas, $20 cap, Imagine quality, extra stills, regen, web search, city-hero refresh = **John**. Not Maya, not engineering “tuning.” |
 | User caps (until measured) | **3 drafts / user / day.** **One extract** per story. **At most one** follow-up. |
-| Lumen talk | Users **dictate**. One clarifying Q if a required field is missing. Sofia may instead leave **holes on the form** (cheaper — no extra model turn). Do not fight that. |
+| Lumen talk | Users **dictate** (OS keyboard mic). Sofia **locked**: holes on the form (no second model call). **One** Q only if she cannot draft (no city / no place). |
 | Kill switch | Ships with Phase 4. John/admin can kill AI globally. Default off until the yes above. |
 | Other paid cloud | Supabase Pro, Vercel Pro, new vendors = John. |
 

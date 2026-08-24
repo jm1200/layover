@@ -89,7 +89,7 @@ Upload is **not hard** and **not expensive to store**. Use **Supabase Storage** 
 | Bandwidth | The real meter if we serve fat originals. Free ~5+5 GB; Pro 250+250 GB. Cached CDN egress is cheaper ($0.03/GB overage vs $0.09 uncached). |
 | Transform API | Skip in v1 (Pro: 100 included, then ~$5 / 1k). Compress on upload instead. |
 
-v1 upload rails (ship with Phase 4, not a separate phase): JPEG/WebP, client compress, max ~2 MB, no video, bucket RLS (author write, public read published). Hard part is the phone UX, not the invoice.
+v1 upload (when Phase 4 is authorized, same slice as Lumen — not a separate product): JPEG/WebP, shrink on the phone, max ~2 MB, no video, bucket RLS. That is **engineer calendar time** (photo picker + store in the Supabase we already have). It is **not** a new vendor bill and **not** extra AI spend. Do not call it “a few days of wiring” in shareholder notes — it is a small feature, built only after John’s yes.
 
 ### Cost controls (must ship with AI feature — Phase 4)
 
