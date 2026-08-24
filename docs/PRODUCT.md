@@ -89,7 +89,7 @@ Caps so the page does not become a billboard (product detail in sponsorship feat
 
 ## AI contribution
 
-Users **dictate** a **story** (text first; voice later). **Lumen** extracts into Eat/Do/Buy and, for a full layover, **each stop as a place** plus the linked plan → **user reviews draft → publish**. At most **one** follow-up if something required is missing (or holes on the form). Photo-first, **1 still per place**. No auto-publish. Not a travel-agent chatbot. Cheap xAI SKUs + tight quotas; **no production spend without John’s yes** (see OPS). Phase 4 — **not built**; waits on shareholder yes + API key + $ cap.
+Users **dump a story** (dictate on the phone keyboard, or type). **Lumen** extracts **once** into Eat/Do/Buy and, for a full layover, **each stop as a place** plus the linked plan → **holes on the draft they tap → publish**. One question only if she cannot draft (no city / no place). Photo-first, **1 still per place**. No auto-publish. Not a travel-agent chatbot. Cheap xAI SKUs + tight quotas; **no production spend without John’s yes** (see OPS). Phase 4 — **not built**; waits on shareholder yes + API key + $ cap.
 
 ## Monetization
 

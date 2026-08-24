@@ -46,7 +46,7 @@ Until invoices exist, assume we do not know the real cost. Do not loosen caps fr
 
 - Any production AI call before John’s key + cap
 - Unbounded multi-turn “travel agent chat” billed to the owner
-- Raising quotas / SKUs / stills / search / monthly $ without John
+- Raising quotas / SKUs / stills / paid STT / search / monthly $ without John
 - Client-side API keys
 - Auto-publish without user review
 - Auto-mutate live site layout/pricing without owner session
@@ -101,7 +101,7 @@ v1 upload rails (ship with Phase 4, not a separate phase): JPEG/WebP, client com
 | One-shot extract | One request per story. Holes on the form. One Q only if undraftable. |
 | `AiImportLog` | tokens, images, user, timestamp, success/fail, estimated $ |
 | Admin kill switch | Disable AI globally. Must ship. Default off until John’s yes. |
-| Monthly budget hard stop | Default $20. Raising $, Imagine quality, extra stills, web search, city-hero refresh = John. |
+| Monthly budget hard stop | Default $20. Raising $, Imagine quality, extra stills, paid STT, web search, city-hero refresh = John. |
 
 ## Metrics the site must expose (Phase 6)
 
