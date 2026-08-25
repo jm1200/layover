@@ -24,6 +24,7 @@ export function ReviewQueue({
   authorId: string;
 }) {
   const [left, setLeft] = useState(places);
+  const [filed, setFiled] = useState<Place[]>([]);
   const total = places.length;
   const done = total - left.length;
   const current = left[0];
@@ -31,18 +32,15 @@ export function ReviewQueue({
   if (!current) {
     return (
       <div className="mt-8">
-        {total > 0 ? (
-          <p className="text-zinc-700">
-            Places are filed
-            {total > 1 ? ` (${total})` : ""}.
-          </p>
-        ) : null}
-        {playbook ? <LayoverNext playbook={playbook} /> : null}
-        {!playbook && total === 0 ? (
+        {playbook ? (
+          <LayoverNext playbook={playbook} places={filed.length ? filed : places} />
+        ) : total > 0 ? (
+          <p className="text-zinc-700">Places are filed.</p>
+        ) : (
           <p className="mt-8 text-sm text-zinc-500">
             Nothing new to file — I linked an existing rec. Check Dashboard.
           </p>
-        ) : null}
+        )}
       </div>
     );
   }
@@ -61,30 +59,74 @@ export function ReviewQueue({
           index={done + 1}
           total={total}
           last={!left[1] && Boolean(playbook)}
-          onFiled={() => setLeft((q) => q.slice(1))}
+          onFiled={(next) => {
+            setFiled((q) => [...q, next]);
+            setLeft((q) => q.slice(1));
+          }}
         />
       </div>
     </section>
   );
 }
 
-function LayoverNext({ playbook }: { playbook: Playbook }) {
+function LayoverNext({
+  playbook,
+  places,
+}: {
+  playbook: Playbook;
+  places: Place[];
+}) {
+  const n = Math.min(Math.max(places.length, 1), 4);
+  const tiles = places.slice(0, 4);
+
   return (
-    <section className="mt-6">
+    <section>
       <h2 className="font-semibold">Now the layover</h2>
       <p className="mt-1 text-sm text-zinc-600">
-        The day that strings those recs. Check it and publish when you’re
-        happy.
+        The day that strings those recs. The strip is their stills.
       </p>
       <Link
         href={`/dashboard/playbooks/${playbook.id}/edit`}
-        className="mt-3 block rounded-2xl border border-zinc-200 bg-white px-4 py-4 hover:border-zinc-400"
+        className="mt-4 block overflow-hidden rounded-2xl bg-white ring-1 ring-zinc-200 hover:ring-zinc-400"
       >
-        <span className="font-medium">{playbook.title}</span>
-        <span className="ml-2 text-sm text-zinc-400">({playbook.status})</span>
-        {playbook.narrative ? (
-          <p className="mt-2 text-sm text-zinc-600">{playbook.narrative}</p>
-        ) : null}
+        <div
+          className="grid gap-0.5 bg-zinc-950"
+          style={{ gridTemplateColumns: `repeat(${n}, minmax(0, 1fr))` }}
+        >
+          {tiles.map((p) => (
+            <div key={p.id} className="relative aspect-square bg-zinc-800">
+              {p.image_url ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={p.image_url}
+                  alt={p.name}
+                  className="h-full w-full object-cover"
+                />
+              ) : null}
+              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-2 pb-2 pt-6 text-[11px] font-medium leading-tight text-white">
+                {p.name}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className="px-5 py-5">
+          {playbook.hours_available ? (
+            <p className="font-mono text-4xl font-semibold tracking-tight">
+              ~{playbook.hours_available}h
+            </p>
+          ) : null}
+          <p className="mt-2 text-lg font-semibold tracking-tight">
+            {playbook.title}
+          </p>
+          {playbook.narrative ? (
+            <p className="mt-2 text-sm leading-relaxed text-zinc-600">
+              {playbook.narrative}
+            </p>
+          ) : null}
+          <p className="mt-4 text-sm font-medium text-zinc-900">
+            Edit & publish the day →
+          </p>
+        </div>
       </Link>
     </section>
   );
@@ -103,7 +145,7 @@ function ReviewPlaceCard({
   index: number;
   total: number;
   last: boolean;
-  onFiled: () => void;
+  onFiled: (filed: Place) => void;
 }) {
   const [blurb, setBlurb] = useState(place.blurb ?? "");
   const [preview, setPreview] = useState(place.image_url ?? null);
@@ -170,7 +212,12 @@ function ReviewPlaceCard({
                 fd.set("blurb", blurb);
                 const r = await savePlaceBlurb(place.id, {}, fd);
                 if (r.error) setMsg(r.error);
-                else onFiled();
+                else
+                  onFiled({
+                    ...place,
+                    blurb,
+                    image_url: preview,
+                  });
               })
             }
             className="rounded-lg bg-zinc-900 px-3 py-2 text-sm text-white disabled:opacity-60"
