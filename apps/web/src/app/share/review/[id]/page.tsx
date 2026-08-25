@@ -3,7 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { AppShell } from "@/features/auth/shell";
 import { requireUser } from "@/features/auth/get-profile";
 import { createClient } from "@/lib/supabase/server";
-import { ReviewPlaceCard } from "@/features/ai-import/review-place";
+import { ReviewQueue } from "@/features/ai-import/review-place";
 import { getPlace } from "@/features/places/queries";
 import { getPlaybook } from "@/features/playbooks/queries";
 
@@ -51,9 +51,9 @@ export default async function ShareReviewPage({
     <AppShell profile={profile} title="File this layover">
       <p className="max-w-lg text-zinc-700">
         {n > 0 && playbook
-          ? `I’ll file ${n} place${n === 1 ? "" : "s"} first, then the layover that strings them. Each rec needs a photo — yours, or I generate one if it’s worth a still.`
+          ? `I’ll file ${n} place${n === 1 ? "" : "s"} first — one at a time — then the layover that strings them.`
           : n > 0
-            ? "This rec first. Photo from you, or I generate one if it sells."
+            ? "This rec first. Save when it’s good."
             : "I filled what I heard."}
       </p>
       {newCityLabel ? (
@@ -66,45 +66,11 @@ export default async function ShareReviewPage({
         Drafts stay private until you publish each rec.
       </p>
 
-      {places.length > 0 ? (
-        <section className="mt-8 space-y-4">
-          <h2 className="font-semibold">1. Places</h2>
-          {places.map((p, i) => (
-            <ReviewPlaceCard
-              key={p.id}
-              place={p}
-              authorId={profile.id}
-              index={i + 1}
-              total={places.length}
-            />
-          ))}
-        </section>
-      ) : null}
-
-      {playbook ? (
-        <section className="mt-10">
-          <h2 className="font-semibold">2. Then the layover</h2>
-          <p className="mt-1 text-sm text-zinc-600">
-            After the places have photos, save the day that strings them.
-          </p>
-          <Link
-            href={`/dashboard/playbooks/${playbook.id}/edit`}
-            className="mt-3 block rounded-2xl border border-zinc-200 bg-white px-4 py-4 hover:border-zinc-400"
-          >
-            <span className="font-medium">{playbook.title}</span>
-            <span className="ml-2 text-sm text-zinc-400">({playbook.status})</span>
-            {playbook.narrative ? (
-              <p className="mt-2 text-sm text-zinc-600">{playbook.narrative}</p>
-            ) : null}
-          </Link>
-        </section>
-      ) : null}
-
-      {!playbook && places.length === 0 ? (
-        <p className="mt-8 text-sm text-zinc-500">
-          Nothing new to file — I linked an existing rec. Check Dashboard.
-        </p>
-      ) : null}
+      <ReviewQueue
+        places={places}
+        playbook={playbook}
+        authorId={profile.id}
+      />
 
       <p className="mt-10 text-sm">
         <Link href="/share" className="underline">
