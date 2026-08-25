@@ -5,11 +5,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/features/auth/get-profile";
 import { EXTRACT_MODEL, getXaiKey, monthlyCapUsd } from "@/lib/ai/xai";
-import {
-  DAILY_EXTRACT_CAP,
-  MAX_STORY_CHARS,
-  type LumenExtract,
-} from "@/features/ai-import/schema";
+import { MAX_STORY_CHARS, type LumenExtract } from "@/features/ai-import/schema";
 import {
   extractWithLumen,
   matchCity,
@@ -70,20 +66,6 @@ export async function fillDraft(
     .maybeSingle();
   if (setting?.value === "true") return nap();
   if (!getXaiKey()) return nap();
-
-  const dayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-  const { count: dayCount } = await supabase
-    .from("ai_import_logs")
-    .select("id", { count: "exact", head: true })
-    .eq("user_id", authorId)
-    .gte("created_at", dayAgo);
-  if ((dayCount ?? 0) >= DAILY_EXTRACT_CAP) {
-    return {
-      error: "Three for today. Drop another tomorrow.",
-      story,
-      hintSlug: hintSlug ?? undefined,
-    };
-  }
 
   const monthStart = new Date();
   monthStart.setUTCDate(1);

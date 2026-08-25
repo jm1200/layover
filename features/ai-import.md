@@ -20,7 +20,7 @@ Hotel room, one thumb, ~60 seconds. Lumen talks as little as possible.
 4. **Photo on that same screen.** Camera roll per new place. Skip → one **AI**-stamped still **on publish**.
 5. **One question only if a required field is missing** (table below). Same screen, one line. They answer once. Then extract. Never a third turn. Never “what dish?” as chat.
 
-**Quotas they see (do not hide as a crash):** 3 drafts/day → *“Three for today. Drop another tomorrow.”* Over ~4k chars → *“Keep it to one layover.”* Monthly cap / kill switch → *“Lumen’s taking a nap.”*
+**Quotas they see (do not hide as a crash):** Over ~4k chars → *“Keep it to one layover.”* Monthly cap / kill switch → *“Lumen’s taking a nap.”* Daily 3-draft cap **parked** (John 2026-08-25) — put back in a later phase.
 
 **Dictate ≠ paid STT.** Keyboard/OS mic is v1. Token cost = the text, same as typing. xAI speech-to-text / in-app waveform mic = **John**, not this cut.
 
@@ -70,7 +70,7 @@ Auth required to run extract. Anonymous: no post.
 - **City heroes** are not part of user import. One hero per city; refresh rarely. Lumen **asks John before spending**.
 - Draft only. User hits publish. Same RLS as manual create.
 - Strip crew hotel names / airline lodging → zones. PG-13.
-- Quotas, `AiImportLog`, admin kill switch. Failures never leak the key. **No production spend without John’s key + cap.** Raising 3/day, $20/mo, SKUs, stills, or STT = John.
+- Quotas, `AiImportLog`, admin kill switch. Failures never leak the key. **No production spend without John’s key + cap.** Daily 3-draft cap parked. Raising $20/mo, SKUs, stills, or STT = John.
 
 ## Not v1
 
@@ -86,7 +86,7 @@ Auth required to run extract. Anonymous: no post.
 ## Acceptance criteria
 
 - [x] Authenticated endpoint only (`/share`)
-- [x] Input length cap + per-user quota (3/day, ~4k chars) with the copy above
+- [x] Input length cap (~4k chars). Daily 3-draft quota **parked** — restore later
 - [x] Server calls xAI (`grok-4.3`) **once** per story with structured schema (city, duration, stops, dishes, zones, tips)
 - [x] Full-layover extract also returns place drafts per stop (or links an existing same-city place)
 - [x] Schema/prompt: **no crew hotel names** in public fields; map to zones

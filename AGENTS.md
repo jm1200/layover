@@ -108,7 +108,7 @@ Details: `docs/ROLES.md`.
 ## AI / money ops
 
 - Extraction AI is **story → structured draft**, not open-ended free chat. See `docs/OPS.md`.
-- **No production AI spend without John’s explicit yes** (key + monthly cap). Raising quotas, SKUs, stills, web search, city-hero, or the $ cap = John. Tight user caps until invoices: 3 drafts/day, one extract, ≤1 follow-up. Kill switch. Details: `docs/OPS.md`.
+- **No production AI spend without John’s explicit yes** (key + monthly cap). Raising SKUs, stills, unbounded search, city-hero, or the $ cap = John. Daily 3-draft cap **parked** (restore later). Kill switch. Details: `docs/OPS.md`.
 - Do not autonomously rewire production “to make money.” Propose; implement when John is in the loop.
 
 ## Phase discipline

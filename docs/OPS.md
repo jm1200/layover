@@ -25,7 +25,7 @@ Grok (or another agent) helps in **sessions** using metrics and docs — not uns
 |--------|---------|
 | Production AI | **Off** until John puts `XAI_API_KEY` in env **and** names the monthly $ cap. That is the authorization. |
 | Monthly $ cap | Default **$20**. Raising it = John. Hard stop. |
-| User interaction caps | Stay **tight** until measured: **3 drafts / user / day**, **~4k chars**, **one extract** per story. Raising quotas = John. |
+| User interaction caps | **~4k chars**, **one extract** per story. Daily 3-draft cap **parked** (John 2026-08-25) — restore in a later phase. Raising the $ cap still = John. |
 | Dictate | Phone **keyboard / OS mic** (text in the box). Token cost = the text, same as typing. Paid STT / in-app waveform = **John**. |
 | Follow-up | **Holes on the draft form** (Sofia lock). No second model call for dish/zone/hours. **One** spoken/typed Q only if she cannot draft (no city / no place). Not a chat. |
 | SKU / quality upgrades | Imagine quality, extra stills, regen, grok-4.6 on the hot path = **John**. Extract **web_search** (cap 8) is on. Unbounded search still off. |
@@ -74,7 +74,7 @@ Target **~2–5¢ per published post**. Worst we allow **~5¢** (one-shot + one 
 | No regen in v1 | Hate it → upload |
 | City hero: one per city | Refresh rarely. Lumen **asks John before spending** |
 | Input cap | ~4k characters |
-| Daily quota | **3 drafts / user / day** until John raises it after we see invoices |
+| Daily quota | **Parked.** Was 3/user/day. Restore in a later phase. |
 | Monthly $ hard stop | Default **$20**. Raising it = John. |
 
 A full layover that unpacks into 4 **new** places with no user photos is 4 × $0.02 stills + a few cents of text ≈ **~10¢** — the only time we blow 5¢, and only if nobody uploaded. Prefer their pictures.
@@ -96,7 +96,7 @@ v1 upload (when Phase 4 is authorized, same slice as Lumen — not a separate pr
 | Control | Intent |
 |---------|--------|
 | Auth required | No anonymous extract |
-| Daily quota per user | **3 drafts/day.** Engineers do not “tune later.” John raises after invoices. |
+| Daily quota per user | **Off for now.** Restore in a later phase (`DAILY_EXTRACT_CAP` in `schema.ts`). |
 | Max input length | ~4k characters |
 | One-shot extract | One request per story. Holes on the form. One Q only if undraftable. |
 | `AiImportLog` | tokens, images, user, timestamp, success/fail, estimated $ |
@@ -198,4 +198,5 @@ CEO/engineer do not own these accounts; document required steps in STACK.
 | 2026-08-24 | Lumen v1 = Grok one-shot extract into existing forms; no auto-publish; no unbounded chat. Phase 4 waits on shareholder yes + `XAI_API_KEY`. |
 | 2026-08-24 | Cheap rails: `grok-4.3` + $0.02 Imagine; 1 still per place; photo-first; generate on publish; layover unpacks to places (no plan still); city hero refresh needs John’s yes; $20/mo default cap. |
 | 2026-08-24 | **Spend lock:** no production AI/cloud spend without John’s yes (key + cap). Tight user caps until measured (3 drafts/day, one extract). Raising quotas / SKUs / stills / STT / search / monthly $ / city-hero = John. Kill switch. |
+| 2026-08-25 | Daily 3-draft cap **parked** (John). Restore in a later phase. $20/mo + 4k chars + kill switch stay. |
 | 2026-08-24 | **Share UX (Sofia):** dump once (OS dictate or type) → one extract → holes on the form. One Q only if no city/place. Paid STT not v1. |

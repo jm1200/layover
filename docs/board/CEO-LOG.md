@@ -4,6 +4,14 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-25 — Daily 3-draft cap parked
+
+**Source:** Shareholder hit “Three for today. Drop another tomorrow.” while testing Lumen. Take it off for now; put it back later.
+
+**Decision:** Per-user daily extract cap **off**. Constant parked at `DAILY_EXTRACT_CAP = null` in `apps/web/src/features/ai-import/schema.ts`. Restore in a later phase (ops / before public users). **$20/mo, 4k chars, kill switch stay.**
+
+---
+
 ## 2026-08-24 — Phase 4 started: John said yes
 
 **Source:** Shareholder — yes on Phase 4; asked how to get an xAI key.

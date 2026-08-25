@@ -146,4 +146,5 @@ export type LumenExtract = {
 };
 
 export const MAX_STORY_CHARS = 4000;
-export const DAILY_EXTRACT_CAP = 3;
+/** Parked (John 2026-08-25): was 3/user/day. Put back in a later phase. */
+export const DAILY_EXTRACT_CAP: number | null = null;

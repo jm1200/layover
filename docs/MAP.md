@@ -144,6 +144,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] Phase 4 dump → draft (`/share`, `features/ai-import/`) — needs key + SQL 008
 - [x] Lumen may open a city (SQL **009** `lumen_ensure_city`) — name + IATA, default zones
 - [x] Review: places first, then plan; upload or Lumen still (SQL **010**, bucket `place-stills`)
+- [ ] Restore daily 3-draft cap (`DAILY_EXTRACT_CAP`) — parked 2026-08-25, later phase
 
 ## Session checklist for agents
 

@@ -12,7 +12,7 @@
 
 **No production AI spend without your explicit yes** — that’s the key in env **plus** the monthly $ cap. Nobody on this team raises quotas, turns on Imagine quality, adds stills, turns on web search, refreshes a city hero, or lifts the **$20/mo** default. Kill switch ships with Phase 4; AI stays off until you say go.
 
-Until we have real invoices, user rails stay tight: **3 drafts/person/day**, **one extract**, **~4k chars**. They dictate on the **phone keyboard mic** (free). Lumen fills the form; missing bits are **holes they tap** — not a chat. **One** question only if a **required** field is missing (city, place name; layover also needs a title + one stop). Paid speech-to-text is off unless you say so.
+Until we have real invoices: **~4k chars**, **one extract**, **$20/mo**. Daily 3-draft cap is **off** (put back later). They dictate on the **phone keyboard mic** (free). Lumen fills the form; missing bits are **holes they tap**. **One** question only if a **required** field is missing. Paid speech-to-text is off unless you say so.
 
 ## Status
 
