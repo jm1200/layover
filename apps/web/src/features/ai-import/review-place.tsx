@@ -23,14 +23,15 @@ export function ReviewPlaceCard({
   index: number;
   total: number;
 }) {
+  const [blurb, setBlurb] = useState(place.blurb ?? "");
+  const [preview, setPreview] = useState(place.image_url ?? null);
+  const [msg, setMsg] = useState<string | null>(null);
+  const [pending, start] = useTransition();
   const [state, saveAction, saving] = useActionState(
     savePlaceBlurb.bind(null, place.id),
     {},
   );
-  const [msg, setMsg] = useState<string | null>(null);
-  const [pending, start] = useTransition();
-  const [preview, setPreview] = useState(place.image_url ?? null);
-  const offers = lumenOffersStill(place.blurb);
+  const offers = lumenOffersStill(blurb);
   const kind = recKindFromCategory(place.category);
 
   async function onFile(file: File) {
@@ -43,7 +44,10 @@ export function ReviewPlaceCard({
     const path = `${authorId}/${place.id}.jpg`;
     const { error } = await supabase.storage
       .from("place-stills")
-      .upload(path, file, { upsert: true, contentType: file.type || "image/jpeg" });
+      .upload(path, file, {
+        upsert: true,
+        contentType: file.type || "image/jpeg",
+      });
     if (error) {
       setMsg(error.message);
       return;
@@ -52,7 +56,7 @@ export function ReviewPlaceCard({
     const result = await attachPlaceImage(place.id, data.publicUrl, "user");
     if (result.error) setMsg(result.error);
     else {
-      setPreview(data.publicUrl);
+      setPreview(`${data.publicUrl}?t=${Date.now()}`);
       setMsg(result.success ?? "Photo saved.");
     }
   }
@@ -68,7 +72,8 @@ export function ReviewPlaceCard({
         <textarea
           name="blurb"
           rows={5}
-          defaultValue={place.blurb ?? ""}
+          value={blurb}
+          onChange={(e) => setBlurb(e.target.value)}
           className="rounded-xl border border-zinc-300 px-3 py-2 text-sm leading-relaxed"
         />
         <div className="flex flex-wrap gap-2">
@@ -87,6 +92,7 @@ export function ReviewPlaceCard({
                 setMsg(null);
                 const r = await sellPlaceBlurb(place.id);
                 setMsg(r.error ?? r.success ?? null);
+                if (r.blurb) setBlurb(r.blurb);
               })
             }
             className="rounded-lg border border-zinc-300 px-3 py-2 text-sm disabled:opacity-60"
@@ -129,6 +135,7 @@ export function ReviewPlaceCard({
                 setMsg(null);
                 const r = await generatePlaceStill(place.id);
                 setMsg(r.error ?? r.success ?? null);
+                if (r.imageUrl) setPreview(r.imageUrl);
               })
             }
             className="ml-2 rounded-lg border border-zinc-300 px-3 py-2 text-sm disabled:opacity-60"

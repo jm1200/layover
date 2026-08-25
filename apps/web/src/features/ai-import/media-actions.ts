@@ -14,7 +14,12 @@ import {
 import { lumenOffersStill } from "@/features/ai-import/quality";
 import { listCities } from "@/features/places/queries";
 
-export type PlaceMediaState = { error?: string; success?: string };
+export type PlaceMediaState = {
+  error?: string;
+  success?: string;
+  blurb?: string;
+  imageUrl?: string;
+};
 
 async function ownDraftPlace(placeId: string) {
   const profile = await getProfile();
@@ -156,7 +161,7 @@ export async function sellPlaceBlurb(
     });
     revalidatePath(`/places/${placeId}`);
     revalidatePath("/dashboard");
-    return { success: "Rewrote the blurb." };
+    return { success: "Rewrote the blurb.", blurb };
   } catch {
     return { error: "Lookup failed. Try again." };
   }
@@ -230,8 +235,12 @@ export async function generatePlaceStill(
     revalidatePath(`/places/${placeId}`);
     revalidatePath("/dashboard");
     revalidatePath("/cities");
-    return { success: "Still’s up. Flagged AI." };
-  } catch {
-    return { error: "Couldn’t generate. Try a photo instead." };
+    return {
+      success: "Still’s up. Flagged AI.",
+      imageUrl: `${pub.publicUrl}?t=${Date.now()}`,
+    };
+  } catch (e) {
+    const detail = e instanceof Error ? e.message : "Couldn’t generate.";
+    return { error: detail };
   }
 }
