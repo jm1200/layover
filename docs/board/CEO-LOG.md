@@ -4,6 +4,16 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-25 — Pause: Phase 4 live locally; testing next
+
+**Source:** Shareholder — “Gotta break. Update docs. Commit. When I come back: major testing. Already see a bug: full layover uploaded twice. Lumen must not copy the same itinerary. Code review later. Not tonight.”
+
+**State:** Lumen dump → lookup → sequential rec cards → layover stills strip → publish (recs + day). BCN is on the site.
+
+**Next (do not start tonight):** (1) founder test pass, (2) itinerary dedup, (3) Theo/Milo review of `features/ai-import/`.
+
+---
+
 ## 2026-08-25 — Daily 3-draft cap parked
 
 **Source:** Shareholder hit “Three for today. Drop another tomorrow.” while testing Lumen. Take it off for now; put it back later.

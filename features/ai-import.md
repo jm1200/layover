@@ -1,8 +1,8 @@
 # Feature: AI story import
 
 **Phase:** 4  
-**Status:** **In progress** (2026-08-24). Dump → extract → draft review is in the app. Needs shareholder `XAI_API_KEY` + SQL **008**. Photo upload / generate-on-publish **not in this slice**.  
-**Code (planned):** `apps/web/src/features/ai-import/`
+**Status:** **In progress** (paused 2026-08-25 for founder testing). Live locally: `/share` → lookup → one-place review → layover card → publish (recs too). SQL **008–010**.  
+**Code:** `apps/web/src/features/ai-import/`
 
 ## Goal
 
@@ -100,4 +100,9 @@ Auth required to run extract. Anonymous: no post.
 
 ## Cost
 
-See `docs/OPS.md` spend lock. Cheap SKUs, one still per place, city-hero spend needs John. Target ~2–5¢/post. Dictation through the phone is not an extra line item. **Off until John authorizes.**
+See `docs/OPS.md`. Cheap SKUs, one still per place, city-hero spend needs John. Lookup ~4¢ on a 3-stop day; still ~2¢ each.
+
+## Known bugs (next session)
+
+- [ ] **Duplicate itinerary:** same BCN dump created two full layovers. Match existing plan in that city (title/stops) like we already match places by name. Do not copy the day.
+- [ ] Founder test pass + Theo/Milo review of `ai-import/` + publish fan-out.

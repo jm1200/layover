@@ -47,6 +47,7 @@ Durable history only. Not a chat transcript.
 - **2026-08-24 — Phase 4 started.** John said yes. Dump box at `/share` → grok-4.3 extract → draft recs/plan. Caps: 3/day, 4k chars, $20/mo, kill switch. Needs his `XAI_API_KEY` + SQL 008. Photo stills not in this slice.
 - **2026-08-24 — Lumen lookup:** Extract uses **web_search** (cap 8) so blurbs include what/where, not just the dump. Measured on John’s BCN dump: **4 searches, ~4¢, ~17s**. Still not unbounded chat. No invented walk times.
 - **2026-08-24 — Review + stills:** After a dump, file **places first, then the layover**. Per place: upload a photo or Lumen generates (~2¢) only if the blurb sells (not “classic spot in the Gothic Quarter”). **Make this sell** rewrites a limp blurb. Admin does not approve each JPEG. Kill switch + $20 cap still bind. Needs SQL **010** + public Storage bucket `place-stills`.
+- **2026-08-25 — Pause.** Phase 4 Lumen is in the app (BCN dump filed and published). **Known:** same itinerary can upload twice — dedup next session. Then founder testing + Theo/Milo review. Not tonight.
 - Live rotating homepage from “where crew have been going” needs either a human moderator or the AI pipeline. Not hired. Not built.
 - “The perfect layover does not exist… {City} edition” is John’s Instagram series voice — for full plans, not ads. Ads later: “New idea…”
 - Rx / pharma shopping policy **parked**.

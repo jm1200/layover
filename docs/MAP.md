@@ -15,7 +15,7 @@
 | **2 — Cities, zones, places, playbooks** | **Complete** | Content model + public browse + forms. Migrations 002–004 (+ seeds 003, 005, 006; stop timing 007). Gate in `PRE-PHASE-2-GATE.md` is met. |
 | **2.1 — Verify + harden** | **Complete** | Homepage + city/place/plan UI in (heroes, Eat/Do/Buy, full layover). RLS smoke: `docs/board/RLS-SMOKE.md`. **Parked (not blockers):** admin city form (SQL), Vercel deploy, photo upload (Phase 4). |
 | 3 — Social | Not started | **Waits until after Lumen** (supply first). Not skipped, not started. Thin cut later: like + comment + byline. Follow-notifications / completion / QR **out**. |
-| 4 — AI story import | **In progress** | John said yes 2026-08-24. Dump → draft at `/share`. Needs `XAI_API_KEY` + SQL **008**. Photos/generate-on-publish still next in this phase. |
+| 4 — AI story import | **In progress — paused for testing** | Live locally: `/share` dump → lookup → one-place-at-a-time review → layover card → publish (recs go live too). SQL **008–010**. **Known:** same dump can create a duplicate itinerary. Dedup + Theo/Milo review **next session**. |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
 | 6 — Metrics + admin moderation | Not started | money/trust dashboard |
 | 7 — Crew-only precision | Not started | optional; after verification story |
@@ -74,7 +74,7 @@ layover/
 | Places & zones | `features/places-and-zones.md` | `apps/web/src/features/places/` | Auth (for write) | 2 **done** |
 | Playbooks | `features/playbooks.md` | `apps/web/src/features/playbooks/` | Places, Auth | 2 **done** |
 | Social | `features/social.md` | `.../social/` | Auth, content | 3 — **after Phase 4**; not started |
-| AI import | `features/ai-import.md` | `apps/web/src/features/ai-import/` | Playbooks, Auth, OPS quotas | 4 **in progress** |
+| AI import | `features/ai-import.md` | `apps/web/src/features/ai-import/` | Playbooks, Auth, OPS quotas | 4 **in progress** (paused for testing) |
 | Sponsorship | `features/sponsorship.md` | `.../sponsorship/` | Auth sponsor, Stripe, cities | 5 |
 | Admin & metrics | `features/admin-and-metrics.md` | `.../admin/`, `.../metrics/` | All of the above | 6 |
 | Crew-only fields | (extend SECURITY + places) | TBD | Verification | 7 |
@@ -144,12 +144,16 @@ Exact paths may adjust; update this table when implementing.
 - [x] Phase 4 dump → draft (`/share`, `features/ai-import/`) — needs key + SQL 008
 - [x] Lumen may open a city (SQL **009** `lumen_ensure_city`) — name + IATA, default zones
 - [x] Review: places first, then plan; upload or Lumen still (SQL **010**, bucket `place-stills`)
+- [x] Publish layover also publishes its recs; city layover cards use rec stills
+- [ ] **Dedup itineraries** — same dump created two full layovers (John, BCN). Lumen must match an existing plan in that city, not copy.
+- [ ] Phase 4 test pass + Theo/Milo review (next session — not tonight)
 - [ ] Restore daily 3-draft cap (`DAILY_EXTRACT_CAP`) — parked 2026-08-25, later phase
+- [ ] BCN city hero still (Lumen asks John before spending)
 
 ## Session checklist for agents
 
 1. Read `AGENTS.md` + this file (+ `docs/STACK.md` before infra/auth work).
-2. Confirm current phase with owner if doing implementation. Phase 2 is **done**. Phase 4 needs John yes + key + $ cap.
+2. Confirm current phase with owner if doing implementation. Phase 2 is **done**. Phase 4 is in progress (paused for founder testing).
 3. Touch only the feature folder + its spec + this map.
 4. End of session: MAP and feature spec reflect reality. Prefer “unknown / not built” over inventing.
 
