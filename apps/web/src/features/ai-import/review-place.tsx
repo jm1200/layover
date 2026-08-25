@@ -5,10 +5,10 @@ import {
   addReviewDish,
   attachDishImage,
   attachPlaceImage,
-  MAX_PLATES,
   publishReviewed,
   savePlaceReview,
 } from "@/features/ai-import/media-actions";
+import { MAX_PLATES } from "@/features/ai-import/schema";
 import { compressStill } from "@/features/ai-import/compress-still";
 import { createClient } from "@/lib/supabase/client";
 import { recKindFromCategory, REC_KIND_LABEL } from "@/features/places/kind";

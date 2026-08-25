@@ -17,9 +17,8 @@ import { refusePublicCopy } from "@/features/ai-import/moderate";
 import { aiBlocked } from "@/features/ai-import/spend";
 import { CITY_HERO } from "@/features/places/rec-media";
 import { listCities } from "@/features/places/queries";
+import { MAX_PLATES } from "@/features/ai-import/schema";
 import type { Dish, Place } from "@/features/places/types";
-
-export const MAX_PLATES = 3;
 
 export type PlaceMediaState = {
   error?: string;
