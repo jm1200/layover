@@ -167,6 +167,96 @@ export async function sellPlaceBlurb(
   }
 }
 
+/** Lumen writes the layover day’s story from title + stops. */
+export async function sellPlaybookNarrative(
+  playbookId: string,
+): Promise<PlaceMediaState> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "Log in first." };
+  }
+  const supabase = await createClient();
+  const blocked = await aiAllowed(supabase);
+  if (blocked) return { error: blocked };
+  const { data: pb } = await supabase
+    .from("playbooks")
+    .select("id, city_id, title, narrative, hours_available, author_id")
+    .eq("id", playbookId)
+    .maybeSingle();
+  if (!pb) return { error: "Plan not found." };
+  if (profile.role !== "admin" && pb.author_id !== profile.id) {
+    return { error: "Not your plan." };
+  }
+  const client = xaiClient();
+  if (!client) return { error: "Lumen’s taking a nap." };
+
+  const { data: stops } = await supabase
+    .from("playbook_stops")
+    .select("position, title, body, place_id")
+    .eq("playbook_id", playbookId)
+    .order("position");
+  const placeIds = (stops ?? [])
+    .map((s) => s.place_id)
+    .filter((id): id is string => Boolean(id));
+  const { data: recs } = placeIds.length
+    ? await supabase
+        .from("places")
+        .select("id, name, blurb")
+        .in("id", placeIds)
+    : { data: [] as { id: string; name: string; blurb: string | null }[] };
+  const recById = new Map((recs ?? []).map((r) => [r.id, r]));
+  const cities = await listCities();
+  const city = cities.find((c) => c.id === pb.city_id);
+  const cityLabel = city
+    ? `${city.name}${city.airport_code ? ` (${city.airport_code})` : ""}`
+    : "this city";
+  const stopLines = (stops ?? [])
+    .map((s, i) => {
+      const rec = s.place_id ? recById.get(s.place_id) : null;
+      const name = rec?.name || s.title || `Stop ${i + 1}`;
+      return `${i + 1}. ${name}${s.body ? ` — ${s.body}` : ""}${rec?.blurb ? `\n   Rec: ${rec.blurb}` : ""}`;
+    })
+    .join("\n");
+
+  try {
+    const response = await client.responses.create({
+      model: EXTRACT_MODEL,
+      tools: [{ type: "web_search" }],
+      input: [
+        {
+          role: "system",
+          content: `You are Lumen. Write the layover DAY story — the pitch for the whole sequence, not a recap of each stop. 3–6 sentences. Sell the day: hours, the send, the meal, the water, how it strings. Keep any crew notes. PG-13. No hotels, no airline lodging. Never "perfect layover" as a cliché dump. Output only the story text.`,
+        },
+        {
+          role: "user",
+          content: `City: ${cityLabel}\nTitle: ${pb.title}\nHours: ${pb.hours_available ?? "unknown"}\nCurrent story:\n${pb.narrative ?? "(none)"}\nStops:\n${stopLines || "(none)"}`,
+        },
+      ],
+    });
+    const blurb = (response.output_text ?? "").trim();
+    if (blurb.length < 40) return { error: "Couldn’t write the day. Try again." };
+    const { error } = await supabase
+      .from("playbooks")
+      .update({ narrative: blurb })
+      .eq("id", playbookId);
+    if (error) return { error: error.message };
+    await supabase.from("ai_import_logs").insert({
+      user_id: profile.id,
+      model: EXTRACT_MODEL,
+      success: true,
+      error_code: "sell_plan",
+      estimated_usd: 0.01,
+      city_id: pb.city_id,
+      payload: { playbook_id: playbookId },
+    });
+    revalidatePath(`/playbooks/${playbookId}`);
+    revalidatePath("/dashboard");
+    return { success: "Wrote the day.", blurb };
+  } catch {
+    return { error: "Lookup failed. Try again." };
+  }
+}
+
 /** Lumen generates one still when the rec is worth it. ~2¢. */
 export async function generatePlaceStill(
   placeId: string,

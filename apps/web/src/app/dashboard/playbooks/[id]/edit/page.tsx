@@ -44,6 +44,7 @@ export default async function EditPlaybookPage({
         submitLabel="Save"
         allowHidden={profile.role === "admin"}
         metaOnly
+        playbookId={id}
       />
       <p className="mt-6 max-w-xl text-sm text-zinc-500">
         Stop list editing is create-time only in this cut. To rebuild stops,

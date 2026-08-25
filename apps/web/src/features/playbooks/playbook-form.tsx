@@ -1,6 +1,7 @@
 "use client";
 
-import { useActionState, useMemo, useState } from "react";
+import { useActionState, useMemo, useState, useTransition } from "react";
+import { sellPlaybookNarrative } from "@/features/ai-import/media-actions";
 import type { PlaybookFormState } from "@/features/playbooks/actions";
 import type { City, Place } from "@/features/places/types";
 
@@ -21,6 +22,7 @@ type Props = {
   submitLabel: string;
   allowHidden?: boolean;
   metaOnly?: boolean;
+  playbookId?: string;
 };
 
 const initial: PlaybookFormState = {};
@@ -33,9 +35,13 @@ export function PlaybookForm({
   submitLabel,
   allowHidden,
   metaOnly,
+  playbookId,
 }: Props) {
   const [state, formAction, pending] = useActionState(action, initial);
   const [cityId, setCityId] = useState(defaults?.city_id ?? "");
+  const [narrative, setNarrative] = useState(defaults?.narrative ?? "");
+  const [lumenMsg, setLumenMsg] = useState<string | null>(null);
+  const [lumenPending, startLumen] = useTransition();
 
   const cityPlaces = useMemo(
     () => places.filter((p) => p.city_id === cityId),
@@ -96,27 +102,33 @@ export function PlaybookForm({
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span className="font-medium">Story / narrative</span>
+        <span className="font-medium">The day — story</span>
         <textarea
           name="narrative"
-          rows={5}
-          defaultValue={defaults?.narrative ?? ""}
+          rows={6}
+          value={narrative}
+          onChange={(e) => setNarrative(e.target.value)}
           className="rounded-lg border border-zinc-300 px-3 py-2"
         />
       </label>
-
-      <label className="flex flex-col gap-1 text-sm">
-        <span className="font-medium">Status</span>
-        <select
-          name="status"
-          defaultValue={defaults?.status ?? "draft"}
-          className="rounded-lg border border-zinc-300 px-3 py-2"
+      {playbookId ? (
+        <button
+          type="button"
+          disabled={lumenPending}
+          onClick={() =>
+            startLumen(async () => {
+              setLumenMsg(null);
+              const r = await sellPlaybookNarrative(playbookId);
+              setLumenMsg(r.error ?? r.success ?? null);
+              if (r.blurb) setNarrative(r.blurb);
+            })
+          }
+          className="self-start rounded-lg border border-zinc-300 px-3 py-2 text-sm disabled:opacity-60"
         >
-          <option value="draft">Draft</option>
-          <option value="published">Published</option>
-          {allowHidden ? <option value="hidden">Hidden (admin)</option> : null}
-        </select>
-      </label>
+          {lumenPending ? "Writing…" : "Lumen, write the day"}
+        </button>
+      ) : null}
+      {lumenMsg ? <p className="text-sm text-zinc-600">{lumenMsg}</p> : null}
 
       {!metaOnly
         ? [1, 2, 3, 4].map((i) => (
@@ -171,13 +183,47 @@ export function PlaybookForm({
         </p>
       ) : null}
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
-      >
-        {pending ? "Saving…" : submitLabel}
-      </button>
+      <p className="text-sm text-zinc-600">
+        <strong>Draft</strong> is only you — keep polishing.{" "}
+        <strong>Publish</strong> puts it on the city page for other crew.
+        {allowHidden ? (
+          <>
+            {" "}
+            <strong>Hidden</strong> is admin: off the site, not deleted.
+          </>
+        ) : null}
+      </p>
+      <div className="flex flex-col gap-2 sm:flex-row">
+        <button
+          type="submit"
+          name="status"
+          value="draft"
+          disabled={pending}
+          className="rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-sm font-medium disabled:opacity-60"
+        >
+          {pending ? "Saving…" : "Save draft — only you"}
+        </button>
+        <button
+          type="submit"
+          name="status"
+          value="published"
+          disabled={pending}
+          className="rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
+        >
+          {pending ? "Saving…" : "Publish — live on the city"}
+        </button>
+        {allowHidden ? (
+          <button
+            type="submit"
+            name="status"
+            value="hidden"
+            disabled={pending}
+            className="rounded-lg border border-zinc-300 px-4 py-2.5 text-sm text-zinc-600 disabled:opacity-60"
+          >
+            Hide from the site
+          </button>
+        ) : null}
+      </div>
     </form>
   );
 }
