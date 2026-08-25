@@ -17,13 +17,16 @@ import { refusePublicCopy } from "@/features/ai-import/moderate";
 import { aiBlocked } from "@/features/ai-import/spend";
 import { CITY_HERO } from "@/features/places/rec-media";
 import { listCities } from "@/features/places/queries";
-import type { Place } from "@/features/places/types";
+import type { Dish, Place } from "@/features/places/types";
+
+export const MAX_PLATES = 3;
 
 export type PlaceMediaState = {
   error?: string;
   success?: string;
   blurb?: string;
   imageUrl?: string;
+  dish?: Dish;
 };
 
 async function ownPlace(placeId: string) {
@@ -103,6 +106,68 @@ export async function attachPlaceImage(
   revalidatePath("/dashboard");
   revalidatePath("/cities");
   return { success: source === "ai" ? "Still’s up." : "Photo saved." };
+}
+
+export async function addReviewDish(
+  placeId: string,
+  name: string,
+): Promise<PlaceMediaState> {
+  const ctx = await ownPlace(placeId);
+  if (!ctx.ok) return { error: ctx.error };
+  const n = name.trim();
+  if (!n) return { error: "Name the plate." };
+  const lodging = refusePublicCopy(n, null);
+  if (lodging) return { error: lodging };
+  const { count } = await ctx.supabase
+    .from("dishes")
+    .select("id", { count: "exact", head: true })
+    .eq("place_id", placeId);
+  if ((count ?? 0) >= MAX_PLATES) {
+    return { error: `Three plates is enough.` };
+  }
+  const { data: dish, error } = await ctx.supabase
+    .from("dishes")
+    .insert({
+      place_id: placeId,
+      name: n,
+      sort_order: (count ?? 0) + 1,
+    })
+    .select("id, place_id, name, note, sort_order, image_url")
+    .single();
+  if (error || !dish) return { error: error?.message ?? "Couldn’t add that plate." };
+  revalidatePath(`/places/${placeId}`);
+  return { success: "Plate added.", dish: dish as Dish };
+}
+
+export async function attachDishImage(
+  dishId: string,
+  url: string,
+): Promise<PlaceMediaState> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "Log in first." };
+  }
+  const supabase = await createClient();
+  const { data: dish } = await supabase
+    .from("dishes")
+    .select("id, place_id")
+    .eq("id", dishId)
+    .maybeSingle();
+  if (!dish) return { error: "Plate not found." };
+  const ctx = await ownPlace(dish.place_id);
+  if (!ctx.ok) return { error: ctx.error };
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+  const ours =
+    url.startsWith("/") ||
+    (supabaseUrl && url.startsWith(supabaseUrl) && url.includes("/place-stills/"));
+  if (!ours) return { error: "Bad image URL." };
+  const { error } = await supabase
+    .from("dishes")
+    .update({ image_url: url })
+    .eq("id", dishId);
+  if (error) return { error: error.message };
+  revalidatePath(`/places/${dish.place_id}`);
+  return { success: "Plate photo saved.", imageUrl: url };
 }
 
 async function generatePlaceStillNow(

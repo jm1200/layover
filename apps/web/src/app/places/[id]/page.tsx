@@ -121,10 +121,21 @@ export default async function PlacePage({
               <h2 className="font-mono text-sm uppercase tracking-[0.28em] text-zinc-400">
                 Get this
               </h2>
-              <ul className="mt-4 space-y-3">
+              <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
                 {dishes.map((d) => (
                   <li key={d.id}>
-                    <p className="font-medium">{d.name}</p>
+                    {d.image_url ? (
+                      <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-100">
+                        <AiStill
+                          src={d.image_url}
+                          alt={d.name}
+                          sizes="30vw"
+                          className="object-cover"
+                          badge={null}
+                        />
+                      </div>
+                    ) : null}
+                    <p className="mt-2 font-medium">{d.name}</p>
                     {d.note ? (
                       <p className="text-sm text-zinc-600">{d.note}</p>
                     ) : null}

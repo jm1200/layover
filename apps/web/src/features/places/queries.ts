@@ -139,11 +139,18 @@ export async function getPlace(id: string): Promise<Place | null> {
 
 export async function listDishesForPlace(placeId: string): Promise<Dish[]> {
   const supabase = await createClient();
-  const { data, error } = await supabase
+  const full = await supabase
     .from("dishes")
-    .select("id, place_id, name, note, sort_order")
+    .select("id, place_id, name, note, sort_order, image_url")
     .eq("place_id", placeId)
     .order("sort_order");
+  const { data, error } = full.error
+    ? await supabase
+        .from("dishes")
+        .select("id, place_id, name, note, sort_order")
+        .eq("place_id", placeId)
+        .order("sort_order")
+    : full;
   if (error) {
     console.warn("[listDishesForPlace]", error.message);
     return [];

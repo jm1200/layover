@@ -4,7 +4,7 @@ import { AppShell } from "@/features/auth/shell";
 import { requireUser } from "@/features/auth/get-profile";
 import { createClient } from "@/lib/supabase/server";
 import { ReviewQueue } from "@/features/ai-import/review-place";
-import { getPlace } from "@/features/places/queries";
+import { getPlace, listDishesForPlace } from "@/features/places/queries";
 import { getPlaybook } from "@/features/playbooks/queries";
 
 export default async function ShareReviewPage({
@@ -34,6 +34,12 @@ export default async function ShareReviewPage({
   const places = (
     await Promise.all(placeIds.map((pid) => getPlace(pid)))
   ).filter((p) => p !== null);
+  const dishLists = await Promise.all(
+    places.map((p) => listDishesForPlace(p.id)),
+  );
+  const dishesByPlace = Object.fromEntries(
+    places.map((p, i) => [p.id, dishLists[i] ?? []]),
+  );
   const playbook = log.created_playbook_id
     ? await getPlaybook(log.created_playbook_id)
     : null;
@@ -71,6 +77,7 @@ export default async function ShareReviewPage({
         playbook={playbook}
         authorId={profile.id}
         logId={log.id}
+        dishesByPlace={dishesByPlace}
       />
 
       <p className="mt-10 text-sm">

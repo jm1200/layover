@@ -38,6 +38,7 @@ export type Dish = {
   name: string;
   note: string | null;
   sort_order: number;
+  image_url?: string | null;
 };
 
 export const ZONE_LABELS: Record<ZoneType, string> = {
