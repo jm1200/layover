@@ -18,6 +18,8 @@
 
 Dump → she fills the form (blurb included) → one rec at a time (upload or AI-still checkbox) → **Publish**. Same day twice does not copy. New city gets a hero on first publish.
 
+**`/admin`** now shows what she did (last 50 + this month’s $). No dump text on that page.
+
 ## What I need from you
 
 1. Paste-and-run **011**.

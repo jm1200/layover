@@ -55,6 +55,7 @@ Durable history only. Not a chat transcript.
 - **2026-08-25 — Publish when ready.** No save-draft button. She writes the blurb; they edit. Photo: upload or **AI still on publish** (one generation, after Publish). No duplicate itineraries. $20 is company-wide (SQL **011**).
 - **2026-08-25 — Keep recs if the plan write fails.** They are still Lumen-moderated. John does not sit a queue.
 - **2026-08-25 — Real-place gate.** Lumen looks up each named rec. Unconfirmed / hotel / PG-13 does not get a row. John does not moderate daily. Hide stays admin nuclear (Phase 6).
+- **2026-08-25 — Lumen log on `/admin`.** Last 50 actions + month spend. No dump text (could leak hotels). Not the Phase 6 dashboard.
 - Live rotating homepage from “where crew have been going” needs either a human moderator or the AI pipeline. Not hired. Not built.
 - “The perfect layover does not exist… {City} edition” is John’s Instagram series voice — for full plans, not ads. Ads later: “New idea…”
 - Rx / pharma shopping policy **parked**.

@@ -106,7 +106,7 @@ ModerationAction / MetricSnapshot            — Phase 6
 | `/login` | Public | Auth | Phase 1 |
 | `/dashboard` | User | Profile, drafts, following | Phase 1 stub |
 | `/sponsor` | Sponsor | Campaigns, billing, creatives | Phase 1 stub |
-| `/admin` | Admin | Moderation, metrics, kill switches | Phase 1 stub |
+| `/admin` | Admin | Kill switch + Lumen log (last 50). Full queue is Phase 6 | Phase 4 slice |
 | `/cities` | Public | City list | Phase 2 |
 | `/cities/[slug]` | Public | Dark hero · Eat/Do/Buy preview (top 3) · full layover below | Phase 2 |
 | `/cities/[slug]/eat` `/do` `/buy` | Public | Full list for one verb | Phase 2 |
@@ -152,6 +152,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] BCN city hero (`public/landing/hero-barcelona.jpg` + `CITY_HERO.barcelona`)
 - [x] `/cities` as hero cards (not a phone book); search hint lists live IATA codes
 - [x] Lumen live baseline (`agents/lumen.md` + `.grok/agents/lumen.md`)
+- [x] `/admin` shows Lumen’s log (last 50 + month spend). Not Phase 6.
 - [x] SQL **011** — global $20 RPC, city-hero column, generate-on-publish flag, city-open quota. **John must run this.**
 
 ## Session checklist for agents
