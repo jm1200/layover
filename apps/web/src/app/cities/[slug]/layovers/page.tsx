@@ -2,15 +2,15 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProfile } from "@/features/auth/get-profile";
-import { AiStill } from "@/features/places/ai-still";
 import { CityHero } from "@/features/places/city-chrome";
-import { CITY_HERO, stillForStop } from "@/features/places/rec-media";
-import { getCityBySlug } from "@/features/places/queries";
+import { CITY_HERO } from "@/features/places/rec-media";
+import { getCityBySlug, listPlacesForCity } from "@/features/places/queries";
+import { LayoverPreviewCard } from "@/features/playbooks/layover-card";
 import {
   listPlaybooksForCity,
   listStopsForPlaybook,
 } from "@/features/playbooks/queries";
-import type { Playbook, PlaybookStop } from "@/features/playbooks/types";
+import type { PlaybookStop } from "@/features/playbooks/types";
 
 export async function generateMetadata({
   params,
@@ -32,10 +32,12 @@ export default async function CityLayoversPage({
   const city = await getCityBySlug(slug);
   if (!city) notFound();
 
-  const [playbooks, profile] = await Promise.all([
+  const [playbooks, places, profile] = await Promise.all([
     listPlaybooksForCity(city.id),
+    listPlacesForCity(city.id),
     getProfile(),
   ]);
+  const publishedPlaces = places.filter((p) => p.status === "published");
   const list = playbooks.filter((p) => p.status === "published");
   const stopsById: Record<string, PlaybookStop[]> = {};
   await Promise.all(
@@ -75,7 +77,11 @@ export default async function CityLayoversPage({
           <ul className="mt-8 grid gap-6 lg:grid-cols-3">
             {list.map((pb) => (
               <li key={pb.id}>
-                <PlanCard playbook={pb} stops={stopsById[pb.id] ?? []} />
+                <LayoverPreviewCard
+                  playbook={pb}
+                  stops={stopsById[pb.id] ?? []}
+                  places={publishedPlaces}
+                />
               </li>
             ))}
           </ul>
@@ -85,51 +91,4 @@ export default async function CityLayoversPage({
   );
 }
 
-function PlanCard({
-  playbook: pb,
-  stops,
-}: {
-  playbook: Playbook;
-  stops: PlaybookStop[];
-}) {
-  return (
-    <Link
-      href={`/playbooks/${pb.id}`}
-      className="block overflow-hidden rounded-xl bg-white ring-1 ring-zinc-200 hover:ring-zinc-400"
-    >
-      <div className="grid grid-cols-4 gap-0.5 bg-zinc-900">
-        {stops.slice(0, 4).map((s) => {
-          const still = stillForStop(s);
-          return (
-            <div key={s.id} className="relative aspect-square">
-              {still ? (
-                <AiStill
-                  src={still.src}
-                  alt={still.alt}
-                  sizes="15vw"
-                  className="object-cover"
-                  badge={null}
-                />
-              ) : (
-                <div className="h-full bg-zinc-800" />
-              )}
-            </div>
-          );
-        })}
-      </div>
-      <div className="px-5 py-4">
-        {pb.hours_available ? (
-          <p className="font-mono text-3xl font-semibold tracking-tight">
-            ~{pb.hours_available}h
-          </p>
-        ) : null}
-        <p className="mt-2 font-medium">{pb.title}</p>
-        {pb.narrative ? (
-          <p className="mt-2 line-clamp-3 text-sm text-zinc-600">
-            {pb.narrative}
-          </p>
-        ) : null}
-      </div>
-    </Link>
-  );
-}
+

@@ -15,7 +15,6 @@ import {
   CITY_HERO,
   stillForPlace,
   PREVIEW_COUNT,
-  stillForStop,
 } from "@/features/places/rec-media";
 import {
   getCityBySlug,
@@ -24,11 +23,12 @@ import {
 } from "@/features/places/queries";
 import type { Place, Zone } from "@/features/places/types";
 import { ZONE_LABELS, type ZoneType } from "@/features/places/types";
+import { LayoverPreviewCard } from "@/features/playbooks/layover-card";
 import {
   listPlaybooksForCity,
   listStopsForPlaybook,
 } from "@/features/playbooks/queries";
-import type { Playbook, PlaybookStop } from "@/features/playbooks/types";
+import type { PlaybookStop } from "@/features/playbooks/types";
 
 export async function generateMetadata({
   params,
@@ -128,7 +128,11 @@ export default async function CityPage({
             <ul className="mt-6 grid gap-6 lg:grid-cols-3">
               {previewPlans.map((pb) => (
                 <li key={pb.id}>
-                  <PlaybookCard playbook={pb} stops={planStops[pb.id] ?? []} />
+                  <LayoverPreviewCard
+                    playbook={pb}
+                    stops={planStops[pb.id] ?? []}
+                    places={publishedPlaces}
+                  />
                 </li>
               ))}
             </ul>
@@ -268,51 +272,4 @@ function PlaceCard({
   );
 }
 
-function PlaybookCard({
-  playbook: pb,
-  stops,
-}: {
-  playbook: Playbook;
-  stops: PlaybookStop[];
-}) {
-  return (
-    <Link
-      href={`/playbooks/${pb.id}`}
-      className="block overflow-hidden rounded-xl bg-white ring-1 ring-zinc-200 hover:ring-zinc-400"
-    >
-      <div className="grid grid-cols-4 gap-0.5 bg-zinc-900">
-        {stops.slice(0, 4).map((s) => {
-          const still = stillForStop(s);
-          return (
-            <div key={s.id} className="relative aspect-square">
-              {still ? (
-                <AiStill
-                  src={still.src}
-                  alt={still.alt}
-                  sizes="15vw"
-                  className="object-cover"
-                  badge={null}
-                />
-              ) : (
-                <div className="h-full bg-zinc-800" />
-              )}
-            </div>
-          );
-        })}
-      </div>
-      <div className="px-5 py-4">
-        {pb.hours_available ? (
-          <p className="font-mono text-3xl font-semibold tracking-tight">
-            ~{pb.hours_available}h
-          </p>
-        ) : null}
-        <p className="mt-2 font-medium">{pb.title}</p>
-        {pb.narrative ? (
-          <p className="mt-2 line-clamp-3 text-sm text-zinc-600">
-            {pb.narrative}
-          </p>
-        ) : null}
-      </div>
-    </Link>
-  );
-}
+
