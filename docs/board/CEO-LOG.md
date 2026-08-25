@@ -4,6 +4,14 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-24 — Phase 4 started: John said yes
+
+**Source:** Shareholder — yes on Phase 4; asked how to get an xAI key.
+
+Dump → draft is in the app (`/share`). Cap **$20/mo**. Photos/generate-on-publish still to do in this phase. He must: console.x.ai credits + key in `.env.local` + SQL 008.
+
+---
+
 ## 2026-08-24 — Board: Phase 4 Lumen first; Phase 3 waits on purpose; QR/completion parked
 
 **Source:** Shareholder — skip Phase 3 (likes) for Lumen, or do “the whole social side”? Dump mixed likes/comments/follow/notifications/profiles/completion scores/admin-ban **and** restaurant QR that pays crew a cut of ad revenue. Also: “Lumen gets important before we start adding posts.”

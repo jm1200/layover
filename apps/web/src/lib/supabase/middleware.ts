@@ -7,6 +7,10 @@ function redirectToLogin(request: NextRequest, source: NextResponse) {
   loginUrl.pathname = "/login";
   loginUrl.search = "";
   loginUrl.searchParams.set("error", "need_login");
+  const dest = `${request.nextUrl.pathname}${request.nextUrl.search}`;
+  if (dest.startsWith("/") && !dest.startsWith("//")) {
+    loginUrl.searchParams.set("next", dest);
+  }
   const redirect = NextResponse.redirect(loginUrl);
   // Forward any cookies Supabase set while refreshing the session
   source.cookies.getAll().forEach((cookie) => {

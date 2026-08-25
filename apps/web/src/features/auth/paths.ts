@@ -48,6 +48,7 @@ export function authErrorMessage(code: string | undefined): string | null {
 
 export const PROTECTED_PATH_PREFIXES = [
   "/dashboard",
+  "/share",
   "/sponsor",
   "/admin",
 ] as const;

@@ -15,7 +15,7 @@
 | **2 — Cities, zones, places, playbooks** | **Complete** | Content model + public browse + forms. Migrations 002–004 (+ seeds 003, 005, 006; stop timing 007). Gate in `PRE-PHASE-2-GATE.md` is met. |
 | **2.1 — Verify + harden** | **Complete** | Homepage + city/place/plan UI in (heroes, Eat/Do/Buy, full layover). RLS smoke: `docs/board/RLS-SMOKE.md`. **Parked (not blockers):** admin city form (SQL), Vercel deploy, photo upload (Phase 4). |
 | 3 — Social | Not started | **Waits until after Lumen** (supply first). Not skipped, not started. Thin cut later: like + comment + byline. Follow-notifications / completion / QR **out**. |
-| 4 — AI story import | **Not started** | **Next.** Lumen v1: draft-from-story; layover unpacks to places; 1 still/place. **Waiting John yes + xAI key + $20 cap.** |
+| 4 — AI story import | **In progress** | John said yes 2026-08-24. Dump → draft at `/share`. Needs `XAI_API_KEY` + SQL **008**. Photos/generate-on-publish still next in this phase. |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
 | 6 — Metrics + admin moderation | Not started | money/trust dashboard |
 | 7 — Crew-only precision | Not started | optional; after verification story |
@@ -74,7 +74,7 @@ layover/
 | Places & zones | `features/places-and-zones.md` | `apps/web/src/features/places/` | Auth (for write) | 2 **done** |
 | Playbooks | `features/playbooks.md` | `apps/web/src/features/playbooks/` | Places, Auth | 2 **done** |
 | Social | `features/social.md` | `.../social/` | Auth, content | 3 — **after Phase 4**; not started |
-| AI import | `features/ai-import.md` | `.../ai-import/` | Playbooks, Auth, OPS quotas | 4 |
+| AI import | `features/ai-import.md` | `apps/web/src/features/ai-import/` | Playbooks, Auth, OPS quotas | 4 **in progress** |
 | Sponsorship | `features/sponsorship.md` | `.../sponsorship/` | Auth sponsor, Stripe, cities | 5 |
 | Admin & metrics | `features/admin-and-metrics.md` | `.../admin/`, `.../metrics/` | All of the above | 6 |
 | Crew-only fields | (extend SECURITY + places) | TBD | Verification | 7 |
@@ -141,7 +141,8 @@ Exact paths may adjust; update this table when implementing.
 - [x] Homepage + city/place/plan UI (2.1)
 - [ ] Deployed site — optional Vercel later
 - [ ] Admin city form — parked (SQL)
-- [ ] Photo upload — Phase 4
+- [x] Phase 4 dump → draft (`/share`, `features/ai-import/`) — needs key + SQL 008
+- [ ] Photo upload / generate-on-publish — rest of Phase 4
 
 ## Session checklist for agents
 

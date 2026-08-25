@@ -64,7 +64,7 @@ export default async function CityLayoversPage({
           <p className="mt-6 text-zinc-600">
             No sequenced days in {city.name} yet.{" "}
             <Link
-              href={profile ? "/dashboard" : "/signup"}
+              href={profile ? `/share?city=${encodeURIComponent(city.slug)}` : "/signup"}
               className="font-medium underline"
             >
               Share your intel

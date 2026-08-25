@@ -10,15 +10,17 @@ type Props = {
   ) => Promise<AuthFormState>;
   submitLabel: string;
   mode: "login" | "signup";
+  next?: string | null;
 };
 
 const initial: AuthFormState = {};
 
-export function AuthForm({ action, submitLabel, mode }: Props) {
+export function AuthForm({ action, submitLabel, mode, next }: Props) {
   const [state, formAction, pending] = useActionState(action, initial);
 
   return (
     <form action={formAction} className="mx-auto flex w-full max-w-sm flex-col gap-4">
+      {next ? <input type="hidden" name="next" value={next} /> : null}
       <div className="flex flex-col gap-1">
         <label htmlFor="email" className="text-sm font-medium text-zinc-700">
           Email

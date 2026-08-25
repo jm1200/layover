@@ -119,12 +119,28 @@ Upgrade Vercel/Supabase to **Pro** only when free limits or commercial use requi
 
 ---
 
+## Phase 4 — xAI key (you do this; Grok cannot)
+
+1. Open [console.x.ai](https://console.x.ai) and sign up / log in (same account as [accounts.x.ai](https://accounts.x.ai) if prompted).
+2. Add credits. **$20** is the monthly cap we locked — load at least that.
+3. Create an API key: [API Keys](https://console.x.ai/team/default/api-keys).
+4. In `apps/web/.env.local` add (never commit this file):
+
+```
+XAI_API_KEY=xai-...your key...
+AI_MONTHLY_CAP_USD=20
+```
+
+5. Run migration **008** in the Supabase SQL Editor (`apps/web/supabase/migrations/008_ai_import.sql`). Same paste-and-run as 002–007.
+6. Restart the dev server (`cd apps/web && npm run dev`).
+
+If the key is missing, Share still opens but Fill the draft says **Lumen’s taking a nap.**
+
 ## Later (not now)
 
 | Account | When |
 |---------|------|
 | Stripe | Phase 5 (sponsors pay) |
-| xAI API key | **Phase 4 — next if you say yes.** [console.x.ai](https://console.x.ai/) → API key → `XAI_API_KEY` in `apps/web/.env.local` (never commit). |
 | Google OAuth (optional) | If you want “Log in with Google” — create OAuth client, paste into Supabase Auth providers |
 
 ---

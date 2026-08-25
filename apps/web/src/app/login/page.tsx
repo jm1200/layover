@@ -3,19 +3,20 @@ import { redirect } from "next/navigation";
 import { signIn } from "@/features/auth/actions";
 import { AuthForm } from "@/features/auth/auth-form";
 import { getProfile, homeForRole } from "@/features/auth/get-profile";
-import { authErrorMessage } from "@/features/auth/paths";
+import { authErrorMessage, safeNextPath } from "@/features/auth/paths";
 
 export default async function LoginPage({
   searchParams,
 }: {
-  searchParams: Promise<{ error?: string }>;
+  searchParams: Promise<{ error?: string; next?: string }>;
 }) {
+  const params = await searchParams;
+  const next = safeNextPath(params.next);
   const profile = await getProfile();
   if (profile && profile.status !== "suspended") {
-    redirect(homeForRole(profile.role));
+    redirect(next ?? homeForRole(profile.role));
   }
 
-  const params = await searchParams;
   const errorText = authErrorMessage(params.error);
 
   return (
@@ -35,7 +36,7 @@ export default async function LoginPage({
           {errorText}
         </p>
       ) : null}
-      <AuthForm action={signIn} submitLabel="Log in" mode="login" />
+      <AuthForm action={signIn} submitLabel="Log in" mode="login" next={next} />
       <p className="mt-6 text-sm text-zinc-600">
         No account?{" "}
         <Link href="/signup" className="font-medium text-zinc-900 underline">

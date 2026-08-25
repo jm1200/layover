@@ -2,9 +2,9 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-08-24 (board: Phase 4 first; Phase 3 waits on purpose)  
+**Last updated:** 2026-08-24 (Phase 4 started — you said yes)  
 **Company:** Layover (working name)  
-**Stage:** **Phase 2 done.** **Next = Lumen / Phase 4 — waiting your yes.** Not built. Phase 3 social is spec only; we are **not** skipping it by accident.
+**Stage:** **Phase 4 in progress.** Share your intel → dump box. Needs your xAI key + SQL 008. Phase 3 still waits.
 
 **Not this cut:** Auto-post chatbot, unbounded chat, Stripe, likes, follow-notifications, completion scores, QR kickbacks.
 
@@ -26,13 +26,10 @@ Stay on Grok. Cheap SKUs: `grok-4.3`, $0.02 stills. **1 still per place**. Targe
 
 ## What I need from you
 
-**Yes / no** to open Phase 4. If yes:
-
-1. Create an [xAI](https://console.x.ai/) account, get an API key.
-2. Put `XAI_API_KEY=...` in `apps/web/.env.local` (never commit it).
-3. Confirm **$20/mo** (or name another number). That confirmation *is* the spend authorization.
-
-Engineering wires the server extract, tight quotas, hotel strip, kill switch. No `apps/` until you say go.
+1. [console.x.ai](https://console.x.ai) → add **$20** credits → create an API key.
+2. Put `XAI_API_KEY=...` in `apps/web/.env.local` (never commit it). Cap is **$20/mo** unless you name another number.
+3. Paste `apps/web/supabase/migrations/008_ai_import.sql` in the Supabase SQL Editor.
+4. Restart `cd apps/web && npm run dev`. Then **Share your intel**.
 
 ## Still true
 

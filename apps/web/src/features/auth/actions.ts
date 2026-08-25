@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getProfile, homeForRole } from "@/features/auth/get-profile";
+import { safeNextPath } from "@/features/auth/paths";
 import type { AuthFormState } from "@/features/auth/types";
 
 export type { AuthFormState };
@@ -71,7 +72,8 @@ export async function signIn(
 
   const profile = await getProfile();
   revalidatePath("/", "layout");
-  redirect(homeForRole(profile?.role ?? "user"));
+  const next = safeNextPath(String(formData.get("next") ?? ""));
+  redirect(next ?? homeForRole(profile?.role ?? "user"));
 }
 
 export async function signOut() {

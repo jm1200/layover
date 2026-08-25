@@ -1,7 +1,7 @@
 # Feature: AI story import
 
 **Phase:** 4  
-**Status:** Spec only — not implemented. **Do not build until shareholder yes + `XAI_API_KEY`.**  
+**Status:** **In progress** (2026-08-24). Dump → extract → draft review is in the app. Needs shareholder `XAI_API_KEY` + SQL **008**. Photo upload / generate-on-publish **not in this slice**.  
 **Code (planned):** `apps/web/src/features/ai-import/`
 
 ## Goal
@@ -85,18 +85,18 @@ Auth required to run extract. Anonymous: no post.
 
 ## Acceptance criteria
 
-- [ ] Authenticated endpoint only
-- [ ] Input length cap + per-user quota (3/day, ~4k chars) with the copy above
-- [ ] Server calls xAI (`grok-4.3`) **once** per story with structured schema (city, duration, stops, dishes, zones, tips)
-- [ ] Full-layover extract also returns place drafts per stop (or links an existing same-city place)
-- [ ] Schema/prompt: **no crew hotel names** in public fields; map to zones
-- [ ] Returns draft only — user must confirm to publish
-- [ ] Thin story → prefilled form with holes, not a second extract (except missing **required** city / name / layover title+one stop → one Q)
+- [x] Authenticated endpoint only (`/share`)
+- [x] Input length cap + per-user quota (3/day, ~4k chars) with the copy above
+- [x] Server calls xAI (`grok-4.3`) **once** per story with structured schema (city, duration, stops, dishes, zones, tips)
+- [x] Full-layover extract also returns place drafts per stop (or links an existing same-city place)
+- [x] Schema/prompt: **no crew hotel names** in public fields; map to zones
+- [x] Returns draft only — user must confirm to publish
+- [x] Thin story → prefilled form with holes, not a second extract (except missing **required** city / name / layover title+one stop → one Q)
 - [ ] Photo-first; at most one still per new place, generated on publish; no plan-level still
-- [ ] Dictate via OS keyboard mic (text in the box). No paid STT
-- [ ] `AiImportLog` for cost and abuse
-- [ ] Admin kill switch respected
-- [ ] Failures show safe error; no key leakage
+- [x] Dictate via OS keyboard mic (text in the box). No paid STT
+- [x] `AiImportLog` for cost and abuse
+- [x] Admin kill switch respected
+- [x] Failures show safe error; no key leakage
 
 ## Cost
 

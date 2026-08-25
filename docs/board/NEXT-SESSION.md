@@ -1,6 +1,6 @@
 # Next session — founder notes
 
-**Paused:** 2026-08-24 (board closed: Phase 4 first)
+**Paused:** 2026-08-24 (Phase 4 dump→draft in code; waiting key + SQL 008)
 
 ## Where we left it
 
@@ -11,7 +11,7 @@
 
 ## First up when you return
 
-**Yes / no** to open Phase 4. If yes: xAI API key in `apps/web/.env.local` **and** confirm the $20/mo cap (that pair is the spend yes). Then we build Lumen (dump → draft, not a chat). If no, we sit — we do not build the social network instead.
+Your xAI key in `apps/web/.env.local`, **$20** credits on the console, SQL **008** in Supabase. Then Share your intel. Photos/generate stills still next in Phase 4.
 
 ## Dev
 

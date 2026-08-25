@@ -119,6 +119,7 @@ export default async function CityPage({
           </div>
           {publishedPlaybooks.length === 0 ? (
             <EmptyInvite
+              citySlug={city.slug}
               cityName={city.name}
               label="full layover"
               loggedIn={Boolean(profile)}
@@ -175,7 +176,12 @@ function KindPreview({
         ) : null}
       </div>
       {places.length === 0 ? (
-        <EmptyInvite cityName={cityName} label={label} loggedIn={loggedIn} />
+        <EmptyInvite
+          citySlug={citySlug}
+          cityName={cityName}
+          label={label}
+          loggedIn={loggedIn}
+        />
       ) : (
         <ul className="mt-6 grid gap-6 sm:grid-cols-3">
           {preview.map((p) => (
@@ -194,10 +200,12 @@ function KindPreview({
 }
 
 function EmptyInvite({
+  citySlug,
   cityName,
   label,
   loggedIn,
 }: {
+  citySlug: string;
   cityName: string;
   label: string;
   loggedIn: boolean;
@@ -206,7 +214,7 @@ function EmptyInvite({
     <p className="mt-6 max-w-xl text-zinc-600">
       No {label} recs in {cityName} yet.{" "}
       <Link
-        href={loggedIn ? "/dashboard" : "/signup"}
+        href={loggedIn ? `/share?city=${encodeURIComponent(citySlug)}` : "/signup"}
         className="font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4"
       >
         Share your intel

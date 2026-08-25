@@ -12,7 +12,7 @@ export function CityPublicHeader({ loggedIn }: { loggedIn: boolean }) {
         </Link>
         <nav className="flex items-center gap-4 text-sm text-white/90">
           <Link
-            href={loggedIn ? "/dashboard" : "/signup"}
+            href={loggedIn ? "/share" : "/signup"}
             className="rounded-full bg-white px-4 py-2 text-xs font-bold uppercase tracking-wider text-zinc-950 hover:bg-white/90"
           >
             Share your intel

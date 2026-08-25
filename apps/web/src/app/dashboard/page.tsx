@@ -52,9 +52,21 @@ export default async function DashboardPage() {
   return (
     <AppShell profile={profile} title="Your dashboard">
       <p className="text-zinc-600">
-        Browse cities. Add a full layover, or one eat / do / buy rec. Zones
-        only — no crew hotels.
+        Dump a layover and Lumen fills the draft. Manual forms still work
+        below. Zones only — no crew hotels.
       </p>
+
+      <Link
+        href="/share"
+        className="mt-6 block rounded-2xl bg-zinc-950 px-5 py-4 text-white hover:bg-zinc-800"
+      >
+        <span className="text-sm font-bold uppercase tracking-wider">
+          Share your intel
+        </span>
+        <p className="mt-1 text-sm text-white/70">
+          Talk once. She fills the form.
+        </p>
+      </Link>
 
       <div className="mt-6 grid gap-3 sm:grid-cols-2">
         {ADD_CARDS.map((c) => (
