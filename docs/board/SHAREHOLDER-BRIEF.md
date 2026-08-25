@@ -20,7 +20,7 @@ Until we have real invoices, user rails stay tight: **3 drafts/person/day**, **o
 
 **Board lock (CEO rec — you have not said go yet):** supply before social. Likes on four thin cities is a deserted Instagram. **Phase 4 Lumen first.** Thin Phase 3 (like + comment + byline profile) **after** Lumen has produced real posts. Follow is a content filter later, not a people-feed. **Parked:** follow-notifications, completion scores, QR-for-ad-cut (coupon/kickback — revisit only as a *labeled* offer after Stripe, never “this rec paid me”). Ban queue stays Phase 6; hide already exists.
 
-Lumen **required to even draft:** city + place name (and type, which she guesses). Full layover: city + title + one named stop. If the city isn’t on the site yet, she **opens it** from a real name/IATA (BCN → Barcelona). Thin posts may publish.
+Lumen **required to even draft:** city + place name (and type, which she guesses). Full layover: city + title + one named stop. If the city isn’t on the site yet, she **opens it** from a real name/IATA (BCN → Barcelona). Review files **places first, then the plan**. Photo: yours, or she generates (~2¢) only if the rec sells. Admin does not approve each JPEG.
 
 Stay on Grok. Cheap SKUs: `grok-4.3`, $0.02 stills. **1 still per place**. Target **~2–5¢/post**.
 

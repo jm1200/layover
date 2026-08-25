@@ -25,6 +25,8 @@ export type Place = {
   category: string | null;
   status: ContentStatus;
   author_id: string | null;
+  image_url?: string | null;
+  image_source?: string | null;
 };
 
 export type Dish = {

@@ -6,6 +6,8 @@ export const EXTRACT_MODEL = "grok-4.3";
 const INPUT_PER_M = 1.25;
 const OUTPUT_PER_M = 2.5;
 const SEARCH_PER_CALL = 0.005;
+export const STILL_USD = 0.02;
+export const STILL_MODEL = "grok-imagine-image";
 
 /** Cap so a dump cannot browse the internet. */
 export const MAX_SEARCH_CALLS = 8;

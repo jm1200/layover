@@ -9,7 +9,7 @@ import {
   REC_KIND_LABEL,
 } from "@/features/places/kind";
 import { PlaceMap } from "@/features/places/place-map";
-import { PLACE_STILL } from "@/features/places/rec-media";
+import { stillForPlace } from "@/features/places/rec-media";
 import {
   getPlace,
   listCities,
@@ -48,7 +48,7 @@ export default async function PlacePage({
     ? zones.find((z) => z.id === place.zone_id)
     : null;
   const kind = recKindFromCategory(place.category);
-  const still = PLACE_STILL[place.id];
+  const still = stillForPlace(place);
   const canEdit =
     profile && (profile.role === "admin" || profile.id === place.author_id);
   const mapQuery = [place.name, city?.name, city?.country]
@@ -65,6 +65,7 @@ export default async function PlacePage({
               alt={still.alt}
               sizes="100vw"
               className="object-cover"
+              badge={still.badge ?? null}
             />
           ) : (
             <div className="h-full bg-zinc-950" />

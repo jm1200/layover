@@ -88,14 +88,44 @@ export const STOP_STILL: Record<string, { src: string; alt: string }> = {
   },
 };
 
-export function stillForStop(stop: {
+export function stillForPlace(place: {
   id: string;
-  place_id: string | null;
-}): { src: string; alt: string } | undefined {
-  if (stop.place_id && PLACE_STILL[stop.place_id]) {
-    return PLACE_STILL[stop.place_id];
+  name: string;
+  image_url?: string | null;
+  image_source?: string | null;
+}): { src: string; alt: string; badge?: "ai" | null } | undefined {
+  if (place.image_url) {
+    return {
+      src: place.image_url,
+      alt: place.name,
+      badge: place.image_source === "ai" ? "ai" : null,
+    };
   }
-  return STOP_STILL[stop.id];
+  const seed = PLACE_STILL[place.id];
+  return seed ? { ...seed, badge: "ai" as const } : undefined;
+}
+
+export function stillForStop(
+  stop: {
+    id: string;
+    place_id: string | null;
+  },
+  place?: {
+    id: string;
+    name: string;
+    image_url?: string | null;
+    image_source?: string | null;
+  } | null,
+): { src: string; alt: string; badge?: "ai" | null } | undefined {
+  if (place) {
+    const fromPlace = stillForPlace(place);
+    if (fromPlace) return fromPlace;
+  }
+  if (stop.place_id && PLACE_STILL[stop.place_id]) {
+    return { ...PLACE_STILL[stop.place_id], badge: "ai" };
+  }
+  const seed = STOP_STILL[stop.id];
+  return seed ? { ...seed, badge: "ai" } : undefined;
 }
 
 export const CITY_FEEL: Record<string, string> = {

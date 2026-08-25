@@ -92,7 +92,7 @@ Auth required to run extract. Anonymous: no post.
 - [x] Schema/prompt: **no crew hotel names** in public fields; map to zones
 - [x] Returns draft only — user must confirm to publish
 - [x] Thin story → prefilled form with holes, not a second extract (except missing **required** city / name / layover title+one stop → one Q)
-- [ ] Photo-first; at most one still per new place, generated on publish; no plan-level still
+- [x] Photo-first on review: upload or Lumen generate (~2¢) if the rec sells; no plan-level still. Admin does **not** approve each JPEG. Lumen decides whether generate is offered.
 - [x] Dictate via OS keyboard mic (text in the box). No paid STT
 - [x] `AiImportLog` for cost and abuse
 - [x] Admin kill switch respected

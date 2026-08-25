@@ -143,7 +143,7 @@ Exact paths may adjust; update this table when implementing.
 - [ ] Admin city form — parked (SQL)
 - [x] Phase 4 dump → draft (`/share`, `features/ai-import/`) — needs key + SQL 008
 - [x] Lumen may open a city (SQL **009** `lumen_ensure_city`) — name + IATA, default zones
-- [ ] Photo upload / generate-on-publish — rest of Phase 4
+- [x] Review: places first, then plan; upload or Lumen still (SQL **010**, bucket `place-stills`)
 
 ## Session checklist for agents
 

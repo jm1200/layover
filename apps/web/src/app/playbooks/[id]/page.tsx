@@ -41,14 +41,12 @@ export default async function PlaybookPage({
     profile &&
     (profile.role === "admin" || profile.id === playbook.author_id);
 
-  const placesById: Record<
-    string,
-    { name: string; blurb: string | null }
-  > = {};
+  const placesById: Record<string, NonNullable<Awaited<ReturnType<typeof getPlace>>>> =
+    {};
   for (const s of stops) {
     if (s.place_id && !placesById[s.place_id]) {
       const pl = await getPlace(s.place_id);
-      if (pl) placesById[s.place_id] = { name: pl.name, blurb: pl.blurb };
+      if (pl) placesById[s.place_id] = pl;
     }
   }
 
@@ -121,7 +119,7 @@ export default async function PlaybookPage({
         <ol className="space-y-10">
           {stops.map((s) => {
             const pl = s.place_id ? placesById[s.place_id] : null;
-            const still = stillForStop(s);
+            const still = stillForStop(s, pl);
             return (
               <li
                 key={s.id}
@@ -133,6 +131,7 @@ export default async function PlaybookPage({
                       src={still.src}
                       alt={still.alt}
                       sizes="(min-width: 640px) 16rem, 100vw"
+                      badge={still.badge ?? null}
                     />
                   ) : null}
                   <span className="absolute left-3 top-3 font-mono text-xs uppercase tracking-widest text-white">

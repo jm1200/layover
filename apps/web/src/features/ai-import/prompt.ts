@@ -24,7 +24,7 @@ Rules:
 - Required for place draft: a city (existing slug OR new name+IATA) + place name + category.
 - Required for playbook draft: a city + title + at least one stop.name.
 - If a required field is missing: status need_city or need_name, one short question, do not invent the missing place name.
-- blurb: 1–3 sentences. What it is + where + their note if they gave one.
+- blurb: SELL the place. 2–4 sentences. Not "classic spot in the Gothic Quarter." Specific: what it is, a sensory or historic hook, where (street or neighborhood), and their note (dishes, the dip, the send). Someone should want to go. This blurb is also the brief if we generate a still later.
 - body (stops): transit to/from, address/neighborhood, one fact. Transit-only beats ("subway to gothic quarter") are notes, not extra stops, unless they named a place.
 - Holes are fine: zone, hours. Leave null. Do not ask about dish/zone/hours.
 - Max 4 stops. Stop names are places, not "leave the hotel".`;

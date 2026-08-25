@@ -11,7 +11,7 @@ import {
   REC_KIND_LABEL,
   type RecKind,
 } from "@/features/places/kind";
-import { CITY_HERO, PLACE_STILL } from "@/features/places/rec-media";
+import { CITY_HERO, stillForPlace } from "@/features/places/rec-media";
 import {
   getCityBySlug,
   listPlacesForCity,
@@ -92,7 +92,7 @@ export default async function CityKindPage({
                   place={p}
                   kind={kind}
                   zone={p.zone_id ? zoneById[p.zone_id] : null}
-                  still={PLACE_STILL[p.id]}
+                  still={stillForPlace(p)}
                 />
               </li>
             ))}
@@ -112,7 +112,7 @@ function KindPlaceCard({
   place: Place;
   kind: RecKind;
   zone: Zone | null | undefined;
-  still?: { src: string; alt: string };
+  still?: { src: string; alt: string; badge?: "ai" | null };
 }) {
   return (
     <Link href={`/places/${p.id}`} className="group block">
@@ -123,6 +123,7 @@ function KindPlaceCard({
             alt={still.alt}
             sizes="(min-width: 640px) 33vw, 100vw"
             className="object-cover transition duration-300 group-hover:scale-[1.03]"
+            badge={still.badge ?? null}
           />
         ) : null}
         <span className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/70 to-transparent px-3 pb-12 pt-4 text-center font-mono text-xl font-semibold uppercase tracking-[0.28em] text-white">

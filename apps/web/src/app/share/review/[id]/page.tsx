@@ -3,7 +3,7 @@ import { notFound, redirect } from "next/navigation";
 import { AppShell } from "@/features/auth/shell";
 import { requireUser } from "@/features/auth/get-profile";
 import { createClient } from "@/lib/supabase/server";
-import { recKindFromCategory, REC_KIND_LABEL } from "@/features/places/kind";
+import { ReviewPlaceCard } from "@/features/ai-import/review-place";
 import { getPlace } from "@/features/places/queries";
 import { getPlaybook } from "@/features/playbooks/queries";
 
@@ -45,57 +45,58 @@ export default async function ShareReviewPage({
     payload.city_name && payload.city_airport
       ? `${payload.city_name} (${String(payload.city_airport).toUpperCase()})`
       : null;
+  const n = places.length;
 
   return (
-    <AppShell profile={profile} title="Your draft">
+    <AppShell profile={profile} title="File this layover">
       <p className="max-w-lg text-zinc-700">
-        I filled what I heard. Tap the blanks, add a pic later, publish.
+        {n > 0 && playbook
+          ? `I’ll file ${n} place${n === 1 ? "" : "s"} first, then the layover that strings them. Each rec needs a photo — yours, or I generate one if it’s worth a still.`
+          : n > 0
+            ? "This rec first. Photo from you, or I generate one if it sells."
+            : "I filled what I heard."}
       </p>
       {newCityLabel ? (
         <p className="mt-2 text-sm text-zinc-600">
-          {newCityLabel} is on the map now. City photo later — no extra spend
-          on a hero.
+          {newCityLabel} is on the map now. City hero later — I don’t spend on
+          that without you.
         </p>
       ) : null}
       <p className="mt-2 text-sm text-zinc-500">
-        These stay private until you hit publish on each rec.
+        Drafts stay private until you publish each rec.
       </p>
 
-      {playbook ? (
-        <section className="mt-8">
-          <h2 className="font-semibold">Full layover</h2>
-          <Link
-            href={`/dashboard/playbooks/${playbook.id}/edit`}
-            className="mt-2 inline-block rounded-xl border border-zinc-200 bg-white px-4 py-3 hover:border-zinc-400"
-          >
-            {playbook.title}
-            <span className="ml-2 text-sm text-zinc-400">({playbook.status})</span>
-          </Link>
+      {places.length > 0 ? (
+        <section className="mt-8 space-y-4">
+          <h2 className="font-semibold">1. Places</h2>
+          {places.map((p, i) => (
+            <ReviewPlaceCard
+              key={p.id}
+              place={p}
+              authorId={profile.id}
+              index={i + 1}
+              total={places.length}
+            />
+          ))}
         </section>
       ) : null}
 
-      {places.length > 0 ? (
-        <section className="mt-8">
-          <h2 className="font-semibold">Places</h2>
-          <ul className="mt-2 space-y-2">
-            {places.map((p) => (
-              <li key={p.id}>
-                <Link
-                  href={
-                    p.author_id === profile.id
-                      ? `/dashboard/places/${p.id}/edit`
-                      : `/places/${p.id}`
-                  }
-                  className="block rounded-xl border border-zinc-200 bg-white px-4 py-3 hover:border-zinc-400"
-                >
-                  {p.name}{" "}
-                  <span className="text-sm text-zinc-400">
-                    ({REC_KIND_LABEL[recKindFromCategory(p.category)]} · {p.status})
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+      {playbook ? (
+        <section className="mt-10">
+          <h2 className="font-semibold">2. Then the layover</h2>
+          <p className="mt-1 text-sm text-zinc-600">
+            After the places have photos, save the day that strings them.
+          </p>
+          <Link
+            href={`/dashboard/playbooks/${playbook.id}/edit`}
+            className="mt-3 block rounded-2xl border border-zinc-200 bg-white px-4 py-4 hover:border-zinc-400"
+          >
+            <span className="font-medium">{playbook.title}</span>
+            <span className="ml-2 text-sm text-zinc-400">({playbook.status})</span>
+            {playbook.narrative ? (
+              <p className="mt-2 text-sm text-zinc-600">{playbook.narrative}</p>
+            ) : null}
+          </Link>
         </section>
       ) : null}
 

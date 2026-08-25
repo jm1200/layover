@@ -11,7 +11,7 @@
 
 ## First up when you return
 
-SQL **009** if you have not (Lumen opens new cities). Then dump BCN again. Photos/generate stills still next in Phase 4.
+SQL **010** + public bucket `place-stills`. Then open the existing BCN draft: places first, **Make this sell**, photo or generate.
 
 ## Dev
 
