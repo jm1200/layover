@@ -132,7 +132,8 @@ AI_MONTHLY_CAP_USD=20
 ```
 
 5. Run migration **008** in the Supabase SQL Editor (`apps/web/supabase/migrations/008_ai_import.sql`). Same paste-and-run as 002–007.
-6. Restart the dev server (`cd apps/web && npm run dev`).
+6. Run **009** (`009_lumen_cities.sql`) so Lumen can open a new city (e.g. BCN) from a dump.
+7. Restart the dev server (`cd apps/web && npm run dev`).
 
 If the key is missing, Share still opens but Fill the draft says **Lumen’s taking a nap.**
 

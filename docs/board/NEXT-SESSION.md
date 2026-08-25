@@ -11,7 +11,7 @@
 
 ## First up when you return
 
-Your xAI key in `apps/web/.env.local`, **$20** credits on the console, SQL **008** in Supabase. Then Share your intel. Photos/generate stills still next in Phase 4.
+SQL **009** if you have not (Lumen opens new cities). Then dump BCN again. Photos/generate stills still next in Phase 4.
 
 ## Dev
 

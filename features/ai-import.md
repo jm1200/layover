@@ -34,8 +34,8 @@ Matches what the live forms already refuse to save. Lumen does **not** invent ex
 
 | Post | Must have | Her one question if missing |
 |------|-----------|-----------------------------|
-| Eat / Do / Buy | **City** we already have + **place name** + **type** (she classifies Eat/Do/Buy; they can retap) | *“Which city?”* or *“What’s the place called?”* (type: she guesses; hole on the form, not a question) |
-| Full layover | **City** + **title** + **≥1 stop with a place name** | *“Which city?”* or *“What’s the first stop called?”* |
+| Eat / Do / Buy | **City** (existing **or** Lumen opens one from a real name/IATA) + **place name** + **type** | *“Which city? Airport code if you have it.”* or *“What’s the place called?”* |
+| Full layover | **City** (same) + **title** + **≥1 stop with a place name** | *“Which city? Airport code if you have it.”* or *“What’s the first stop called?”* |
 
 Type is required on the rec form today (`eat` / `do` / `shop`). She infers it. Wrong guess → they tap Type. Not a spoken Q.
 

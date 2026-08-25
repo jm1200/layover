@@ -47,7 +47,7 @@ Durable history only. Not a chat transcript.
 - Live rotating homepage from “where crew have been going” needs either a human moderator or the AI pipeline. Not hired. Not built.
 - “The perfect layover does not exist… {City} edition” is John’s Instagram series voice — for full plans, not ads. Ads later: “New idea…”
 - Rx / pharma shopping policy **parked**.
-- Users cannot create cities. Admin city form not built (SQL).
+- Users cannot create cities **via a form**. **Lumen may open a city** from a dump (real name + IATA, e.g. BCN → Barcelona) with default zones. No bulk seed required. No city-hero Imagine spend on create (still later). Admin city form still not built.
 - Stack: Next.js + Supabase + Vercel; Stripe and xAI later.
 
 ## Rejected / parked

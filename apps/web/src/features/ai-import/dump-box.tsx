@@ -32,7 +32,7 @@ export function DumpBox({
           rows={8}
           maxLength={MAX_STORY_CHARS}
           defaultValue={story}
-          placeholder="Eight hours in Zurich. Floated the Limmat, then raclette downtown…"
+          placeholder="Eight hours in BCN. Tapas in El Born, then a walk to the beach…"
           className="rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-base leading-relaxed outline-none focus:border-zinc-900"
         />
         <span className="text-xs text-zinc-500">

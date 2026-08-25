@@ -10,9 +10,15 @@ import {
   MAX_STORY_CHARS,
   type LumenExtract,
 } from "@/features/ai-import/schema";
-import { extractWithLumen, matchPlace, zoneIdFor } from "@/features/ai-import/extract";
+import {
+  extractWithLumen,
+  matchCity,
+  matchPlace,
+  normalizeIata,
+  zoneIdFor,
+} from "@/features/ai-import/extract";
 import { listAllZones, listCities } from "@/features/places/queries";
-import type { Place } from "@/features/places/types";
+import type { City, Place } from "@/features/places/types";
 
 export type ShareState = {
   error?: string;
@@ -93,9 +99,6 @@ export async function fillDraft(
   if (spent >= monthlyCapUsd()) return nap();
 
   const cities = await listCities();
-  if (cities.length === 0) {
-    return { error: "No cities seeded yet.", story };
-  }
 
   const result = await extractWithLumen({
     story: combined,
@@ -146,7 +149,7 @@ export async function fillDraft(
     const question =
       extract.question ||
       (extract.status === "need_city"
-        ? "Which city?"
+        ? "Which city? Airport code if you have it."
         : "What’s the place called?");
     return {
       question,
@@ -155,9 +158,30 @@ export async function fillDraft(
     };
   }
 
-  const city =
-    cities.find((c) => c.slug === extract.city_slug) ||
-    cities.find((c) => c.slug === hintSlug);
+  let city: City | undefined = matchCity(cities, extract, hintSlug);
+  if (!city) {
+    const iata = normalizeIata(extract.city_airport);
+    const newName = (extract.city_name ?? "").trim();
+    if (iata && newName) {
+      const { data: newId, error: cityErr } = await supabase.rpc(
+        "lumen_ensure_city",
+        {
+          p_name: newName,
+          p_slug: extract.city_slug,
+          p_airport: iata,
+          p_country: extract.city_country,
+        },
+      );
+      if (!cityErr && newId) {
+        const { data: row } = await supabase
+          .from("cities")
+          .select("id, slug, name, country, airport_code")
+          .eq("id", newId)
+          .maybeSingle();
+        if (row) city = row as City;
+      }
+    }
+  }
   if (!city) {
     await supabase.from("ai_import_logs").insert({
       ...logBase,
@@ -166,7 +190,7 @@ export async function fillDraft(
       payload: extract as unknown as Record<string, unknown>,
     });
     return {
-      question: "Which city?",
+      question: "Which city? Airport code if you have it.",
       story,
       hintSlug: hintSlug ?? undefined,
     };
@@ -351,6 +375,7 @@ export async function fillDraft(
   }
 
   revalidatePath("/dashboard");
+  revalidatePath("/cities");
   revalidatePath(`/cities/${city.slug}`);
   redirect(`/share/review/${logRow.id}`);
 }

@@ -142,6 +142,7 @@ Exact paths may adjust; update this table when implementing.
 - [ ] Deployed site — optional Vercel later
 - [ ] Admin city form — parked (SQL)
 - [x] Phase 4 dump → draft (`/share`, `features/ai-import/`) — needs key + SQL 008
+- [x] Lumen may open a city (SQL **009** `lumen_ensure_city`) — name + IATA, default zones
 - [ ] Photo upload / generate-on-publish — rest of Phase 4
 
 ## Session checklist for agents

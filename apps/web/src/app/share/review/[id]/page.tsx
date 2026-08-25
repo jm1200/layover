@@ -21,7 +21,7 @@ export default async function ShareReviewPage({
   const { data: log } = await supabase
     .from("ai_import_logs")
     .select(
-      "id, user_id, created_place_ids, created_playbook_id, success",
+      "id, user_id, created_place_ids, created_playbook_id, success, payload",
     )
     .eq("id", id)
     .maybeSingle();
@@ -37,12 +37,26 @@ export default async function ShareReviewPage({
   const playbook = log.created_playbook_id
     ? await getPlaybook(log.created_playbook_id)
     : null;
+  const payload = (log.payload ?? {}) as {
+    city_name?: string | null;
+    city_airport?: string | null;
+  };
+  const newCityLabel =
+    payload.city_name && payload.city_airport
+      ? `${payload.city_name} (${String(payload.city_airport).toUpperCase()})`
+      : null;
 
   return (
     <AppShell profile={profile} title="Your draft">
       <p className="max-w-lg text-zinc-700">
         I filled what I heard. Tap the blanks, add a pic later, publish.
       </p>
+      {newCityLabel ? (
+        <p className="mt-2 text-sm text-zinc-600">
+          {newCityLabel} is on the map now. City photo later — no extra spend
+          on a hero.
+        </p>
+      ) : null}
       <p className="mt-2 text-sm text-zinc-500">
         These stay private until you hit publish on each rec.
       </p>

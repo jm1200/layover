@@ -41,7 +41,7 @@ Not a schema change. Not Phase 3. Not four new routes. Not a photo grid.
 - [x] Category field: required select, not free-text. Persist `eat`/`do`/`shop`. Customer label for `shop` = **Buy**. Map legacy seed: restaurant/bar/cafe → Eat; activity → Do; grocery/shop → Buy; unknown → Do (do not hide rows).
 - [x] Optional child item: Eat = “signature dish”; Buy = “what to get”; Do = hide the dish fields.
 - [x] Empty group: one line “None yet.” Do not build `/cities/[slug]/eat` style landings this cut.
-- **Cities/zones:** users cannot insert (004). **No admin city form this cut** — SQL until we need city #3.
+- **Cities/zones:** users cannot insert via a form (004). **Lumen may open a city** from a dump (name + 3-letter IATA) via `lumen_ensure_city` (009). No public city form. No city-hero spend on create.
 - **Photos (locked 2026-08-24):** **1 still per place.** User upload first; if none, one cheap AI still on publish, stamped **AI**. City: **one hero**, refresh rarely (Lumen asks John before spending). Upload = Supabase Storage when Phase 4 ships. Seed cities still use static JPEGs in `public/landing/` until then.
 
 ## Out of scope (this IA cut)

@@ -26,6 +26,9 @@ function asExtract(raw: unknown): LumenExtract | null {
     question: typeof o.question === "string" ? o.question : null,
     post_kind: postKind,
     city_slug: typeof o.city_slug === "string" ? o.city_slug : null,
+    city_name: typeof o.city_name === "string" ? o.city_name : null,
+    city_airport: typeof o.city_airport === "string" ? o.city_airport : null,
+    city_country: typeof o.city_country === "string" ? o.city_country : null,
     category,
     name: typeof o.name === "string" ? o.name : null,
     title: typeof o.title === "string" ? o.title : null,
@@ -145,6 +148,39 @@ export function zoneIdFor(
 ): string | null {
   if (!type) return null;
   return zones.find((z) => z.city_id === cityId && z.type === type)?.id ?? null;
+}
+
+export function normalizeIata(code: string | null | undefined): string | null {
+  const c = (code ?? "").trim().toUpperCase();
+  return /^[A-Z]{3}$/.test(c) ? c : null;
+}
+
+export function matchCity(
+  cities: City[],
+  extract: LumenExtract,
+  hintSlug?: string | null,
+): City | undefined {
+  const iata = normalizeIata(extract.city_airport);
+  if (iata) {
+    const byAir = cities.find(
+      (c) => (c.airport_code ?? "").toUpperCase() === iata,
+    );
+    if (byAir) return byAir;
+  }
+  if (extract.city_slug) {
+    const bySlug = cities.find((c) => c.slug === extract.city_slug);
+    if (bySlug) return bySlug;
+  }
+  if (extract.city_name) {
+    const n = extract.city_name.trim().toLowerCase();
+    const byName = cities.find((c) => c.name.trim().toLowerCase() === n);
+    if (byName) return byName;
+  }
+  if (hintSlug) {
+    const byHint = cities.find((c) => c.slug === hintSlug);
+    if (byHint) return byHint;
+  }
+  return undefined;
 }
 
 export function matchPlace(

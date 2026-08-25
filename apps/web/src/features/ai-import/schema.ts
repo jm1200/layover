@@ -20,6 +20,15 @@ export const LUMEN_JSON_SCHEMA = {
         "place = one Eat/Do/Buy rec. playbook = a full day with stops.",
     },
     city_slug: { type: ["string", "null"] },
+    city_name: {
+      type: ["string", "null"],
+      description: "City display name. Required when opening a city not already on the site.",
+    },
+    city_airport: {
+      type: ["string", "null"],
+      description: "IATA code, 3 letters, e.g. BCN. Required to open a new city.",
+    },
+    city_country: { type: ["string", "null"] },
     category: {
       anyOf: [
         { type: "string", enum: ["eat", "do", "shop"] },
@@ -91,6 +100,9 @@ export const LUMEN_JSON_SCHEMA = {
     "question",
     "post_kind",
     "city_slug",
+    "city_name",
+    "city_airport",
+    "city_country",
     "category",
     "name",
     "title",
@@ -118,6 +130,9 @@ export type LumenExtract = {
   question: string | null;
   post_kind: "place" | "playbook";
   city_slug: string | null;
+  city_name: string | null;
+  city_airport: string | null;
+  city_country: string | null;
   category: "eat" | "do" | "shop" | null;
   name: string | null;
   title: string | null;
