@@ -2,28 +2,23 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-08-25 (team meeting — BCN hero + Lumen baseline + review)  
+**Last updated:** 2026-08-25 (publish-when-ready + city heroes without asking)  
 **Company:** Layover (working name)  
-**Stage:** **Phase 4 in progress.** Lumen is live. BCN has a city hero. Charter is `agents/lumen.md`.
+**Stage:** **Phase 4 in progress.** Lumen writes the blurb. You edit. Publish. Stills after that.
 
 **Not this cut:** Auto-post chatbot, unbounded chat, Stripe, likes, follow-notifications, completion scores, QR kickbacks.
 
 ## Money (do not forget)
 
-**$20/mo** hard stop. 4k chars. Kill switch. Daily 3-draft cap is **off** (put back later). Lookup + stills are on (cheap SKUs). You authorized the BCN hero this session.
+**$20/mo company-wide.** 4k chars. Kill switch. Daily 3-draft cap is **off** (put back later). City heroes: 1 per city, she spends without asking, inside that cap.
+
+**You need to run SQL 011** in the Supabase SQL Editor (`apps/web/supabase/migrations/011_lumen_spend.sql`). Until then she may nap.
 
 ## Status
 
-Phase 2 + 2.1 done. Lumen fills the form: dump → lookup → one rec at a time → layover card → publish (day **and** Eat/Do/Buy). She can open a city from IATA. `/cities` is cards, not a spreadsheet. Search lists live airport codes (BCN included).
+Dump → she fills the form (blurb included) → one rec at a time (upload or AI-still checkbox) → **Publish**. Same day twice does not copy. New city gets a hero on first publish.
 
-**Known:** same layover can publish twice. Dedup after you test.
+## What I need from you
 
-Phase 3 social still waits.
-
-## What I need from you next time
-
-Test the dump flow. Then we kill duplicate itineraries.
-
-## Still true
-
-Crew-layover wedge. Zones, not hotels. Trust > revenue. Draft-then-confirm. Destination-first.
+1. Paste-and-run **011**.
+2. Test a dump. Don’t dump the same BCN day expecting a twin — she should refuse.

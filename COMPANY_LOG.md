@@ -51,6 +51,8 @@ Durable history only. Not a chat transcript.
 - **2026-08-25 — Pause.** Phase 4 Lumen is in the app (BCN dump filed and published). **Known:** same itinerary can upload twice — dedup next session. Then founder testing + Theo/Milo review. Not tonight.
 - **2026-08-25 — Lumen live baseline.** She is the form: dump once, lookup, unpack, city-open (name+IATA), photo-first stills, draft-then-confirm. Duplicate itinerary is a known gap (match plans like places). City heroes still John’s spend. Charter: `agents/lumen.md`.
 - **2026-08-25 — BCN city hero.** John authorized. `public/landing/hero-barcelona.jpg` + `CITY_HERO.barcelona`. Search hint lists live IATA codes. `/cities` is hero cards, not a phone book. No dark placeholders.
+- **2026-08-25 — City heroes: don’t ask.** One per city. Lumen spends inside $20. She may freshen with a good user shot. She monitors home/cities and updates unless they still feel right.
+- **2026-08-25 — Publish when ready.** No save-draft button. She writes the blurb; they edit. Photo: upload or **AI still on publish** (one generation, after Publish). No duplicate itineraries. $20 is company-wide (SQL **011**).
 - Live rotating homepage from “where crew have been going” needs either a human moderator or the AI pipeline. Not hired. Not built.
 - “The perfect layover does not exist… {City} edition” is John’s Instagram series voice — for full plans, not ads. Ads later: “New idea…”
 - Rx / pharma shopping policy **parked**.

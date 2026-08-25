@@ -2,7 +2,7 @@ import Link from "next/link";
 import { listCities } from "@/features/places/queries";
 import { getProfile } from "@/features/auth/get-profile";
 import { AiStill } from "@/features/places/ai-still";
-import { CITY_FEEL, CITY_HERO } from "@/features/places/rec-media";
+import { CITY_FEEL, heroForCity } from "@/features/places/rec-media";
 
 export default async function CitiesPage() {
   const [cities, profile] = await Promise.all([listCities(), getProfile()]);
@@ -45,7 +45,7 @@ export default async function CitiesPage() {
         ) : (
           <ul className="mt-8 grid gap-6 sm:grid-cols-2">
             {cities.map((c) => {
-              const hero = CITY_HERO[c.slug];
+              const hero = heroForCity(c);
               const feel = CITY_FEEL[c.slug];
               return (
                 <li key={c.id}>
@@ -58,6 +58,7 @@ export default async function CitiesPage() {
                             alt={hero.alt}
                             sizes="(min-width: 640px) 50vw, 100vw"
                             className="object-cover transition duration-300 group-hover:scale-[1.03]"
+                            badge={hero.badge === undefined ? "ai" : hero.badge}
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/10" />
                         </>

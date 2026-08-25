@@ -38,7 +38,7 @@ export function CityHero({
   loggedIn,
 }: {
   city: City;
-  hero: { src: string; alt: string } | null;
+  hero: { src: string; alt: string; badge?: "ai" | null } | null;
   loggedIn: boolean;
 }) {
   const feel = CITY_FEEL[city.slug];
@@ -51,6 +51,7 @@ export function CityHero({
             alt={hero.alt}
             sizes="100vw"
             className="object-cover object-[50%_55%]"
+            badge={hero.badge === undefined ? "ai" : hero.badge}
           />
         </div>
       ) : (

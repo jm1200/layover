@@ -26,12 +26,16 @@ export function DumpBox({
         {cityName ? (
           <span className="text-sm text-zinc-500">{cityName} is already on this one.</span>
         ) : null}
+        {state.question ? (
+          <input type="hidden" name="story" value={story} />
+        ) : null}
         <textarea
-          name="story"
+          name={state.question ? undefined : "story"}
           required={!state.question}
           rows={8}
           maxLength={MAX_STORY_CHARS}
           defaultValue={story}
+          readOnly={Boolean(state.question)}
           placeholder="Eight hours in BCN. Tapas in El Born, then a walk to the beach…"
           className="rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-base leading-relaxed outline-none focus:border-zinc-900"
         />
@@ -60,6 +64,14 @@ export function DumpBox({
       {state.error && !state.nap ? (
         <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-800">
           {state.error}
+          {state.alreadyHref ? (
+            <>
+              {" "}
+              <a href={state.alreadyHref} className="underline">
+                Open it
+              </a>
+            </>
+          ) : null}
         </p>
       ) : null}
 

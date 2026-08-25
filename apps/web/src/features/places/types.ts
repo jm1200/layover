@@ -7,6 +7,8 @@ export type City = {
   name: string;
   country: string | null;
   airport_code: string | null;
+  image_url?: string | null;
+  image_source?: string | null;
 };
 
 export type Zone = {
@@ -27,6 +29,7 @@ export type Place = {
   author_id: string | null;
   image_url?: string | null;
   image_source?: string | null;
+  want_ai_still?: boolean | null;
 };
 
 export type Dish = {

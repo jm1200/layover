@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProfile } from "@/features/auth/get-profile";
 import { CityHero } from "@/features/places/city-chrome";
-import { CITY_HERO } from "@/features/places/rec-media";
+import { heroForCity } from "@/features/places/rec-media";
 import { getCityBySlug, listPlacesForCity } from "@/features/places/queries";
 import { LayoverPreviewCard } from "@/features/playbooks/layover-card";
 import {
@@ -50,7 +50,7 @@ export default async function CityLayoversPage({
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
       <CityHero
         city={city}
-        hero={CITY_HERO[city.slug] ?? null}
+        hero={heroForCity(city)}
         loggedIn={Boolean(profile)}
       />
       <main className="mx-auto max-w-6xl px-4 py-12">

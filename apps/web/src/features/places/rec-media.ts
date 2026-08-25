@@ -1,5 +1,21 @@
 /** Static editorial stills. Not a media pipeline. IDs match seed 003 / 005 / 006. */
 
+export function heroForCity(city: {
+  slug: string;
+  name: string;
+  image_url?: string | null;
+  image_source?: string | null;
+}): { src: string; alt: string; badge?: "ai" | null } | null {
+  if (city.image_url) {
+    return {
+      src: city.image_url,
+      alt: city.name,
+      badge: city.image_source === "ai" ? "ai" : null,
+    };
+  }
+  return CITY_HERO[city.slug] ?? null;
+}
+
 export const CITY_HERO: Record<string, { src: string; alt: string }> = {
   zurich: {
     src: "/landing/hero-zurich.jpg",

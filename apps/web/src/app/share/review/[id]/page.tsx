@@ -53,23 +53,24 @@ export default async function ShareReviewPage({
         {n > 0 && playbook
           ? `I’ll file ${n} place${n === 1 ? "" : "s"} first — one at a time — then the layover that strings them.`
           : n > 0
-            ? "This rec first. Save when it’s good."
+            ? "This rec first. Edit the blurb if you want, then publish."
             : "I filled what I heard."}
       </p>
       {newCityLabel ? (
         <p className="mt-2 text-sm text-zinc-600">
-          {newCityLabel} is on the map now. City hero later — I don’t spend on
-          that without you.
+          {newCityLabel} is on the map now. I’ll put a city hero up when you
+          publish.
         </p>
       ) : null}
       <p className="mt-2 text-sm text-zinc-500">
-        Recs stay private until you publish the day.
+        Nothing goes live until you hit Publish.
       </p>
 
       <ReviewQueue
         places={places}
         playbook={playbook}
         authorId={profile.id}
+        logId={log.id}
       />
 
       <p className="mt-10 text-sm">

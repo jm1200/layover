@@ -2,16 +2,25 @@ import { createClient } from "@/lib/supabase/server";
 import type { City, Dish, Place, Zone } from "@/features/places/types";
 
 const PLACE_COLS =
-  "id, city_id, zone_id, name, blurb, category, status, author_id, image_url, image_source";
+  "id, city_id, zone_id, name, blurb, category, status, author_id, image_url, image_source, want_ai_still";
 const PLACE_COLS_LEGACY =
+  "id, city_id, zone_id, name, blurb, category, status, author_id, image_url, image_source";
+const PLACE_COLS_BARE =
   "id, city_id, zone_id, name, blurb, category, status, author_id";
+
+const CITY_COLS =
+  "id, slug, name, country, airport_code, image_url, image_source";
+const CITY_COLS_LEGACY = "id, slug, name, country, airport_code";
 
 export async function listCities(): Promise<City[]> {
   const supabase = await createClient();
-  const { data, error } = await supabase
+  const first = await supabase
     .from("cities")
-    .select("id, slug, name, country, airport_code")
+    .select(CITY_COLS)
     .order("name");
+  const { data, error } = first.error
+    ? await supabase.from("cities").select(CITY_COLS_LEGACY).order("name")
+    : first;
   if (error) {
     console.warn("[listCities]", error.message);
     return [];
@@ -21,16 +30,22 @@ export async function listCities(): Promise<City[]> {
 
 export async function getCityBySlug(slug: string): Promise<City | null> {
   const supabase = await createClient();
-  const { data, error } = await supabase
+  const first = await supabase
     .from("cities")
-    .select("id, slug, name, country, airport_code")
+    .select(CITY_COLS)
     .eq("slug", slug)
     .maybeSingle();
-  if (error) {
-    console.warn("[getCityBySlug]", error.message);
+  if (!first.error) return first.data as City | null;
+  const retry = await supabase
+    .from("cities")
+    .select(CITY_COLS_LEGACY)
+    .eq("slug", slug)
+    .maybeSingle();
+  if (retry.error) {
+    console.warn("[getCityBySlug]", retry.error.message);
     return null;
   }
-  return data as City | null;
+  return retry.data as City | null;
 }
 
 export async function listZonesForCity(cityId: string): Promise<Zone[]> {
@@ -70,7 +85,7 @@ export async function listPublishedPlaces(): Promise<Place[]> {
   const { data, error } = first.error
     ? await supabase
         .from("places")
-        .select(PLACE_COLS_LEGACY)
+        .select(PLACE_COLS_BARE)
         .eq("status", "published")
         .order("name")
     : first;

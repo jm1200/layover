@@ -1,7 +1,13 @@
 import "server-only";
 
 import type { City, Place, Zone, ZoneType } from "@/features/places/types";
-import { EXTRACT_MODEL, estimateUsd, xaiClient } from "@/lib/ai/xai";
+import {
+  EXTRACT_MODEL,
+  estimateUsd,
+  MAX_SEARCH_CALLS,
+  searchCallsFromResponse,
+  xaiClient,
+} from "@/lib/ai/xai";
 import { lumenSystemPrompt } from "@/features/ai-import/prompt";
 import {
   LUMEN_JSON_SCHEMA,
@@ -113,22 +119,17 @@ export async function extractWithLumen(opts: {
           strict: true,
         },
       },
-    });
+      // xAI Responses: hard cap on server-side tool calls (not just a prompt).
+      max_tool_calls: MAX_SEARCH_CALLS,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any);
 
     const usage = response.usage as
-      | {
-          input_tokens?: number;
-          output_tokens?: number;
-          server_side_tool_usage_details?: { web_search_calls?: number };
-          num_server_side_tools_used?: number;
-        }
+      | { input_tokens?: number; output_tokens?: number }
       | undefined;
     const inputTokens = usage?.input_tokens ?? 0;
     const outputTokens = usage?.output_tokens ?? 0;
-    const searchCalls =
-      usage?.server_side_tool_usage_details?.web_search_calls ??
-      usage?.num_server_side_tools_used ??
-      0;
+    const searchCalls = searchCallsFromResponse(response);
     let content = response.output_text ?? "";
     if (!content && Array.isArray(response.output)) {
       const msg = response.output.find((i) => i.type === "message");
@@ -154,7 +155,8 @@ export async function extractWithLumen(opts: {
       ),
       error: extract ? undefined : "parse",
     };
-  } catch {
+  } catch (e) {
+    console.warn("[extractWithLumen]", e instanceof Error ? e.message : e);
     return {
       extract: null,
       inputTokens: 0,
@@ -213,9 +215,26 @@ export function matchPlace(
   cityId: string,
   name: string,
 ): Place | undefined {
-  const n = name.trim().toLowerCase();
+  const n = normName(name);
   if (!n) return undefined;
   return places.find(
-    (p) => p.city_id === cityId && p.name.trim().toLowerCase() === n,
+    (p) => p.city_id === cityId && normName(p.name) === n,
   );
+}
+
+export function normName(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+}
+
+export function sameStopSet(a: string[], b: string[]): boolean {
+  const A = a.map(normName).filter(Boolean).sort();
+  const B = b.map(normName).filter(Boolean).sort();
+  if (A.length < 2 || A.length !== B.length) return false;
+  return A.join("\0") === B.join("\0");
+}
+
+export function titlesMatch(a: string, b: string): boolean {
+  const A = normName(a);
+  const B = normName(b);
+  return Boolean(A) && A === B;
 }

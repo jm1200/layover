@@ -4,17 +4,22 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/features/auth/get-profile";
-import { EXTRACT_MODEL, getXaiKey, monthlyCapUsd } from "@/lib/ai/xai";
+import { EXTRACT_MODEL } from "@/lib/ai/xai";
 import { MAX_STORY_CHARS, type LumenExtract } from "@/features/ai-import/schema";
 import {
   extractWithLumen,
   matchCity,
   matchPlace,
   normalizeIata,
+  sameStopSet,
+  titlesMatch,
   zoneIdFor,
 } from "@/features/ai-import/extract";
+import { aiBlocked } from "@/features/ai-import/spend";
 import { listAllZones, listCities } from "@/features/places/queries";
+import { listStopsForPlaybook } from "@/features/playbooks/queries";
 import type { City, Place } from "@/features/places/types";
+import type { Playbook } from "@/features/playbooks/types";
 
 export type ShareState = {
   error?: string;
@@ -22,6 +27,7 @@ export type ShareState = {
   question?: string;
   story?: string;
   hintSlug?: string;
+  alreadyHref?: string;
 };
 
 function nap(): ShareState {
@@ -59,26 +65,7 @@ export async function fillDraft(
 
   const supabase = await createClient();
 
-  const { data: setting } = await supabase
-    .from("site_settings")
-    .select("value")
-    .eq("key", "ai_killed")
-    .maybeSingle();
-  if (setting?.value === "true") return nap();
-  if (!getXaiKey()) return nap();
-
-  const monthStart = new Date();
-  monthStart.setUTCDate(1);
-  monthStart.setUTCHours(0, 0, 0, 0);
-  const { data: monthRows } = await supabase
-    .from("ai_import_logs")
-    .select("estimated_usd")
-    .gte("created_at", monthStart.toISOString());
-  const spent = (monthRows ?? []).reduce(
-    (s, r) => s + Number(r.estimated_usd ?? 0),
-    0,
-  );
-  if (spent >= monthlyCapUsd()) return nap();
+  if (await aiBlocked(supabase)) return nap();
 
   const cities = await listCities();
 
@@ -95,6 +82,7 @@ export async function fillDraft(
     input_chars: combined.length,
     input_tokens: result.inputTokens,
     output_tokens: result.outputTokens,
+    search_calls: result.searchCalls,
     estimated_usd: result.estimatedUsd,
   };
 
@@ -186,7 +174,10 @@ export async function fillDraft(
   const existing = (existingRows ?? []) as Place[];
 
   const createdPlaceIds: string[] = [];
+  const insertedPlaceIds: string[] = [];
   let playbookId: string | null = null;
+  let openedCity = false;
+  if (!matchCity(cities, extract, hintSlug) && city) openedCity = true;
 
   async function ensurePlace(opts: {
     name: string;
@@ -197,29 +188,29 @@ export async function fillDraft(
     dishNote?: string | null;
   }): Promise<string | null> {
     const found = matchPlace(existing, city!.id, opts.name);
-    if (found) {
-      if (!createdPlaceIds.includes(found.id)) createdPlaceIds.push(found.id);
-      return found.id;
-    }
+    if (found) return found.id;
+    const zoneId = zoneIdFor(zones, city!.id, opts.zoneType);
     const { data: place, error } = await supabase
       .from("places")
       .insert({
         city_id: city!.id,
-        zone_id: zoneIdFor(zones, city!.id, opts.zoneType),
+        zone_id: zoneId,
         name: opts.name,
         blurb: opts.blurb,
         category: opts.category,
         status: "draft",
         author_id: authorId,
+        want_ai_still: true,
       })
       .select("id")
       .single();
     if (error || !place) return null;
     createdPlaceIds.push(place.id);
+    insertedPlaceIds.push(place.id);
     existing.push({
       id: place.id,
       city_id: city!.id,
-      zone_id: null,
+      zone_id: zoneId,
       name: opts.name,
       blurb: opts.blurb,
       category: opts.category,
@@ -235,6 +226,29 @@ export async function fillDraft(
       });
     }
     return place.id;
+  }
+
+  async function dropInserted() {
+    if (!insertedPlaceIds.length) return;
+    await supabase.from("places").delete().in("id", insertedPlaceIds);
+  }
+
+  async function matchExistingPlan(
+    title: string,
+    stopNames: string[],
+  ): Promise<Playbook | null> {
+    const { data: rows } = await supabase
+      .from("playbooks")
+      .select("id, city_id, title, narrative, hours_available, status, author_id")
+      .eq("city_id", city!.id);
+    const plans = (rows ?? []) as Playbook[];
+    for (const pb of plans) {
+      if (titlesMatch(pb.title, title)) return pb;
+      const stops = await listStopsForPlaybook(pb.id);
+      const names = stops.map((s) => s.title ?? "").filter(Boolean);
+      if (sameStopSet(names, stopNames)) return pb;
+    }
+    return null;
   }
 
   if (extract.post_kind === "playbook") {
@@ -254,6 +268,44 @@ export async function fillDraft(
       };
     }
 
+    const stopNames = stops.map((s) => s.name.trim());
+    const existingPlan = await matchExistingPlan(
+      extract.title.trim(),
+      stopNames,
+    );
+    if (existingPlan) {
+      if (existingPlan.status === "published") {
+        await supabase.from("ai_import_logs").insert({
+          ...logBase,
+          success: false,
+          error_code: "duplicate_plan",
+          city_id: city.id,
+          payload: extract as unknown as Record<string, unknown>,
+        });
+        return {
+          error: "This day’s already on the city. I didn’t copy it.",
+          alreadyHref: `/playbooks/${existingPlan.id}`,
+          story,
+          hintSlug: city.slug,
+        };
+      }
+      if (existingPlan.author_id !== authorId) {
+        await supabase.from("ai_import_logs").insert({
+          ...logBase,
+          success: false,
+          error_code: "duplicate_plan",
+          city_id: city.id,
+          payload: extract as unknown as Record<string, unknown>,
+        });
+        return {
+          error: "This day’s already being filed. I didn’t copy it.",
+          story,
+          hintSlug: city.slug,
+        };
+      }
+      playbookId = existingPlan.id;
+    }
+
     const stopIds: { title: string; body: string | null; place_id: string | null }[] =
       [];
     for (const s of stops) {
@@ -271,42 +323,53 @@ export async function fillDraft(
       });
     }
 
-    const { data: pb, error: pbErr } = await supabase
-      .from("playbooks")
-      .insert({
-        city_id: city.id,
-        title: extract.title.trim(),
-        narrative: extract.narrative,
-        hours_available: extract.hours_available,
-        status: "draft",
-        author_id: authorId,
-      })
-      .select("id")
-      .single();
-    if (pbErr || !pb) {
-      await supabase.from("ai_import_logs").insert({
-        ...logBase,
-        success: false,
-        error_code: "write",
-        city_id: city.id,
-        payload: extract as unknown as Record<string, unknown>,
-      });
-      return { error: "Couldn’t save the plan. Try again.", story };
-    }
-    playbookId = pb.id;
-    if (stopIds.length) {
-      const { error: stopErr } = await supabase.from("playbook_stops").insert(
-        stopIds.map((s, idx) => ({
-          playbook_id: pb.id,
-          position: idx + 1,
-          title: s.title,
-          body: s.body,
-          place_id: s.place_id,
-        })),
-      );
-      if (stopErr) {
-        await supabase.from("playbooks").delete().eq("id", pb.id);
-        return { error: "Couldn’t save stops. Try again.", story };
+    if (!playbookId) {
+      const { data: pb, error: pbErr } = await supabase
+        .from("playbooks")
+        .insert({
+          city_id: city.id,
+          title: extract.title.trim(),
+          narrative: extract.narrative,
+          hours_available: extract.hours_available,
+          status: "draft",
+          author_id: authorId,
+        })
+        .select("id")
+        .single();
+      if (pbErr || !pb) {
+        await dropInserted();
+        await supabase.from("ai_import_logs").insert({
+          ...logBase,
+          success: false,
+          error_code: "write",
+          city_id: city.id,
+          payload: extract as unknown as Record<string, unknown>,
+        });
+        return { error: "Couldn’t save the plan. Try again.", story };
+      }
+      playbookId = pb.id;
+      if (stopIds.length) {
+        const { error: stopErr } = await supabase.from("playbook_stops").insert(
+          stopIds.map((s, idx) => ({
+            playbook_id: pb.id,
+            position: idx + 1,
+            title: s.title,
+            body: s.body,
+            place_id: s.place_id,
+          })),
+        );
+        if (stopErr) {
+          await supabase.from("playbooks").delete().eq("id", pb.id);
+          await dropInserted();
+          await supabase.from("ai_import_logs").insert({
+            ...logBase,
+            success: false,
+            error_code: "write",
+            city_id: city.id,
+            payload: extract as unknown as Record<string, unknown>,
+          });
+          return { error: "Couldn’t save stops. Try again.", story };
+        }
       }
     }
   } else {
@@ -337,6 +400,21 @@ export async function fillDraft(
     if (!pid) {
       return { error: "Couldn’t save the rec. Try again.", story };
     }
+    if (!createdPlaceIds.length) {
+      await supabase.from("ai_import_logs").insert({
+        ...logBase,
+        success: true,
+        error_code: "linked",
+        city_id: city.id,
+        payload: extract as unknown as Record<string, unknown>,
+      });
+      return {
+        error: "That rec is already on the city.",
+        alreadyHref: `/places/${pid}`,
+        story,
+        hintSlug: city.slug,
+      };
+    }
   }
 
   const { data: logRow, error: logErr } = await supabase
@@ -345,7 +423,10 @@ export async function fillDraft(
       ...logBase,
       success: true,
       city_id: city.id,
-      payload: extract as unknown as Record<string, unknown>,
+      payload: {
+        ...(extract as unknown as Record<string, unknown>),
+        opened_city: openedCity,
+      },
       created_place_ids: createdPlaceIds,
       created_playbook_id: playbookId,
     })

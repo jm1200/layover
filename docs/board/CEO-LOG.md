@@ -4,6 +4,14 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-25 — Don’t ask for heroes; publish when ready
+
+**Source:** Shareholder — he’ll pay for city heroes (1/city); Lumen may freshen with good user shots and should monitor the site. AI writes the blurb; they edit. Photo = upload or checkbox, generate after publish, one generation. No save-draft button. No duplicate itineraries. Asked what the four opaque review items meant (definer RPC, search log, city-open grant, orphan writes) — those are implemented, explained in the session.
+
+**Locks:** City-hero spend no longer a ping. $20 is company-wide (SQL **011**). Publish is the only done button.
+
+---
+
 ## 2026-08-25 — Team meeting: make Lumen happy
 
 **Source:** Shareholder — seed data aside; thorough Theo/Milo review of the dump-to-draft work; lock Lumen’s job and rules; give her the BCN hero.

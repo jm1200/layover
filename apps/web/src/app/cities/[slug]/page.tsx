@@ -12,7 +12,7 @@ import {
   type RecKind,
 } from "@/features/places/kind";
 import {
-  CITY_HERO,
+  heroForCity,
   stillForPlace,
   PREVIEW_COUNT,
 } from "@/features/places/rec-media";
@@ -68,7 +68,7 @@ export default async function CityPage({
     byKind[recKindFromCategory(p.category)].push(p);
   }
 
-  const hero = CITY_HERO[city.slug] ?? null;
+  const hero = heroForCity(city);
   const previewPlans = publishedPlaybooks.slice(0, PREVIEW_COUNT);
   const planStops: Record<string, PlaybookStop[]> = {};
   await Promise.all(

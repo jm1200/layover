@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 import { getProfile } from "@/features/auth/get-profile";
 import { AiStill } from "@/features/places/ai-still";
 import { CityPublicHeader } from "@/features/places/city-chrome";
-import { CITY_HERO, stillForStop } from "@/features/places/rec-media";
+import { heroForCity, stillForStop } from "@/features/places/rec-media";
 import { getPlace, listCities } from "@/features/places/queries";
 import { StartItinerary } from "@/features/playbooks/start-itinerary";
 import {
@@ -37,6 +37,7 @@ export default async function PlaybookPage({
     getProfile(),
   ]);
   const city = cities.find((c) => c.id === playbook.city_id) ?? null;
+  const hero = city ? heroForCity(city) : null;
   const canEdit =
     profile &&
     (profile.role === "admin" || profile.id === playbook.author_id);
@@ -61,11 +62,11 @@ export default async function PlaybookPage({
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
       <section className="relative min-h-[42vh] overflow-hidden px-4 pb-12 pt-28 text-white">
-        {city && CITY_HERO[city.slug] ? (
+        {hero ? (
           <div className="absolute inset-0">
             <AiStill
-              src={CITY_HERO[city.slug].src}
-              alt={CITY_HERO[city.slug].alt}
+              src={hero.src}
+              alt={hero.alt}
               sizes="100vw"
               className="object-cover"
             />

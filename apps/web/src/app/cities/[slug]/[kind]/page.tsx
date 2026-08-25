@@ -11,7 +11,7 @@ import {
   REC_KIND_LABEL,
   type RecKind,
 } from "@/features/places/kind";
-import { CITY_HERO, stillForPlace } from "@/features/places/rec-media";
+import { heroForCity, stillForPlace } from "@/features/places/rec-media";
 import {
   getCityBySlug,
   listPlacesForCity,
@@ -61,7 +61,7 @@ export default async function CityKindPage({
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
       <CityHero
         city={city}
-        hero={CITY_HERO[city.slug] ?? null}
+        hero={heroForCity(city)}
         loggedIn={Boolean(profile)}
       />
       <main className="mx-auto max-w-6xl px-4 py-12">

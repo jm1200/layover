@@ -24,12 +24,12 @@ Grok (or another agent) helps in **sessions** using metrics and docs — not uns
 | Locked | Meaning |
 |--------|---------|
 | Production AI | **Off** until John puts `XAI_API_KEY` in env **and** names the monthly $ cap. That is the authorization. |
-| Monthly $ cap | Default **$20**. Raising it = John. Hard stop. **2026-08-25 review:** the live sum is per-user JWT, not global — fix with a definer RPC before more spend. Do not put `service_role` in Next. |
+| Monthly $ cap | Default **$20** company-wide (`lumen_month_spend_usd`, SQL **011**). Raising it = John. Hard stop. Do not put `service_role` in Next. |
 | User interaction caps | **~4k chars**, **one extract** per story. Daily 3-draft cap **parked** (John 2026-08-25) — restore in a later phase. Raising the $ cap still = John. |
 | Dictate | Phone **keyboard / OS mic** (text in the box). Token cost = the text, same as typing. Paid STT / in-app waveform = **John**. |
 | Follow-up | **Holes on the draft form** (Sofia lock). No second model call for dish/zone/hours. **One** spoken/typed Q only if she cannot draft (no city / no place). Not a chat. |
 | SKU / quality upgrades | Imagine quality, extra stills, regen, grok-4.6 on the hot path = **John**. Extract **web_search** (cap 8) is on. Unbounded search still off. |
-| City hero refresh | Lumen asks John **before** spending. |
+| City hero | **One per city.** Lumen spends without asking, inside the $20 cap. She may swap a generated banner for a good crew shot. |
 | Kill switch | Ships with Phase 4. Admin (John) can kill AI globally. Default: stay off until the yes above. |
 | Other paid cloud | Supabase Pro, Vercel Pro, new vendors, paid SKUs = John. Do not upgrade “to be safe.” |
 
@@ -72,7 +72,7 @@ Target **~2–5¢ per published post**. Worst we allow **~5¢** (one-shot + one 
 | Layover = combo of places | Plan has **no** extra still; reuse place stills |
 | Generate still **on publish** | Abandoned drafts cost text only |
 | No regen in v1 | Hate it → upload |
-| City hero: one per city | Refresh rarely. Lumen **asks John before spending** |
+| City hero: one per city | Lumen spends without asking, inside $20. First publish in a city with no hero generates one. |
 | Input cap | ~4k characters |
 | Daily quota | **Parked.** Was 3/user/day. Restore in a later phase. |
 | Monthly $ hard stop | Default **$20**. Raising it = John. |

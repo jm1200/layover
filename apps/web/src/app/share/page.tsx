@@ -10,7 +10,7 @@ export default async function SharePage({
   searchParams: Promise<{ city?: string }>;
 }) {
   const { profile, error } = await requireUser();
-  if (error === "unauthenticated") redirect("/login");
+  if (error === "unauthenticated") redirect("/login?next=/share");
   if (error === "suspended" || !profile) redirect("/dashboard");
 
   const { city: slug } = await searchParams;

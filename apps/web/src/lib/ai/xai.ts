@@ -1,3 +1,5 @@
+import "server-only";
+
 import OpenAI from "openai";
 
 export const EXTRACT_MODEL = "grok-4.3";
@@ -37,4 +39,36 @@ export function xaiClient() {
   const key = getXaiKey();
   if (!key) return null;
   return new OpenAI({ apiKey: key, baseURL: "https://api.x.ai/v1" });
+}
+
+/** Billable web-search / browse calls on a Responses payload. */
+export function searchCallsFromResponse(response: unknown): number {
+  const r = (response ?? {}) as Record<string, unknown>;
+  const usageMap = r.server_side_tool_usage;
+  if (usageMap && typeof usageMap === "object") {
+    let n = 0;
+    for (const [k, v] of Object.entries(usageMap as Record<string, unknown>)) {
+      if (/WEB_SEARCH|web_search|BROWSE|browse_page|open_page/i.test(k)) {
+        n += Number(v) || 0;
+      }
+    }
+    if (n > 0) return n;
+  }
+  if (Array.isArray(r.output)) {
+    const n = r.output.filter((item) => {
+      if (!item || typeof item !== "object") return false;
+      const t = (item as { type?: string }).type ?? "";
+      return t === "web_search_call" || t === "web_search";
+    }).length;
+    if (n > 0) return n;
+  }
+  const usage = r.usage as Record<string, unknown> | undefined;
+  if (!usage) return 0;
+  const details = usage.server_side_tool_usage_details as
+    | { web_search_calls?: number }
+    | undefined;
+  return (
+    Number(details?.web_search_calls ?? usage.num_server_side_tools_used ?? 0) ||
+    0
+  );
 }
