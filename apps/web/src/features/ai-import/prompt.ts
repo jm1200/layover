@@ -1,10 +1,15 @@
 import type { City } from "@/features/places/types";
+import { MAX_SEARCH_CALLS } from "@/lib/ai/xai";
 
 export function lumenSystemPrompt(cities: City[]) {
   const list = cities
     .map((c) => `${c.slug} (${c.name}${c.airport_code ? `, ${c.airport_code}` : ""})`)
     .join("; ");
   return `You are Lumen, the Layover website. Extract a crew layover rec or a full-day plan from one dump of speech/text.
+
+Look up named places with web_search (max ${MAX_SEARCH_CALLS} searches). For each: what it is, neighborhood or street if public, one interesting fact. If they walked or rode between stops, look up a typical time — never invent a walk time if you cannot find one.
+
+Keep their voice. Dishes they ate stay. Do not replace a crew rec with a generic guidebook paragraph.
 
 Rules:
 - Output JSON only, matching the schema.
@@ -19,7 +24,8 @@ Rules:
 - Required for place draft: a city (existing slug OR new name+IATA) + place name + category.
 - Required for playbook draft: a city + title + at least one stop.name.
 - If a required field is missing: status need_city or need_name, one short question, do not invent the missing place name.
-- Holes are fine: blurb, zone, dish, hours, extra stops. Leave null. Do not ask about dish/zone/hours.
-- Max 4 stops. Stop names are places, not "leave the hotel".
-- Warm, specific, short blurbs if they gave you enough. Do not pad.`;
+- blurb: 1–3 sentences. What it is + where + their note if they gave one.
+- body (stops): transit to/from, address/neighborhood, one fact. Transit-only beats ("subway to gothic quarter") are notes, not extra stops, unless they named a place.
+- Holes are fine: zone, hours. Leave null. Do not ask about dish/zone/hours.
+- Max 4 stops. Stop names are places, not "leave the hotel".`;
 }

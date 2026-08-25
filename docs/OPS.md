@@ -28,7 +28,7 @@ Grok (or another agent) helps in **sessions** using metrics and docs — not uns
 | User interaction caps | Stay **tight** until measured: **3 drafts / user / day**, **~4k chars**, **one extract** per story. Raising quotas = John. |
 | Dictate | Phone **keyboard / OS mic** (text in the box). Token cost = the text, same as typing. Paid STT / in-app waveform = **John**. |
 | Follow-up | **Holes on the draft form** (Sofia lock). No second model call for dish/zone/hours. **One** spoken/typed Q only if she cannot draft (no city / no place). Not a chat. |
-| SKU / quality upgrades | Imagine quality, extra stills, regen, web search, grok-4.6 on the hot path = **John**. |
+| SKU / quality upgrades | Imagine quality, extra stills, regen, grok-4.6 on the hot path = **John**. Extract **web_search** (cap 8) is on. Unbounded search still off. |
 | City hero refresh | Lumen asks John **before** spending. |
 | Kill switch | Ships with Phase 4. Admin (John) can kill AI globally. Default: stay off until the yes above. |
 | Other paid cloud | Supabase Pro, Vercel Pro, new vendors, paid SKUs = John. Do not upgrade “to be safe.” |
@@ -66,7 +66,7 @@ Target **~2–5¢ per published post**. Worst we allow **~5¢** (one-shot + one 
 | Rule | Intent |
 |------|--------|
 | One-shot extract | Dictate once (OS mic or type). No 3-turn chat. Missing bits = **empty fields**. One Q only if undraftable (no city / no place). |
-| No reasoning / no web search on the hot path | Extra tokens for no gain. Web search = John. |
+| Lookup on extract | **web_search**, cap **8** calls. Named places: what/where/one fact. No invented walk times. John asked 2026-08-24. Unbounded search still off. |
 | Photo-first | User upload = $0 image |
 | **1 still per new place** | Not per stop, not a gallery |
 | Layover = combo of places | Plan has **no** extra still; reuse place stills |

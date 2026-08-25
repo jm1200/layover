@@ -19,7 +19,8 @@ export default async function SharePage({
   return (
     <AppShell profile={profile} title="Share your intel">
       <p className="mb-6 max-w-lg text-zinc-600">
-        Talk once. Lumen fills the form. You tap the blanks and publish.
+        Talk once. She looks up the places and fills the form. You tap the
+        blanks and publish.
       </p>
       <DumpBox citySlug={city?.slug} cityName={city?.name} />
     </AppShell>

@@ -70,6 +70,7 @@ export type ExtractResult = {
   extract: LumenExtract | null;
   inputTokens: number;
   outputTokens: number;
+  searchCalls: number;
   estimatedUsd: number;
   error?: string;
 };
@@ -85,6 +86,7 @@ export async function extractWithLumen(opts: {
       extract: null,
       inputTokens: 0,
       outputTokens: 0,
+      searchCalls: 0,
       estimatedUsd: 0,
       error: "missing_key",
     };
@@ -96,26 +98,43 @@ export async function extractWithLumen(opts: {
   const user = `Story:\n${opts.story}${hint}`;
 
   try {
-    const completion = await client.chat.completions.create({
+    const response = await client.responses.create({
       model: EXTRACT_MODEL,
-      messages: [
+      tools: [{ type: "web_search" }],
+      input: [
         { role: "system", content: lumenSystemPrompt(opts.cities) },
         { role: "user", content: user },
       ],
-      response_format: {
-        type: "json_schema",
-        json_schema: {
+      text: {
+        format: {
+          type: "json_schema",
           name: "lumen_extract",
-          strict: true,
           schema: LUMEN_JSON_SCHEMA,
+          strict: true,
         },
       },
     });
 
-    const usage = completion.usage;
-    const inputTokens = usage?.prompt_tokens ?? 0;
-    const outputTokens = usage?.completion_tokens ?? 0;
-    const content = completion.choices[0]?.message?.content ?? "";
+    const usage = response.usage as
+      | {
+          input_tokens?: number;
+          output_tokens?: number;
+          server_side_tool_usage_details?: { web_search_calls?: number };
+          num_server_side_tools_used?: number;
+        }
+      | undefined;
+    const inputTokens = usage?.input_tokens ?? 0;
+    const outputTokens = usage?.output_tokens ?? 0;
+    const searchCalls =
+      usage?.server_side_tool_usage_details?.web_search_calls ??
+      usage?.num_server_side_tools_used ??
+      0;
+    let content = response.output_text ?? "";
+    if (!content && Array.isArray(response.output)) {
+      const msg = response.output.find((i) => i.type === "message");
+      const block = msg?.content?.find((c) => c.type === "output_text");
+      content = block && "text" in block ? String(block.text) : "";
+    }
     let parsed: unknown = null;
     try {
       parsed = JSON.parse(content);
@@ -127,7 +146,12 @@ export async function extractWithLumen(opts: {
       extract,
       inputTokens,
       outputTokens,
-      estimatedUsd: estimateUsd(inputTokens, outputTokens),
+      searchCalls: Number(searchCalls) || 0,
+      estimatedUsd: estimateUsd(
+        inputTokens,
+        outputTokens,
+        Number(searchCalls) || 0,
+      ),
       error: extract ? undefined : "parse",
     };
   } catch {
@@ -135,6 +159,7 @@ export async function extractWithLumen(opts: {
       extract: null,
       inputTokens: 0,
       outputTokens: 0,
+      searchCalls: 0,
       estimatedUsd: 0,
       error: "xai",
     };

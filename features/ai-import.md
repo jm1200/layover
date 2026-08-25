@@ -58,7 +58,7 @@ Auth required to run extract. Anonymous: no post.
 
 ## v1 (locked 2026-08-24; media + unpack 2026-08-24; share UX 2026-08-24)
 
-- Auth required. **One extract per story.** Text model: **`grok-4.3`**. Not grok-4.6 on every post.
+- Auth required. **One extract per story.** Text model: **`grok-4.3`**. Looks up named places with **web_search** (cap 8). Blurbs = what/where + their voice. Not grok-4.6 on every post.
 - Missing dish / zone / hours / blurb → **empty fields on the draft.** Not a second prompt. Missing **required** city / name / (layover) title+one stop → one question, then extract.
 - **Share a rec (Eat / Do / Buy):** one place draft.
 - **Share a full layover:** Lumen drafts the **plan and each stop as a place** (Eat / Do / Buy), then links the stops. Match an existing place in that city by name if it already exists — do not duplicate. Cap: same as the form (**4 stops**). User confirms the bundle.
