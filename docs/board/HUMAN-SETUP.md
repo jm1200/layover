@@ -136,7 +136,8 @@ AI_MONTHLY_CAP_USD=20
 7. Run **010** (`010_place_images.sql`). If the storage bucket insert fails, create a **public** bucket named `place-stills` in Supabase Storage.
 8. Run **011** (`011_lumen_spend.sql`) — global $20 meter, city heroes, generate-on-publish. **Required** or Lumen will nap / dumps will fail.
 9. Run **012** (`012_dish_images.sql`) — plate photos on dishes. Rec cards stay one still.
-10. Restart the dev server (`cd apps/web && npm run dev`).
+10. Run **013** (`013_zurich_plates.sql`) — sample plates on the Zurich raclette rec.
+11. Restart the dev server (`cd apps/web && npm run dev`).
 
 If the key is missing, Share still opens but Fill the draft says **Lumen’s taking a nap.**
 

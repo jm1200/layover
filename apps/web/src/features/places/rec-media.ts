@@ -108,6 +108,31 @@ export const STOP_STILL: Record<string, { src: string; alt: string }> = {
   },
 };
 
+export const DISH_STILL: Record<string, { src: string; alt: string }> = {
+  "d1000000-0000-4000-8000-000000000001": {
+    src: "/landing/plate-zurich-raclette.jpg",
+    alt: "Truffle raclette over potatoes",
+  },
+  "d1000000-0000-4000-8000-000000000002": {
+    src: "/landing/plate-zurich-lava.jpg",
+    alt: "Lava cake",
+  },
+  "d1000000-0000-4000-8000-000000000003": {
+    src: "/landing/plate-zurich-pickles.jpg",
+    alt: "Cornichons and potatoes",
+  },
+};
+
+export function stillForDish(dish: {
+  id: string;
+  name: string;
+  image_url?: string | null;
+}): { src: string; alt: string } | undefined {
+  if (dish.image_url) return { src: dish.image_url, alt: dish.name };
+  const seed = DISH_STILL[dish.id];
+  return seed ? { ...seed } : undefined;
+}
+
 export function stillForPlace(place: {
   id: string;
   name: string;

@@ -9,7 +9,7 @@ import {
   REC_KIND_LABEL,
 } from "@/features/places/kind";
 import { PlaceMap } from "@/features/places/place-map";
-import { stillForPlace } from "@/features/places/rec-media";
+import { stillForDish, stillForPlace } from "@/features/places/rec-media";
 import {
   getPlace,
   listCities,
@@ -121,26 +121,29 @@ export default async function PlacePage({
               <h2 className="font-mono text-sm uppercase tracking-[0.28em] text-zinc-400">
                 Get this
               </h2>
-              <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {dishes.map((d) => (
-                  <li key={d.id}>
-                    {d.image_url ? (
-                      <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-100">
-                        <AiStill
-                          src={d.image_url}
-                          alt={d.name}
-                          sizes="30vw"
-                          className="object-cover"
-                          badge={null}
-                        />
-                      </div>
-                    ) : null}
-                    <p className="mt-2 font-medium">{d.name}</p>
-                    {d.note ? (
-                      <p className="text-sm text-zinc-600">{d.note}</p>
-                    ) : null}
-                  </li>
-                ))}
+              <ul className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
+                {dishes.map((d) => {
+                  const plate = stillForDish(d);
+                  return (
+                    <li key={d.id}>
+                      {plate ? (
+                        <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-100">
+                          <AiStill
+                            src={plate.src}
+                            alt={plate.alt}
+                            sizes="30vw"
+                            className="object-cover"
+                            badge={plate.src.startsWith("/landing/") ? "ai" : null}
+                          />
+                        </div>
+                      ) : null}
+                      <p className="mt-2 font-medium">{d.name}</p>
+                      {d.note ? (
+                        <p className="text-sm text-zinc-600">{d.note}</p>
+                      ) : null}
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           ) : null}
