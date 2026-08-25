@@ -6,6 +6,7 @@ import {
   publishReviewed,
   savePlaceReview,
 } from "@/features/ai-import/media-actions";
+import { compressStill } from "@/features/ai-import/compress-still";
 import { createClient } from "@/lib/supabase/client";
 import { recKindFromCategory, REC_KIND_LABEL } from "@/features/places/kind";
 import type { Place } from "@/features/places/types";
@@ -239,6 +240,7 @@ function ReviewPlaceCard({
     !place.image_url && place.want_ai_still !== false,
   );
   const [msg, setMsg] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
   const [pending, start] = useTransition();
   const kind = recKindFromCategory(place.category);
   const publishNow = recOnly && last;
@@ -259,29 +261,42 @@ function ReviewPlaceCard({
 
   async function onFile(file: File) {
     setMsg(null);
-    if (file.size > 2_000_000) {
-      setMsg("Keep it under 2 MB.");
-      return;
-    }
-    const supabase = createClient();
-    const path = `${authorId}/${place.id}.jpg`;
-    const { error } = await supabase.storage
-      .from("place-stills")
-      .upload(path, file, {
-        upsert: true,
-        contentType: file.type || "image/jpeg",
-      });
-    if (error) {
-      setMsg("Couldn’t upload that photo.");
-      return;
-    }
-    const { data } = supabase.storage.from("place-stills").getPublicUrl(path);
-    const result = await attachPlaceImage(place.id, data.publicUrl, "user");
-    if (result.error) setMsg(result.error);
-    else {
-      setPreview(`${data.publicUrl}?t=${Date.now()}`);
-      setWantAi(false);
-      setMsg(result.success ?? "Photo saved.");
+    setUploading(true);
+    try {
+      let blob: Blob;
+      try {
+        blob = await compressStill(file);
+      } catch (e) {
+        const why = e instanceof Error ? e.message : "";
+        setMsg(
+          why === "too-large"
+            ? "That file is huge. Try a photo from the camera roll."
+            : "Couldn’t read that photo. JPEG or PNG is safest.",
+        );
+        return;
+      }
+      const supabase = createClient();
+      const path = `${authorId}/${place.id}.jpg`;
+      const { error } = await supabase.storage
+        .from("place-stills")
+        .upload(path, blob, {
+          upsert: true,
+          contentType: "image/jpeg",
+        });
+      if (error) {
+        setMsg("Couldn’t upload that photo.");
+        return;
+      }
+      const { data } = supabase.storage.from("place-stills").getPublicUrl(path);
+      const result = await attachPlaceImage(place.id, data.publicUrl, "user");
+      if (result.error) setMsg(result.error);
+      else {
+        setPreview(`${data.publicUrl}?t=${Date.now()}`);
+        setWantAi(false);
+        setMsg(result.success ?? "Photo saved.");
+      }
+    } finally {
+      setUploading(false);
     }
   }
 
@@ -308,24 +323,32 @@ function ReviewPlaceCard({
       <div className="mt-4">
         <p className="text-sm font-medium">Photo</p>
         {preview ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={preview}
-            alt={place.name}
-            className="mt-2 h-40 w-full rounded-xl object-cover"
-          />
+          <div className="relative mt-2 aspect-[4/5] max-w-xs overflow-hidden rounded-xl bg-zinc-100">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={preview}
+              alt={place.name}
+              className="h-full w-full object-cover"
+            />
+          </div>
         ) : (
           <p className="mt-1 text-sm text-zinc-500">
             Upload yours, or I’ll make one when you publish (~2¢).
           </p>
         )}
+        {preview ? (
+          <p className="mt-1 text-xs text-zinc-500">
+            This is how it sits on the card. Hate the crop — upload another.
+          </p>
+        ) : null}
         <div className="mt-2 flex flex-wrap items-center gap-3">
           <label className="inline-block cursor-pointer rounded-lg border border-zinc-300 px-3 py-2 text-sm">
-            Upload yours
+            {uploading ? "Uploading…" : "Upload yours"}
             <input
               type="file"
               accept="image/*"
               className="hidden"
+              disabled={uploading}
               onChange={(e) => {
                 const f = e.target.files?.[0];
                 if (f) void onFile(f);
@@ -348,7 +371,7 @@ function ReviewPlaceCard({
 
       <button
         type="button"
-        disabled={pending}
+        disabled={pending || uploading}
         onClick={() =>
           start(async () => {
             setMsg(null);

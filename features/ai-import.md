@@ -64,6 +64,9 @@ Auth required to run extract. Anonymous: no post.
 - **Share a full layover:** Lumen drafts the **plan and each stop as a place**, then links the stops. Match an existing place in that city by name. Match an existing plan by title or the same stop set — do not copy the day. Cap: **4 stops**. User hits Publish.
 - **Pictures (photo-first):**
   - Upload **or** check **AI still on publish**. One generation. Generate **after Publish**.
+  - Upload: she **compresses** (max edge 1600, JPEG). No 2 MB “resize it yourself.” Originals up to ~12 MB.
+  - Review preview is the **4:5 card crop**, not a wide strip.
+  - She does **not** AI-reframe a user photo. Crop is center `object-cover`. Hate it → upload another.
   - **No still for the plan itself** — reuse place stills.
   - No regen. Hate the still → upload.
 - **City heroes:** one per city. Lumen spends **without asking** (within $20). First publish in a city with no hero generates one. She may later swap a generated banner for a good crew shot. She monitors home/cities.
