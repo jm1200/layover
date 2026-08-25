@@ -2,11 +2,11 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-08-24 (Phase 2 + 2.1 complete; Lumen required fields locked)  
+**Last updated:** 2026-08-24 (board: Phase 4 first; Phase 3 waits on purpose)  
 **Company:** Layover (working name)  
-**Stage:** **Phase 2 done.** Homepage + cities + recs + plans are in. **Next = Lumen / Phase 4 — waiting your yes.** Not built.
+**Stage:** **Phase 2 done.** **Next = Lumen / Phase 4 — waiting your yes.** Not built. Phase 3 social is spec only; we are **not** skipping it by accident.
 
-**Not this cut:** Auto-post chatbot, unbounded chat, Stripe, social likes.
+**Not this cut:** Auto-post chatbot, unbounded chat, Stripe, likes, follow-notifications, completion scores, QR kickbacks.
 
 ## Money (do not forget)
 
@@ -16,7 +16,9 @@ Until we have real invoices, user rails stay tight: **3 drafts/person/day**, **o
 
 ## Status
 
-**Phase 2 + 2.1 are finished** (content + the look). Parked on purpose: admin city form, public Vercel, photo upload (comes with Lumen). Phase 3 likes wait.
+**Phase 2 + 2.1 are finished** (content + the look). Parked on purpose: admin city form, public Vercel, photo upload (comes with Lumen).
+
+**Board lock (CEO rec — you have not said go yet):** supply before social. Likes on four thin cities is a deserted Instagram. **Phase 4 Lumen first.** Thin Phase 3 (like + comment + byline profile) **after** Lumen has produced real posts. Follow is a content filter later, not a people-feed. **Parked:** follow-notifications, completion scores, QR-for-ad-cut (coupon/kickback — revisit only as a *labeled* offer after Stripe, never “this rec paid me”). Ban queue stays Phase 6; hide already exists.
 
 Lumen **required to even draft:** city + place name (and type, which she guesses). Full layover: city + title + one named stop. Everything else is a hole they tap. Thin posts may publish.
 
@@ -34,4 +36,4 @@ Engineering wires the server extract, tight quotas, hotel strip, kill switch. No
 
 ## Still true
 
-Crew-layover wedge. Zones, not hotels. Trust > revenue. Draft-then-confirm. Your wallet stays closed until you open it.
+Crew-layover wedge. Zones, not hotels. Trust > revenue. Draft-then-confirm. Destination-first, not a person network. Your wallet stays closed until you open it.

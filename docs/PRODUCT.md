@@ -72,7 +72,7 @@ Ordered story/itinerary: stops + notes + transit + gear. **UI name: layover plan
 
 ### Social
 
-Like, comment, follow — **trust signals under content**, not a creator-celebrity product. Reputation ranks playbooks/places/items; city browse stays destination-led. Later: photo-first posting + reward high-signal creators (signals first; paid rewards only with trust-safe design). Phase 3 = basic signals only — not a person feed as the home experience.
+Like, comment, follow — **trust signals under content**, not a creator-celebrity product. Reputation ranks playbooks/places/items; city browse stays destination-led. Later: photo-first posting + reward high-signal creators (signals first; paid rewards only with trust-safe design). Phase 3 = basic signals only — not a person feed as the home experience. **Not next:** Phase 3 waits until after Phase 4 Lumen has produced real posts (board 2026-08-24).
 
 ### Sponsorship (labeled)
 
@@ -109,6 +109,8 @@ Trust rule: if a monetization idea requires looking organic, reject it.
 - Affiliate / product marketplace spam (shopping tips stay place-tied and labeled if paid)
 - Creator payouts or complex reward economy before basic social + content density
 - Influencer-style “follow people as the product” — destination and layover utility stay primary
+- Follow-notifications / person-feed pings; completion scores (“already done”)
+- QR codes that pay crew a cut of venue ad revenue — coupon/kickback; revisit only as a *labeled* offer after Stripe, never “this rec paid me”
 - **Rx / controlled-drug shopping policy** — parked (ban vs OTC-only vs disclaimer). Do not publish how-to-buy medical advice. Party Smart vs sildenafil are different legal classes; do not treat as one tip type until policy exists.
 - **General-fun / camping-first this year** — same object later; do not put Ontario-scale trips on `/` or re-scope city IA until layover density exists
 

@@ -1,16 +1,17 @@
 # Next session — founder notes
 
-**Paused:** 2026-08-24
+**Paused:** 2026-08-24 (board closed: Phase 4 first)
 
 ## Where we left it
 
-- **Phase 2 + 2.1 complete.** Homepage, cities, recs, plans. Next is Lumen, not more city polish.
+- **Phase 2 + 2.1 complete.** Homepage, cities, recs, plans.
+- **Board lock:** **Phase 4 Lumen first.** Phase 3 waits **on purpose** (likes on four thin cities = deserted Instagram). Thin social (like + comment + byline) only **after** Lumen has produced posts. Follow = content filter later.
+- **Parked:** follow-notifications, completion scores, QR-for-ad-cut (labeled offer after Stripe only — never “this rec paid me”). Ban queue = Phase 6.
 - **Lumen + spend lock:** No AI money without your key **and** $ cap. Required to draft: city + name (layover: + title + one stop). Dump once → form holes. Phase 4 **not started.**
-- Phase 3 social waits (supply first).
 
 ## First up when you return
 
-**Yes / no** to open Phase 4. If yes: xAI API key in `apps/web/.env.local` **and** confirm the $20/mo cap (that pair is the spend yes). Then we build Lumen (dump → draft, not a chat).
+**Yes / no** to open Phase 4. If yes: xAI API key in `apps/web/.env.local` **and** confirm the $20/mo cap (that pair is the spend yes). Then we build Lumen (dump → draft, not a chat). If no, we sit — we do not build the social network instead.
 
 ## Dev
 

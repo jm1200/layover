@@ -4,6 +4,39 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-24 — Board: Phase 4 Lumen first; Phase 3 waits on purpose; QR/completion parked
+
+**Source:** Shareholder — skip Phase 3 (likes) for Lumen, or do “the whole social side”? Dump mixed likes/comments/follow/notifications/profiles/completion scores/admin-ban **and** restaurant QR that pays crew a cut of ad revenue. Also: “Lumen gets important before we start adding posts.”
+
+**Facts:** Phase 2 + 2.1 complete. Phase 3 is spec only (`features/social.md`: like, comment, follow, basic profile — destination-first, not an influencer feed). Phase 4 Lumen is spec only; spend lock still holds (key + $20). Phase 1 already has admin role + hide; full ban queue is Phase 6. Lumen does **not** depend on social tables.
+
+**Sofia:** Likes/follows on today’s four thin cities would feel like a deserted Instagram. Lumen-before-social **is** the hotel-room product. QR-for-ad-cut is a coupon/kickback, not intel. Completion scores are a game.
+
+**Theo:** John’s list is five products, not Phase 3. Notifications need push/email infra. Completion score is new schema. QR revenue share needs Stripe Connect, KYC/tax, fraud — Phase 5+ money product. Social after Lumen is cheaper because there are posts to hang signals on.
+
+### Decision (locked as CEO rec — John has not said go)
+
+| Item | Decision |
+|------|----------|
+| Primary bet | **Phase 4 Lumen first.** Supply engine. John’s AI-maintained / almost-no-forms bet. |
+| Phase 3 | **Waits on purpose**, not skipped. Thin cut **after** Lumen has produced real posts: **like + comment + byline profile.** City stays the hero. |
+| Follow | Content **filter** later. Not “great accounts to follow” as the product. Not a people home feed. |
+| Admin / ban | Hide already exists (Phase 1). Full queue = **Phase 6**. Do not pull forward. |
+| Follow-notifications | **Parked.** Person-centric social we rejected (destination-first, 08-05). Needs infra we do not have. |
+| Completion score / “already done” | **Parked.** A game. New schema. Not intel. |
+| QR ad-revenue share | **Parked hard.** Coupon/kickback, not intel. Trust + identity (KYC, tax, fraud, bought recs). Revisit **only** as a *labeled* offer code **after Stripe**, never as “this rec paid me.” Organic staples cannot be the payout rail. |
+| Phase 4 start | **Still blocked** on John yes + `XAI_API_KEY` + $ cap. Do not implement `apps/` from this meeting. |
+
+### Why this is one bet, not five
+
+The fork is **supply vs social**, not likes vs Lumen. Forms are why cities stay thin. Social amplifies trust **after** there is intel to trust. Follow-pings + QR payouts would become the person-centric network we already killed.
+
+**Shareholder ask:** Yes/no on Phase 4 (key + **$20/mo**). If no, we sit. We do not build the social network instead.
+
+**Status:** Order locked in brief + MAP + social spec. Build **not** started.
+
+---
+
 ## 2026-08-24 — Spend lock: no AI/money without John; tight user caps until invoices
 
 **Source:** Shareholder — cost must be contained; no spending without his authorization; caps on user interactions until we know the real bill. Also: keep Lumen prompts to a minimum (users dictate; one follow-up if needed). Sofia owns that UX.

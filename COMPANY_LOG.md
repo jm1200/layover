@@ -42,6 +42,7 @@ Durable history only. Not a chat transcript.
 - **2026-08-24 — Share UX (Sofia, not built):** Users **will dictate** via phone keyboard / OS mic ($0 extra; tokens = the text). Dump once → Lumen fills the draft → missing bits are **empty fields** (no second model call). One spoken/typed question only if a **required** field is missing. Not a chat interview. Paid STT not v1.
 - **2026-08-24 — Lumen required fields:** Rec: **city + name + type** (type inferred). Full layover: **city + title + ≥1 named stop**. Holes (not blockers): blurb, zone, dish, hours, extra stops, photo. Thin may publish. Matches live form gates.
 - **2026-08-24 — Phase 2 + 2.1 complete.** Content + browse UI shipped. Parked: admin city form, Vercel, photo upload (Phase 4). Next is Phase 4 when John authorizes.
+- **2026-08-24 — Order locked (board; John has not said go):** **Phase 4 Lumen first.** Thin Phase 3 (like + comment + byline profile) **after** Lumen has produced real posts. Follow = content filter later, not a people-feed. Ban queue stays Phase 6.
 - Live rotating homepage from “where crew have been going” needs either a human moderator or the AI pipeline. Not hired. Not built.
 - “The perfect layover does not exist… {City} edition” is John’s Instagram series voice — for full plans, not ads. Ads later: “New idea…”
 - Rx / pharma shopping policy **parked**.
@@ -51,10 +52,14 @@ Durable history only. Not a chat transcript.
 ## Rejected / parked
 
 - Influencer feed / person-centric social as the product.
+- Follow-notifications (“ping me when this person posts somewhere new”) — person-feed; parked with the influencer product.
+- Completion scores / “already done” tracking — a game, not intel.
+- QR-for-ad-cut / crew take of venue ad revenue — coupon/kickback. Trust + KYC/tax/fraud. Revisit only as a *labeled* offer after Stripe; never “this rec paid me.”
 - Four separate category sites.
 - Homepage photo grid of a city until we have real images.
 - Clean-slate rewrites.
 - Derailing Phase 2.1 for shopping UX, creator payouts, or multi-photo pipelines.
+- Derailing Phase 4 for social theater on four thin cities.
 
 ## Technical constraints
 
