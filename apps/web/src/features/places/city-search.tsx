@@ -26,6 +26,19 @@ export function CitySearch({
     );
   }, [q, cities]);
 
+  const codes = useMemo(() => {
+    const seen = new Set<string>();
+    const out: string[] = [];
+    for (const c of cities) {
+      const code = c.airport_code?.trim().toUpperCase();
+      if (!code || seen.has(code)) continue;
+      seen.add(code);
+      out.push(code);
+      if (out.length >= 8) break;
+    }
+    return out;
+  }, [cities]);
+
   function go(slug: string) {
     setOpen(false);
     router.push(`/cities/${slug}`);
@@ -77,7 +90,9 @@ export function CitySearch({
             : "mt-2 text-xs text-zinc-500"
         }
       >
-        Try an airport code — ZRH, DEL, SCL, MUC.
+        {codes.length > 0
+          ? `Try an airport code — ${codes.join(", ")}.`
+          : "Try an airport code."}
       </p>
       {open ? (
         <ul className="absolute z-30 mt-1 max-h-56 w-full overflow-y-auto rounded-xl border border-zinc-200 bg-white text-left text-zinc-900 shadow-lg">

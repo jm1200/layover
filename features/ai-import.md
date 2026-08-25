@@ -1,14 +1,14 @@
 # Feature: AI story import
 
 **Phase:** 4  
-**Status:** **In progress** (paused 2026-08-25 for founder testing). Live locally: `/share` → lookup → one-place review → layover card → publish (recs too). SQL **008–010**.  
+**Status:** **In progress.** Live locally: `/share` → lookup → one-place review → layover card → publish (recs too). SQL **008–010**. BCN hero on. Lumen baseline in `agents/lumen.md`.  
 **Code:** `apps/web/src/features/ai-import/`
 
 ## Goal
 
 **Lumen fills the existing form.** Crew dump a layover (they will dictate); one extract; they tap blanks and publish. Not a chatbot interview. Not a second product.
 
-Today **Share your intel** still opens dashboard forms. This flow is Phase 4 only.
+**Share your intel** is `/share` (this flow). Dashboard forms remain as a fallback.
 
 ## Share flow (UX locked 2026-08-24 — Sofia)
 
@@ -102,7 +102,22 @@ Auth required to run extract. Anonymous: no post.
 
 See `docs/OPS.md`. Cheap SKUs, one still per place, city-hero spend needs John. Lookup ~4¢ on a 3-stop day; still ~2¢ each.
 
-## Known bugs (next session)
+## Known bugs
 
 - [ ] **Duplicate itinerary:** same BCN dump created two full layovers. Match existing plan in that city (title/stops) like we already match places by name. Do not copy the day.
-- [ ] Founder test pass + Theo/Milo review of `ai-import/` + publish fan-out.
+- [ ] Founder test pass of `ai-import/` + publish fan-out.
+
+## Engineer review (2026-08-25)
+
+Theo (integrity / money) + Milo (UX). Shape is right. Not ship-clean. **Must-fix before more Lumen buttons** (one change set; the other reviews the diff):
+
+1. **$20 cap is per-user JWT, not global.** `ai_import_logs` RLS + client sum. Need a `SECURITY DEFINER` `sum()` RPC. Do not add `service_role` to Next.
+2. **Search is prompt-capped, not API-capped.** Logged search $ is likely 0. Bound `web_search` on the Responses call; log real tool usage.
+3. **Duplicate itinerary** (both). Match plan like we match places.
+4. **Review queue** treats matched recs as new; no skip. Rec-only dump never offers Publish. “Save draft” on a live plan unpublishes.
+5. **`lumen_ensure_city` is `GRANT EXECUTE` to authenticated** — any logged-in client can RPC a city. Server path only.
+6. Failed playbook writes orphan places and sometimes skip the cost log.
+
+Should-fix / product fork: stills fire on review tap, not publish (spec said publish). Rewrite loops are extra paid turns. `import "server-only"` on `xai.ts`. Allowlist still URLs. AI badge on layover tiles. Rec-only Publish. HEIC upload. `/share` login `?next=`.
+
+Theo: founder decision only if stills stay on the card instead of publish.

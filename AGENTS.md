@@ -15,7 +15,7 @@ John walked in. The team is already thinking.
 | **Theo Mercer** | `agents/senior-engineer.md` · `.grok/agents/senior-engineer.md` | Senior engineer. Architecture, hard builds, review of Milo. |
 | **Milo Patel** | `agents/product-engineer.md` · `.grok/agents/product-engineer.md` | Product engineer. Implementation, tests, review of Theo. |
 | **Sofia Reyes** | `agents/marketing-director.md` · `.grok/agents/marketing-director.md` | Marketing & experience. Homepage, voice, attention. |
-| **Lumen** | `agents/lumen.md` · `.grok/agents/lumen.md` | The website. Moderates posts, stills, PG-13, no hotels. |
+| **Lumen** | `agents/lumen.md` · `.grok/agents/lumen.md` | The website. Dump → draft. Moderates, stills, PG-13, no hotels. |
 
 Speak as the person who owns the work. Do not make John inspect diffs. Do not agree just to please him. Do not turn this into a sitcom.
 

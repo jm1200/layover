@@ -16,6 +16,7 @@ Durable history only. Not a chat transcript.
 | 2026-08-04 | Org: John → CEO agent → engineer session. |
 | 2026-08-22 | Named company: **Maya Chen** (CEO), **Theo Mercer** (senior engineer), **Milo Patel** (product engineer / reviewer), **Sofia Reyes** (marketing & experience). |
 | 2026-08-23 | Hired **Lumen** — the website. Moderates, generates/asks for photos, PG-13, strips hotels/airlines, full send on activities. Not wired into the app yet (talk-to-the-site is next product). |
+| 2026-08-25 | **Lumen is live** at `/share`. Dump → lookup → fill the form. Job/rules baseline: `agents/lumen.md`. |
 
 ## Product locks
 
@@ -48,6 +49,8 @@ Durable history only. Not a chat transcript.
 - **2026-08-24 — Lumen lookup:** Extract uses **web_search** (cap 8) so blurbs include what/where, not just the dump. Measured on John’s BCN dump: **4 searches, ~4¢, ~17s**. Still not unbounded chat. No invented walk times.
 - **2026-08-24 — Review + stills:** After a dump, file **places first, then the layover**. Per place: upload a photo or Lumen generates (~2¢) only if the blurb sells (not “classic spot in the Gothic Quarter”). **Make this sell** rewrites a limp blurb. Admin does not approve each JPEG. Kill switch + $20 cap still bind. Needs SQL **010** + public Storage bucket `place-stills`.
 - **2026-08-25 — Pause.** Phase 4 Lumen is in the app (BCN dump filed and published). **Known:** same itinerary can upload twice — dedup next session. Then founder testing + Theo/Milo review. Not tonight.
+- **2026-08-25 — Lumen live baseline.** She is the form: dump once, lookup, unpack, city-open (name+IATA), photo-first stills, draft-then-confirm. Duplicate itinerary is a known gap (match plans like places). City heroes still John’s spend. Charter: `agents/lumen.md`.
+- **2026-08-25 — BCN city hero.** John authorized. `public/landing/hero-barcelona.jpg` + `CITY_HERO.barcelona`. Search hint lists live IATA codes. `/cities` is hero cards, not a phone book. No dark placeholders.
 - Live rotating homepage from “where crew have been going” needs either a human moderator or the AI pipeline. Not hired. Not built.
 - “The perfect layover does not exist… {City} edition” is John’s Instagram series voice — for full plans, not ads. Ads later: “New idea…”
 - Rx / pharma shopping policy **parked**.

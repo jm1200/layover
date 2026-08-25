@@ -4,6 +4,16 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-25 — Team meeting: make Lumen happy
+
+**Source:** Shareholder — seed data aside; thorough Theo/Milo review of the dump-to-draft work; lock Lumen’s job and rules; give her the BCN hero.
+
+**Done:** BCN city hero (John authorized). `/cities` is cards, not a phone book. Search hint lists live IATA. Charter: `agents/lumen.md` (she is live; dump once; unpack; city-open; ask John for heroes; duplicate itinerary is a known gap).
+
+**Next:** founder test. Then itinerary dedup. Phase 3 still waits.
+
+---
+
 ## 2026-08-25 — Pause: Phase 4 live locally; testing next
 
 **Source:** Shareholder — “Gotta break. Update docs. Commit. When I come back: major testing. Already see a bug: full layover uploaded twice. Lumen must not copy the same itinerary. Code review later. Not tonight.”

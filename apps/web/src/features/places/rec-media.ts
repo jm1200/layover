@@ -17,6 +17,10 @@ export const CITY_HERO: Record<string, { src: string; alt: string }> = {
     src: "/landing/hero-munich.jpg",
     alt: "Munich market at blue hour",
   },
+  barcelona: {
+    src: "/landing/hero-barcelona.jpg",
+    alt: "Barcelona Gothic street and Sagrada Família at blue hour",
+  },
 };
 
 export const PLACE_STILL: Record<string, { src: string; alt: string }> = {
@@ -134,4 +138,6 @@ export const CITY_FEEL: Record<string, string> = {
   delhi: "Heat after dark, a bar everyone still names, a walk if you have the hours.",
   santiago: "Grill smoke, a long lunch, mountains if the air is clear.",
   munich: "Market bags, sweet mustard, something for the jumpseat.",
+  barcelona:
+    "Stone streets, a long table, the sea if you still have hours.",
 };

@@ -15,7 +15,7 @@
 | **2 — Cities, zones, places, playbooks** | **Complete** | Content model + public browse + forms. Migrations 002–004 (+ seeds 003, 005, 006; stop timing 007). Gate in `PRE-PHASE-2-GATE.md` is met. |
 | **2.1 — Verify + harden** | **Complete** | Homepage + city/place/plan UI in (heroes, Eat/Do/Buy, full layover). RLS smoke: `docs/board/RLS-SMOKE.md`. **Parked (not blockers):** admin city form (SQL), Vercel deploy, photo upload (Phase 4). |
 | 3 — Social | Not started | **Waits until after Lumen** (supply first). Not skipped, not started. Thin cut later: like + comment + byline. Follow-notifications / completion / QR **out**. |
-| 4 — AI story import | **In progress — paused for testing** | Live locally: `/share` dump → lookup → one-place-at-a-time review → layover card → publish (recs go live too). SQL **008–010**. **Known:** same dump can create a duplicate itinerary. Dedup + Theo/Milo review **next session**. |
+| 4 — AI story import | **In progress** | Live locally: `/share` dump → lookup → one-place-at-a-time review → layover card → publish (recs go live too). SQL **008–010**. BCN city hero on. Lumen job/rules baseline in `agents/lumen.md`. **Known:** same dump can create a duplicate itinerary. |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
 | 6 — Metrics + admin moderation | Not started | money/trust dashboard |
 | 7 — Crew-only precision | Not started | optional; after verification story |
@@ -146,14 +146,17 @@ Exact paths may adjust; update this table when implementing.
 - [x] Review: places first, then plan; upload or Lumen still (SQL **010**, bucket `place-stills`)
 - [x] Publish layover also publishes its recs; city layover cards use rec stills
 - [ ] **Dedup itineraries** — same dump created two full layovers (John, BCN). Lumen must match an existing plan in that city, not copy.
-- [ ] Phase 4 test pass + Theo/Milo review (next session — not tonight)
+- [ ] Phase 4 founder test pass
+- [x] Theo/Milo review of `features/ai-import/` (team meeting 2026-08-25)
 - [ ] Restore daily 3-draft cap (`DAILY_EXTRACT_CAP`) — parked 2026-08-25, later phase
-- [ ] BCN city hero still (Lumen asks John before spending)
+- [x] BCN city hero (`public/landing/hero-barcelona.jpg` + `CITY_HERO.barcelona`) — John authorized 2026-08-25
+- [x] `/cities` as hero cards (not a phone book); search hint lists live IATA codes
+- [x] Lumen live baseline (`agents/lumen.md` + `.grok/agents/lumen.md`)
 
 ## Session checklist for agents
 
 1. Read `AGENTS.md` + this file (+ `docs/STACK.md` before infra/auth work).
-2. Confirm current phase with owner if doing implementation. Phase 2 is **done**. Phase 4 is in progress (paused for founder testing).
+2. Confirm current phase with owner if doing implementation. Phase 2 is **done**. Phase 4 is in progress.
 3. Touch only the feature folder + its spec + this map.
 4. End of session: MAP and feature spec reflect reality. Prefer “unknown / not built” over inventing.
 

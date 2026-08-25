@@ -24,7 +24,7 @@ Grok (or another agent) helps in **sessions** using metrics and docs — not uns
 | Locked | Meaning |
 |--------|---------|
 | Production AI | **Off** until John puts `XAI_API_KEY` in env **and** names the monthly $ cap. That is the authorization. |
-| Monthly $ cap | Default **$20**. Raising it = John. Hard stop. |
+| Monthly $ cap | Default **$20**. Raising it = John. Hard stop. **2026-08-25 review:** the live sum is per-user JWT, not global — fix with a definer RPC before more spend. Do not put `service_role` in Next. |
 | User interaction caps | **~4k chars**, **one extract** per story. Daily 3-draft cap **parked** (John 2026-08-25) — restore in a later phase. Raising the $ cap still = John. |
 | Dictate | Phone **keyboard / OS mic** (text in the box). Token cost = the text, same as typing. Paid STT / in-app waveform = **John**. |
 | Follow-up | **Holes on the draft form** (Sofia lock). No second model call for dish/zone/hours. **One** spoken/typed Q only if she cannot draft (no city / no place). Not a chat. |
