@@ -68,7 +68,7 @@ Auth required to run extract. Anonymous: no post.
   - No regen. Hate the still → upload.
 - **City heroes:** one per city. Lumen spends **without asking** (within $20). First publish in a city with no hero generates one. She may later swap a generated banner for a good crew shot. She monitors home/cities.
 - User hits **Publish**. Same RLS as manual create. No save-draft button.
-- Strip crew hotel names / airline lodging → zones. PG-13.
+- Strip crew hotel names / airline lodging → zones. PG-13. **Real places only:** look up each named rec; skip what search cannot confirm. Hotels are never recs. If the plan write fails, keep the recs she already filed. John does not sit a moderation queue.
 - Quotas, `AiImportLog`, admin kill switch. Failures never leak the key. **No production spend without John’s key + cap.** Daily 3-draft cap parked. Raising $20/mo, SKUs, stills, or STT = John.
 
 ## Not v1
@@ -89,6 +89,7 @@ Auth required to run extract. Anonymous: no post.
 - [x] Server calls xAI (`grok-4.3`) **once** per story with structured schema (city, duration, stops, dishes, zones, tips)
 - [x] Full-layover extract also returns place drafts per stop (or links an existing same-city place)
 - [x] Schema/prompt: **no crew hotel names** in public fields; map to zones
+- [x] Lookup must confirm a real venue or public activity (`found`); skip the rest; `blocked` for PG-13/hotels
 - [x] Returns draft only — user must confirm to publish
 - [x] Thin story → prefilled form with holes, not a second extract (except missing **required** city / name / layover title+one stop → one Q)
 - [x] Photo-first on review: upload or AI-still checkbox; generate after Publish; one generation; no plan-level still. Admin does **not** approve each JPEG.
@@ -114,7 +115,8 @@ Theo + Milo. Follow-up pack (same session, John’s product calls):
 - [x] Match existing itineraries (title or stop set)
 - [x] Review queue only new recs; rec-only Publish; no Save draft (Publish when ready)
 - [x] City-open quota (5/user/day) on `lumen_ensure_city`
-- [x] Failed plan writes delete the new recs and still log cost
+- [x] Failed plan writes **keep** the recs (John 2026-08-25); still log cost
+- [x] Lumen refuses unverified / hotel / PG-13 dumps — John does not moderate daily
 - [x] Blurb auto-written; stills are a checkbox, generate after Publish, one generation
 - [x] City heroes: 1/city, Lumen spends without asking, on first publish if missing
 

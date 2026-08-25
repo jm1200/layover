@@ -109,6 +109,20 @@ export async function fillDraft(
     };
   }
 
+  if (extract.status === "blocked") {
+    await supabase.from("ai_import_logs").insert({
+      ...logBase,
+      success: false,
+      error_code: "blocked",
+      payload: extract as unknown as Record<string, unknown>,
+    });
+    return {
+      error: extract.question || "I can’t file that.",
+      story,
+      hintSlug: hintSlug ?? undefined,
+    };
+  }
+
   if (extract.status === "need_city" || extract.status === "need_name") {
     await supabase.from("ai_import_logs").insert({
       ...logBase,
@@ -174,7 +188,6 @@ export async function fillDraft(
   const existing = (existingRows ?? []) as Place[];
 
   const createdPlaceIds: string[] = [];
-  const insertedPlaceIds: string[] = [];
   let playbookId: string | null = null;
   let openedCity = false;
   if (!matchCity(cities, extract, hintSlug) && city) openedCity = true;
@@ -206,7 +219,6 @@ export async function fillDraft(
       .single();
     if (error || !place) return null;
     createdPlaceIds.push(place.id);
-    insertedPlaceIds.push(place.id);
     existing.push({
       id: place.id,
       city_id: city!.id,
@@ -228,11 +240,6 @@ export async function fillDraft(
     return place.id;
   }
 
-  async function dropInserted() {
-    if (!insertedPlaceIds.length) return;
-    await supabase.from("places").delete().in("id", insertedPlaceIds);
-  }
-
   async function matchExistingPlan(
     title: string,
     stopNames: string[],
@@ -252,7 +259,7 @@ export async function fillDraft(
   }
 
   if (extract.post_kind === "playbook") {
-    const stops = extract.stops.filter((s) => s.name.trim());
+    const stops = extract.stops.filter((s) => s.name.trim() && s.found);
     if (!extract.title?.trim() || stops.length === 0) {
       await supabase.from("ai_import_logs").insert({
         ...logBase,
@@ -337,44 +344,43 @@ export async function fillDraft(
         .select("id")
         .single();
       if (pbErr || !pb) {
-        await dropInserted();
-        await supabase.from("ai_import_logs").insert({
-          ...logBase,
-          success: false,
-          error_code: "write",
-          city_id: city.id,
-          payload: extract as unknown as Record<string, unknown>,
-        });
-        return { error: "Couldn’t save the plan. Try again.", story };
-      }
-      playbookId = pb.id;
-      if (stopIds.length) {
-        const { error: stopErr } = await supabase.from("playbook_stops").insert(
-          stopIds.map((s, idx) => ({
-            playbook_id: pb.id,
-            position: idx + 1,
-            title: s.title,
-            body: s.body,
-            place_id: s.place_id,
-          })),
-        );
-        if (stopErr) {
-          await supabase.from("playbooks").delete().eq("id", pb.id);
-          await dropInserted();
-          await supabase.from("ai_import_logs").insert({
-            ...logBase,
-            success: false,
-            error_code: "write",
-            city_id: city.id,
-            payload: extract as unknown as Record<string, unknown>,
-          });
-          return { error: "Couldn’t save stops. Try again.", story };
+        playbookId = null;
+      } else {
+        playbookId = pb.id;
+        if (stopIds.length) {
+          const { error: stopErr } = await supabase.from("playbook_stops").insert(
+            stopIds.map((s, idx) => ({
+              playbook_id: pb.id,
+              position: idx + 1,
+              title: s.title,
+              body: s.body,
+              place_id: s.place_id,
+            })),
+          );
+          if (stopErr) {
+            await supabase.from("playbooks").delete().eq("id", pb.id);
+            playbookId = null;
+          }
         }
       }
     }
   } else {
     const name = extract.name?.trim();
     const category = extract.category;
+    if (name && extract.found === false) {
+      await supabase.from("ai_import_logs").insert({
+        ...logBase,
+        success: false,
+        error_code: "need_name",
+        city_id: city.id,
+        payload: extract as unknown as Record<string, unknown>,
+      });
+      return {
+        question: "I couldn’t find that place. What’s it called?",
+        story,
+        hintSlug: city.slug,
+      };
+    }
     if (!name || !category) {
       await supabase.from("ai_import_logs").insert({
         ...logBase,
@@ -415,6 +421,17 @@ export async function fillDraft(
         hintSlug: city.slug,
       };
     }
+  }
+
+  if (!playbookId && !createdPlaceIds.length) {
+    await supabase.from("ai_import_logs").insert({
+      ...logBase,
+      success: false,
+      error_code: "write",
+      city_id: city.id,
+      payload: extract as unknown as Record<string, unknown>,
+    });
+    return { error: "Couldn’t save. Try again.", story };
   }
 
   const { data: logRow, error: logErr } = await supabase

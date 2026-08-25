@@ -4,9 +4,9 @@ export const LUMEN_JSON_SCHEMA = {
   properties: {
     status: {
       type: "string",
-      enum: ["draft", "need_city", "need_name"],
+      enum: ["draft", "need_city", "need_name", "blocked"],
       description:
-        "draft if required fields are present. need_city if city unknown. need_name if place/stop name missing.",
+        "draft if required fields are present. need_city if city unknown. need_name if place/stop name missing. blocked if PG-13 / hotel / not a real place.",
     },
     question: {
       type: ["string", "null"],
@@ -34,6 +34,11 @@ export const LUMEN_JSON_SCHEMA = {
         { type: "string", enum: ["eat", "do", "shop"] },
         { type: "null" },
       ],
+    },
+    found: {
+      type: "boolean",
+      description:
+        "For a single rec: true only if web_search confirmed a real venue or public activity in that city. False for hotels, invented names, 'the beach' with no place.",
     },
     name: {
       type: ["string", "null"],
@@ -83,6 +88,11 @@ export const LUMEN_JSON_SCHEMA = {
             ],
           },
           dish_name: { type: ["string", "null"] },
+          found: {
+            type: "boolean",
+            description:
+              "true only if web_search confirmed this stop is a real venue or public activity in that city. false = skip it.",
+          },
         },
         required: [
           "name",
@@ -91,6 +101,7 @@ export const LUMEN_JSON_SCHEMA = {
           "body",
           "zone_type",
           "dish_name",
+          "found",
         ],
       },
     },
@@ -112,6 +123,7 @@ export const LUMEN_JSON_SCHEMA = {
     "zone_type",
     "dish_name",
     "dish_note",
+    "found",
     "stops",
   ],
 } as const;
@@ -123,10 +135,11 @@ export type LumenStop = {
   body: string | null;
   zone_type: "airport_strip" | "downtown" | "station" | "other" | null;
   dish_name: string | null;
+  found: boolean;
 };
 
 export type LumenExtract = {
-  status: "draft" | "need_city" | "need_name";
+  status: "draft" | "need_city" | "need_name" | "blocked";
   question: string | null;
   post_kind: "place" | "playbook";
   city_slug: string | null;
@@ -142,6 +155,7 @@ export type LumenExtract = {
   zone_type: "airport_strip" | "downtown" | "station" | "other" | null;
   dish_name: string | null;
   dish_note: string | null;
+  found: boolean;
   stops: LumenStop[];
 };
 

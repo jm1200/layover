@@ -13,6 +13,7 @@ import {
   searchCallsFromResponse,
   xaiClient,
 } from "@/lib/ai/xai";
+import { refusePublicCopy } from "@/features/ai-import/moderate";
 import { aiBlocked } from "@/features/ai-import/spend";
 import { CITY_HERO } from "@/features/places/rec-media";
 import { listCities } from "@/features/places/queries";
@@ -62,6 +63,8 @@ export async function savePlaceReview(
   const ctx = await ownPlace(placeId);
   if (!ctx.ok) return { error: ctx.error };
   const blurb = String(formData.get("blurb") ?? "").trim() || null;
+  const lodging = refusePublicCopy(ctx.place.name, blurb);
+  if (lodging) return { error: lodging };
   const want =
     String(formData.get("want_ai_still") ?? "") === "true" &&
     !ctx.place.image_url;

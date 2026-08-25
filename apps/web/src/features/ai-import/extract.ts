@@ -19,7 +19,12 @@ function asExtract(raw: unknown): LumenExtract | null {
   const o = raw as Record<string, unknown>;
   const status = o.status;
   const postKind = o.post_kind;
-  if (status !== "draft" && status !== "need_city" && status !== "need_name") {
+  if (
+    status !== "draft" &&
+    status !== "need_city" &&
+    status !== "need_name" &&
+    status !== "blocked"
+  ) {
     return null;
   }
   if (postKind !== "place" && postKind !== "playbook") return null;
@@ -45,6 +50,7 @@ function asExtract(raw: unknown): LumenExtract | null {
     zone_type: parseZone(o.zone_type),
     dish_name: typeof o.dish_name === "string" ? o.dish_name : null,
     dish_note: typeof o.dish_note === "string" ? o.dish_note : null,
+    found: o.found === true,
     stops: stopsIn.slice(0, 4).map((s) => {
       const st = (s ?? {}) as Record<string, unknown>;
       const sc = st.category;
@@ -55,6 +61,7 @@ function asExtract(raw: unknown): LumenExtract | null {
         body: typeof st.body === "string" ? st.body : null,
         zone_type: parseZone(st.zone_type),
         dish_name: typeof st.dish_name === "string" ? st.dish_name : null,
+        found: st.found === true,
       };
     }),
   };

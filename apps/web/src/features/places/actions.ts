@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/features/auth/get-profile";
 import { parseRecKind } from "@/features/places/kind";
 import type { ContentStatus } from "@/features/places/types";
+import { refusePublicCopy } from "@/features/ai-import/moderate";
 import { assertZoneInCity } from "@/features/places/validate";
 
 export type PlaceFormState = { error?: string; success?: string };
@@ -45,6 +46,8 @@ export async function createPlace(
   if (!["draft", "published"].includes(status)) {
     return { error: "Invalid status." };
   }
+  const lodging = refusePublicCopy(name, blurb);
+  if (lodging) return { error: lodging };
 
   const supabase = await createClient();
 
@@ -130,6 +133,8 @@ export async function updatePlace(
   ) {
     return { error: "Invalid status for your role." };
   }
+  const lodging = refusePublicCopy(name, blurb);
+  if (lodging) return { error: lodging };
 
   const supabase = await createClient();
 
