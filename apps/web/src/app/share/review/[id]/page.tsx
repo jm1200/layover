@@ -63,7 +63,7 @@ export default async function ShareReviewPage({
         </p>
       ) : null}
       <p className="mt-2 text-sm text-zinc-500">
-        Drafts stay private until you publish each rec.
+        Recs stay private until you publish the day.
       </p>
 
       <ReviewQueue

@@ -143,6 +143,28 @@ export async function updatePlaybookMeta(
 
   if (error) return { error: error.message };
 
+  if (status === "published") {
+    const { data: stops } = await supabase
+      .from("playbook_stops")
+      .select("place_id")
+      .eq("playbook_id", playbookId);
+    const placeIds = [
+      ...new Set(
+        (stops ?? [])
+          .map((s) => s.place_id)
+          .filter((id): id is string => Boolean(id)),
+      ),
+    ];
+    if (placeIds.length) {
+      await supabase
+        .from("places")
+        .update({ status: "published" })
+        .in("id", placeIds)
+        .eq("author_id", profile.id)
+        .neq("status", "hidden");
+    }
+  }
+
   const { data: pb } = await supabase
     .from("playbooks")
     .select("city_id")
@@ -154,11 +176,22 @@ export async function updatePlaybookMeta(
       .select("slug")
       .eq("id", pb.city_id)
       .maybeSingle();
-    if (city?.slug) revalidatePath(`/cities/${city.slug}`);
+    if (city?.slug) {
+      revalidatePath(`/cities/${city.slug}`);
+      revalidatePath(`/cities/${city.slug}/eat`);
+      revalidatePath(`/cities/${city.slug}/do`);
+      revalidatePath(`/cities/${city.slug}/buy`);
+      revalidatePath(`/cities/${city.slug}/layovers`);
+    }
   }
 
   revalidatePath(`/playbooks/${playbookId}`);
   revalidatePath("/cities");
   revalidatePath("/dashboard");
-  return { success: "Saved." };
+  return {
+    success:
+      status === "published"
+        ? "Live on the city — recs too."
+        : "Saved as draft (only you).",
+  };
 }

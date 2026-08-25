@@ -185,7 +185,8 @@ export function PlaybookForm({
 
       <p className="text-sm text-zinc-600">
         <strong>Draft</strong> is only you — keep polishing.{" "}
-        <strong>Publish</strong> puts it on the city page for other crew.
+        <strong>Publish</strong> puts the day <em>and</em> its recs on the
+        city page (Eat / Do / Buy).
         {allowHidden ? (
           <>
             {" "}
