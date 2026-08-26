@@ -72,21 +72,22 @@ export default async function EditPlacePage({
         }}
         submitLabel="Save"
         allowHidden={profile.role === "admin"}
-      />
-      <RecPhotosEditor
-        placeId={place.id}
-        authorId={profile.id}
-        heroSrc={heroSrc}
-        photos={photoSlots}
-      />
-      {kind === "eat" || kind === "shop" ? (
-        <PlatesEditor
+      >
+        <RecPhotosEditor
           placeId={place.id}
           authorId={profile.id}
-          initial={plates}
-          namesOnly
+          heroSrc={heroSrc}
+          photos={photoSlots}
         />
-      ) : null}
+        {kind === "eat" || kind === "shop" ? (
+          <PlatesEditor
+            placeId={place.id}
+            authorId={profile.id}
+            initial={plates}
+            namesOnly
+          />
+        ) : null}
+      </PlaceForm>
       <DeleteRecButton placeId={place.id} />
     </AppShell>
   );

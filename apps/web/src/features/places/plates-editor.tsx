@@ -1,7 +1,12 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import { addPlaceDish, attachDishStill } from "@/features/places/actions";
+import { useEffect, useState, useTransition } from "react";
+import {
+  addPlaceDish,
+  attachDishStill,
+  deletePlaceDish,
+  updatePlaceDish,
+} from "@/features/places/actions";
 import { MAX_PLATES } from "@/features/ai-import/schema";
 import { compressStill } from "@/features/ai-import/compress-still";
 import { createClient } from "@/lib/supabase/client";
@@ -56,84 +61,83 @@ export function PlatesEditor({
         return;
       }
       const url = `${data.publicUrl}?t=${Date.now()}`;
-      setPlates(
-        plates.map((p) => (p.id === dish.id ? { ...p, image_url: url } : p)),
+      setPlates((prev) =>
+        prev.map((p) => (p.id === dish.id ? { ...p, image_url: url } : p)),
       );
     } finally {
       setUploadingId(null);
     }
   }
 
+  function addPlate() {
+    start(async () => {
+      setMsg(null);
+      const r = await addPlaceDish(placeId, name);
+      if (r.error) setMsg(r.error);
+      else if (r.dish) {
+        setPlates((prev) => [...prev, r.dish!]);
+        setName("");
+      }
+    });
+  }
+
   return (
     <div className="mt-6 border-t border-zinc-200 pt-4">
-      <p className="text-sm font-medium">Plates</p>
+      <p className="text-sm font-medium">Get this</p>
       <p className="mt-0.5 text-xs text-zinc-500">
         {namesOnly
-          ? `Names on Get this. Photos live in the album above. Up to ${MAX_PLATES}.`
-          : `Name them first, then add photos. Up to ${MAX_PLATES}.`}
+          ? `Names on the rec page. Rename, add, or X to remove — saved as you go (no Save needed). Photos live in the album above. Up to ${MAX_PLATES}.`
+          : `Name them first, then add photos. Rename or X to remove. Up to ${MAX_PLATES}.`}
       </p>
       {plates.length > 0 ? (
         <ul className="mt-3 divide-y divide-zinc-200 rounded-xl border border-zinc-200 bg-white">
           {plates.map((d) => (
-            <li key={d.id} className="flex items-center gap-3 px-3 py-2">
-              {!namesOnly && d.image_url ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={d.image_url}
-                  alt=""
-                  className="h-12 w-10 shrink-0 rounded object-cover"
-                />
-              ) : null}
-              <p className="min-w-0 flex-1 truncate text-sm font-medium">
-                {d.name}
-              </p>
-              {namesOnly ? null : (
-              <div className="flex shrink-0 flex-wrap items-center gap-2 text-xs">
-                <label className="cursor-pointer text-zinc-600 underline">
-                  {uploadingId === d.id
-                    ? "Uploading…"
-                    : d.image_url
-                      ? "Replace"
-                      : "Add photo"}
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    disabled={pending || Boolean(uploadingId)}
-                    onChange={(e) => {
-                      const f = e.target.files?.[0];
-                      if (f) void onPlateFile(d, f);
-                      e.target.value = "";
-                    }}
-                  />
-                </label>
-                {!d.image_url && recStill ? (
-                  <button
-                    type="button"
-                    className="text-zinc-600 underline"
-                    disabled={pending}
-                    onClick={() =>
-                      start(async () => {
-                        setMsg(null);
-                        const r = await attachDishStill(d.id, recStill);
-                        if (r.error) setMsg(r.error);
-                        else
-                          setPlates(
-                            plates.map((p) =>
-                              p.id === d.id
-                                ? { ...p, image_url: recStill }
-                                : p,
-                            ),
-                          );
-                      })
-                    }
-                  >
-                    Use rec photo
-                  </button>
-                ) : null}
-              </div>
-              )}
-            </li>
+            <PlateRow
+              key={d.id}
+              dish={d}
+              namesOnly={Boolean(namesOnly)}
+              recStill={recStill}
+              pending={pending}
+              uploadingId={uploadingId}
+              onPlateFile={onPlateFile}
+              onUseRecStill={() =>
+                start(async () => {
+                  if (!recStill) return;
+                  setMsg(null);
+                  const r = await attachDishStill(d.id, recStill);
+                  if (r.error) setMsg(r.error);
+                  else
+                    setPlates((prev) =>
+                      prev.map((p) =>
+                        p.id === d.id ? { ...p, image_url: recStill } : p,
+                      ),
+                    );
+                })
+              }
+              onRename={async (next) => {
+                setMsg(null);
+                const r = await updatePlaceDish(d.id, next);
+                if (r.error) {
+                  setMsg(r.error);
+                  return false;
+                }
+                setPlates((prev) =>
+                  prev.map((p) =>
+                    p.id === d.id ? { ...p, name: next } : p,
+                  ),
+                );
+                return true;
+              }}
+              onDelete={() => {
+                if (!confirm("Take this off Get this?")) return;
+                start(async () => {
+                  setMsg(null);
+                  const r = await deletePlaceDish(d.id);
+                  if (r.error) setMsg(r.error);
+                  else setPlates((prev) => prev.filter((p) => p.id !== d.id));
+                });
+              }}
+            />
           ))}
         </ul>
       ) : null}
@@ -142,23 +146,19 @@ export function PlatesEditor({
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                if (!pending && name.trim()) addPlate();
+              }
+            }}
             placeholder="Filet, the dip…"
             className="min-w-0 flex-1 rounded-lg border border-zinc-300 px-3 py-2 text-base"
           />
           <button
             type="button"
             disabled={pending}
-            onClick={() =>
-              start(async () => {
-                setMsg(null);
-                const r = await addPlaceDish(placeId, name);
-                if (r.error) setMsg(r.error);
-                else if (r.dish) {
-                  setPlates([...plates, r.dish]);
-                  setName("");
-                }
-              })
-            }
+            onClick={addPlate}
             className="rounded-lg border border-zinc-300 px-3 py-2 text-sm disabled:opacity-60"
           >
             {pending ? "Adding…" : "Add plate"}
@@ -171,5 +171,112 @@ export function PlatesEditor({
         </p>
       ) : null}
     </div>
+  );
+}
+
+function PlateRow({
+  dish,
+  namesOnly,
+  recStill,
+  pending,
+  uploadingId,
+  onPlateFile,
+  onUseRecStill,
+  onRename,
+  onDelete,
+}: {
+  dish: Dish;
+  namesOnly: boolean;
+  recStill?: string | null;
+  pending: boolean;
+  uploadingId: string | null;
+  onPlateFile: (dish: Dish, file: File) => Promise<void>;
+  onUseRecStill: () => void;
+  onRename: (name: string) => Promise<boolean>;
+  onDelete: () => void;
+}) {
+  const [draft, setDraft] = useState(dish.name);
+
+  useEffect(() => {
+    setDraft(dish.name);
+  }, [dish.name]);
+
+  async function saveIfDirty() {
+    const n = draft.trim();
+    if (!n) {
+      setDraft(dish.name);
+      return;
+    }
+    if (n === dish.name) return;
+    const ok = await onRename(n);
+    if (!ok) setDraft(dish.name);
+  }
+
+  return (
+    <li className="flex items-center gap-3 px-3 py-2">
+      {!namesOnly && dish.image_url ? (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={dish.image_url}
+          alt=""
+          className="h-12 w-10 shrink-0 rounded object-cover"
+        />
+      ) : null}
+      <input
+        value={draft}
+        aria-label="Plate name"
+        disabled={pending}
+        onChange={(e) => setDraft(e.target.value)}
+        onBlur={() => void saveIfDirty()}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            (e.target as HTMLInputElement).blur();
+          }
+        }}
+        className="min-w-0 flex-1 rounded border border-transparent bg-transparent px-1 py-1 text-sm font-medium hover:border-zinc-200 focus:border-zinc-400 focus:outline-none"
+      />
+      {namesOnly ? null : (
+        <div className="flex shrink-0 flex-wrap items-center gap-2 text-xs">
+          <label className="cursor-pointer text-zinc-600 underline">
+            {uploadingId === dish.id
+              ? "Uploading…"
+              : dish.image_url
+                ? "Replace"
+                : "Add photo"}
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              disabled={pending || Boolean(uploadingId)}
+              onChange={(e) => {
+                const f = e.target.files?.[0];
+                if (f) void onPlateFile(dish, f);
+                e.target.value = "";
+              }}
+            />
+          </label>
+          {!dish.image_url && recStill ? (
+            <button
+              type="button"
+              className="text-zinc-600 underline"
+              disabled={pending}
+              onClick={onUseRecStill}
+            >
+              Use rec photo
+            </button>
+          ) : null}
+        </div>
+      )}
+      <button
+        type="button"
+        aria-label="Remove plate"
+        disabled={pending}
+        onClick={onDelete}
+        className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-100 hover:text-zinc-800 disabled:opacity-60"
+      >
+        ×
+      </button>
+    </li>
   );
 }

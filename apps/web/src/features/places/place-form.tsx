@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useMemo, useState } from "react";
+import { useActionState, useMemo, useState, type ReactNode } from "react";
 import type { PlaceFormState } from "@/features/places/actions";
 import {
   recKindFromCategory,
@@ -32,6 +32,8 @@ type Props = {
   submitLabel: string;
   showItemFields?: boolean;
   allowHidden?: boolean;
+  /** Rendered above Save (photos, plates). Those editors persist on their own. */
+  children?: ReactNode;
 };
 
 const initial: PlaceFormState = {};
@@ -45,6 +47,7 @@ export function PlaceForm({
   submitLabel,
   showItemFields,
   allowHidden,
+  children,
 }: Props) {
   const [state, formAction, pending] = useActionState(action, initial);
   const [cityId, setCityId] = useState(defaults?.city_id ?? "");
@@ -222,6 +225,15 @@ export function PlaceForm({
       {state.success ? (
         <p className="rounded-lg bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
           {state.success}
+        </p>
+      ) : null}
+
+      {children}
+
+      {children ? (
+        <p className="text-xs text-zinc-500">
+          Photos and plates save as you go. This button is for city, name,
+          type, and blurb.
         </p>
       ) : null}
 

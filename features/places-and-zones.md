@@ -15,6 +15,7 @@ Cities, layover zones, places, and dishes — without crew hotel identity. Manua
 - [x] Zones per city (`airport_strip`, `downtown`, `station`, `other`)
 - [x] CRUD for places (auth write); public read of published content
 - [x] Dishes linked to places (simple child on create)
+- [x] Edit rec: Get this plates can be renamed, added, or removed (author/admin)
 - [x] No public “hotel name” field on place forms
 - [x] Zone optional but encouraged for logistics tips
 - [x] RLS: public read published; auth write own; admin all (policies in 002)
@@ -42,7 +43,7 @@ Not a schema change. Not Phase 3. Not four new routes. Not a photo grid.
 - [x] Optional child item: Eat = “signature dish”; Buy = “what to get”; Do = hide the dish fields.
 - [x] Empty group: one line “None yet.” Do not build `/cities/[slug]/eat` style landings this cut.
 - **Cities/zones:** users cannot insert via a form (004). **Lumen may open a city** from a dump (name + 3-letter IATA) via `lumen_ensure_city` (009, quota in **011**). No public city form. One city hero per city — Lumen spends without asking (within $20), on first publish if missing.
-- **Photos (locked 2026-08-25, plates 2026-08-25):** **1 still per place** on the **city card** (Lumen’s hero until likes). Rec page shows **all** pics (hero + plates). Eat/Buy: up to **3 author plates**. Crew adding extra pics + reviews = Phase 3. No AI still per plate.
+- **Photos (locked 2026-08-25, plates 2026-08-25):** **1 still per place** on the **city card** (Lumen’s hero until likes). Rec page shows **all** pics (album, max 3). Eat/Buy: up to **3 named plates** on **Get this**. Edit rec: rename / add / X a plate; photos and plates persist immediately (Save is for city/name/blurb only). Crew adding extra pics + reviews = Phase 3. No AI still per plate.
 
 ## Out of scope (this IA cut)
 

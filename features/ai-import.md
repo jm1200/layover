@@ -69,7 +69,7 @@ Auth required to run extract. Anonymous: no post.
   - Review preview is the **4:5 card crop**, not a wide strip.
   - She does **not** AI-reframe a user photo. Crop is center `object-cover`. Hate it → upload another.
   - **No still for the plan itself** — reuse place stills.
-  - Eat/Buy: up to **3 plates** (dish name + user photo) on the rec page. Not on the city card. No AI still per plate.
+  - Eat/Buy: up to **3 plates** (names on **Get this**). Rec photos are a separate album (max 3). Not on the city card. No AI still per plate. Edit rec can rename / add / X plates.
   - No regen. Hate the still → upload.
 - **City heroes:** one per city. Lumen spends **without asking** (within $20). First publish in a city with no hero generates one. She may later swap a generated banner for a good crew shot. She monitors home/cities.
 - User hits **Publish**. Same RLS as manual create. No save-draft button.

@@ -382,6 +382,76 @@ export async function addPlaceDish(
   return { success: "Plate added.", dish: dish as Dish };
 }
 
+export async function updatePlaceDish(
+  dishId: string,
+  name: string,
+): Promise<PlaceFormState & { dish?: Dish }> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "Log in first." };
+  }
+  const n = name.trim();
+  if (!n) return { error: "Name the plate." };
+  const lodging = refusePublicCopy(n, null);
+  if (lodging) return { error: lodging };
+  const supabase = await createClient();
+  const { data: dish } = await supabase
+    .from("dishes")
+    .select("id, place_id")
+    .eq("id", dishId)
+    .maybeSingle();
+  if (!dish) return { error: "Plate not found." };
+  const { data: place } = await supabase
+    .from("places")
+    .select("id, author_id")
+    .eq("id", dish.place_id)
+    .maybeSingle();
+  if (!place) return { error: "Rec not found." };
+  if (profile.role !== "admin" && place.author_id !== profile.id) {
+    return { error: "Not your rec." };
+  }
+  const { data: updated, error } = await supabase
+    .from("dishes")
+    .update({ name: n })
+    .eq("id", dishId)
+    .select("id, place_id, name, note, sort_order, image_url")
+    .single();
+  if (error || !updated) {
+    return { error: error?.message ?? "Couldn’t rename that plate." };
+  }
+  revalidatePath(`/places/${dish.place_id}`);
+  return { success: "Plate renamed.", dish: updated as Dish };
+}
+
+export async function deletePlaceDish(
+  dishId: string,
+): Promise<PlaceFormState> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "Log in first." };
+  }
+  const supabase = await createClient();
+  const { data: dish } = await supabase
+    .from("dishes")
+    .select("id, place_id")
+    .eq("id", dishId)
+    .maybeSingle();
+  if (!dish) return { error: "Plate not found." };
+  const { data: place } = await supabase
+    .from("places")
+    .select("id, author_id")
+    .eq("id", dish.place_id)
+    .maybeSingle();
+  if (!place) return { error: "Rec not found." };
+  if (profile.role !== "admin" && place.author_id !== profile.id) {
+    return { error: "Not your rec." };
+  }
+  const { error } = await supabase.from("dishes").delete().eq("id", dishId);
+  if (error) return { error: error.message };
+  revalidatePath(`/places/${dish.place_id}`);
+  return { success: "Plate removed." };
+}
+
 export async function attachDishStill(
   dishId: string,
   url: string,

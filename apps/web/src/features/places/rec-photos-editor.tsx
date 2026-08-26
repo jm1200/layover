@@ -24,8 +24,8 @@ export function RecPhotosEditor({
   heroSrc?: string | null;
   photos: RecPhotoSlot[];
 }) {
-  const [photos, setPhotos] = useState(initial.slice(0, MAX));
-  const [hero, setHero] = useState(heroSrc ?? initial[0]?.src ?? null);
+  const [photos, setPhotos] = useState((initial ?? []).slice(0, MAX));
+  const [hero, setHero] = useState(heroSrc ?? initial?.[0]?.src ?? null);
   const [msg, setMsg] = useState<string | null>(null);
   const [pending, startTx] = useTransition();
   const [uploading, setUploading] = useState(false);
@@ -73,7 +73,8 @@ export function RecPhotosEditor({
     <div className="mt-8 max-w-lg">
       <p className="text-sm font-medium">Photos</p>
       <p className="mt-0.5 text-xs text-zinc-500">
-        Tap one for the city card. X removes it. Max {MAX}.
+        Tap one for the city card. X removes it. Max {MAX}. Saves as soon as
+        you add, tap, or remove — you don’t need Save.
       </p>
       <ul className="mt-3 grid grid-cols-3 gap-2">
         {photos.map((p) => {
