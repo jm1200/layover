@@ -6,8 +6,9 @@ import { PlaceForm } from "@/features/places/place-form";
 import { recKindFromCategory } from "@/features/places/kind";
 import { DeleteRecButton } from "@/features/places/delete-rec-button";
 import { PlatesEditor } from "@/features/places/plates-editor";
+import { RecPhotosEditor } from "@/features/places/rec-photos-editor";
 import { RecStillEditor } from "@/features/places/rec-still-editor";
-import { DISH_STILL, stillForPlace } from "@/features/places/rec-media";
+import { DISH_STILL, stillForDish, stillForPlace } from "@/features/places/rec-media";
 import {
   getPlace,
   listAllZones,
@@ -40,8 +41,13 @@ export default async function EditPlacePage({
   const kind = recKindFromCategory(place.category);
   const plates = dishes.map((d) => ({
     ...d,
-    image_url: d.image_url ?? DISH_STILL[d.id]?.src ?? null,
+    image_url: d.image_url ?? DISH_STILL[d.id]?.src ?? stillForDish(d)?.src ?? null,
   }));
+  const heroSrc = stillForPlace(place)?.src ?? null;
+  const extraPhotos = plates
+    .map((d) => stillForDish(d))
+    .filter((s): s is NonNullable<typeof s> => Boolean(s))
+    .map((s) => ({ src: s.src, alt: s.alt }));
 
   return (
     <AppShell profile={profile} title="Edit rec">
@@ -63,8 +69,13 @@ export default async function EditPlacePage({
       <RecStillEditor
         placeId={place.id}
         authorId={profile.id}
-        src={stillForPlace(place)?.src}
+        src={heroSrc}
         alt={place.name}
+      />
+      <RecPhotosEditor
+        placeId={place.id}
+        heroSrc={heroSrc}
+        extras={extraPhotos}
       />
       {kind === "eat" || kind === "shop" ? (
         <PlatesEditor

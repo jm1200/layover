@@ -138,7 +138,8 @@ AI_MONTHLY_CAP_USD=20
 9. Run **012** (`012_dish_images.sql`) — plate photos on dishes. Rec cards stay one still.
 10. Run **013** (`013_zurich_plates.sql`) — sample plates on the Zurich raclette rec.
 11. Run **014** (`014_raclette_blurb.sql`) — rec blurb stands alone, not the itinerary.
-12. Restart the dev server (`cd apps/web && npm run dev`).
+12. Run **015** (`015_dimsum_plates.sql`) — extra plates on the dim-sum rec so you can pick a hero.
+13. Restart the dev server (`cd apps/web && npm run dev`).
 
 If the key is missing, Share still opens but Fill the draft says **Lumen’s taking a nap.**
 
