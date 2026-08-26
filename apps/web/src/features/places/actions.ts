@@ -261,7 +261,7 @@ export async function addPlacePhoto(
     .insert({
       place_id: placeId,
       image_url: url,
-      sort_order: (count ?? 0) + 1,
+      sort_order: (counted.count ?? 0) + 1,
     })
     .select("id")
     .single();
