@@ -7,7 +7,6 @@ import { recKindFromCategory } from "@/features/places/kind";
 import { DeleteRecButton } from "@/features/places/delete-rec-button";
 import { PlatesEditor } from "@/features/places/plates-editor";
 import { RecPhotosEditor } from "@/features/places/rec-photos-editor";
-import { RecStillEditor } from "@/features/places/rec-still-editor";
 import { DISH_STILL, stillForDish, stillForPlace } from "@/features/places/rec-media";
 import {
   getPlace,
@@ -66,14 +65,9 @@ export default async function EditPlacePage({
         submitLabel="Save"
         allowHidden={profile.role === "admin"}
       />
-      <RecStillEditor
-        placeId={place.id}
-        authorId={profile.id}
-        src={heroSrc}
-        alt={place.name}
-      />
       <RecPhotosEditor
         placeId={place.id}
+        authorId={profile.id}
         heroSrc={heroSrc}
         extras={extraPhotos}
       />
