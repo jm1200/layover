@@ -47,7 +47,7 @@ insert into public.places (id, city_id, zone_id, name, blurb, category, status, 
     'a1000000-0000-4000-8000-000000000001',
     'b1000000-0000-4000-8000-000000000002',
     'Raclette factory (centre)',
-    'Streetcar from riverside / gym area into the centre. Go for truffle raclette if they have it; lava cake for dessert is the move.',
+    'Melted raclette scraped over potatoes, cornichons to cut it. Ask for truffle if they have it. Lava cake after.',
     'restaurant',
     'published',
     null

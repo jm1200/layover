@@ -58,6 +58,7 @@ Durable history only. Not a chat transcript.
 - **2026-08-25 — Lumen log on `/admin`.** Last 50 actions + month spend. No dump text (could leak hotels). Not the Phase 6 dashboard.
 - **2026-08-25 — User photos.** Compress on upload (no 2 MB homework). Preview = 4:5 card crop. Lumen does not AI-reframe their shot.
 - **2026-08-25 — Plates.** Rec card stays **one still**. Eat/Buy may have up to **3 named dish photos** on the rec page. User upload only. No AI spend per plate. Published recs: edit page can add/replace plates. Sample: Zurich raclette.
+- **2026-08-25 — Rec blurbs are independent of the plan.** No “streetcar from the gym” in a place blurb. Transit lives on the layover stop.
 - Live rotating homepage from “where crew have been going” needs either a human moderator or the AI pipeline. Not hired. Not built.
 - “The perfect layover does not exist… {City} edition” is John’s Instagram series voice — for full plans, not ads. Ads later: “New idea…”
 - Rx / pharma shopping policy **parked**.

@@ -156,6 +156,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] User photo upload: compress (no 2 MB cap as homework); 4:5 card preview; no silent AI reframe
 - [x] Up to 3 plate photos per Eat/Buy rec (SQL **012**). City cards stay one still.
 - [x] Sample plates on Zurich raclette rec (`plate-zurich-*.jpg`, SQL **013**). Edit rec can add/replace plates after publish.
+- [x] Raclette rec blurb stands alone (SQL **014**) — transit stays on the plan.
 - [x] SQL **011** — global $20 RPC, city-hero column, generate-on-publish flag, city-open quota. **John must run this.**
 
 ## Session checklist for agents
