@@ -46,7 +46,7 @@ Shareholder creates Supabase project and provides keys (see `docs/STACK.md`). En
 
 ## Google (locked 2026-08-26 — this cut)
 
-- **Continue with Google** is the button. Email + password stays. Not Apple / Facebook.
+- **Continue with Google** is the button. Email + password stays. Not Apple / Facebook / Instagram. Instagram-as-content is not a login provider — parked (2026-08-26).
 - Shareholder creates the Google Cloud OAuth **web** client and pastes Client ID + secret into Supabase Auth → Google. Recipe: `docs/board/HUMAN-SETUP.md`. Engineer cannot create the Google Cloud project.
 - Sofia + Lumen restyle `/login` now. Restyle does **not** wait on the OAuth client. The Google button ships when the client exists.
 - Post-login redirect unchanged: user → `/dashboard`; sponsor → `/sponsor`; admin → `/admin`.
@@ -55,7 +55,7 @@ Shareholder creates Supabase project and provides keys (see `docs/STACK.md`). En
 
 - Airline SSO
 - Biometric verification
-- Apple / Facebook / other OAuth
+- Apple / Facebook / Instagram / other OAuth
 - Cities / playbooks / Stripe / AI
 
 ## UI copy (locked 2026-08-26 — Sofia / Lumen)

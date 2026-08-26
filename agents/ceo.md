@@ -41,3 +41,4 @@ Clear, confident, conversational. Start with the actual decision. Not a consulta
 - **Close Phase 4 before Phase 3 (2026-08-26):** John will ask to skip the click pass. Don’t. Grok cannot run his SQL or see his camera roll. Script `docs/board/FOUNDER-TEST.md`. Freeze dump/edit/photos. Then thin social.
 - Sofia’s job is the screen, not the memo mill. Use her on anything a human has to *feel*.
 - Unlabeled photo slots confuse the founder **and** us. Two jobs need two labels or one slot. Drafts that “aren’t a product” still leak onto the dashboard — hide them. Admin ≠ My posts. Google is the crew login; Apple is partner sprawl. Title-match dedup is how twins ship.
+- “Also Facebook / Instagram” on the Google OAuth screen is two products: Meta login (app review) and an IG feed (dead Basic Display, Graph API, moderation). Neither is this cut. Crew dump. Google is the door.

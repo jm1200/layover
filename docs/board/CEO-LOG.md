@@ -4,6 +4,31 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-26 — Facebook / Instagram: no (login and feed)
+
+**Source:** Shareholder on the Supabase Google OAuth screen. “I should probably allow facebook/instagram too.” Also: maybe link Instagram so crew posts of awesome layovers show on Layover. Auth first.
+
+**Facts:** This cut is already locked: **Google + email.** Not Apple. Not Facebook. Phase 4 close, not Phase 3 social. Two different products mixed:
+
+1. **Sign in with Facebook/Instagram** — Meta OAuth, App Review, privacy-policy URL, operator load.
+2. **Link Instagram as content** — Instagram Basic Display is dead. Graph API wants Meta business/creator accounts, app review, ongoing moderation. A feed/import product, not a login button.
+
+Low operator load is a primary goal. Trust > disguised ads. Supply first (Lumen dumps). Thin Phase 3 later is like + comment + byline. Follow-notifications / QR already parked.
+
+### Decision (locked)
+
+| Item | Decision |
+|------|----------|
+| Google | **Finish this week.** Skip nonce **Off**. Allow users without an email **Off**. |
+| Facebook / Instagram login | **No.** Not this cut. Not next unless he wants a Meta app-review job instead of closing Phase 4. |
+| Instagram-as-content | **Later, separate product.** Bad fit for zones-not-hotels + low moderation. Crew already dump. Sofia’s door is Google. Probably not this year. |
+
+**Shareholder ask:** Fill Google Client ID + secret. Leave the two toggles off. Ignore Facebook. Dump the rec if they have a trip — do not pipe IG.
+
+**Status:** Locked. Brief + COMPANY_LOG. HUMAN-SETUP already says don’t add Facebook — unchanged. No `apps/` from CEO.
+
+---
+
 ## 2026-08-26 — Founder test: product locked (seven items)
 
 **Source:** Shareholder click pass. Seven fails. Engineering context: dump still writes `places.image_url` not `place_photos`; no save-draft button but Lumen inserts draft rows; John is admin so dashboard can list everyone’s recs; Google OAuth was parked in HUMAN-SETUP; itinerary match is title OR stop set (title drift twins a day); playbook narrative not filled from dump; “city on the map now” fires when the city already exists.

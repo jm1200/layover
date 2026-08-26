@@ -2,7 +2,7 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-08-26 (founder test — product locked)  
+**Last updated:** 2026-08-26 (Google this week; Facebook/IG parked)  
 **Company:** Layover (working name)  
 **Stage:** **Phase 4 close.** Engineers fix what you found. Not Phase 3. Not Stripe.
 
@@ -16,7 +16,7 @@ Engineering ships this cut. Sofia + Lumen own login, photo labels, and delete-re
 
 | Item | Call |
 |------|------|
-| Login | Restyle now. **Google** this cut — you create the OAuth client. Email stays. Not Apple. |
+| Login | **Google** this cut — you create the OAuth client. Email stays. Not Apple. **Not Facebook / Instagram.** |
 | Rec photos | **Place (1)** = outside, city card. **Dishes (0–3)** = named shots on Get this (Eat/Buy). Labels on both. No photo → Lumen still. No black rectangle. |
 | Drafts / dashboard | **Your published** recs and days only. No `(draft)`. No seed. No everyone else’s. Admin queue = Phase 6. |
 | Dedup | Same stop set = same day. Title drift does not ship a twin. Day blurb from the dump. “On the map now” only for a **new** city. |
@@ -29,4 +29,4 @@ Engineering ships this cut. Sofia + Lumen own login, photo labels, and delete-re
 
 **Money:** $20/mo. 4k chars. Kill switch. Daily 3-draft cap still off.
 
-**Not this cut:** likes, comments, Stripe, Apple login, admin queue, restore the 3-draft cap.
+**Not this cut:** likes, comments, Stripe, Apple login, **Facebook / Instagram login**, Instagram-as-content, admin queue, restore the 3-draft cap. Facebook/IG parked.

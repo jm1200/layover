@@ -61,6 +61,7 @@ Durable history only. Not a chat transcript.
 - **2026-08-25 — Rec blurbs are independent of the plan.** No “streetcar from the gym” in a place blurb. Transit lives on the layover stop.
 - **2026-08-25 — Lumen decides rec vs recs vs day.** They jabber once. She does not invent an itinerary. Several recs can exist with no plan. When unsure: recs, not a day.
 - **2026-08-25 — Rec photos.** One album, max 3. Tap = hero (city card). X removes. Plates are **names** (Get this), not a second gallery. SQL **016** `place_photos`. **Superseded 2026-08-26:** place exterior (1) + named dish photos (0–3) on Get this; two labeled jobs.
+- **2026-08-26 — Facebook / Instagram parked.** Google + email is the door. **No** Facebook/Instagram login this cut or next (Meta app review is a different job). **No** Instagram-as-content this year — Graph API, business/creator accounts, moderation. Crew dump the rec. Sofia’s door is Google.
 - **2026-08-26 — Founder test product lock (seven items).** Close Phase 4 on these, not likes. **Google sign-in this cut** (email stays; not Apple). John creates the OAuth client. Sofia + Lumen restyle `/login`. **Rec photos:** place exterior (1) = city card; Eat/Buy dishes (0–3 named) on Get this; labels on both; no unlabeled double upload; no photo → Lumen still; never copy exterior onto a plate. Supersedes 08-25 album/tap-hero/names-only plates. **No draft product:** unpublished Lumen rows off public and off My posts; no `(draft)` badge. **Dashboard = this user’s published recs and days.** Seed and other authors are not “mine.” Admin queue stays Phase 6. **Dedup = stop set**, not title. Day blurb from the dump; refuse empty narrative. “On the map now” only for a city she actually opened. **Edit day: one Save** → public layover; drop/reorder persist; delete day must work. Delete-rec copy = Sofia.
 - **2026-08-26 — UI copy (Sofia + Lumen).** Login: **In from a trip?** / **Dump the rec. She fills the form.** / **Continue with Google**. Never steal. Photos: **The place** — *The outside — door, street, walk-up. This is the city card.* **Get this** — *The food. Not the building. This sits under Get this.* Dashboard title **Yours**. Delete rec: **This rec comes off the city. The layover day stays.** Edit layover: **Save** → the day. Strings in `features/auth.md`, `features/ai-import.md`, `features/playbooks.md`, `agents/lumen.md`.
 - **2026-08-26 — Close Phase 4 before Phase 3.** Next milestone is founder click pass + freeze dump/edit/photos. Not likes, not Stripe, not QR. SQL **011 + 016 are live** (probed). Script: `docs/board/FOUNDER-TEST.md`. Review: `docs/board/PHASE-4-REVIEW.md`.
@@ -84,6 +85,8 @@ Durable history only. Not a chat transcript.
 - Clean-slate rewrites.
 - Derailing Phase 2.1 for shopping UX, creator payouts, or multi-photo pipelines.
 - Derailing Phase 4 for social theater on four thin cities.
+- Facebook / Instagram login (Meta OAuth + App Review). Parked with Apple.
+- Instagram-as-content / “link IG so layover posts show here.” Dead Basic Display; Graph API is a moderation product. Crew dump. Parked, probably not this year.
 
 ## Technical constraints
 
@@ -97,5 +100,5 @@ Durable history only. Not a chat transcript.
 - Keep the name **Layover**?
 - Source of rotating hero/card photos (crew vs generated vs licensed). Not scraping Google by default.
 - How obvious the top nav should be — thin overlay is current lock; revisit if people miss Log in.
-- Apple / other OAuth — parked. Google is this cut (John’s OAuth client).
+- Apple / Facebook / Instagram OAuth — parked. Google is this cut (John’s OAuth client). Instagram linking is not a login provider.
 - Rx shopping policy.

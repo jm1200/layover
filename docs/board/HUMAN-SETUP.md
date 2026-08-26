@@ -155,10 +155,22 @@ The login page has **Continue with Google**. It fails until you do this:
 5. **Authorized redirect URIs:** `https://YOUR_PROJECT_REF.supabase.co/auth/v1/callback`  
    (Project Settings → API → Project URL in Supabase. Same host, path `/auth/v1/callback`.)
 6. Copy **Client ID** and **Client secret**.
-7. Supabase → **Authentication** → **Providers** → **Google** → enable → paste both → save.
-8. Reload `/login` and tap **Continue with Google**.
+7. Supabase → **Authentication** → **Providers** → **Google**. Fill **only** these:
 
-Do **not** add Apple or Facebook. Email + password stays.
+| Setting | What you do |
+|---------|-------------|
+| **Enable Sign in with Google** | On |
+| **Client IDs** | The **Web** OAuth Client ID from Google Cloud (one ID is enough) |
+| **Client Secret (for OAuth)** | The secret from that same web client |
+| **Skip nonce checks** | **Off** (less secure; iOS workaround we don’t need) |
+| **Allow users without an email** | **Off** (we need an email on the profile) |
+| **Callback URL** | Leave it. Copy **that** URL into Google Cloud → Authorized redirect URIs. Yours is `https://ysuxlxwbaqestffskaqp.supabase.co/auth/v1/callback` |
+
+Also in Google Cloud, **Authorized JavaScript origins:** `http://localhost:3000` (add the Vercel URL later).
+
+8. Save in Supabase. Reload `/login` → **Continue with Google**.
+
+Do **not** add Apple, Facebook, or Instagram. Email + password stays. Instagram-as-content is not a login provider — parked.
 
 ## Later (not now)
 
