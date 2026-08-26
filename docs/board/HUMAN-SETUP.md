@@ -146,29 +146,54 @@ If the key is missing, Share still opens but Fill the draft says **Lumen’s tak
 
 ## Google sign-in (you; the button is already in the app)
 
-The login page has **Continue with Google**. It fails until you do this:
+Two places. **Google Cloud** makes the Client ID + secret. **Supabase** stores them. Nothing goes in `.env.local`.
 
-1. [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → **Credentials** → **Create credentials** → **OAuth client ID**.
-2. If prompted, set an OAuth consent screen (External, app name **Layover**, your email).
-3. Application type: **Web application**.
-4. **Authorized JavaScript origins:** `http://localhost:3000` (add the Vercel URL later).
-5. **Authorized redirect URIs:** `https://YOUR_PROJECT_REF.supabase.co/auth/v1/callback`  
-   (Project Settings → API → Project URL in Supabase. Same host, path `/auth/v1/callback`.)
-6. Copy **Client ID** and **Client secret**.
-7. Supabase → **Authentication** → **Providers** → **Google**. Fill **only** these:
+Your callback (copy this once, use it twice):
 
-| Setting | What you do |
+`https://ysuxlxwbaqestffskaqp.supabase.co/auth/v1/callback`
+
+### A. Google Cloud Console
+
+1. Open [https://console.cloud.google.com/](https://console.cloud.google.com/). Sign in with your Google account.
+2. Top bar project picker → **New project** → name `Layover` → **Create**. Select that project.
+3. Consent / branding (once per project). Either:
+   - Left menu **APIs & Services** → **OAuth consent screen**, or
+   - **Google Auth platform** → **Branding**
+4. User type **External** (any Gmail). App name **Layover**. User support email = you. Developer contact email = you. Save. Skip scopes extras. If it asks for a homepage, `http://localhost:3000` is fine for testing.
+5. If the app is in **Testing**, **Audience** / test users → add **your Gmail**. Only those accounts can sign in until you publish the app (don’t publish yet).
+6. Create the client. Either:
+   - **APIs & Services** → **Credentials** → **Create credentials** → **OAuth client ID**, or
+   - **Google Auth platform** → **Clients** → **Create client**
+7. Application type: **Web application**. Name: `Layover web`.
+8. **Authorized JavaScript origins** → **Add URI**:
+   - `http://localhost:3000`
+9. **Authorized redirect URIs** → **Add URI**:
+   - `https://ysuxlxwbaqestffskaqp.supabase.co/auth/v1/callback`  
+   Exact, no trailing slash. This is **not** `localhost`.
+10. **Create**. Copy **Client ID** (ends in `.apps.googleusercontent.com`) and **Client secret**. Leave that tab open.
+
+### B. Supabase (where you save it)
+
+1. [https://supabase.com/dashboard](https://supabase.com/dashboard) → project **layover** (the one whose URL is `ysuxlxwbaqestffskaqp`).
+2. Left: **Authentication** → **Sign In / Providers** (sometimes labeled **Providers**).
+3. Open **Google**.
+4. Fill **only**:
+
+| Setting | Paste / set |
 |---------|-------------|
 | **Enable Sign in with Google** | On |
-| **Client IDs** | The **Web** OAuth Client ID from Google Cloud (one ID is enough) |
-| **Client Secret (for OAuth)** | The secret from that same web client |
-| **Skip nonce checks** | **Off** (less secure; iOS workaround we don’t need) |
-| **Allow users without an email** | **Off** (we need an email on the profile) |
-| **Callback URL** | Leave it. Copy **that** URL into Google Cloud → Authorized redirect URIs. Yours is `https://ysuxlxwbaqestffskaqp.supabase.co/auth/v1/callback` |
+| **Client IDs** | Client ID from Google (step A10). One ID is enough. |
+| **Client Secret (for OAuth)** | Client secret from Google |
+| **Skip nonce checks** | Off |
+| **Allow users without an email** | Off |
+| **Callback URL** | Leave it. Already matches step A9. |
 
-Also in Google Cloud, **Authorized JavaScript origins:** `http://localhost:3000` (add the Vercel URL later).
+5. **Save**.
+6. Also check **Authentication** → **URL configuration**: Site URL `http://localhost:3000`. Redirect URLs include `http://localhost:3000/**` and `http://localhost:3000/auth/callback`.
 
-8. Save in Supabase. Reload `/login` → **Continue with Google**.
+### C. Try it
+
+`http://localhost:3000/login` → **Continue with Google**. Use a Gmail you added as a test user.
 
 Do **not** add Apple, Facebook, or Instagram. Email + password stays. Instagram-as-content is not a login provider — parked.
 
