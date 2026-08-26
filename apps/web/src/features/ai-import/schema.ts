@@ -15,9 +15,9 @@ export const LUMEN_JSON_SCHEMA = {
     },
     post_kind: {
       type: "string",
-      enum: ["place", "playbook"],
+      enum: ["place", "places", "playbook"],
       description:
-        "place = one Eat/Do/Buy rec. playbook = a full day with stops.",
+        "place = one Eat/Do/Buy rec. places = two or more independent recs, no itinerary. playbook = they pitched a sequenced day (hours, order as the point). Do not invent a day.",
     },
     city_slug: { type: ["string", "null"] },
     city_name: {
@@ -141,7 +141,7 @@ export type LumenStop = {
 export type LumenExtract = {
   status: "draft" | "need_city" | "need_name" | "blocked";
   question: string | null;
-  post_kind: "place" | "playbook";
+  post_kind: "place" | "places" | "playbook";
   city_slug: string | null;
   city_name: string | null;
   city_airport: string | null;

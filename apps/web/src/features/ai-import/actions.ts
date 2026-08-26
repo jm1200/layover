@@ -364,6 +364,45 @@ export async function fillDraft(
         }
       }
     }
+  } else if (extract.post_kind === "places") {
+    const recs = extract.stops.filter((s) => s.name.trim() && s.found);
+    if (recs.length === 0) {
+      await supabase.from("ai_import_logs").insert({
+        ...logBase,
+        success: false,
+        error_code: "need_name",
+        city_id: city.id,
+        payload: extract as unknown as Record<string, unknown>,
+      });
+      return {
+        question: "What’s the place called?",
+        story,
+        hintSlug: city.slug,
+      };
+    }
+    for (const s of recs) {
+      await ensurePlace({
+        name: s.name.trim(),
+        category: s.category ?? "do",
+        blurb: s.blurb,
+        zoneType: s.zone_type,
+        dishName: s.dish_name,
+      });
+    }
+    if (!createdPlaceIds.length) {
+      await supabase.from("ai_import_logs").insert({
+        ...logBase,
+        success: true,
+        error_code: "linked",
+        city_id: city.id,
+        payload: extract as unknown as Record<string, unknown>,
+      });
+      return {
+        error: "Those recs are already on the city.",
+        story,
+        hintSlug: city.slug,
+      };
+    }
   } else {
     const name = extract.name?.trim();
     const category = extract.category;

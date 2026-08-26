@@ -27,7 +27,13 @@ function asExtract(raw: unknown): LumenExtract | null {
   ) {
     return null;
   }
-  if (postKind !== "place" && postKind !== "playbook") return null;
+  if (
+    postKind !== "place" &&
+    postKind !== "places" &&
+    postKind !== "playbook"
+  ) {
+    return null;
+  }
   const cat = o.category;
   const category =
     cat === "eat" || cat === "do" || cat === "shop" ? cat : null;

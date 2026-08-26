@@ -21,7 +21,7 @@ export function DumpBox({
       {citySlug ? <input type="hidden" name="city" value={citySlug} /> : null}
       <label className="flex flex-col gap-2">
         <span className="text-lg text-zinc-800">
-          Dump the layover. City, the place, why it’s a steal.
+          Dump what you did. One rec, a few recs, or the whole day.
         </span>
         {cityName ? (
           <span className="text-sm text-zinc-500">{cityName} is already on this one.</span>
@@ -36,11 +36,11 @@ export function DumpBox({
           maxLength={MAX_STORY_CHARS}
           defaultValue={story}
           readOnly={Boolean(state.question)}
-          placeholder="Eight hours in BCN. Tapas in El Born, then a walk to the beach…"
+          placeholder="Snails at Los Caracoles. Or: eight hours in BCN — tapas, a walk, the baths…"
           className="rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-base leading-relaxed outline-none focus:border-zinc-900"
         />
         <span className="text-xs text-zinc-500">
-          Phone keyboard mic is fine. Keep it to one layover.
+          Phone keyboard mic is fine. She’ll sort recs vs a full day.
         </span>
       </label>
 

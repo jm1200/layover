@@ -15,7 +15,7 @@
 | **2 — Cities, zones, places, playbooks** | **Complete** | Content model + public browse + forms. Migrations 002–004 (+ seeds 003, 005, 006; stop timing 007). Gate in `PRE-PHASE-2-GATE.md` is met. |
 | **2.1 — Verify + harden** | **Complete** | Homepage + city/place/plan UI in (heroes, Eat/Do/Buy, full layover). RLS smoke: `docs/board/RLS-SMOKE.md`. **Parked (not blockers):** admin city form (SQL), Vercel deploy, photo upload (Phase 4). |
 | 3 — Social | Not started | **Waits until after Lumen** (supply first). Not skipped, not started. Thin cut later: like + comment + byline. Follow-notifications / completion / QR **out**. |
-| 4 — AI story import | **In progress** | Live locally: `/share` dump → lookup (real places only) → review → Publish. SQL **008–011**. Recs kept if the plan write fails. John does not moderate daily. |
+| 4 — AI story import | **In progress** | Live locally: `/share` dump → Lumen decides rec / recs / day → review → Publish. Rec blurbs stand alone. SQL **008–014**. |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
 | 6 — Metrics + admin moderation | Not started | money/trust dashboard |
 | 7 — Crew-only precision | Not started | optional; after verification story |

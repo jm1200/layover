@@ -14,8 +14,8 @@
 
 Hotel room, one thumb, ~60 seconds. Lumen talks as little as possible.
 
-1. **Talk once.** Header **Share your intel** → one screen, one box. Lumen: *“Dump the layover. City, the place, why it’s a steal.”* They dictate with the **phone keyboard mic** (OS, $0) or type. Same box. Button: **Fill the draft.** No Eat/Do/Buy picker first — she classifies. Sharing from a city page already has the city.
-2. **One extract.** `grok-4.3` fills the existing Eat/Do/Buy form, or a full layover (places + plan, max 4 stops). Wrong type → they tap Type on the form. **No second model call** to chase a dish, zone, or hours.
+1. **Talk once.** Header **Share your intel** → one screen, one box. Lumen: *“Dump what you did. One rec, a few recs, or the whole day.”* They dictate with the **phone keyboard mic** (OS, $0) or type. Same box. Button: **Fill the draft.** No Eat/Do/Buy picker first — **she decides** rec vs recs vs day. Sharing from a city page already has the city.
+2. **One extract.** `grok-4.3` fills one rec, several independent recs, or a full layover (standalone recs + plan, max 4). **Do not invent a day.** “Then” alone is not an itinerary. Rec blurbs always stand alone. **No second model call** to chase a dish, zone, or hours.
 3. **Holes are the follow-up.** Draft screen, same fields we have today. Empty bits sit obvious. Lumen one-liner: *“I filled what I heard. Tap the blanks, add a pic, publish.”* They tap. They do not answer her.
 4. **Photo on that same screen.** Camera roll, or a checkbox: **AI still on publish**. One generation. Cannot publish with neither.
 5. **One question only if a required field is missing** (table below). Same screen, one line. They answer once. Then extract. Never a third turn. Never “what dish?” as chat.
@@ -35,6 +35,7 @@ Matches what the live forms already refuse to save. Lumen does **not** invent ex
 | Post | Must have | Her one question if missing |
 |------|-----------|-----------------------------|
 | Eat / Do / Buy | **City** (existing **or** Lumen opens one from a real name/IATA) + **place name** + **type** | *“Which city? Airport code if you have it.”* or *“What’s the place called?”* |
+| Several recs (no plan) | **City** + **≥2 named places** | *“What’s the place called?”* |
 | Full layover | **City** (same) + **title** + **≥1 stop with a place name** | *“Which city? Airport code if you have it.”* or *“What’s the first stop called?”* |
 
 Type is required on the rec form today (`eat` / `do` / `shop`). She infers it. Wrong guess → they tap Type. Not a spoken Q.
