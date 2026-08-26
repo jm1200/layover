@@ -42,7 +42,7 @@ Not a schema change. Not Phase 3. Not four new routes. Not a photo grid.
 - [x] Optional child item: Eat = “signature dish”; Buy = “what to get”; Do = hide the dish fields.
 - [x] Empty group: one line “None yet.” Do not build `/cities/[slug]/eat` style landings this cut.
 - **Cities/zones:** users cannot insert via a form (004). **Lumen may open a city** from a dump (name + 3-letter IATA) via `lumen_ensure_city` (009, quota in **011**). No public city form. One city hero per city — Lumen spends without asking (within $20), on first publish if missing.
-- **Photos (locked 2026-08-25, plates 2026-08-25):** **1 still per place** on the city card. Eat/Buy recs: up to **3 plates** (dish + user photo) on the rec page. No AI still per plate. City: **one hero**.
+- **Photos (locked 2026-08-25, plates 2026-08-25):** **1 still per place** on the **city card** (Lumen’s hero until likes). Rec page shows **all** pics (hero + plates). Eat/Buy: up to **3 author plates**. Crew adding extra pics + reviews = Phase 3. No AI still per plate.
 
 ## Out of scope (this IA cut)
 

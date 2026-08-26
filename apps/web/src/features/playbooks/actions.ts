@@ -195,3 +195,87 @@ export async function updatePlaybookMeta(
         : "Saved as draft (only you).",
   };
 }
+
+export async function deletePlaybook(
+  playbookId: string,
+): Promise<PlaybookFormState> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "You must be logged in." };
+  }
+  const supabase = await createClient();
+  const { data: pb } = await supabase
+    .from("playbooks")
+    .select("id, city_id, author_id")
+    .eq("id", playbookId)
+    .maybeSingle();
+  if (!pb) return { error: "Plan not found." };
+  if (profile.role !== "admin" && pb.author_id !== profile.id) {
+    return { error: "Not your plan." };
+  }
+  const { data: city } = pb.city_id
+    ? await supabase
+        .from("cities")
+        .select("slug")
+        .eq("id", pb.city_id)
+        .maybeSingle()
+    : { data: null };
+  const { error } = await supabase.from("playbooks").delete().eq("id", playbookId);
+  if (error) return { error: error.message };
+  revalidatePath("/cities");
+  revalidatePath("/dashboard");
+  if (city?.slug) {
+    revalidatePath(`/cities/${city.slug}`);
+    revalidatePath(`/cities/${city.slug}/layovers`);
+  }
+  redirect(city?.slug ? `/cities/${city.slug}` : "/cities");
+}
+
+export async function savePlaybookStops(
+  playbookId: string,
+  orderedIds: string[],
+): Promise<PlaybookFormState> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "You must be logged in." };
+  }
+  if (orderedIds.length > 4) return { error: "Four stops is the cap." };
+  const supabase = await createClient();
+  const { data: pb } = await supabase
+    .from("playbooks")
+    .select("id, author_id, city_id")
+    .eq("id", playbookId)
+    .maybeSingle();
+  if (!pb) return { error: "Plan not found." };
+  if (profile.role !== "admin" && pb.author_id !== profile.id) {
+    return { error: "Not your plan." };
+  }
+  const { data: existing } = await supabase
+    .from("playbook_stops")
+    .select("id")
+    .eq("playbook_id", playbookId);
+  const keep = new Set(orderedIds);
+  const toDrop = (existing ?? []).map((s) => s.id).filter((id) => !keep.has(id));
+  if (toDrop.length) {
+    await supabase.from("playbook_stops").delete().in("id", toDrop);
+  }
+  for (let i = 0; i < orderedIds.length; i++) {
+    const { error } = await supabase
+      .from("playbook_stops")
+      .update({ position: i + 1 })
+      .eq("id", orderedIds[i])
+      .eq("playbook_id", playbookId);
+    if (error) return { error: error.message };
+  }
+  revalidatePath(`/playbooks/${playbookId}`);
+  revalidatePath("/dashboard");
+  if (pb.city_id) {
+    const { data: city } = await supabase
+      .from("cities")
+      .select("slug")
+      .eq("id", pb.city_id)
+      .maybeSingle();
+    if (city?.slug) revalidatePath(`/cities/${city.slug}`);
+  }
+  return { success: "Stops updated. Recs are unchanged." };
+}

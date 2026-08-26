@@ -165,3 +165,31 @@ export async function updatePlace(
   revalidateContent(city?.slug);
   return { success: "Saved." };
 }
+
+export async function deletePlace(
+  placeId: string,
+): Promise<PlaceFormState> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "You must be logged in." };
+  }
+  const supabase = await createClient();
+  const { data: place } = await supabase
+    .from("places")
+    .select("id, city_id, author_id")
+    .eq("id", placeId)
+    .maybeSingle();
+  if (!place) return { error: "Rec not found." };
+  if (profile.role !== "admin" && place.author_id !== profile.id) {
+    return { error: "Not your rec." };
+  }
+  const { data: city } = await supabase
+    .from("cities")
+    .select("slug")
+    .eq("id", place.city_id)
+    .maybeSingle();
+  const { error } = await supabase.from("places").delete().eq("id", placeId);
+  if (error) return { error: error.message };
+  revalidateContent(city?.slug);
+  redirect(city?.slug ? `/cities/${city.slug}` : "/cities");
+}

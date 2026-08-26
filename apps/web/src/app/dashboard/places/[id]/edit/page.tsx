@@ -4,8 +4,10 @@ import { requireUser } from "@/features/auth/get-profile";
 import { updatePlace } from "@/features/places/actions";
 import { PlaceForm } from "@/features/places/place-form";
 import { recKindFromCategory } from "@/features/places/kind";
+import { DeleteRecButton } from "@/features/places/delete-rec-button";
 import { PlatesEditor } from "@/features/places/plates-editor";
-import { DISH_STILL } from "@/features/places/rec-media";
+import { RecStillEditor } from "@/features/places/rec-still-editor";
+import { DISH_STILL, stillForPlace } from "@/features/places/rec-media";
 import {
   getPlace,
   listAllZones,
@@ -58,6 +60,12 @@ export default async function EditPlacePage({
         submitLabel="Save"
         allowHidden={profile.role === "admin"}
       />
+      <RecStillEditor
+        placeId={place.id}
+        authorId={profile.id}
+        src={stillForPlace(place)?.src}
+        alt={place.name}
+      />
       {kind === "eat" || kind === "shop" ? (
         <PlatesEditor
           placeId={place.id}
@@ -65,6 +73,7 @@ export default async function EditPlacePage({
           initial={plates}
         />
       ) : null}
+      <DeleteRecButton placeId={place.id} />
     </AppShell>
   );
 }

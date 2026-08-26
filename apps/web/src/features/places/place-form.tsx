@@ -92,7 +92,9 @@ export function PlaceForm({
       </label>
 
       <label className="flex flex-col gap-1 text-sm">
-        <span className="font-medium">Zone (encouraged)</span>
+        <span className="font-medium">
+          Cluster this sits in (downtown, airport, station)
+        </span>
         <select
           name="zone_id"
           value={zoneId}
@@ -100,7 +102,7 @@ export function PlaceForm({
           disabled={!cityId}
           className="rounded-lg border border-zinc-300 px-3 py-2 disabled:bg-zinc-100"
         >
-          <option value="">— none —</option>
+          <option value="">— skip —</option>
           {cityZones.map((z) => (
             <option key={z.id} value={z.id}>
               {cityName(z.city_id)}:{" "}
@@ -161,18 +163,11 @@ export function PlaceForm({
         />
       </label>
 
-      <label className="flex flex-col gap-1 text-sm">
-        <span className="font-medium">Status</span>
-        <select
-          name="status"
-          defaultValue={defaults?.status ?? "draft"}
-          className="rounded-lg border border-zinc-300 px-3 py-2"
-        >
-          <option value="draft">Draft (only you)</option>
-          <option value="published">Published (public)</option>
-          {allowHidden ? <option value="hidden">Hidden (admin)</option> : null}
-        </select>
-      </label>
+      {defaults?.status ? (
+        <input type="hidden" name="status" value={defaults.status} />
+      ) : (
+        <input type="hidden" name="status" value="published" />
+      )}
 
       {showItemFields && kind === "eat" ? (
         <fieldset className="rounded-lg border border-zinc-200 p-3">

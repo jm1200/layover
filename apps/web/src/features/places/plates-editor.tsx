@@ -67,43 +67,15 @@ export function PlatesEditor({
     <div className="mt-6 border-t border-zinc-200 pt-4">
       <p className="text-sm font-medium">Plates</p>
       <p className="mt-0.5 text-xs text-zinc-500">
-        Up to {MAX_PLATES}. These sit on the rec page, not the city card.
+        Name them first, then add photos. Up to {MAX_PLATES}.
       </p>
-      <ul className="mt-3 grid grid-cols-3 gap-2">
-        {plates.map((d) => (
-          <li key={d.id}>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-100">
-              {d.image_url ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={d.image_url}
-                  alt={d.name}
-                  className="h-full w-full object-cover"
-                />
-              ) : (
-                <span className="absolute inset-0 flex items-center justify-center px-1 text-center text-[11px] text-zinc-400">
-                  {uploadingId === d.id ? "Uploading…" : "Add a photo"}
-                </span>
-              )}
-            </div>
-            <p className="mt-1 truncate text-xs font-medium">{d.name}</p>
-            <label className="mt-1 inline-block cursor-pointer text-xs text-zinc-600 underline">
-              {d.image_url ? "Replace" : "Photo"}
-              <input
-                type="file"
-                accept="image/*"
-                className="hidden"
-                disabled={pending || Boolean(uploadingId)}
-                onChange={(e) => {
-                  const f = e.target.files?.[0];
-                  if (f) void onPlateFile(d, f);
-                  e.target.value = "";
-                }}
-              />
-            </label>
-          </li>
-        ))}
-      </ul>
+      {plates.length > 0 ? (
+        <ul className="mt-3 space-y-1 text-sm">
+          {plates.map((d) => (
+            <li key={`n-${d.id}`}>{d.name}</li>
+          ))}
+        </ul>
+      ) : null}
       {plates.length < MAX_PLATES ? (
         <div className="mt-3 flex gap-2">
           <input
@@ -131,6 +103,43 @@ export function PlatesEditor({
             {pending ? "Adding…" : "Add plate"}
           </button>
         </div>
+      ) : null}
+      {plates.length > 0 ? (
+        <ul className="mt-4 grid grid-cols-3 gap-2">
+          {plates.map((d) => (
+            <li key={d.id}>
+              <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-100">
+                {d.image_url ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={d.image_url}
+                    alt={d.name}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <span className="absolute inset-0 flex items-center justify-center px-1 text-center text-[11px] text-zinc-400">
+                    {uploadingId === d.id ? "Uploading…" : "Add a photo"}
+                  </span>
+                )}
+              </div>
+              <p className="mt-1 truncate text-xs font-medium">{d.name}</p>
+              <label className="mt-1 inline-block cursor-pointer text-xs text-zinc-600 underline">
+                {d.image_url ? "Replace" : "Photo"}
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  disabled={pending || Boolean(uploadingId)}
+                  onChange={(e) => {
+                    const f = e.target.files?.[0];
+                    if (f) void onPlateFile(d, f);
+                    e.target.value = "";
+                  }}
+                />
+              </label>
+            </li>
+          ))}
+        </ul>
       ) : null}
       {msg ? (
         <p className="mt-2 text-sm text-zinc-700" role="alert">

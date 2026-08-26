@@ -49,6 +49,14 @@ export default async function PlacePage({
     : null;
   const kind = recKindFromCategory(place.category);
   const still = stillForPlace(place);
+  const plateStills = dishes
+    .map((d) => stillForDish(d))
+    .filter((s): s is NonNullable<typeof s> => Boolean(s));
+  const photos: { src: string; alt: string; badge?: "ai" | null }[] = [];
+  if (still) photos.push(still);
+  for (const p of plateStills) {
+    if (!photos.some((x) => x.src === p.src)) photos.push(p);
+  }
   const canEdit =
     profile && (profile.role === "admin" || profile.id === place.author_id);
   const mapQuery = [place.name, city?.name, city?.country]
@@ -116,31 +124,59 @@ export default async function PlacePage({
               {place.blurb}
             </p>
           ) : null}
+          {photos.length > 0 ? (
+            <section className="mt-10">
+              <h2 className="font-mono text-sm uppercase tracking-[0.28em] text-zinc-400">
+                Photos
+              </h2>
+              <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {photos.map((p) => (
+                  <li
+                    key={p.src}
+                    className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-100"
+                  >
+                    <AiStill
+                      src={p.src}
+                      alt={p.alt}
+                      sizes="30vw"
+                      className="object-cover"
+                      badge={
+                        p.badge ??
+                        (p.src.startsWith("/landing/") ? "ai" : null)
+                      }
+                    />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
           {dishes.length > 0 ? (
             <section className="mt-10">
               <h2 className="font-mono text-sm uppercase tracking-[0.28em] text-zinc-400">
                 Get this
               </h2>
-              <ul className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3">
+              <ul className="mt-4 space-y-4">
                 {dishes.map((d) => {
                   const plate = stillForDish(d);
                   return (
-                    <li key={d.id}>
+                    <li key={d.id} className="flex gap-3">
                       {plate ? (
-                        <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-100">
+                        <div className="relative h-20 w-16 shrink-0 overflow-hidden rounded-lg bg-zinc-100">
                           <AiStill
                             src={plate.src}
                             alt={plate.alt}
-                            sizes="30vw"
+                            sizes="80px"
                             className="object-cover"
-                            badge={plate.src.startsWith("/landing/") ? "ai" : null}
+                            badge={null}
                           />
                         </div>
                       ) : null}
-                      <p className="mt-2 font-medium">{d.name}</p>
-                      {d.note ? (
-                        <p className="text-sm text-zinc-600">{d.note}</p>
-                      ) : null}
+                      <div>
+                        <p className="font-medium">{d.name}</p>
+                        {d.note ? (
+                          <p className="text-sm text-zinc-600">{d.note}</p>
+                        ) : null}
+                      </div>
                     </li>
                   );
                 })}
