@@ -211,6 +211,16 @@ export async function attachPlaceStill(
 
 const MAX_REC_PHOTOS = 3;
 
+function albumMissing(message?: string): string {
+  if (
+    message &&
+    /place_photos|schema cache/i.test(message)
+  ) {
+    return "Photo album isn’t in the database yet. Paste 016_place_photos.sql in the Supabase SQL Editor, then try again.";
+  }
+  return message ?? "Couldn’t save that photo.";
+}
+
 export async function addPlacePhoto(
   placeId: string,
   url: string,
@@ -236,11 +246,14 @@ export async function addPlacePhoto(
       url.startsWith(supabaseUrl) &&
       url.includes("/place-stills/"));
   if (!ours) return { error: "Bad image URL." };
-  const { count } = await supabase
+  const counted = await supabase
     .from("place_photos")
     .select("id", { count: "exact", head: true })
     .eq("place_id", placeId);
-  if ((count ?? 0) >= MAX_REC_PHOTOS) {
+  if (counted.error) {
+    return { error: albumMissing(counted.error.message) };
+  }
+  if ((counted.count ?? 0) >= MAX_REC_PHOTOS) {
     return { error: "Three photos is enough." };
   }
   const { data: photo, error } = await supabase
@@ -253,7 +266,7 @@ export async function addPlacePhoto(
     .select("id")
     .single();
   if (error || !photo) {
-    return { error: error?.message ?? "Couldn’t save that photo." };
+    return { error: albumMissing(error?.message) };
   }
   if (!place.image_url) {
     await supabase

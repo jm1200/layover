@@ -84,3 +84,5 @@ where not exists (
   select 1 from public.place_photos pp
   where pp.place_id = y.place_id and pp.image_url = y.image_url
 );
+
+notify pgrst, 'reload schema';
