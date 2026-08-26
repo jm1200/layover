@@ -13,6 +13,7 @@ import {
   listAllZones,
   listCities,
   listDishesForPlace,
+  listPlacePhotos,
 } from "@/features/places/queries";
 
 export default async function EditPlacePage({
@@ -31,10 +32,11 @@ export default async function EditPlacePage({
     redirect(`/places/${id}`);
   }
 
-  const [cities, zones, dishes] = await Promise.all([
+  const [cities, zones, dishes, album] = await Promise.all([
     listCities(),
     listAllZones(),
     listDishesForPlace(id),
+    listPlacePhotos(id),
   ]);
   const bound = updatePlace.bind(null, id);
   const kind = recKindFromCategory(place.category);
@@ -43,10 +45,16 @@ export default async function EditPlacePage({
     image_url: d.image_url ?? DISH_STILL[d.id]?.src ?? stillForDish(d)?.src ?? null,
   }));
   const heroSrc = stillForPlace(place)?.src ?? null;
-  const extraPhotos = plates
-    .map((d) => stillForDish(d))
-    .filter((s): s is NonNullable<typeof s> => Boolean(s))
-    .map((s) => ({ src: s.src, alt: s.alt }));
+  const photoSlots =
+    album.length > 0
+      ? album.map((p) => ({
+          id: p.id,
+          src: p.image_url,
+          alt: place.name,
+        }))
+      : heroSrc
+        ? [{ id: "legacy-hero", src: heroSrc, alt: place.name }]
+        : [];
 
   return (
     <AppShell profile={profile} title="Edit rec">
@@ -69,14 +77,14 @@ export default async function EditPlacePage({
         placeId={place.id}
         authorId={profile.id}
         heroSrc={heroSrc}
-        extras={extraPhotos}
+        photos={photoSlots}
       />
       {kind === "eat" || kind === "shop" ? (
         <PlatesEditor
           placeId={place.id}
           authorId={profile.id}
           initial={plates}
-          recStill={stillForPlace(place)?.src}
+          namesOnly
         />
       ) : null}
       <DeleteRecButton placeId={place.id} />

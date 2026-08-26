@@ -9,11 +9,12 @@ import {
   REC_KIND_LABEL,
 } from "@/features/places/kind";
 import { PlaceMap } from "@/features/places/place-map";
-import { stillForDish, stillForPlace } from "@/features/places/rec-media";
+import { stillForPlace } from "@/features/places/rec-media";
 import {
   getPlace,
   listCities,
   listDishesForPlace,
+  listPlacePhotos,
   listZonesForCity,
 } from "@/features/places/queries";
 import { ZONE_LABELS, type ZoneType } from "@/features/places/types";
@@ -37,10 +38,11 @@ export default async function PlacePage({
   const place = await getPlace(id);
   if (!place) notFound();
 
-  const [dishes, cities, profile] = await Promise.all([
+  const [dishes, cities, profile, album] = await Promise.all([
     listDishesForPlace(place.id),
     listCities(),
     getProfile(),
+    listPlacePhotos(place.id),
   ]);
   const city = cities.find((c) => c.id === place.city_id);
   const zones = city ? await listZonesForCity(city.id) : [];
@@ -49,13 +51,18 @@ export default async function PlacePage({
     : null;
   const kind = recKindFromCategory(place.category);
   const still = stillForPlace(place);
-  const plateStills = dishes
-    .map((d) => stillForDish(d))
-    .filter((s): s is NonNullable<typeof s> => Boolean(s));
   const photos: { src: string; alt: string; badge?: "ai" | null }[] = [];
-  if (still) photos.push(still);
-  for (const p of plateStills) {
-    if (!photos.some((x) => x.src === p.src)) photos.push(p);
+  for (const p of album) {
+    if (!photos.some((x) => x.src === p.image_url)) {
+      photos.push({
+        src: p.image_url,
+        alt: place.name,
+        badge: p.image_url.startsWith("/landing/") ? "ai" : null,
+      });
+    }
+  }
+  if (still && !photos.some((x) => x.src === still.src)) {
+    photos.unshift(still);
   }
   const canEdit =
     profile && (profile.role === "admin" || profile.id === place.author_id);
@@ -155,31 +162,15 @@ export default async function PlacePage({
               <h2 className="font-mono text-sm uppercase tracking-[0.28em] text-zinc-400">
                 Get this
               </h2>
-              <ul className="mt-4 space-y-4">
-                {dishes.map((d) => {
-                  const plate = stillForDish(d);
-                  return (
-                    <li key={d.id} className="flex gap-3">
-                      {plate ? (
-                        <div className="relative h-20 w-16 shrink-0 overflow-hidden rounded-lg bg-zinc-100">
-                          <AiStill
-                            src={plate.src}
-                            alt={plate.alt}
-                            sizes="80px"
-                            className="object-cover"
-                            badge={null}
-                          />
-                        </div>
-                      ) : null}
-                      <div>
-                        <p className="font-medium">{d.name}</p>
-                        {d.note ? (
-                          <p className="text-sm text-zinc-600">{d.note}</p>
-                        ) : null}
-                      </div>
-                    </li>
-                  );
-                })}
+              <ul className="mt-4 space-y-2">
+                {dishes.map((d) => (
+                  <li key={d.id}>
+                    <p className="font-medium">{d.name}</p>
+                    {d.note ? (
+                      <p className="text-sm text-zinc-600">{d.note}</p>
+                    ) : null}
+                  </li>
+                ))}
               </ul>
             </section>
           ) : null}

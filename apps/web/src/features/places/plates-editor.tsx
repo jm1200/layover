@@ -12,11 +12,13 @@ export function PlatesEditor({
   authorId,
   initial,
   recStill,
+  namesOnly,
 }: {
   placeId: string;
   authorId: string;
   initial: Dish[];
   recStill?: string | null;
+  namesOnly?: boolean;
 }) {
   const [plates, setPlates] = useState(initial);
   const [name, setName] = useState("");
@@ -66,13 +68,15 @@ export function PlatesEditor({
     <div className="mt-6 border-t border-zinc-200 pt-4">
       <p className="text-sm font-medium">Plates</p>
       <p className="mt-0.5 text-xs text-zinc-500">
-        Name them first, then add photos. Up to {MAX_PLATES}.
+        {namesOnly
+          ? `Names on Get this. Photos live in the album above. Up to ${MAX_PLATES}.`
+          : `Name them first, then add photos. Up to ${MAX_PLATES}.`}
       </p>
       {plates.length > 0 ? (
         <ul className="mt-3 divide-y divide-zinc-200 rounded-xl border border-zinc-200 bg-white">
           {plates.map((d) => (
             <li key={d.id} className="flex items-center gap-3 px-3 py-2">
-              {d.image_url ? (
+              {!namesOnly && d.image_url ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={d.image_url}
@@ -83,6 +87,7 @@ export function PlatesEditor({
               <p className="min-w-0 flex-1 truncate text-sm font-medium">
                 {d.name}
               </p>
+              {namesOnly ? null : (
               <div className="flex shrink-0 flex-wrap items-center gap-2 text-xs">
                 <label className="cursor-pointer text-zinc-600 underline">
                   {uploadingId === d.id
@@ -127,6 +132,7 @@ export function PlatesEditor({
                   </button>
                 ) : null}
               </div>
+              )}
             </li>
           ))}
         </ul>

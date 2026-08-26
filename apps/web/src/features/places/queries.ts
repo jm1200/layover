@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import type { City, Dish, Place, Zone } from "@/features/places/types";
+import type { City, Dish, Place, PlacePhoto, Zone } from "@/features/places/types";
 
 const PLACE_COLS =
   "id, city_id, zone_id, name, blurb, category, status, author_id, image_url, image_source, want_ai_still";
@@ -156,4 +156,18 @@ export async function listDishesForPlace(placeId: string): Promise<Dish[]> {
     return [];
   }
   return (data ?? []) as Dish[];
+}
+
+export async function listPlacePhotos(placeId: string): Promise<PlacePhoto[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("place_photos")
+    .select("id, place_id, image_url, sort_order")
+    .eq("place_id", placeId)
+    .order("sort_order");
+  if (error) {
+    console.warn("[listPlacePhotos]", error.message);
+    return [];
+  }
+  return (data ?? []) as PlacePhoto[];
 }

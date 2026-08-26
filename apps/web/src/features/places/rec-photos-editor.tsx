@@ -2,33 +2,30 @@
 
 import { useState, useTransition } from "react";
 import {
-  addPlaceDish,
-  attachDishStill,
+  addPlacePhoto,
   attachPlaceStill,
+  removePlacePhoto,
 } from "@/features/places/actions";
 import { compressStill } from "@/features/ai-import/compress-still";
 import { createClient } from "@/lib/supabase/client";
 
 const MAX = 3;
 
+export type RecPhotoSlot = { id: string; src: string; alt: string };
+
 export function RecPhotosEditor({
   placeId,
   authorId,
   heroSrc,
-  extras,
+  photos: initial,
 }: {
   placeId: string;
   authorId: string;
   heroSrc?: string | null;
-  extras: { src: string; alt: string }[];
+  photos: RecPhotoSlot[];
 }) {
-  const start: { src: string; alt: string }[] = [];
-  if (heroSrc) start.push({ src: heroSrc, alt: "Hero" });
-  for (const e of extras) {
-    if (!start.some((u) => u.src === e.src)) start.push(e);
-  }
-  const [photos, setPhotos] = useState(start.slice(0, MAX));
-  const [hero, setHero] = useState(heroSrc ?? start[0]?.src ?? null);
+  const [photos, setPhotos] = useState(initial.slice(0, MAX));
+  const [hero, setHero] = useState(heroSrc ?? initial[0]?.src ?? null);
   const [msg, setMsg] = useState<string | null>(null);
   const [pending, startTx] = useTransition();
   const [uploading, setUploading] = useState(false);
@@ -46,8 +43,7 @@ export function RecPhotosEditor({
         return;
       }
       const supabase = createClient();
-      const id = crypto.randomUUID();
-      const path = `${authorId}/${placeId}-pic-${id}.jpg`;
+      const path = `${authorId}/${placeId}-pic-${crypto.randomUUID()}.jpg`;
       const { error } = await supabase.storage
         .from("place-stills")
         .upload(path, blob, {
@@ -60,26 +56,14 @@ export function RecPhotosEditor({
       }
       const { data } = supabase.storage.from("place-stills").getPublicUrl(path);
       const url = data.publicUrl;
-      if (!hero) {
-        const r = await attachPlaceStill(placeId, url, "user");
-        if (r.error) {
-          setMsg(r.error);
-          return;
-        }
-        setHero(url);
-      } else {
-        const added = await addPlaceDish(placeId, "Plate");
-        if (added.error || !added.dish) {
-          setMsg(added.error ?? "Couldn’t add that photo.");
-          return;
-        }
-        const att = await attachDishStill(added.dish.id, url);
-        if (att.error) {
-          setMsg(att.error);
-          return;
-        }
+      const added = await addPlacePhoto(placeId, url);
+      if (added.error) {
+        setMsg(added.error);
+        return;
       }
-      setPhotos((p) => [...p, { src: `${url}?t=${Date.now()}`, alt: "Photo" }]);
+      const src = `${url}?t=${Date.now()}`;
+      setPhotos((p) => [...p, { id: added.photoId ?? src, src, alt: "Photo" }]);
+      if (!hero) setHero(url);
     } finally {
       setUploading(false);
     }
@@ -89,20 +73,24 @@ export function RecPhotosEditor({
     <div className="mt-8 max-w-lg">
       <p className="text-sm font-medium">Photos</p>
       <p className="mt-0.5 text-xs text-zinc-500">
-        Tap one for the city card. Max {MAX}.
+        Tap one for the city card. X removes it. Max {MAX}.
       </p>
       <ul className="mt-3 grid grid-cols-3 gap-2">
         {photos.map((p) => {
           const selected = p.src.split("?")[0] === hero?.split("?")[0];
           return (
-            <li key={p.src}>
+            <li key={p.id} className="relative">
               <button
                 type="button"
                 disabled={pending || uploading}
                 onClick={() =>
                   startTx(async () => {
                     setMsg(null);
-                    const r = await attachPlaceStill(placeId, p.src.split("?")[0], "user");
+                    const r = await attachPlaceStill(
+                      placeId,
+                      p.src.split("?")[0],
+                      "user",
+                    );
                     if (r.error) setMsg(r.error);
                     else {
                       setHero(p.src);
@@ -122,6 +110,30 @@ export function RecPhotosEditor({
                   alt={p.alt}
                   className="aspect-[4/5] w-full object-cover"
                 />
+              </button>
+              <button
+                type="button"
+                aria-label="Remove photo"
+                disabled={pending || uploading}
+                onClick={(e) => {
+                  e.preventDefault();
+                  startTx(async () => {
+                    setMsg(null);
+                    const r = await removePlacePhoto(placeId, p.id);
+                    if (r.error) {
+                      setMsg(r.error);
+                      return;
+                    }
+                    const next = photos.filter((x) => x.id !== p.id);
+                    setPhotos(next);
+                    if (selected) {
+                      setHero(next[0]?.src ?? null);
+                    }
+                  });
+                }}
+                className="absolute right-1 top-1 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-black/70 text-xs text-white"
+              >
+                ×
               </button>
               <p className="mt-1 text-center text-[11px] text-zinc-500">
                 {selected ? "Hero" : "Tap to use as hero"}

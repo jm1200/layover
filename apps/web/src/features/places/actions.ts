@@ -209,6 +209,121 @@ export async function attachPlaceStill(
   return { success: "Hero saved.", imageUrl: url };
 }
 
+const MAX_REC_PHOTOS = 3;
+
+export async function addPlacePhoto(
+  placeId: string,
+  url: string,
+): Promise<PlaceFormState & { photoId?: string; imageUrl?: string }> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "Log in first." };
+  }
+  const supabase = await createClient();
+  const { data: place } = await supabase
+    .from("places")
+    .select("id, author_id, image_url")
+    .eq("id", placeId)
+    .maybeSingle();
+  if (!place) return { error: "Rec not found." };
+  if (profile.role !== "admin" && place.author_id !== profile.id) {
+    return { error: "Not your rec." };
+  }
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+  const ours =
+    url.startsWith("/") ||
+    (supabaseUrl &&
+      url.startsWith(supabaseUrl) &&
+      url.includes("/place-stills/"));
+  if (!ours) return { error: "Bad image URL." };
+  const { count } = await supabase
+    .from("place_photos")
+    .select("id", { count: "exact", head: true })
+    .eq("place_id", placeId);
+  if ((count ?? 0) >= MAX_REC_PHOTOS) {
+    return { error: "Three photos is enough." };
+  }
+  const { data: photo, error } = await supabase
+    .from("place_photos")
+    .insert({
+      place_id: placeId,
+      image_url: url,
+      sort_order: (count ?? 0) + 1,
+    })
+    .select("id")
+    .single();
+  if (error || !photo) {
+    return { error: error?.message ?? "Couldn’t save that photo." };
+  }
+  if (!place.image_url) {
+    await supabase
+      .from("places")
+      .update({ image_url: url, image_source: "user", want_ai_still: false })
+      .eq("id", placeId);
+  }
+  revalidatePath(`/places/${placeId}`);
+  revalidatePath("/dashboard");
+  revalidatePath("/cities");
+  return { success: "Photo added.", photoId: photo.id, imageUrl: url };
+}
+
+export async function removePlacePhoto(
+  placeId: string,
+  photoId: string,
+): Promise<PlaceFormState> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "Log in first." };
+  }
+  const supabase = await createClient();
+  const { data: place } = await supabase
+    .from("places")
+    .select("id, author_id, image_url")
+    .eq("id", placeId)
+    .maybeSingle();
+  if (!place) return { error: "Rec not found." };
+  if (profile.role !== "admin" && place.author_id !== profile.id) {
+    return { error: "Not your rec." };
+  }
+  const { data: photo } = await supabase
+    .from("place_photos")
+    .select("id, image_url")
+    .eq("id", photoId)
+    .eq("place_id", placeId)
+    .maybeSingle();
+  if (!photo) return { error: "Photo not found." };
+  const { error } = await supabase
+    .from("place_photos")
+    .delete()
+    .eq("id", photoId);
+  if (error) return { error: error.message };
+  if (place.image_url === photo.image_url) {
+    const { data: next } = await supabase
+      .from("place_photos")
+      .select("image_url")
+      .eq("place_id", placeId)
+      .order("sort_order")
+      .limit(1)
+      .maybeSingle();
+    await supabase
+      .from("places")
+      .update({
+        image_url: next?.image_url ?? null,
+        image_source: next ? "user" : null,
+      })
+      .eq("id", placeId);
+  }
+  await supabase
+    .from("dishes")
+    .update({ image_url: null })
+    .eq("place_id", placeId)
+    .eq("image_url", photo.image_url);
+  revalidatePath(`/places/${placeId}`);
+  revalidatePath("/dashboard");
+  revalidatePath("/cities");
+  return { success: "Photo removed." };
+}
+
 export async function addPlaceDish(
   placeId: string,
   name: string,

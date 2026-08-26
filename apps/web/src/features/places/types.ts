@@ -32,6 +32,13 @@ export type Place = {
   want_ai_still?: boolean | null;
 };
 
+export type PlacePhoto = {
+  id: string;
+  place_id: string;
+  image_url: string;
+  sort_order: number;
+};
+
 export type Dish = {
   id: string;
   place_id: string;
