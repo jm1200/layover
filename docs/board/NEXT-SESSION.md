@@ -1,20 +1,21 @@
 # Next session — founder notes
 
-**Paused:** 2026-08-25 (publish-when-ready pack)
+**Paused:** 2026-08-26 (close Phase 4 — test, don’t build)
 
 ## Where we left it
 
-- **Phase 4.** Dump → she writes the blurb → upload or AI-still checkbox → **Publish** (stills + city hero after). No save draft. No duplicate itineraries.
-- **SQL 011** must be run (`011_lumen_spend.sql`) or the $20 meter / new columns are missing.
-- **City heroes:** 1 per city, she spends without asking, inside $20.
-- Phase 3 social waits. QR / completion / follow-pings parked.
-- Daily 3-draft cap **parked**.
+- **Phase 4 still in progress.** Dump → blurb → upload or AI-still checkbox → Publish. Rec album = `place_photos`. Edit rec: photos/plates save as you go; **Save** last then back to the rec.
+- **SQL 011 + 016 are live** (engineer probe 2026-08-26). Spend RPC **$0.40**. `place_photos` has rows. Stills in `place-stills` return 200.
+- Known bugs (not founder-error): dump/AI still skip the album (`legacy-hero` X fails); layover Up/Down + Save stop order can unique-violate.
+- Phase 3 social **waits**. QR / completion / follow-pings / Stripe parked. Daily 3-draft cap **parked**.
 
-## First up when you return
+## First up (not new features)
 
-1. Run **011** if you have not.
-2. Test the dump: BCN again should say the day’s already on the city. A new rec should publish with an AI still after Publish.
-3. Look at `/cities/barcelona` and `/cities`.
+1. **Founder test** — `docs/board/FOUNDER-TEST.md`. Mark pass/fail. Do not invent results.
+2. If John says go: unify album writes + fix stop reorder, then dead-code cleanup (`sellPlaceBlurb`, unused dish twins).
+3. After pass: **freeze** dump/edit/photos.
+
+Do **not** start likes, QR, or Stripe this session.
 
 ## Dev
 

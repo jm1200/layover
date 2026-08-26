@@ -61,6 +61,7 @@ Durable history only. Not a chat transcript.
 - **2026-08-25 — Rec blurbs are independent of the plan.** No “streetcar from the gym” in a place blurb. Transit lives on the layover stop.
 - **2026-08-25 — Lumen decides rec vs recs vs day.** They jabber once. She does not invent an itinerary. Several recs can exist with no plan. When unsure: recs, not a day.
 - **2026-08-25 — Rec photos.** One album, max 3. Tap = hero (city card). X removes. Plates are **names** (Get this), not a second gallery. SQL **016** `place_photos`. Crew pics + reviews later.
+- **2026-08-26 — Close Phase 4 before Phase 3.** Next milestone is founder click pass + freeze dump/edit/photos. Not likes, not Stripe, not QR. SQL **011 + 016 are live** (probed). Script: `docs/board/FOUNDER-TEST.md`. Review: `docs/board/PHASE-4-REVIEW.md`.
 - **2026-08-26 — Edit rec Save is last.** Photos and Get this plates persist as you go (no extra Save). Rename or X a plate. Save then returns to the rec.
 - **2026-08-25 — Edit.** Rec: hero upload, plates, delete rec. No status dropdown. Zone = cluster (downtown/airport/station). Layover: reorder/drop stops; delete day **keeps recs**. Do not start over to fix a stop.
 - Live rotating homepage from “where crew have been going” needs either a human moderator or the AI pipeline. Not hired. Not built.

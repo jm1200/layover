@@ -2,25 +2,26 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-08-25 (publish-when-ready + city heroes without asking)  
+**Last updated:** 2026-08-26 (close Phase 4 — you click)  
 **Company:** Layover (working name)  
-**Stage:** **Phase 4 in progress.** Lumen writes the blurb. You edit. Publish. Stills after that.
+**Stage:** **Phase 4 in progress.** Next milestone is **close it** — founder click pass + freeze dump/edit/photos. Not Phase 3. Not Stripe.
 
-**Not this cut:** Auto-post chatbot, unbounded chat, Stripe, likes, follow-notifications, completion scores, QR kickbacks.
+**Not this cut:** likes, comments, follow-pings, QR, completion scores, Stripe, restore the daily 3-draft cap.
+
+## The job
+
+**You test the logged-in paths.** Grok already checked public pages, types, SQL **011 + 016** (they are live), spend meter (**$0.40**), and that stills on disk/storage return JPEGs. It cannot log in as you, upload from your camera, or see a hotel on a live rec.
+
+Script: `docs/board/FOUNDER-TEST.md`. Review: `docs/board/PHASE-4-REVIEW.md`.
 
 ## Money (do not forget)
 
 **$20/mo company-wide.** 4k chars. Kill switch. Daily 3-draft cap is **off** (put back later). City heroes: 1 per city, she spends without asking, inside that cap.
 
-**You need to run SQL 011** in the Supabase SQL Editor (`apps/web/supabase/migrations/011_lumen_spend.sql`). Until then she may nap.
-
-## Status
-
-Dump → she fills the form (blurb included) → one rec at a time (upload or AI-still checkbox) → **Publish**. Same day twice does not copy. New city gets a hero on first publish.
-
-**`/admin`** now shows what she did (last 50 + this month’s $). No dump text on that page.
-
 ## What I need from you
 
-1. Paste-and-run **011**.
-2. Test a dump. Don’t dump the same BCN day expecting a twin — she should refuse.
+1. Click the script on **your** recs (Geneva dim-sum is fine). SQL 011/016 do **not** need a re-run unless a message says the album is missing or Lumen naps.
+2. Two known code bugs — hit once, then stop: **X** on a dump-only photo; layover **Save stop order** after Up/Down. Say go and we fix them.
+3. Tell us what else broke. Then we freeze this surface.
+
+Skipping the click pass to “get organised for the next phase” *is* the next phase.

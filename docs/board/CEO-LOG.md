@@ -4,6 +4,38 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-26 — Close Phase 4; founder test is the job
+
+**Source:** Shareholder — feels he should test everything, does not want to. Asked what Grok can test vs what he must, for point-by-point clicks, a thorough code review, and to “test and get organised for next phase.”
+
+**Facts:** Phase 4 is **in progress**, not done. SQL **008–016** exist on disk. **016 `place_photos` is not in his live Supabase.** Phase 3 social waits until after Lumen (already locked). Phase 5 Stripe not started. Daily 3-draft cap parked. $20/mo + 4k chars + kill switch locked.
+
+**Grok vs John:** Engineers can read code, typecheck, and review the album pivot. They cannot paste SQL into his project, upload from his camera roll, or see a hotel leak on a published rec. That is him.
+
+### Decision (locked)
+
+| Item | Decision |
+|------|----------|
+| Primary bet | **Close Phase 4.** SQL (011 + 016) → founder click pass → Theo/Milo dead-code cleanup → **freeze** dump / edit / photos. |
+| Not next | Phase 3 likes/comments. Phase 5 Stripe. QR, completion, follow-pings. Restore daily 3-draft cap. |
+| Founder test | Required. Script: `docs/board/FOUNDER-TEST.md`. Skipping it is not “getting organised.” |
+| Code review | Theo/Milo **after** (or in parallel with) the pass — album vs leftover dish images, RLS, dead paths. Not a substitute for clicks. Maya does not review `apps/`. |
+| Trust | Zones, never crew hotels. One dirty dump in the script. Labeled ads later; not this cut. |
+
+**Shareholder ask:** Run 011 + 016. Click the script. Report fails. Do not open Phase 3/5 this session.
+
+**Status:** Locked. Brief + next-session + COMPANY_LOG aligned. No `apps/` from CEO.
+
+---
+
+## 2026-08-26 — Correction: 011 + 016 are live
+
+**Source:** Chief Engineer probe (anon PostgREST + public stills). Maya’s lock above assumed 016 missing from older session logs.
+
+**Facts:** `place_photos` returns rows. `lumen_month_spend_usd` returns **0.40**. User and AI JPEGs in `place-stills` return 200. xAI key is set. Founder still must click logged-in CRUD. Two code bugs remain (album write split; stop-position unique). Primary bet unchanged: close Phase 4, not likes.
+
+---
+
 ## 2026-08-25 — Keep recs; Lumen moderates
 
 **Source:** Shareholder — if the plan write fails, keep the individual recs. Lumen must moderate all entries (real places at least). He does not want to moderate.

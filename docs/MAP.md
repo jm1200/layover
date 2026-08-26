@@ -15,7 +15,7 @@
 | **2 — Cities, zones, places, playbooks** | **Complete** | Content model + public browse + forms. Migrations 002–004 (+ seeds 003, 005, 006; stop timing 007). Gate in `PRE-PHASE-2-GATE.md` is met. |
 | **2.1 — Verify + harden** | **Complete** | Homepage + city/place/plan UI in (heroes, Eat/Do/Buy, full layover). RLS smoke: `docs/board/RLS-SMOKE.md`. **Parked (not blockers):** admin city form (SQL), Vercel deploy, photo upload (Phase 4). |
 | 3 — Social | Not started | **Waits until after Lumen** (supply first). Not skipped, not started. Thin cut later: like + comment + byline. Follow-notifications / completion / QR **out**. |
-| 4 — AI story import | **In progress** | Live locally: `/share` dump → Lumen decides rec / recs / day → review → Publish. Rec blurbs stand alone. SQL **008–014**. |
+| 4 — AI story import | **In progress — close it** | Live locally: `/share` dump → Lumen decides rec / recs / day → review → Publish. Rec blurbs stand alone. SQL **008–016 live** (probed). Gate: founder click pass. Freeze dump/edit/photos after that. Do not start Phase 3/5. |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
 | 6 — Metrics + admin moderation | Not started | money/trust dashboard |
 | 7 — Crew-only precision | Not started | optional; after verification story |
@@ -147,7 +147,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] Review: places first, then plan; upload or AI-still checkbox (SQL **010**, bucket `place-stills`)
 - [x] Publish layover also publishes its recs; city layover cards use rec stills
 - [x] **Dedup itineraries** — match plan by title or stop set; do not copy the day
-- [ ] Phase 4 founder test pass (after SQL **011**)
+- [ ] Phase 4 founder test pass — `docs/board/FOUNDER-TEST.md`
 - [x] Theo/Milo review of `features/ai-import/` (team meeting 2026-08-25) + follow-up pack
 - [ ] Restore daily 3-draft cap (`DAILY_EXTRACT_CAP`) — parked 2026-08-25, later phase
 - [x] BCN city hero (`public/landing/hero-barcelona.jpg` + `CITY_HERO.barcelona`)
@@ -162,7 +162,10 @@ Exact paths may adjust; update this table when implementing.
 - [x] Rec photos: max 3, tap one as hero (city card). SQL **015** sample extras on dim-sum rec.
 - [x] Rec album is `place_photos` (SQL **016**). X to remove. Plates are names only on Edit rec.
 - [x] Edit rec: Save at the bottom (city/name/blurb) then back to the rec. Photos and Get this plates save as you go. Rename or X a plate.
-- [x] SQL **011** — global $20 RPC, city-hero column, generate-on-publish flag, city-open quota. **John must run this.**
+- [x] SQL **011** — global $20 RPC, city-hero column, generate-on-publish flag, city-open quota. **Live** (spend RPC probed 2026-08-26).
+- [x] SQL **016** `place_photos` — **live** (12 rows probed). Album writes from dump/AI still still skip this table (known bug).
+- [x] Founder test script `docs/board/FOUNDER-TEST.md` + Phase 4 review `docs/board/PHASE-4-REVIEW.md`. Click pass **not done**.
+- [ ] Unify album writes (dump/AI still → `place_photos`). Stop reorder unique-position. Then dead-code cleanup.
 
 ## Session checklist for agents
 
