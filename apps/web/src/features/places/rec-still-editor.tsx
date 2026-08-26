@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { attachPlaceImage } from "@/features/ai-import/media-actions";
+import { attachPlaceStill } from "@/features/places/actions";
 import { compressStill } from "@/features/ai-import/compress-still";
 import { createClient } from "@/lib/supabase/client";
 
@@ -44,7 +44,7 @@ export function RecStillEditor({
         return;
       }
       const { data } = supabase.storage.from("place-stills").getPublicUrl(path);
-      const result = await attachPlaceImage(placeId, data.publicUrl, "user");
+      const result = await attachPlaceStill(placeId, data.publicUrl, "user");
       if (result.error) setMsg(result.error);
       else {
         setPreview(`${data.publicUrl}?t=${Date.now()}`);

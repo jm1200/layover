@@ -6,8 +6,10 @@ import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/features/auth/get-profile";
 import { parseRecKind } from "@/features/places/kind";
 import type { ContentStatus } from "@/features/places/types";
+import { MAX_PLATES } from "@/features/ai-import/schema";
 import { refusePublicCopy } from "@/features/ai-import/moderate";
 import { assertZoneInCity } from "@/features/places/validate";
+import type { Dish } from "@/features/places/types";
 
 export type PlaceFormState = { error?: string; success?: string };
 
@@ -164,6 +166,132 @@ export async function updatePlace(
   revalidatePath(`/places/${placeId}`);
   revalidateContent(city?.slug);
   return { success: "Saved." };
+}
+
+export async function attachPlaceStill(
+  placeId: string,
+  url: string,
+  source: "user" | "ai",
+): Promise<PlaceFormState & { imageUrl?: string }> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "Log in first." };
+  }
+  const supabase = await createClient();
+  const { data: place } = await supabase
+    .from("places")
+    .select("id, author_id")
+    .eq("id", placeId)
+    .maybeSingle();
+  if (!place) return { error: "Rec not found." };
+  if (profile.role !== "admin" && place.author_id !== profile.id) {
+    return { error: "Not your rec." };
+  }
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+  const ours =
+    url.startsWith("/") ||
+    (supabaseUrl &&
+      url.startsWith(supabaseUrl) &&
+      url.includes("/place-stills/"));
+  if (!ours) return { error: "Bad image URL." };
+  const { error } = await supabase
+    .from("places")
+    .update({
+      image_url: url,
+      image_source: source,
+      want_ai_still: false,
+    })
+    .eq("id", placeId);
+  if (error) return { error: error.message };
+  revalidatePath(`/places/${placeId}`);
+  revalidatePath("/dashboard");
+  revalidatePath("/cities");
+  return { success: "Hero saved.", imageUrl: url };
+}
+
+export async function addPlaceDish(
+  placeId: string,
+  name: string,
+): Promise<PlaceFormState & { dish?: Dish }> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "Log in first." };
+  }
+  const n = name.trim();
+  if (!n) return { error: "Name the plate." };
+  const lodging = refusePublicCopy(n, null);
+  if (lodging) return { error: lodging };
+  const supabase = await createClient();
+  const { data: place } = await supabase
+    .from("places")
+    .select("id, author_id")
+    .eq("id", placeId)
+    .maybeSingle();
+  if (!place) return { error: "Rec not found." };
+  if (profile.role !== "admin" && place.author_id !== profile.id) {
+    return { error: "Not your rec." };
+  }
+  const { count } = await supabase
+    .from("dishes")
+    .select("id", { count: "exact", head: true })
+    .eq("place_id", placeId);
+  if ((count ?? 0) >= MAX_PLATES) {
+    return { error: "Three plates is enough." };
+  }
+  const { data: dish, error } = await supabase
+    .from("dishes")
+    .insert({
+      place_id: placeId,
+      name: n,
+      sort_order: (count ?? 0) + 1,
+    })
+    .select("id, place_id, name, note, sort_order, image_url")
+    .single();
+  if (error || !dish) {
+    return { error: error?.message ?? "Couldn’t add that plate." };
+  }
+  revalidatePath(`/places/${placeId}`);
+  return { success: "Plate added.", dish: dish as Dish };
+}
+
+export async function attachDishStill(
+  dishId: string,
+  url: string,
+): Promise<PlaceFormState & { imageUrl?: string }> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "Log in first." };
+  }
+  const supabase = await createClient();
+  const { data: dish } = await supabase
+    .from("dishes")
+    .select("id, place_id")
+    .eq("id", dishId)
+    .maybeSingle();
+  if (!dish) return { error: "Plate not found." };
+  const { data: place } = await supabase
+    .from("places")
+    .select("id, author_id")
+    .eq("id", dish.place_id)
+    .maybeSingle();
+  if (!place) return { error: "Rec not found." };
+  if (profile.role !== "admin" && place.author_id !== profile.id) {
+    return { error: "Not your rec." };
+  }
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+  const ours =
+    url.startsWith("/") ||
+    (supabaseUrl &&
+      url.startsWith(supabaseUrl) &&
+      url.includes("/place-stills/"));
+  if (!ours) return { error: "Bad image URL." };
+  const { error } = await supabase
+    .from("dishes")
+    .update({ image_url: url })
+    .eq("id", dishId);
+  if (error) return { error: error.message };
+  revalidatePath(`/places/${dish.place_id}`);
+  return { success: "Plate photo saved.", imageUrl: url };
 }
 
 export async function deletePlace(

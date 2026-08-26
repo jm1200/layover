@@ -1,10 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import {
-  addReviewDish,
-  attachDishImage,
-} from "@/features/ai-import/media-actions";
+import { addPlaceDish, attachDishStill } from "@/features/places/actions";
 import { MAX_PLATES } from "@/features/ai-import/schema";
 import { compressStill } from "@/features/ai-import/compress-still";
 import { createClient } from "@/lib/supabase/client";
@@ -49,7 +46,7 @@ export function PlatesEditor({
         return;
       }
       const { data } = supabase.storage.from("place-stills").getPublicUrl(path);
-      const result = await attachDishImage(dish.id, data.publicUrl);
+      const result = await attachDishStill(dish.id, data.publicUrl);
       if (result.error) {
         setMsg(result.error);
         return;
@@ -90,7 +87,7 @@ export function PlatesEditor({
             onClick={() =>
               start(async () => {
                 setMsg(null);
-                const r = await addReviewDish(placeId, name);
+                const r = await addPlaceDish(placeId, name);
                 if (r.error) setMsg(r.error);
                 else if (r.dish) {
                   setPlates([...plates, r.dish]);
