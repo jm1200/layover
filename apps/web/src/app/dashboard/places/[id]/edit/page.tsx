@@ -71,6 +71,7 @@ export default async function EditPlacePage({
           placeId={place.id}
           authorId={profile.id}
           initial={plates}
+          recStill={stillForPlace(place)?.src}
         />
       ) : null}
       <DeleteRecButton placeId={place.id} />

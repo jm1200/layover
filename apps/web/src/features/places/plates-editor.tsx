@@ -11,10 +11,12 @@ export function PlatesEditor({
   placeId,
   authorId,
   initial,
+  recStill,
 }: {
   placeId: string;
   authorId: string;
   initial: Dish[];
+  recStill?: string | null;
 }) {
   const [plates, setPlates] = useState(initial);
   const [name, setName] = useState("");
@@ -67,9 +69,65 @@ export function PlatesEditor({
         Name them first, then add photos. Up to {MAX_PLATES}.
       </p>
       {plates.length > 0 ? (
-        <ul className="mt-3 space-y-1 text-sm">
+        <ul className="mt-3 divide-y divide-zinc-200 rounded-xl border border-zinc-200 bg-white">
           {plates.map((d) => (
-            <li key={`n-${d.id}`}>{d.name}</li>
+            <li key={d.id} className="flex items-center gap-3 px-3 py-2">
+              {d.image_url ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={d.image_url}
+                  alt=""
+                  className="h-12 w-10 shrink-0 rounded object-cover"
+                />
+              ) : null}
+              <p className="min-w-0 flex-1 truncate text-sm font-medium">
+                {d.name}
+              </p>
+              <div className="flex shrink-0 flex-wrap items-center gap-2 text-xs">
+                <label className="cursor-pointer text-zinc-600 underline">
+                  {uploadingId === d.id
+                    ? "Uploading…"
+                    : d.image_url
+                      ? "Replace"
+                      : "Add photo"}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    disabled={pending || Boolean(uploadingId)}
+                    onChange={(e) => {
+                      const f = e.target.files?.[0];
+                      if (f) void onPlateFile(d, f);
+                      e.target.value = "";
+                    }}
+                  />
+                </label>
+                {!d.image_url && recStill ? (
+                  <button
+                    type="button"
+                    className="text-zinc-600 underline"
+                    disabled={pending}
+                    onClick={() =>
+                      start(async () => {
+                        setMsg(null);
+                        const r = await attachDishStill(d.id, recStill);
+                        if (r.error) setMsg(r.error);
+                        else
+                          setPlates(
+                            plates.map((p) =>
+                              p.id === d.id
+                                ? { ...p, image_url: recStill }
+                                : p,
+                            ),
+                          );
+                      })
+                    }
+                  >
+                    Use rec photo
+                  </button>
+                ) : null}
+              </div>
+            </li>
           ))}
         </ul>
       ) : null}
@@ -100,43 +158,6 @@ export function PlatesEditor({
             {pending ? "Adding…" : "Add plate"}
           </button>
         </div>
-      ) : null}
-      {plates.length > 0 ? (
-        <ul className="mt-4 grid grid-cols-3 gap-2">
-          {plates.map((d) => (
-            <li key={d.id}>
-              <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-100">
-                {d.image_url ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={d.image_url}
-                    alt={d.name}
-                    className="h-full w-full object-cover"
-                  />
-                ) : (
-                  <span className="absolute inset-0 flex items-center justify-center px-1 text-center text-[11px] text-zinc-400">
-                    {uploadingId === d.id ? "Uploading…" : "Add a photo"}
-                  </span>
-                )}
-              </div>
-              <p className="mt-1 truncate text-xs font-medium">{d.name}</p>
-              <label className="mt-1 inline-block cursor-pointer text-xs text-zinc-600 underline">
-                {d.image_url ? "Replace" : "Photo"}
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  disabled={pending || Boolean(uploadingId)}
-                  onChange={(e) => {
-                    const f = e.target.files?.[0];
-                    if (f) void onPlateFile(d, f);
-                    e.target.value = "";
-                  }}
-                />
-              </label>
-            </li>
-          ))}
-        </ul>
       ) : null}
       {msg ? (
         <p className="mt-2 text-sm text-zinc-700" role="alert">
