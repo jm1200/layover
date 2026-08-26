@@ -86,7 +86,7 @@ Owner / operators. Small set of accounts.
 ## Auth implementation intent (Phase 1)
 
 - **Provider locked:** Supabase Auth + Supabase Postgres — see `docs/STACK.md` and `features/auth.md`
-- Email path first; OAuth (e.g. Google) optional when shareholder creates OAuth apps
+- Email + password stays. **Google OAuth this cut** (2026-08-26) when shareholder creates the OAuth client. Apple / others parked.
 - Role stored on profile/user record (`user` \| `sponsor` \| `admin`); enforce server-side on every mutation
 - Prefer single `role` plus optional `SponsorProfile` row (profile can be empty in Phase 1)
 

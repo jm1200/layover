@@ -4,6 +4,35 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-26 — Founder test: product locked (seven items)
+
+**Source:** Shareholder click pass. Seven fails. Engineering context: dump still writes `places.image_url` not `place_photos`; no save-draft button but Lumen inserts draft rows; John is admin so dashboard can list everyone’s recs; Google OAuth was parked in HUMAN-SETUP; itinerary match is title OR stop set (title drift twins a day); playbook narrative not filled from dump; “city on the map now” fires when the city already exists.
+
+**Facts:** Phase 4 is still **in progress**. Not Phase 3. Not Stripe. Trust > revenue. Zones, not hotels. Hotel strip on the dump **worked** — keep it.
+
+### Decision (locked)
+
+| Item | Decision |
+|------|----------|
+| A. Google sign-in | **This cut.** Crew will not keep a hotel-room password. **Not** Apple / Facebook — that is partner sprawl. Email + password stays. Sofia + Lumen restyle `/login` now (copy, not a new product). **John** creates the Google OAuth web client and pastes it into Supabase Auth. Maya cannot. Button ships after that. Restyle does not wait. |
+| B. Rec photos | **Hero = the place (exterior / walk-up). One shot. City card.** Eat/Buy: **up to 3 named dish photos** on Get this. Two jobs, two labels. Never two unlabeled upload slots. Do: place still only. No AI still per dish. No photo of the place → Lumen generates on publish (AI flag). Do **not** copy the exterior onto a plate. Dump/AI must write the album / plate rows — `image_url` only is why the same JPEG showed twice and why Save ate a photo. **Supersedes** 2026-08-25 “one album, tap hero, plates are names only.” That lock confused the founder. |
+| C. Drafts | **No draft product.** No `(draft)` on dashboard. No `Status: draft` on a rec page. Unpublished Lumen rows stay off public **and** off My posts until Publish. Review cards on `/share` are the only unpublished surface. Abandoned rows: hide (GC later, not this cut). |
+| D. Dashboard | **This user’s published recs and days only.** Seed (`author_id` null) is not yours. Other people’s posts are not yours. Admin may still edit a rec from the public page. Dashboard is not the moderation queue. Queue = **Phase 6**. Do not pull it forward because John is admin. |
+| E. No-photo recs | **No black rectangle.** Already Lumen’s rule — enforce. No upload → she stills on publish. Drop the checkbox as homework. |
+| F. Dedup | **Match stop set** (same city, same places). Title wording is Lumen’s, not a new day. Refuse the twin. Recs already match by name. **Day blurb is required from the dump** she already has — review card filled, publish refuses empty narrative. “Geneva/Barcelona is on the map now” **only** if she actually opened that city this dump. GVA and BCN exist. Do not lie. |
+| G. Edit layover | **One Save.** It persists drop/reorder and keeps the day live. Then redirect to the public layover. No Publish + Save order + Back. |
+| H. Delete | Delete day **must work** (recs stay — already locked). Delete-rec **copy = Sofia.** Meaning: rec comes off the site; the day stays minus that stop. |
+
+### Why not more
+
+Login partners plural is a third product. Admin-sees-everything is Phase 6 dressed as a dashboard. Two unlabeled photo slots was us being confused — labeled jobs, not a gallery product.
+
+**Shareholder ask:** Google Cloud OAuth if he wants the button this week (`HUMAN-SETUP.md`). Then re-click FOUNDER-TEST on his recs after the pack.
+
+**Status:** Locked. Brief + COMPANY_LOG + specs aligned. No `apps/` from CEO. Sofia/Lumen on copy. Theo/Milo implement.
+
+---
+
 ## 2026-08-26 — Close Phase 4; founder test is the job
 
 **Source:** Shareholder — feels he should test everything, does not want to. Asked what Grok can test vs what he must, for point-by-point clicks, a thorough code review, and to “test and get organised for next phase.”

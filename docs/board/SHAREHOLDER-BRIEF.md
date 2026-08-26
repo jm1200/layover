@@ -2,26 +2,31 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-08-26 (close Phase 4 — you click)  
+**Last updated:** 2026-08-26 (founder test — product locked)  
 **Company:** Layover (working name)  
-**Stage:** **Phase 4 in progress.** Next milestone is **close it** — founder click pass + freeze dump/edit/photos. Not Phase 3. Not Stripe.
+**Stage:** **Phase 4 close.** Engineers fix what you found. Not Phase 3. Not Stripe.
 
-**Not this cut:** likes, comments, follow-pings, QR, completion scores, Stripe, restore the daily 3-draft cap.
+You clicked. Seven items. Product is locked below. Trust still beats revenue. Zones, not hotels.
 
 ## The job
 
-**You test the logged-in paths.** Grok already checked public pages, types, SQL **011 + 016** (they are live), spend meter (**$0.40**), and that stills on disk/storage return JPEGs. It cannot log in as you, upload from your camera, or see a hotel on a live rec.
+Engineering ships this cut. Sofia + Lumen own login, photo labels, and delete-rec copy. You only open Google Cloud if you want the Google button this week.
 
-Script: `docs/board/FOUNDER-TEST.md`. Review: `docs/board/PHASE-4-REVIEW.md`.
+## Locked (do not relitigate)
 
-## Money (do not forget)
+| Item | Call |
+|------|------|
+| Login | Restyle now. **Google** this cut — you create the OAuth client. Email stays. Not Apple. |
+| Rec photos | **Place (1)** = outside, city card. **Dishes (0–3)** = named shots on Get this (Eat/Buy). Labels on both. No photo → Lumen still. No black rectangle. |
+| Drafts / dashboard | **Your published** recs and days only. No `(draft)`. No seed. No everyone else’s. Admin queue = Phase 6. |
+| Dedup | Same stop set = same day. Title drift does not ship a twin. Day blurb from the dump. “On the map now” only for a **new** city. |
+| Edit day | **One Save** (keeps it live) → public layover. Drop/reorder stick. Delete day must work. |
 
-**$20/mo company-wide.** 4k chars. Kill switch. Daily 3-draft cap is **off** (put back later). City heroes: 1 per city, she spends without asking, inside that cap.
+## You
 
-## What I need from you
+1. Google Cloud → OAuth web client → paste into Supabase Auth. Recipe: `docs/board/HUMAN-SETUP.md`. Maya cannot do this. Login restyle still ships without it.
+2. After the fix pack: click `docs/board/FOUNDER-TEST.md` again on **your** recs.
 
-1. Click the script on **your** recs (Geneva dim-sum is fine). SQL 011/016 do **not** need a re-run unless a message says the album is missing or Lumen naps.
-2. Two known code bugs — hit once, then stop: **X** on a dump-only photo; layover **Save stop order** after Up/Down. Say go and we fix them.
-3. Tell us what else broke. Then we freeze this surface.
+**Money:** $20/mo. 4k chars. Kill switch. Daily 3-draft cap still off.
 
-Skipping the click pass to “get organised for the next phase” *is* the next phase.
+**Not this cut:** likes, comments, Stripe, Apple login, admin queue, restore the 3-draft cap.

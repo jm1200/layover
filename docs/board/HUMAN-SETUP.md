@@ -144,12 +144,28 @@ AI_MONTHLY_CAP_USD=20
 
 If the key is missing, Share still opens but Fill the draft says **Lumen’s taking a nap.**
 
+## Google sign-in (you; the button is already in the app)
+
+The login page has **Continue with Google**. It fails until you do this:
+
+1. [Google Cloud Console](https://console.cloud.google.com/) → APIs & Services → **Credentials** → **Create credentials** → **OAuth client ID**.
+2. If prompted, set an OAuth consent screen (External, app name **Layover**, your email).
+3. Application type: **Web application**.
+4. **Authorized JavaScript origins:** `http://localhost:3000` (add the Vercel URL later).
+5. **Authorized redirect URIs:** `https://YOUR_PROJECT_REF.supabase.co/auth/v1/callback`  
+   (Project Settings → API → Project URL in Supabase. Same host, path `/auth/v1/callback`.)
+6. Copy **Client ID** and **Client secret**.
+7. Supabase → **Authentication** → **Providers** → **Google** → enable → paste both → save.
+8. Reload `/login` and tap **Continue with Google**.
+
+Do **not** add Apple or Facebook. Email + password stays.
+
 ## Later (not now)
 
 | Account | When |
 |---------|------|
 | Stripe | Phase 5 (sponsors pay) |
-| Google OAuth (optional) | If you want “Log in with Google” — create OAuth client, paste into Supabase Auth providers |
+| Apple / other OAuth | Parked |
 
 ---
 

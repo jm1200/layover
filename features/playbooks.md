@@ -31,6 +31,10 @@ Ordered layover stories (the product quality bar).
 
 A **full layover** is a combo of places. When Lumen drafts a plan from a story, she also drafts each stop as an Eat/Do/Buy place (or links an existing same-city place) and the user confirms the bundle. Plan pages reuse place stills — no extra itinerary gallery. Max 4 stops (same as the form).
 
+**Dedup (locked 2026-08-26):** match by **stop set** (same city, same places). Do not ship a twin because she titled it differently. **Narrative** is filled from the dump on the review card; empty blurb cannot publish.
+
+**Edit day (locked 2026-08-26):** **one Save** — persists drop/reorder, keeps the day live, redirects to the public layover. No second Publish / Save order / Back. **Delete day must work**; recs stay.
+
 ## UI copy (shipped 2026-08-21; homepage series + Buy 2026-08-22)
 
 - [x] Customer name for the object: **layover plan**. Do not say “playbook” on city, dashboard, or forms. Do not say “full package adventure.” Do not say **guide** as a product noun.
@@ -39,4 +43,10 @@ A **full layover** is a combo of places. When Lumen drafts a plan from a story, 
 - **Not the city chip:** The perfect layover (homepage series only), Plan (object / add-flow only), Itineraries (optional later sentence copy, not the tab), Guides, Ideas / Layover ideas, Play, tour, adventure, Full (alone), Full package, crew recs / crew staples (those names are the whole organic rail).
 - Internal table/routes may stay `playbooks` this cut (no rename migration).
 - [x] Add chooser offers **Full layover** next to Eat / Do / Buy (those three are places).
-- [x] City page: layover-plan list stays first, then Eat/Do/Buy groups. Jump chip **Full layover** with count. No separate `/plans` IA this cut. No photo grid this cut.  
+- [x] City page: layover-plan list stays first, then Eat/Do/Buy groups. Jump chip **Full layover** with count. No separate `/plans` IA this cut. No photo grid this cut.
+
+## UI copy (locked 2026-08-26 — Sofia)
+
+**Dashboard** (`/dashboard`): title **Yours**. Lists **Your recs** and **Your layovers**. This user’s **published** rows only — seed and other people are not yours. **No** `(draft)` / `(published)`. Rec page: never **Status: draft**. Empty hero = labeled 4:5 (*The outside — door, street, walk-up. This is the city card.*), never a black rectangle.
+
+**Edit layover** (`/dashboard/playbooks/[id]/edit`): **one button.** Label **Save**. Persists title + story + stop drop/reorder, keeps the day live, then **lands on the layover** (`/playbooks/[id]`). Kill **Publish — live on the city** here. Kill **Save stop order**. New layover create still uses **Publish**.  

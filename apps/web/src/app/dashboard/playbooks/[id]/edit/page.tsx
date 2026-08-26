@@ -1,12 +1,9 @@
 import { notFound, redirect } from "next/navigation";
 import { AppShell } from "@/features/auth/shell";
 import { requireUser } from "@/features/auth/get-profile";
-import { updatePlaybookMeta } from "@/features/playbooks/actions";
-import { DeleteLayoverButton } from "@/features/playbooks/delete-layover-button";
-import { PlaybookForm } from "@/features/playbooks/playbook-form";
-import { StopsEditor } from "@/features/playbooks/stops-editor";
+import { EditLayoverForm } from "@/features/playbooks/edit-layover-form";
 import { getPlaybook, listStopsForPlaybook } from "@/features/playbooks/queries";
-import { getPlace, listCities, listPublishedPlaces } from "@/features/places/queries";
+import { getPlace } from "@/features/places/queries";
 import { stillForPlace } from "@/features/places/rec-media";
 
 export default async function EditPlaybookPage({
@@ -25,12 +22,7 @@ export default async function EditPlaybookPage({
     redirect(`/playbooks/${id}`);
   }
 
-  const [cities, places, stops] = await Promise.all([
-    listCities(),
-    listPublishedPlaces(),
-    listStopsForPlaybook(id),
-  ]);
-  const bound = updatePlaybookMeta.bind(null, id);
+  const stops = await listStopsForPlaybook(id);
   const stopRows = await Promise.all(
     stops.map(async (s) => {
       const rec = s.place_id ? await getPlace(s.place_id) : null;
@@ -43,24 +35,16 @@ export default async function EditPlaybookPage({
   );
 
   return (
-    <AppShell profile={profile} title="Edit layover plan">
-      <PlaybookForm
-        action={bound}
-        cities={cities}
-        places={places}
+    <AppShell profile={profile} title="Edit layover">
+      <EditLayoverForm
+        playbookId={id}
         defaults={{
-          city_id: playbook.city_id,
           title: playbook.title,
           narrative: playbook.narrative,
           hours_available: playbook.hours_available,
-          status: playbook.status,
         }}
-        submitLabel="Save"
-        allowHidden={profile.role === "admin"}
-        metaOnly
+        initialStops={stopRows}
       />
-      <StopsEditor playbookId={id} initial={stopRows} />
-      <DeleteLayoverButton playbookId={id} />
     </AppShell>
   );
 }

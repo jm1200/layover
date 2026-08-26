@@ -86,6 +86,7 @@ export async function listMyPlaybooks(authorId: string): Promise<Playbook[]> {
       "id, city_id, title, narrative, hours_available, status, author_id",
     )
     .eq("author_id", authorId)
+    .eq("status", "published")
     .order("updated_at", { ascending: false });
   if (error) {
     console.warn("[listMyPlaybooks]", error.message);
@@ -108,6 +109,7 @@ export async function listMyPlaces(authorId: string): Promise<
     .from("places")
     .select("id, name, status, city_id, category")
     .eq("author_id", authorId)
+    .eq("status", "published")
     .order("updated_at", { ascending: false });
   if (error) {
     console.warn("[listMyPlaces]", error.message);

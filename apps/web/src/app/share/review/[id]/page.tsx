@@ -46,9 +46,10 @@ export default async function ShareReviewPage({
   const payload = (log.payload ?? {}) as {
     city_name?: string | null;
     city_airport?: string | null;
+    opened_city?: boolean;
   };
   const newCityLabel =
-    payload.city_name && payload.city_airport
+    payload.opened_city && payload.city_name && payload.city_airport
       ? `${payload.city_name} (${String(payload.city_airport).toUpperCase()})`
       : null;
   const n = places.length;

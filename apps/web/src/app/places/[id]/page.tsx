@@ -61,11 +61,14 @@ export default async function PlacePage({
       });
     }
   }
-  if (still && !photos.some((x) => x.src === still.src)) {
-    photos.unshift(still);
+  if (photos.length === 0 && still) {
+    photos.push({
+      src: still.src,
+      alt: still.alt,
+      badge: still.badge ?? null,
+    });
   }
-  const canEdit =
-    profile && (profile.role === "admin" || profile.id === place.author_id);
+  const canEdit = Boolean(profile && profile.id === place.author_id);
   const mapQuery = [place.name, city?.name, city?.country]
     .filter(Boolean)
     .join(", ");
@@ -123,21 +126,27 @@ export default async function PlacePage({
 
       <main className="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-2">
         <div>
-          {place.status !== "published" ? (
-            <p className="mb-4 text-sm text-amber-800">Status: {place.status}</p>
-          ) : null}
           {place.blurb ? (
             <p className="whitespace-pre-wrap text-lg leading-relaxed text-zinc-700">
               {place.blurb}
             </p>
           ) : null}
-          {photos.length > 0 ? (
+          {photos.filter(
+            (p) =>
+              !still || p.src.split("?")[0] !== still.src.split("?")[0],
+          ).length > 0 ? (
             <section className="mt-10">
               <h2 className="font-mono text-sm uppercase tracking-[0.28em] text-zinc-400">
                 Photos
               </h2>
               <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {photos.map((p) => (
+                {photos
+                  .filter(
+                    (p) =>
+                      !still ||
+                      p.src.split("?")[0] !== still.src.split("?")[0],
+                  )
+                  .map((p) => (
                   <li
                     key={p.src}
                     className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-100"
@@ -164,11 +173,21 @@ export default async function PlacePage({
               </h2>
               <ul className="mt-4 space-y-2">
                 {dishes.map((d) => (
-                  <li key={d.id}>
-                    <p className="font-medium">{d.name}</p>
-                    {d.note ? (
-                      <p className="text-sm text-zinc-600">{d.note}</p>
+                  <li key={d.id} className="flex items-start gap-3">
+                    {d.image_url ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={d.image_url}
+                        alt={d.name}
+                        className="h-16 w-12 shrink-0 rounded object-cover"
+                      />
                     ) : null}
+                    <div>
+                      <p className="font-medium">{d.name}</p>
+                      {d.note ? (
+                        <p className="text-sm text-zinc-600">{d.note}</p>
+                      ) : null}
+                    </div>
                   </li>
                 ))}
               </ul>

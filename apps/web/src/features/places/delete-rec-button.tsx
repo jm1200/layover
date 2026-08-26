@@ -12,7 +12,7 @@ export function DeleteRecButton({ placeId }: { placeId: string }) {
       onClick={() => {
         if (
           !confirm(
-            "Take this rec off the city? Plates go with it. Layovers that linked it keep the day.",
+            "This rec comes off the city. The layover day stays.",
           )
         ) {
           return;
@@ -23,7 +23,7 @@ export function DeleteRecButton({ placeId }: { placeId: string }) {
       }}
       className="mt-8 text-sm text-red-700 underline disabled:opacity-60"
     >
-      {pending ? "Removing…" : "Delete rec"}
+      {pending ? "Removing…" : "Take this rec off"}
     </button>
   );
 }

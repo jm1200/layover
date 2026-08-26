@@ -18,6 +18,7 @@ import { aiBlocked } from "@/features/ai-import/spend";
 import { CITY_HERO } from "@/features/places/rec-media";
 import { listCities } from "@/features/places/queries";
 import { MAX_PLATES } from "@/features/ai-import/schema";
+import { rememberInAlbum } from "@/features/places/actions";
 import type { Dish, Place } from "@/features/places/types";
 
 export type PlaceMediaState = {
@@ -101,6 +102,7 @@ export async function attachPlaceImage(
     })
     .eq("id", placeId);
   if (error) return { error: error.message };
+  await rememberInAlbum(ctx.supabase, placeId, url);
   revalidatePath(`/places/${placeId}`);
   revalidatePath("/dashboard");
   revalidatePath("/cities");
@@ -226,6 +228,7 @@ async function generatePlaceStillNow(
       })
       .eq("id", ctx.place.id);
     if (error) return { error: error.message };
+    await rememberInAlbum(ctx.supabase, ctx.place.id, pub.publicUrl);
     await ctx.supabase.from("ai_import_logs").insert({
       user_id: ctx.profile.id,
       model: STILL_MODEL,
@@ -382,9 +385,14 @@ export async function publishReviewed(
     const narrative = String(formData.get("narrative") ?? "").trim() || null;
     const hoursRaw = String(formData.get("hours_available") ?? "").trim();
     const hours = hoursRaw ? Number.parseInt(hoursRaw, 10) : null;
+    if (!narrative) {
+      return { error: "The day needs a blurb — paste what you dumped." };
+    }
+    const lodging = refusePublicCopy(title || "day", narrative);
+    if (lodging) return { error: lodging };
     const patch: Record<string, unknown> = { status: "published" };
     if (title) patch.title = title;
-    if (narrative !== null) patch.narrative = narrative;
+    patch.narrative = narrative;
     if (Number.isFinite(hours)) patch.hours_available = hours;
     const { error } = await supabase
       .from("playbooks")

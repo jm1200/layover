@@ -52,8 +52,8 @@ export default async function DashboardPage() {
   return (
     <AppShell profile={profile} title="Your dashboard">
       <p className="text-zinc-600">
-        Dump a layover and Lumen fills the draft. Manual forms still work
-        below. Zones only — no crew hotels.
+        Dump a layover. She fills the form. Nothing is a draft on this
+        list — only what you published.
       </p>
 
       <Link
@@ -105,8 +105,7 @@ export default async function DashboardPage() {
               <li key={pb.id}>
                 <Link href={`/playbooks/${pb.id}`} className="underline">
                   {pb.title}
-                </Link>{" "}
-                <span className="text-zinc-400">({pb.status})</span>
+                </Link>
               </li>
             ))
           )}
@@ -125,7 +124,7 @@ export default async function DashboardPage() {
                   {p.name}
                 </Link>{" "}
                 <span className="text-zinc-400">
-                  ({REC_KIND_LABEL[recKindFromCategory(p.category)]} · {p.status})
+                  ({REC_KIND_LABEL[recKindFromCategory(p.category)]})
                 </span>
               </li>
             ))

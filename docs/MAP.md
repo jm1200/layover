@@ -15,7 +15,7 @@
 | **2 — Cities, zones, places, playbooks** | **Complete** | Content model + public browse + forms. Migrations 002–004 (+ seeds 003, 005, 006; stop timing 007). Gate in `PRE-PHASE-2-GATE.md` is met. |
 | **2.1 — Verify + harden** | **Complete** | Homepage + city/place/plan UI in (heroes, Eat/Do/Buy, full layover). RLS smoke: `docs/board/RLS-SMOKE.md`. **Parked (not blockers):** admin city form (SQL), Vercel deploy, photo upload (Phase 4). |
 | 3 — Social | Not started | **Waits until after Lumen** (supply first). Not skipped, not started. Thin cut later: like + comment + byline. Follow-notifications / completion / QR **out**. |
-| 4 — AI story import | **In progress — close it** | Live locally: `/share` dump → Lumen decides rec / recs / day → review → Publish. Rec blurbs stand alone. SQL **008–016 live** (probed). Gate: founder click pass. Freeze dump/edit/photos after that. Do not start Phase 3/5. |
+| 4 — AI story import | **In progress — close it** | Founder test **filed** (7 items, 2026-08-26). Product re-locked in the brief. Not passed. Freeze dump/edit/photos after the fix pack + retest. Do not start Phase 3/5. |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
 | 6 — Metrics + admin moderation | Not started | money/trust dashboard |
 | 7 — Crew-only precision | Not started | optional; after verification story |
@@ -103,8 +103,8 @@ ModerationAction / MetricSnapshot            — Phase 6
 | Path | Audience | Purpose | Status |
 |------|----------|---------|--------|
 | `/` | Public | Layover Intel; collage + tappable Eat/Do/Buy + city search | Phase 2 |
-| `/login` | Public | Auth | Phase 1 |
-| `/dashboard` | User | Profile, drafts, following | Phase 1 stub |
+| `/login` | Public | Email + **Google this cut** (John’s OAuth client). Sofia restyle. | Phase 1; Google not wired |
+| `/dashboard` | User | **This user’s published** recs and days. No drafts. Not an admin queue. | Phase 4 lock; code still leaks |
 | `/sponsor` | Sponsor | Campaigns, billing, creatives | Phase 1 stub |
 | `/admin` | Admin | Kill switch + Lumen log (last 50). Full queue is Phase 6 | Phase 4 slice |
 | `/cities` | Public | City list | Phase 2 |
@@ -144,10 +144,10 @@ Exact paths may adjust; update this table when implementing.
 - [ ] Admin city form — parked (SQL)
 - [x] Phase 4 dump → draft (`/share`, `features/ai-import/`) — needs key + SQL 008
 - [x] Lumen may open a city (SQL **009** `lumen_ensure_city`) — name + IATA, default zones
-- [x] Review: places first, then plan; upload or AI-still checkbox (SQL **010**, bucket `place-stills`)
+- [x] Review: places first, then plan; upload or skip → still on publish (SQL **010**, bucket `place-stills`)
 - [x] Publish layover also publishes its recs; city layover cards use rec stills
-- [x] **Dedup itineraries** — match plan by title or stop set; do not copy the day
-- [ ] Phase 4 founder test pass — `docs/board/FOUNDER-TEST.md`
+- [x] **Dedup itineraries** — code matches title or stop set. **Lock 2026-08-26:** stop set is the match.
+- [ ] Phase 4 founder test pass — filed 7 items 2026-08-26; retest after pack (`docs/board/FOUNDER-TEST.md`)
 - [x] Theo/Milo review of `features/ai-import/` (team meeting 2026-08-25) + follow-up pack
 - [ ] Restore daily 3-draft cap (`DAILY_EXTRACT_CAP`) — parked 2026-08-25, later phase
 - [x] BCN city hero (`public/landing/hero-barcelona.jpg` + `CITY_HERO.barcelona`)
@@ -159,13 +159,11 @@ Exact paths may adjust; update this table when implementing.
 - [x] Sample plates on Zurich raclette rec (`plate-zurich-*.jpg`, SQL **013**). Edit rec can add/replace plates after publish.
 - [x] Raclette rec blurb stands alone (SQL **014**) — transit stays on the plan.
 - [x] Rec page shows all photos; edit rec hero + delete rec; layover stop reorder/drop + delete day (recs stay)
-- [x] Rec photos: max 3, tap one as hero (city card). SQL **015** sample extras on dim-sum rec.
-- [x] Rec album is `place_photos` (SQL **016**). X to remove. Plates are names only on Edit rec.
+- [x] Rec photos: **the place** (1, city card) + Eat/Buy **Get this** plates (0–3 named, own JPEGs). Dump/AI still writes the album. Labeled on share + edit.
 - [x] Edit rec: Save at the bottom (city/name/blurb) then back to the rec. Photos and Get this plates save as you go. Rename or X a plate.
 - [x] SQL **011** — global $20 RPC, city-hero column, generate-on-publish flag, city-open quota. **Live** (spend RPC probed 2026-08-26).
-- [x] SQL **016** `place_photos` — **live** (12 rows probed). Album writes from dump/AI still still skip this table (known bug).
-- [x] Founder test script `docs/board/FOUNDER-TEST.md` + Phase 4 review `docs/board/PHASE-4-REVIEW.md`. Click pass **not done**.
-- [ ] Unify album writes (dump/AI still → `place_photos`). Stop reorder unique-position. Then dead-code cleanup.
+- [x] SQL **016** `place_photos` — **live**. Dump/AI still now write the album too.
+- [x] Founder-test pack (2026-08-26): labeled place vs dish; no drafts on dashboard; mine-only Edit; stop-set + place-id dedup; day blurb from dump; city-open copy only when new; one Save on edit day + redirect; Google button (needs John’s OAuth client). Retest `FOUNDER-TEST.md`.
 
 ## Session checklist for agents
 

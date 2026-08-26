@@ -1,21 +1,26 @@
 # Next session — founder notes
 
-**Paused:** 2026-08-26 (close Phase 4 — test, don’t build)
+**Paused:** 2026-08-26 (founder test filed — product locked, then the pack)
 
 ## Where we left it
 
-- **Phase 4 still in progress.** Dump → blurb → upload or AI-still checkbox → Publish. Rec album = `place_photos`. Edit rec: photos/plates save as you go; **Save** last then back to the rec.
-- **SQL 011 + 016 are live** (engineer probe 2026-08-26). Spend RPC **$0.40**. `place_photos` has rows. Stills in `place-stills` return 200.
-- Known bugs (not founder-error): dump/AI still skip the album (`legacy-hero` X fails); layover Up/Down + Save stop order can unique-violate.
-- Phase 3 social **waits**. QR / completion / follow-pings / Stripe parked. Daily 3-draft cap **parked**.
+- Founder clicked. Seven items. Maya locked product in the brief + CEO-LOG. **Not passed.** Phase 4 still in progress. Not Phase 3. Not Stripe.
+- SQL 011 + 016 live. Spend **$0.40**. Dump/AI still skip `place_photos`.
 
-## First up (not new features)
+## First up (the pack)
 
-1. **Founder test** — `docs/board/FOUNDER-TEST.md`. Mark pass/fail. Do not invent results.
-2. If John says go: unify album writes + fix stop reorder, then dead-code cleanup (`sellPlaceBlurb`, unused dish twins).
-3. After pass: **freeze** dump/edit/photos.
+Theo/Milo — `apps/` this cut, in this order:
 
-Do **not** start likes, QR, or Stripe this session.
+1. Rec photos: labeled **place** vs **dishes**; dump/AI write `place_photos` + plate images; never copy place onto plate; no black rectangle (skip → Lumen still).
+2. Dashboard: this user’s **published** only. No `(draft)`. No seed. No everyone else’s.
+3. Dedup: **stop set**. Day blurb from dump; refuse empty The day. “On the map now” only for a city she opened this dump.
+4. Edit day: **one Save** → public layover. Drop/reorder persist. Delete day works.
+5. Sofia/Lumen copy already in `agents/lumen.md` (login, photo labels, delete, twin, The day). Wire those strings.
+6. Google button **after** John pastes the OAuth client (`HUMAN-SETUP.md`). Login restyle does not wait.
+
+Then retest `docs/board/FOUNDER-TEST.md`. Then freeze dump/edit/photos. Then dead-code cleanup.
+
+Do **not** start likes, QR, Stripe, Apple login, or an admin queue.
 
 ## Dev
 

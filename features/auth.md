@@ -44,8 +44,43 @@ SUPABASE_SERVICE_ROLE_KEY=   # server only
 
 Shareholder creates Supabase project and provides keys (see `docs/STACK.md`). Engineer cannot create the cloud account.
 
+## Google (locked 2026-08-26 — this cut)
+
+- **Continue with Google** is the button. Email + password stays. Not Apple / Facebook.
+- Shareholder creates the Google Cloud OAuth **web** client and pastes Client ID + secret into Supabase Auth → Google. Recipe: `docs/board/HUMAN-SETUP.md`. Engineer cannot create the Google Cloud project.
+- Sofia + Lumen restyle `/login` now. Restyle does **not** wait on the OAuth client. The Google button ships when the client exists.
+- Post-login redirect unchanged: user → `/dashboard`; sponsor → `/sponsor`; admin → `/admin`.
+
 ## Out of scope (Phase 1)
 
 - Airline SSO
 - Biometric verification
+- Apple / Facebook / other OAuth
 - Cities / playbooks / Stripe / AI
+
+## UI copy (locked 2026-08-26 — Sofia / Lumen)
+
+`/login` is Lumen’s door, not a CMS. Current page is a zinc void: **Log in** / *Crew, explorers, and sponsors*. Dead.
+
+**Layout:** Google first. Email behind **Use email instead**. Full-bleed still behind the form if we ship one (a place you want to be — not a named city we don’t have). Never a black rectangle. Button ships after John pastes the Google OAuth client (`HUMAN-SETUP.md`). Restyle does not wait. No Apple this cut.
+
+| Slot | Copy |
+|------|------|
+| Headline | **In from a trip?** |
+| Sub | **Dump the rec. She fills the form.** |
+| Google | **Continue with Google** |
+| Quiet | **Use email instead** |
+| Email submit | **Log in** |
+| Footer | **No account? Sign up** |
+
+**`/signup`** (same screen family)
+
+| Slot | Copy |
+|------|------|
+| Headline | **First time?** |
+| Sub | **Dump the rec. She fills the form.** |
+| Google | **Continue with Google** |
+| Email submit | **Sign up** |
+| Footer | **Already in? Log in** |
+
+**Never say on these pages:** Crew, explorers, and sponsors. Default role is user. Sponsors and admin are set separately. Welcome back. Join the community. Playbook. **Steal a day** / steal the layover. Hotel. Create account (as the headline). Google is the door.

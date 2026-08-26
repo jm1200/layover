@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/features/auth/get-profile";
 import type { ContentStatus } from "@/features/places/types";
 import { assertPlaceInCity } from "@/features/places/validate";
+import { refusePublicCopy } from "@/features/ai-import/moderate";
 
 export type PlaybookFormState = { error?: string; success?: string };
 
@@ -40,6 +41,8 @@ export async function createPlaybook(
   if (!cityId || !title) {
     return { error: "City and title are required." };
   }
+  const lodging = refusePublicCopy(title, narrative);
+  if (lodging) return { error: lodging };
   if (!["draft", "published"].includes(status)) {
     return { error: "Invalid status." };
   }
@@ -117,6 +120,8 @@ export async function updatePlaybookMeta(
   const status = String(formData.get("status") ?? "draft") as ContentStatus;
 
   if (!title) return { error: "Title is required." };
+  const lodgingMeta = refusePublicCopy(title, narrative);
+  if (lodgingMeta) return { error: lodgingMeta };
   if (!["draft", "published", "hidden"].includes(status)) {
     return { error: "Invalid status." };
   }
@@ -196,6 +201,95 @@ export async function updatePlaybookMeta(
   };
 }
 
+export async function savePlaybookEdit(
+  playbookId: string,
+  _prev: PlaybookFormState,
+  formData: FormData,
+): Promise<PlaybookFormState> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "You must be logged in." };
+  }
+
+  const title = String(formData.get("title") ?? "").trim();
+  const narrative = String(formData.get("narrative") ?? "").trim() || null;
+  const hoursRaw = String(formData.get("hours_available") ?? "").trim();
+  const hours = hoursRaw ? Number.parseInt(hoursRaw, 10) : null;
+  const orderedIds = formData
+    .getAll("stop_id")
+    .map((v) => String(v).trim())
+    .filter(Boolean);
+
+  if (!title) return { error: "Title is required." };
+  const lodging = refusePublicCopy(title, narrative);
+  if (lodging) return { error: lodging };
+  if (orderedIds.length > 4) return { error: "Four stops is the cap." };
+
+  const supabase = await createClient();
+  const { data: pb } = await supabase
+    .from("playbooks")
+    .select("id, author_id, city_id")
+    .eq("id", playbookId)
+    .maybeSingle();
+  if (!pb) return { error: "Plan not found." };
+  if (profile.role !== "admin" && pb.author_id !== profile.id) {
+    return { error: "Not your plan." };
+  }
+
+  const { error } = await supabase
+    .from("playbooks")
+    .update({
+      title,
+      narrative,
+      hours_available: Number.isFinite(hours) ? hours : null,
+      status: "published",
+    })
+    .eq("id", playbookId);
+  if (error) return { error: error.message };
+
+  const stopErr = await writeStopOrder(supabase, playbookId, orderedIds);
+  if (stopErr) return { error: stopErr };
+
+  const { data: stops } = await supabase
+    .from("playbook_stops")
+    .select("place_id")
+    .eq("playbook_id", playbookId);
+  const placeIds = [
+    ...new Set(
+      (stops ?? [])
+        .map((s) => s.place_id)
+        .filter((id): id is string => Boolean(id)),
+    ),
+  ];
+  if (placeIds.length) {
+    await supabase
+      .from("places")
+      .update({ status: "published" })
+      .in("id", placeIds)
+      .eq("author_id", profile.id)
+      .neq("status", "hidden");
+  }
+
+  const { data: city } = pb.city_id
+    ? await supabase
+        .from("cities")
+        .select("slug")
+        .eq("id", pb.city_id)
+        .maybeSingle()
+    : { data: null };
+  revalidatePath(`/playbooks/${playbookId}`);
+  revalidatePath("/cities");
+  revalidatePath("/dashboard");
+  if (city?.slug) {
+    revalidatePath(`/cities/${city.slug}`);
+    revalidatePath(`/cities/${city.slug}/eat`);
+    revalidatePath(`/cities/${city.slug}/do`);
+    revalidatePath(`/cities/${city.slug}/buy`);
+    revalidatePath(`/cities/${city.slug}/layovers`);
+  }
+  redirect(`/playbooks/${playbookId}`);
+}
+
 export async function deletePlaybook(
   playbookId: string,
 ): Promise<PlaybookFormState> {
@@ -231,6 +325,41 @@ export async function deletePlaybook(
   redirect(city?.slug ? `/cities/${city.slug}` : "/cities");
 }
 
+async function writeStopOrder(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  playbookId: string,
+  orderedIds: string[],
+): Promise<string | null> {
+  const { data: existing } = await supabase
+    .from("playbook_stops")
+    .select("id")
+    .eq("playbook_id", playbookId);
+  const keep = new Set(orderedIds);
+  const toDrop = (existing ?? [])
+    .map((s) => s.id)
+    .filter((id) => !keep.has(id));
+  if (toDrop.length) {
+    await supabase.from("playbook_stops").delete().in("id", toDrop);
+  }
+  for (let i = 0; i < orderedIds.length; i++) {
+    const { error } = await supabase
+      .from("playbook_stops")
+      .update({ position: i + 100 })
+      .eq("id", orderedIds[i])
+      .eq("playbook_id", playbookId);
+    if (error) return error.message;
+  }
+  for (let i = 0; i < orderedIds.length; i++) {
+    const { error } = await supabase
+      .from("playbook_stops")
+      .update({ position: i + 1 })
+      .eq("id", orderedIds[i])
+      .eq("playbook_id", playbookId);
+    if (error) return error.message;
+  }
+  return null;
+}
+
 export async function savePlaybookStops(
   playbookId: string,
   orderedIds: string[],
@@ -250,23 +379,8 @@ export async function savePlaybookStops(
   if (profile.role !== "admin" && pb.author_id !== profile.id) {
     return { error: "Not your plan." };
   }
-  const { data: existing } = await supabase
-    .from("playbook_stops")
-    .select("id")
-    .eq("playbook_id", playbookId);
-  const keep = new Set(orderedIds);
-  const toDrop = (existing ?? []).map((s) => s.id).filter((id) => !keep.has(id));
-  if (toDrop.length) {
-    await supabase.from("playbook_stops").delete().in("id", toDrop);
-  }
-  for (let i = 0; i < orderedIds.length; i++) {
-    const { error } = await supabase
-      .from("playbook_stops")
-      .update({ position: i + 1 })
-      .eq("id", orderedIds[i])
-      .eq("playbook_id", playbookId);
-    if (error) return { error: error.message };
-  }
+  const stopErr = await writeStopOrder(supabase, playbookId, orderedIds);
+  if (stopErr) return { error: stopErr };
   revalidatePath(`/playbooks/${playbookId}`);
   revalidatePath("/dashboard");
   if (pb.city_id) {

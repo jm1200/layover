@@ -11,6 +11,7 @@ import {
   matchCity,
   matchPlace,
   normalizeIata,
+  normName,
   sameStopSet,
   titlesMatch,
   zoneIdFor,
@@ -243,17 +244,30 @@ export async function fillDraft(
   async function matchExistingPlan(
     title: string,
     stopNames: string[],
+    placeIds: string[],
+    dayText: string | null,
   ): Promise<Playbook | null> {
     const { data: rows } = await supabase
       .from("playbooks")
       .select("id, city_id, title, narrative, hours_available, status, author_id")
       .eq("city_id", city!.id);
     const plans = (rows ?? []) as Playbook[];
+    const wantIds = [...new Set(placeIds.filter(Boolean))].sort().join("\0");
+    const day = dayText ? normName(dayText).slice(0, 80) : "";
     for (const pb of plans) {
       if (titlesMatch(pb.title, title)) return pb;
       const stops = await listStopsForPlaybook(pb.id);
       const names = stops.map((s) => s.title ?? "").filter(Boolean);
       if (sameStopSet(names, stopNames)) return pb;
+      const ids = [
+        ...new Set(stops.map((s) => s.place_id).filter(Boolean)),
+      ].sort();
+      if (wantIds && ids.length >= 2 && ids.join("\0") === wantIds) {
+        return pb;
+      }
+      if (day.length > 40 && pb.narrative && normName(pb.narrative).slice(0, 80) === day) {
+        return pb;
+      }
     }
     return null;
   }
@@ -276,42 +290,8 @@ export async function fillDraft(
     }
 
     const stopNames = stops.map((s) => s.name.trim());
-    const existingPlan = await matchExistingPlan(
-      extract.title.trim(),
-      stopNames,
-    );
-    if (existingPlan) {
-      if (existingPlan.status === "published") {
-        await supabase.from("ai_import_logs").insert({
-          ...logBase,
-          success: false,
-          error_code: "duplicate_plan",
-          city_id: city.id,
-          payload: extract as unknown as Record<string, unknown>,
-        });
-        return {
-          error: "This day’s already on the city. I didn’t copy it.",
-          alreadyHref: `/playbooks/${existingPlan.id}`,
-          story,
-          hintSlug: city.slug,
-        };
-      }
-      if (existingPlan.author_id !== authorId) {
-        await supabase.from("ai_import_logs").insert({
-          ...logBase,
-          success: false,
-          error_code: "duplicate_plan",
-          city_id: city.id,
-          payload: extract as unknown as Record<string, unknown>,
-        });
-        return {
-          error: "This day’s already being filed. I didn’t copy it.",
-          story,
-          hintSlug: city.slug,
-        };
-      }
-      playbookId = existingPlan.id;
-    }
+    const dayCopy =
+      (extract.narrative ?? "").trim() || story.trim() || null;
 
     const stopIds: { title: string; body: string | null; place_id: string | null }[] =
       [];
@@ -330,13 +310,52 @@ export async function fillDraft(
       });
     }
 
-    if (!playbookId) {
+    const existingPlan = await matchExistingPlan(
+      extract.title.trim(),
+      stopNames,
+      stopIds.map((s) => s.place_id).filter((id): id is string => Boolean(id)),
+      dayCopy,
+    );
+    let skipPlan = false;
+    if (existingPlan) {
+      if (
+        existingPlan.status === "published" ||
+        existingPlan.author_id !== authorId
+      ) {
+        if (!createdPlaceIds.length) {
+          await supabase.from("ai_import_logs").insert({
+            ...logBase,
+            success: false,
+            error_code: "duplicate_plan",
+            city_id: city.id,
+            payload: extract as unknown as Record<string, unknown>,
+          });
+          return {
+            error:
+              existingPlan.status === "published"
+                ? "This day’s already on the city. I didn’t copy it."
+                : "This day’s already being filed. I didn’t copy it.",
+            alreadyHref:
+              existingPlan.status === "published"
+                ? `/playbooks/${existingPlan.id}`
+                : undefined,
+            story,
+            hintSlug: city.slug,
+          };
+        }
+        skipPlan = true;
+      } else {
+        playbookId = existingPlan.id;
+      }
+    }
+
+    if (!playbookId && !skipPlan) {
       const { data: pb, error: pbErr } = await supabase
         .from("playbooks")
         .insert({
           city_id: city.id,
           title: extract.title.trim(),
-          narrative: extract.narrative,
+          narrative: dayCopy,
           hours_available: extract.hours_available,
           status: "draft",
           author_id: authorId,
@@ -362,6 +381,19 @@ export async function fillDraft(
             playbookId = null;
           }
         }
+      }
+    }
+    if (playbookId && dayCopy) {
+      const { data: pbRow } = await supabase
+        .from("playbooks")
+        .select("narrative")
+        .eq("id", playbookId)
+        .maybeSingle();
+      if (pbRow && !pbRow.narrative) {
+        await supabase
+          .from("playbooks")
+          .update({ narrative: dayCopy })
+          .eq("id", playbookId);
       }
     }
   } else if (extract.post_kind === "places") {

@@ -1,7 +1,7 @@
 # Feature: Admin & metrics
 
 **Phase:** 6  
-**Status:** Spec only for Phase 6 queue/metrics. **Lumen’s log is on `/admin` now** (Phase 4): last 50 actions + month spend. Not a full dashboard.
+**Status:** Spec only for Phase 6 queue/metrics. **Lumen’s log is on `/admin` now** (Phase 4): last 50 actions + month spend. Not a full dashboard. **`/dashboard` is not the admin queue** (locked 2026-08-26): it lists this user’s published recs/days only. Admin still edits from the public rec. Queue stays this phase.
 
 ## Goal
 

@@ -203,13 +203,39 @@ export async function attachPlaceStill(
     })
     .eq("id", placeId);
   if (error) return { error: error.message };
+  await rememberInAlbum(supabase, placeId, url);
   revalidatePath(`/places/${placeId}`);
   revalidatePath("/dashboard");
   revalidatePath("/cities");
   return { success: "Hero saved.", imageUrl: url };
 }
 
-const MAX_REC_PHOTOS = 3;
+const MAX_REC_PHOTOS = 1;
+
+export async function rememberInAlbum(
+  supabase: Awaited<ReturnType<typeof createClient>>,
+  placeId: string,
+  url: string,
+): Promise<void> {
+  const { data: already } = await supabase
+    .from("place_photos")
+    .select("id")
+    .eq("place_id", placeId)
+    .eq("image_url", url)
+    .maybeSingle();
+  if (already) return;
+  const counted = await supabase
+    .from("place_photos")
+    .select("id", { count: "exact", head: true })
+    .eq("place_id", placeId);
+  if (counted.error) return;
+  if ((counted.count ?? 0) >= MAX_REC_PHOTOS) return;
+  await supabase.from("place_photos").insert({
+    place_id: placeId,
+    image_url: url,
+    sort_order: (counted.count ?? 0) + 1,
+  });
+}
 
 function albumMissing(message?: string): string {
   if (
@@ -254,7 +280,7 @@ export async function addPlacePhoto(
     return { error: albumMissing(counted.error.message) };
   }
   if ((counted.count ?? 0) >= MAX_REC_PHOTOS) {
-    return { error: "Three photos is enough." };
+    return { error: "One place shot is enough." };
   }
   const { data: photo, error } = await supabase
     .from("place_photos")
@@ -304,7 +330,27 @@ export async function removePlacePhoto(
     .eq("id", photoId)
     .eq("place_id", placeId)
     .maybeSingle();
-  if (!photo) return { error: "Photo not found." };
+  if (!photo) {
+    if (photoId === "legacy-hero") {
+      const { data: next } = await supabase
+        .from("place_photos")
+        .select("image_url")
+        .eq("place_id", placeId)
+        .order("sort_order")
+        .limit(1)
+        .maybeSingle();
+      await supabase
+        .from("places")
+        .update({
+          image_url: next?.image_url ?? null,
+          image_source: next ? "user" : null,
+        })
+        .eq("id", placeId);
+      revalidatePath(`/places/${placeId}`);
+      return { success: "Photo removed." };
+    }
+    return { error: "Photo not found." };
+  }
   const { error } = await supabase
     .from("place_photos")
     .delete()
@@ -475,6 +521,14 @@ export async function attachDishStill(
   if (!place) return { error: "Rec not found." };
   if (profile.role !== "admin" && place.author_id !== profile.id) {
     return { error: "Not your rec." };
+  }
+  const { data: rec } = await supabase
+    .from("places")
+    .select("image_url")
+    .eq("id", place.id)
+    .maybeSingle();
+  if (rec?.image_url && rec.image_url.split("?")[0] === url.split("?")[0]) {
+    return { error: "That’s the place shot. Upload the plate." };
   }
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
   const ours =

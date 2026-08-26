@@ -16,7 +16,7 @@ export function PlatesEditor({
   placeId,
   authorId,
   initial,
-  recStill,
+  recStill: _recStill,
   namesOnly,
 }: {
   placeId: string;
@@ -86,8 +86,8 @@ export function PlatesEditor({
       <p className="text-sm font-medium">Get this</p>
       <p className="mt-0.5 text-xs text-zinc-500">
         {namesOnly
-          ? `Names on the rec page. Rename, add, or X to remove — saved as you go (no Save needed). Photos live in the album above. Up to ${MAX_PLATES}.`
-          : `Name them first, then add photos. Rename or X to remove. Up to ${MAX_PLATES}.`}
+          ? `Names on the rec page. Rename, add, or X to remove — saved as you go. Photos of the place live in the album above. Up to ${MAX_PLATES}.`
+          : `The food. Not the building. This sits under Get this. Name it, then upload that plate. Up to ${MAX_PLATES}.`}
       </p>
       {plates.length > 0 ? (
         <ul className="mt-3 divide-y divide-zinc-200 rounded-xl border border-zinc-200 bg-white">
@@ -96,24 +96,9 @@ export function PlatesEditor({
               key={d.id}
               dish={d}
               namesOnly={Boolean(namesOnly)}
-              recStill={recStill}
               pending={pending}
               uploadingId={uploadingId}
               onPlateFile={onPlateFile}
-              onUseRecStill={() =>
-                start(async () => {
-                  if (!recStill) return;
-                  setMsg(null);
-                  const r = await attachDishStill(d.id, recStill);
-                  if (r.error) setMsg(r.error);
-                  else
-                    setPlates((prev) =>
-                      prev.map((p) =>
-                        p.id === d.id ? { ...p, image_url: recStill } : p,
-                      ),
-                    );
-                })
-              }
               onRename={async (next) => {
                 setMsg(null);
                 const r = await updatePlaceDish(d.id, next);
@@ -177,21 +162,17 @@ export function PlatesEditor({
 function PlateRow({
   dish,
   namesOnly,
-  recStill,
   pending,
   uploadingId,
   onPlateFile,
-  onUseRecStill,
   onRename,
   onDelete,
 }: {
   dish: Dish;
   namesOnly: boolean;
-  recStill?: string | null;
   pending: boolean;
   uploadingId: string | null;
   onPlateFile: (dish: Dish, file: File) => Promise<void>;
-  onUseRecStill: () => void;
   onRename: (name: string) => Promise<boolean>;
   onDelete: () => void;
 }) {
@@ -243,7 +224,7 @@ function PlateRow({
               ? "Uploading…"
               : dish.image_url
                 ? "Replace"
-                : "Add photo"}
+                : "Upload the plate"}
             <input
               type="file"
               accept="image/*"
@@ -256,16 +237,6 @@ function PlateRow({
               }}
             />
           </label>
-          {!dish.image_url && recStill ? (
-            <button
-              type="button"
-              className="text-zinc-600 underline"
-              disabled={pending}
-              onClick={onUseRecStill}
-            >
-              Use rec photo
-            </button>
-          ) : null}
         </div>
       )}
       <button

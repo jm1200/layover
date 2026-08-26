@@ -48,8 +48,8 @@ AI cannot create your accounts. You must:
 
 1. Create **Supabase** account + project; put URL + keys in `.env` (never commit).  
 2. Create **Vercel** account when you want a public URL; connect GitHub; set same env vars.  
-3. Later: **Stripe** account (Phase 5), **xAI** API key (Phase 4).  
-4. Optional OAuth (Google login): create OAuth apps in Google/etc. consoles.
+3. Later: **Stripe** account (Phase 5). **xAI** key is Phase 4 (already in).  
+4. **Google OAuth this cut:** create a Google Cloud OAuth **web** client; paste into Supabase Auth. Apple / others parked. See `docs/board/HUMAN-SETUP.md`.
 
 See also: free-tier pause on Supabase Free; Vercel Hobby non-commercial policy — upgrade when the product is a real business.
 

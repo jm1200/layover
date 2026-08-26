@@ -49,7 +49,11 @@ export const LUMEN_JSON_SCHEMA = {
       description: "Plan title for a full layover.",
     },
     blurb: { type: ["string", "null"] },
-    narrative: { type: ["string", "null"] },
+    narrative: {
+      type: ["string", "null"],
+      description:
+        "For playbook only: the day in 2–6 sentences from their dump, hotel-stripped. Never empty on a playbook.",
+    },
     hours_available: { type: ["integer", "null"] },
     zone_type: {
       anyOf: [
