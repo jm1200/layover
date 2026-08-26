@@ -114,7 +114,7 @@ ModerationAction / MetricSnapshot            — Phase 6
 | `/playbooks/[id]` | Public | Playbook detail | Phase 2 |
 | `/places/[id]` | Public | Place + dishes | Phase 2 |
 | `/dashboard/places/new` | Auth | Create place | Phase 2 |
-| `/dashboard/places/[id]/edit` | Author / admin | Edit rec (Save at bottom; photos/plates persist immediately) | Phase 4 |
+| `/dashboard/places/[id]/edit` | Author / admin | Edit rec (Save → rec page; photos/plates persist immediately) | Phase 4 |
 | `/dashboard/playbooks/new` | Auth | Create playbook | Phase 2 |
 | `/api/...` | Server | Mutations, AI extract, Stripe webhooks | as needed |
 
@@ -161,7 +161,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] Rec page shows all photos; edit rec hero + delete rec; layover stop reorder/drop + delete day (recs stay)
 - [x] Rec photos: max 3, tap one as hero (city card). SQL **015** sample extras on dim-sum rec.
 - [x] Rec album is `place_photos` (SQL **016**). X to remove. Plates are names only on Edit rec.
-- [x] Edit rec: Save at the bottom (city/name/blurb). Photos and Get this plates save as you go — no extra Save. Rename or X a plate.
+- [x] Edit rec: Save at the bottom (city/name/blurb) then back to the rec. Photos and Get this plates save as you go. Rename or X a plate.
 - [x] SQL **011** — global $20 RPC, city-hero column, generate-on-publish flag, city-open quota. **John must run this.**
 
 ## Session checklist for agents

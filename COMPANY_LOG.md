@@ -61,7 +61,7 @@ Durable history only. Not a chat transcript.
 - **2026-08-25 — Rec blurbs are independent of the plan.** No “streetcar from the gym” in a place blurb. Transit lives on the layover stop.
 - **2026-08-25 — Lumen decides rec vs recs vs day.** They jabber once. She does not invent an itinerary. Several recs can exist with no plan. When unsure: recs, not a day.
 - **2026-08-25 — Rec photos.** One album, max 3. Tap = hero (city card). X removes. Plates are **names** (Get this), not a second gallery. SQL **016** `place_photos`. Crew pics + reviews later.
-- **2026-08-26 — Edit rec Save is last.** Photos and Get this plates persist as you go (no extra Save). Rename or X a plate.
+- **2026-08-26 — Edit rec Save is last.** Photos and Get this plates persist as you go (no extra Save). Rename or X a plate. Save then returns to the rec.
 - **2026-08-25 — Edit.** Rec: hero upload, plates, delete rec. No status dropdown. Zone = cluster (downtown/airport/station). Layover: reorder/drop stops; delete day **keeps recs**. Do not start over to fix a stop.
 - Live rotating homepage from “where crew have been going” needs either a human moderator or the AI pipeline. Not hired. Not built.
 - “The perfect layover does not exist… {City} edition” is John’s Instagram series voice — for full plans, not ads. Ads later: “New idea…”

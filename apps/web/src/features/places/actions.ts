@@ -165,7 +165,7 @@ export async function updatePlace(
 
   revalidatePath(`/places/${placeId}`);
   revalidateContent(city?.slug);
-  return { success: "Saved." };
+  redirect(`/places/${placeId}`);
 }
 
 export async function attachPlaceStill(
