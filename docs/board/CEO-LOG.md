@@ -4,6 +4,35 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-27 — Hygiene then thin Phase 3
+
+**Source:** Shareholder — Phase 4 felt chaotic, lots of bugs and bandaids. Asked whether to organize / code-review before Phase 3.
+
+**Facts:** Phase 4 is **complete**. Dump/edit/photos **frozen**. Feel pass passed. Playwright exists. Theo/Milo 08-27 review: freeze-blockers fixed; leftovers are cleanup, not a product gap. Chaos was coding while photos/dashboard locked in the room — not a rotting app. No third full review.
+
+**Theo:** Four-item hygiene, then like + comment + byline. A day, not a phase. Do not unfreeze dump.
+
+**Milo:** Tests chased copy. Jumping to likes replays it. Thin `features/social.md` before code. Playwright spec for likes on day one. Two e2e clicks in hygiene (Edit day → Up/Down → Save; X a photo). Votes the week.
+
+### Decision (CEO rec — John says yes/no)
+
+| Item | Decision |
+|------|----------|
+| Primary bet | **Hygiene then Phase 3.** Not a cleanup month. Not likes tomorrow. |
+| Phase 3 v1 | **Like + comment + byline only.** City stays destination-first. |
+| Out of v1 | Follow, profile-as-product, follow-pings, completion, QR. |
+| Hygiene | Theo’s four + Milo’s two e2e clicks. Bounded. Not a rewrite. |
+| Frozen | Dump / edit / photos. Do not reopen. |
+| Not next | Stripe. Facebook. Restore the 3-draft cap. A third full review. |
+
+Hygiene list (when he says go): (1) delete `sellPlaceBlurb` + dead twins, (2) lock `lumen_set_city_hero` RPC, (3) hotel gate on stop title/body, (4) stop swallowing album errors, (5) Playwright Edit→Up/Down→Save and X-photo.
+
+**Shareholder ask:** Yes/no on this sequence. No `apps/` from this meeting.
+
+**Status:** Scope locked on paper (`features/social.md`). Build **not** started.
+
+---
+
 ## 2026-08-26 — Facebook / Instagram: no (login and feed)
 
 **Source:** Shareholder on the Supabase Google OAuth screen. “I should probably allow facebook/instagram too.” Also: maybe link Instagram so crew posts of awesome layovers show on Layover. Auth first.

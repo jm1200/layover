@@ -14,7 +14,7 @@
 | **1.1 — Pre–Phase 2 gate** | **Complete** | Docs/MAP honesty + `PRE-PHASE-2-GATE.md`; code re-reviewed |
 | **2 — Cities, zones, places, playbooks** | **Complete** | Content model + public browse + forms. Migrations 002–004 (+ seeds 003, 005, 006; stop timing 007). Gate in `PRE-PHASE-2-GATE.md` is met. |
 | **2.1 — Verify + harden** | **Complete** | Homepage + city/place/plan UI in (heroes, Eat/Do/Buy, full layover). RLS smoke: `docs/board/RLS-SMOKE.md`. **Parked (not blockers):** admin city form (SQL), Vercel deploy, photo upload (Phase 4). |
-| 3 — Social | Not started | **Waits until after Lumen** (supply first). Not skipped, not started. Thin cut later: like + comment + byline. Follow-notifications / completion / QR **out**. |
+| 3 — Social | Not started | **Hygiene then this cut** (board 2026-08-27). Like + comment + byline. Follow / profile / pings / QR **out**. Dump/edit/photos stay frozen. Waits on John. |
 | 4 — AI story import | **Complete** | Dump → she writes it up → publish. Feel pass 2026-08-27. Dump/edit/photos **frozen**. Dead-code cleanup is leftover, not a new phase. Not Phase 3/5 until John says. |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
 | 6 — Metrics + admin moderation | Not started | money/trust dashboard |
@@ -73,7 +73,7 @@ layover/
 | Auth & roles | `features/auth.md` | `apps/web/src/features/auth/` | — | 1 **done** |
 | Places & zones | `features/places-and-zones.md` | `apps/web/src/features/places/` | Auth (for write) | 2 **done** |
 | Playbooks | `features/playbooks.md` | `apps/web/src/features/playbooks/` | Places, Auth | 2 **done** |
-| Social | `features/social.md` | `.../social/` | Auth, content | 3 — **after Phase 4**; not started |
+| Social | `features/social.md` | `.../social/` | Auth, content | 3 — hygiene then like+comment+byline; not started |
 | AI import | `features/ai-import.md` | `apps/web/src/features/ai-import/` | Playbooks, Auth, OPS quotas | 4 **done** |
 | Sponsorship | `features/sponsorship.md` | `.../sponsorship/` | Auth sponsor, Stripe, cities | 5 |
 | Admin & metrics | `features/admin-and-metrics.md` | `.../admin/`, `.../metrics/` | All of the above | 6 |

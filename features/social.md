@@ -1,29 +1,30 @@
 # Feature: Social
 
 **Phase:** 3  
-**Status:** Spec only — **not next.** After Phase 4 (Lumen has produced real posts). Not implemented.  
+**Status:** Spec locked for v1 — **not implemented.** Hygiene first, then this cut. Waits on John.  
 **Code (planned):** `apps/web/src/features/social/`
 
 ## Goal
 
-Like, comment, follow as **trust signals under content** — surface who gives good recommendations **without** making the product a person-centric social network. City browse stays **destination-first** (“what to do in Zurich”), not “whose feed is this.”
+Like, comment, and a **byline** as trust signals under content — who posted this, without making the product a person-centric social network. City browse stays **destination-first** (“what to do in Zurich”), not “whose feed is this.”
 
-## Acceptance criteria
+## Acceptance criteria (v1)
 
 - [ ] Like playbooks (and optionally places)
 - [ ] Comment threads on playbooks
-- [ ] Follow users; optional “from people you follow” **filter on content** later (not a mandatory people home feed)
-- [ ] Basic profile: display name, bio, cities they post about (secondary; deep-link from bylines)
-- [ ] No public follower graph abuse tools required for MVP
-- [ ] City page remains content/destination-led; poster is byline-level, not the hero
+- [ ] Byline on playbooks/places (display name). Poster is secondary; city stays the hero
+- [ ] Playwright covers like + comment on day one of the build
+- [ ] No public follower graph
 
-## Out of scope (v1)
+## Out of this cut (v1)
 
+- Follow users / “from people you follow” content filter — later, not this build
+- Profile as a product (bio, cities they post about, people pages) — byline is enough
 - DMs
 - Private circles
-- Complex reputation scores (simple counts OK)
+- Complex reputation scores (simple like counts OK)
 - Influencer-style home feed where the **person** is the primary object of browse
-- Photo grid / media on city page (deferred multi-photo vision; not Phase 3 requirement)
+- Photo grid / media on city page
 
 ## Parked (not Phase 3, not next)
 

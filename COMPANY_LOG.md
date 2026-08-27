@@ -19,6 +19,7 @@ Durable history only. Not a chat transcript.
 | 2026-08-25 | **Lumen is live** at `/share`. Dump → lookup → fill the form. Job/rules baseline: `agents/lumen.md`. |
 | 2026-08-27 | **Milo owns Playwright E2E** (`apps/web/e2e`, `npm run test:e2e`). Theo reviews. Not a tester hire. Suite does not call xAI or Google. |
 | 2026-08-27 | **Phase 4 complete.** Dump/edit/photos frozen. Feel pass passed. Phase 3 waits on John. |
+| 2026-08-27 | Board rec: **hygiene then Phase 3.** Phase 3 v1 = like + comment + byline. Follow / profile / pings / QR out. |
 
 ## Product locks
 
@@ -47,6 +48,7 @@ Durable history only. Not a chat transcript.
 - **2026-08-24 — Lumen required fields:** Rec: **city + name + type** (type inferred). Full layover: **city + title + ≥1 named stop**. Holes (not blockers): blurb, zone, dish, hours, extra stops, photo. Thin may publish. Matches live form gates.
 - **2026-08-24 — Phase 2 + 2.1 complete.** Content + browse UI shipped. Parked: admin city form, Vercel, photo upload (Phase 4). Next is Phase 4 when John authorizes.
 - **2026-08-24 — Order locked (board; John has not said go):** **Phase 4 Lumen first.** Thin Phase 3 (like + comment + byline profile) **after** Lumen has produced real posts. Follow = content filter later, not a people-feed. Ban queue stays Phase 6.
+- **2026-08-27 — Hygiene then Phase 3.** Phase 4 complete; dump/edit/photos stay frozen. Next is a **bounded** hygiene slice (dead spend actions, lock `lumen_set_city_hero`, hotel gate on stops, fail-closed album reads, two Playwright clicks), then Phase 3. **Phase 3 v1 = like + comment + byline only.** Follow, profile-as-product, follow-pings, completion, QR are out of this cut. City stays destination-first. Not a cleanup month. Not likes with a dirty kitchen. Build waits on John.
 - **2026-08-24 — Phase 4 started.** John said yes. Dump box at `/share` → grok-4.3 extract → draft recs/plan. Caps: 3/day, 4k chars, $20/mo, kill switch. Needs his `XAI_API_KEY` + SQL 008. Photo stills not in this slice.
 - **2026-08-24 — Lumen lookup:** Extract uses **web_search** (cap 8) so blurbs include what/where, not just the dump. Measured on John’s BCN dump: **4 searches, ~4¢, ~17s**. Still not unbounded chat. No invented walk times.
 - **2026-08-24 — Review + stills:** After a dump, file **places first, then the layover**. Per place: upload a photo or Lumen generates (~2¢) only if the blurb sells (not “classic spot in the Gothic Quarter”). **Make this sell** rewrites a limp blurb. Admin does not approve each JPEG. Kill switch + $20 cap still bind. Needs SQL **010** + public Storage bucket `place-stills`.
@@ -85,6 +87,7 @@ Durable history only. Not a chat transcript.
 ## Rejected / parked
 
 - Influencer feed / person-centric social as the product.
+- Follow + profile-as-product in Phase 3 v1 — byline only this cut; follow is a later content filter.
 - Follow-notifications (“ping me when this person posts somewhere new”) — person-feed; parked with the influencer product.
 - Completion scores / “already done” tracking — a game, not intel.
 - QR-for-ad-cut / crew take of venue ad revenue — coupon/kickback. Trust + KYC/tax/fraud. Revisit only as a *labeled* offer after Stripe; never “this rec paid me.”
