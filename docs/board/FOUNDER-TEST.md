@@ -1,6 +1,6 @@
 # Founder test — close Phase 4
 
-**Retest after the 2026-08-26 pack.** First pass filed seven items. Product is locked in the brief. You click again.
+**Passed** (feel 2026-08-27). Phase 4 complete. First pass filed seven items; the pack + feel pass closed it.
 
 Dev: `cd apps/web && npm run dev` → http://localhost:3000  
 Log in. Use **your** recs (e.g. Geneva dim-sum), not Zurich seed. Dashboard must **not** show seed as yours.

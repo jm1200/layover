@@ -15,7 +15,7 @@
 | **2 — Cities, zones, places, playbooks** | **Complete** | Content model + public browse + forms. Migrations 002–004 (+ seeds 003, 005, 006; stop timing 007). Gate in `PRE-PHASE-2-GATE.md` is met. |
 | **2.1 — Verify + harden** | **Complete** | Homepage + city/place/plan UI in (heroes, Eat/Do/Buy, full layover). RLS smoke: `docs/board/RLS-SMOKE.md`. **Parked (not blockers):** admin city form (SQL), Vercel deploy, photo upload (Phase 4). |
 | 3 — Social | Not started | **Waits until after Lumen** (supply first). Not skipped, not started. Thin cut later: like + comment + byline. Follow-notifications / completion / QR **out**. |
-| 4 — AI story import | **In progress — close it** | Founder test **filed** (7 items, 2026-08-26). Product re-locked in the brief. Not passed. Freeze dump/edit/photos after the fix pack + retest. Do not start Phase 3/5. |
+| 4 — AI story import | **Complete** | Dump → she writes it up → publish. Feel pass 2026-08-27. Dump/edit/photos **frozen**. Dead-code cleanup is leftover, not a new phase. Not Phase 3/5 until John says. |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
 | 6 — Metrics + admin moderation | Not started | money/trust dashboard |
 | 7 — Crew-only precision | Not started | optional; after verification story |
@@ -74,7 +74,7 @@ layover/
 | Places & zones | `features/places-and-zones.md` | `apps/web/src/features/places/` | Auth (for write) | 2 **done** |
 | Playbooks | `features/playbooks.md` | `apps/web/src/features/playbooks/` | Places, Auth | 2 **done** |
 | Social | `features/social.md` | `.../social/` | Auth, content | 3 — **after Phase 4**; not started |
-| AI import | `features/ai-import.md` | `apps/web/src/features/ai-import/` | Playbooks, Auth, OPS quotas | 4 **in progress** |
+| AI import | `features/ai-import.md` | `apps/web/src/features/ai-import/` | Playbooks, Auth, OPS quotas | 4 **done** |
 | Sponsorship | `features/sponsorship.md` | `.../sponsorship/` | Auth sponsor, Stripe, cities | 5 |
 | Admin & metrics | `features/admin-and-metrics.md` | `.../admin/`, `.../metrics/` | All of the above | 6 |
 | Crew-only fields | (extend SECURITY + places) | TBD | Verification | 7 |
@@ -147,7 +147,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] Review: places first, then plan; upload or skip → still on publish (SQL **010**, bucket `place-stills`)
 - [x] Publish layover also publishes its recs; city layover cards use rec stills
 - [x] **Dedup itineraries** — code matches title or stop set. **Lock 2026-08-26:** stop set is the match.
-- [ ] Phase 4 founder test pass — filed 7 items 2026-08-26; retest after pack (`docs/board/FOUNDER-TEST.md`)
+- [x] Phase 4 founder test **pass** (feel 2026-08-27). Dump, Google, hotel, dashboard. Dump/edit/photos frozen.
 - [x] Theo/Milo review of `features/ai-import/` (team meeting 2026-08-25) + follow-up pack
 - [ ] Restore daily 3-draft cap (`DAILY_EXTRACT_CAP`) — parked 2026-08-25, later phase
 - [x] BCN city hero (`public/landing/hero-barcelona.jpg` + `CITY_HERO.barcelona`)
@@ -171,7 +171,7 @@ Exact paths may adjust; update this table when implementing.
 ## Session checklist for agents
 
 1. Read `AGENTS.md` + this file (+ `docs/STACK.md` before infra/auth work).
-2. Confirm current phase with owner if doing implementation. Phase 2 is **done**. Phase 4 is in progress.
+2. Confirm current phase with owner if doing implementation. Phase 2 is **done**. Phase 4 is **done**. Phase 3 waits on John.
 3. Touch only the feature folder + its spec + this map.
 4. End of session: MAP and feature spec reflect reality. Prefer “unknown / not built” over inventing.
 

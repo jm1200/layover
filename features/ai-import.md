@@ -1,7 +1,7 @@
 # Feature: AI story import
 
 **Phase:** 4  
-**Status:** **In progress.** Live locally: `/share` → lookup → one-place review → Publish (stills + city hero after). SQL **008–011**. Lumen baseline in `agents/lumen.md`.  
+**Status:** **Complete** (2026-08-27). Dump → review → Publish. Dump/edit/photos frozen. SQL **008–016**. Lumen baseline in `agents/lumen.md`.  
 **Code:** `apps/web/src/features/ai-import/`
 
 ## Goal

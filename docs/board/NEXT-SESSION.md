@@ -1,20 +1,18 @@
 # Next session — founder notes
 
-**Paused:** 2026-08-27 (Playwright in; Phase 4 not frozen)
+**Paused:** 2026-08-27 — **Phase 4 complete.** Dump/edit/photos frozen.
 
 ## Where we are
 
-Phase **4 close**. Product locked in the brief. Founder retest **not passed**. Not Phase 3. Not Stripe.
+Lumen dump is live. Feel pass passed. Playwright: `cd apps/web && npm run test:e2e`. **Milo owns it.**
 
-Playwright E2E is live (`cd apps/web && npm run test:e2e`) — **9 passed** last run. **Milo owns writing and checking.** Theo reviews. John is not the regression suite.
+## First up (when John says)
 
-## First up
+- **Phase 3** thin cut: like + comment + byline. Not follow-pings, completion, or QR.
+- Or: dead-code cleanup from `PHASE-4-REVIEW.md` (not user-facing).
+- Not Stripe. Not Facebook. Not the 3-draft cap unless he asks.
 
-1. **Milo** — keep `apps/web/e2e` green. Add a spec when a click-path ships. No xAI in the suite.
-2. **Theo** — review Milo’s suite; freeze dump/edit/photos after founder feel-pass. Dead-code cleanup after freeze (`PHASE-4-REVIEW.md`).
-3. **John** — Google (if you want that button) + feel-pass `FOUNDER-TEST.md` on **your** recs. Not the whole click list.
-
-Do **not** start likes, QR, Stripe, Apple login, or an admin queue.
+Do **not** churn dump, rec photos, or edit rec unless something is on fire.
 
 ## Dev
 
