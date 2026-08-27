@@ -90,13 +90,8 @@ export default async function DashboardPage() {
         });
       }
     }
-    if (
-      hero &&
-      !stills.some((x) => x.src.split("?")[0] === hero.src.split("?")[0])
-    ) {
-      stills.unshift(hero);
-    }
-    return stills;
+    if (stills.length === 0 && hero) stills.push(hero);
+    return stills.slice(0, 3);
   });
 
   return (

@@ -183,9 +183,14 @@ Last 50 is the cap, not a sentence on the page. Refuses are rows, not a counter.
 
 He reads the **name**, taps it, lands on the rec or the day. A verb with no place is a miss.
 
+One dump = one card. Stills and city heroes for that dump sit **on the same card** as a short list (“this is what she did for this post”). Never a separate “Generated a still” row for a rec she just filed.
+
 **Shape:**
 
-`Filed **Jamon Jamon** in Barcelona · Posted Aug 27 · $0.02`
+`**Jamon Jamon** in Barcelona`  
+- Filed the rec  
+- Generated a still  
+`Posted Aug 27 · $0.04`
 
 | Slot | Rule |
 |------|------|

@@ -242,7 +242,7 @@ export function normName(s: string): string {
 export function sameStopSet(a: string[], b: string[]): boolean {
   const A = a.map(normName).filter(Boolean).sort();
   const B = b.map(normName).filter(Boolean).sort();
-  if (A.length < 2 || A.length !== B.length) return false;
+  if (A.length < 1 || A.length !== B.length) return false;
   return A.join("\0") === B.join("\0");
 }
 

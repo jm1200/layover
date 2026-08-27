@@ -153,7 +153,8 @@ Exact paths may adjust; update this table when implementing.
 - [x] BCN city hero (`public/landing/hero-barcelona.jpg` + `CITY_HERO.barcelona`)
 - [x] `/cities` as hero cards (not a phone book); search hint lists live IATA codes
 - [x] Lumen live baseline (`agents/lumen.md` + `.grok/agents/lumen.md`)
-- [x] `/admin` shows Lumen’s log (last 50 + month spend). Rows name the rec/day and link it. Not Phase 6.
+- [x] `/admin` Lumen log: one card per dump (stills + city hero grouped). Names link. Not Phase 6.
+- [x] Dump dedup is **stop set** (incl. one-stop). Title-first gone. Public rec Photos cap 3 (no extra hero unshift). City-open line does not promise a hero.
 - [x] User photo upload: compress (no 2 MB cap as homework); 4:5 card preview; no silent AI reframe
 - [x] Up to 3 plate photos per Eat/Buy rec (SQL **012**). City cards stay one still.
 - [x] Sample plates on Zurich raclette rec (`plate-zurich-*.jpg`, SQL **013**). Edit rec can add/replace plates after publish.

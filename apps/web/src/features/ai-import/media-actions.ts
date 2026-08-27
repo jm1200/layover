@@ -236,6 +236,7 @@ async function generatePlaceStillNow(
       error_code: "still",
       estimated_usd: STILL_USD,
       city_id: ctx.place.city_id,
+      created_place_ids: [ctx.place.id],
       payload: { place_id: ctx.place.id },
     });
     return {

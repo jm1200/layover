@@ -13,7 +13,6 @@ import {
   normalizeIata,
   normName,
   sameStopSet,
-  titlesMatch,
   zoneIdFor,
 } from "@/features/ai-import/extract";
 import { aiBlocked } from "@/features/ai-import/spend";
@@ -242,7 +241,7 @@ export async function fillDraft(
   }
 
   async function matchExistingPlan(
-    title: string,
+    _title: string,
     stopNames: string[],
     placeIds: string[],
     dayText: string | null,
@@ -255,14 +254,13 @@ export async function fillDraft(
     const wantIds = [...new Set(placeIds.filter(Boolean))].sort().join("\0");
     const day = dayText ? normName(dayText).slice(0, 80) : "";
     for (const pb of plans) {
-      if (titlesMatch(pb.title, title)) return pb;
       const stops = await listStopsForPlaybook(pb.id);
       const names = stops.map((s) => s.title ?? "").filter(Boolean);
       if (sameStopSet(names, stopNames)) return pb;
       const ids = [
         ...new Set(stops.map((s) => s.place_id).filter(Boolean)),
       ].sort();
-      if (wantIds && ids.length >= 2 && ids.join("\0") === wantIds) {
+      if (wantIds && ids.length > 0 && ids.join("\0") === wantIds) {
         return pb;
       }
       if (day.length > 40 && pb.narrative && normName(pb.narrative).slice(0, 80) === day) {
@@ -328,6 +326,7 @@ export async function fillDraft(
             success: false,
             error_code: "duplicate_plan",
             city_id: city.id,
+            created_playbook_id: existingPlan.id,
             payload: extract as unknown as Record<string, unknown>,
           });
           return {

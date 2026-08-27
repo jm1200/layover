@@ -29,7 +29,7 @@ Not shippable as a freeze until dump **dedup matches the lock** (stop set, not t
 
 ### Bugs
 
-#### Dump dedup still keys off title first — Severity: bug
+#### Dump dedup still keys off title first — Severity: bug — **FIXED 2026-08-27**
 
 - File: `apps/web/src/features/ai-import/actions.ts:244–272` (`matchExistingPlan`), helpers in `extract.ts:242–253`
 - Lock: same **stop set** = same day. Title drift must not ship a twin (`docs/MAP.md`, shareholder brief).
@@ -39,14 +39,14 @@ Not shippable as a freeze until dump **dedup matches the lock** (stop set, not t
   2. A **one-stop** day with a new title does not hit `sameStopSet` or the place-id set (both require ≥ 2). Twin ships.
 - Suggestion: Match place-id set (allow length 1) or normalized stop names. Drop title-first. Narrative prefix is a nice extra, not the key.
 
-#### Public rec still unshifts the hero — Severity: bug
+#### Public rec still unshifts the hero — Severity: bug — **FIXED 2026-08-27** (album only, cap 3; empty album → one `stillForPlace`)
 
 - File: `apps/web/src/app/places/[id]/page.tsx:54–78`, dashboard cards do the same then slice to 3 (`dashboard/page.tsx:93–99`, `your-cards.tsx:31`)
 - Locked rule is album max 3, album is the list. New writes put the URL in `place_photos`. Public rec still: album rows, then `unshift` `stillForPlace` if that URL is not in the album.
 - Seed exhibit: Zurich raclette. 016 backfill copied three plate JPEGs. Place has no `image_url`, so `stillForPlace` is `PLACE_STILL` `/landing/eat-zurich-raclette.jpg` — a fourth URL. Public rec shows **4**. Dashboard cards hide it (`slice(0, 3)`). Public rec does not.
 - Suggestion: Render the album only, cap 3. If album is empty, one hero from `stillForPlace`. Delete the unshift. Then a trigger/check for the cap.
 
-#### City-open line still promises a hero — Severity: bug
+#### City-open line still promises a hero — Severity: bug — **FIXED 2026-08-27** (first sentence only)
 
 - File: `apps/web/src/app/share/review/[id]/page.tsx:65–88`
 - `opened_city` gating is correct (copy only when she actually opened it). The sentence is not: `{City} ({IATA}) is on the map now. I’ll put a city hero up when you publish.`

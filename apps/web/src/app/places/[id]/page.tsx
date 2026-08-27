@@ -62,20 +62,21 @@ export default async function PlacePage({
       });
     }
   }
-  if (still) {
+  if (photos.length === 0 && still) {
+    photos.push({
+      src: still.src,
+      alt: still.alt,
+      badge: still.badge ?? null,
+    });
+  } else if (still) {
     const heroSrc = still.src.split("?")[0];
     const i = photos.findIndex((x) => x.src.split("?")[0] === heroSrc);
-    if (i < 0) {
-      photos.unshift({
-        src: still.src,
-        alt: still.alt,
-        badge: still.badge ?? null,
-      });
-    } else if (i > 0) {
+    if (i > 0) {
       const [hero] = photos.splice(i, 1);
       photos.unshift(hero);
     }
   }
+  const shown = photos.slice(0, 3);
   const canEdit = Boolean(profile && profile.id === place.author_id);
   const mapQuery = [place.name, city?.name, city?.country]
     .filter(Boolean)
@@ -139,13 +140,13 @@ export default async function PlacePage({
               {place.blurb}
             </p>
           ) : null}
-          {photos.length > 0 ? (
+          {shown.length > 0 ? (
             <section className="mt-10">
               <h2 className="font-mono text-sm uppercase tracking-[0.28em] text-zinc-400">
                 Photos
               </h2>
               <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {photos.map((p) => (
+                {shown.map((p) => (
                   <li
                     key={p.src}
                     className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-100"

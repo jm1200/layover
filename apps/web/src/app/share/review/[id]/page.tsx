@@ -82,8 +82,7 @@ export default async function ShareReviewPage({
       </p>
       {newCityLabel ? (
         <p className="mt-2 text-sm text-zinc-600">
-          {newCityLabel} is on the map now. I’ll put a city hero up when you
-          publish.
+          {newCityLabel} is on the map now.
         </p>
       ) : null}
       <p className="mt-2 text-sm text-zinc-500">
