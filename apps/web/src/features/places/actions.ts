@@ -446,7 +446,7 @@ export async function updatePlaceDish(
     .select("id, place_id")
     .eq("id", dishId)
     .maybeSingle();
-  if (!dish) return { error: "Plate not found." };
+  if (!dish) return { error: "Not found." };
   const { data: place } = await supabase
     .from("places")
     .select("id, author_id")
@@ -482,7 +482,7 @@ export async function deletePlaceDish(
     .select("id, place_id")
     .eq("id", dishId)
     .maybeSingle();
-  if (!dish) return { error: "Plate not found." };
+  if (!dish) return { error: "Not found." };
   const { data: place } = await supabase
     .from("places")
     .select("id, author_id")
@@ -512,7 +512,7 @@ export async function attachDishStill(
     .select("id, place_id")
     .eq("id", dishId)
     .maybeSingle();
-  if (!dish) return { error: "Plate not found." };
+  if (!dish) return { error: "Not found." };
   const { data: place } = await supabase
     .from("places")
     .select("id, author_id")
