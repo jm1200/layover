@@ -21,7 +21,7 @@ export function DumpBox({
       {citySlug ? <input type="hidden" name="city" value={citySlug} /> : null}
       <label className="flex flex-col gap-2">
         <span className="text-lg text-zinc-800">
-          Dump what you did. One rec, a few recs, or the whole day.
+          What did you do?
         </span>
         {cityName ? (
           <span className="text-sm text-zinc-500">{cityName} is already on this one.</span>
@@ -40,7 +40,7 @@ export function DumpBox({
           className="rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-base leading-relaxed outline-none focus:border-zinc-900"
         />
         <span className="text-xs text-zinc-500">
-          Phone keyboard mic is fine. She’ll sort recs vs a full day.
+          Type or use the phone mic. We do the rest of the legwork.
         </span>
       </label>
 
@@ -58,7 +58,7 @@ export function DumpBox({
 
       {state.nap ? (
         <p className="rounded-xl bg-zinc-100 px-4 py-3 text-sm text-zinc-700">
-          Lumen’s taking a nap.
+          We’re paused. Try again in a bit.
         </p>
       ) : null}
       {state.error && !state.nap ? (
@@ -80,7 +80,7 @@ export function DumpBox({
         disabled={pending}
         className="rounded-full bg-zinc-950 px-6 py-3 text-sm font-bold uppercase tracking-wider text-white disabled:opacity-60"
       >
-        {pending ? "Filling…" : "Fill the draft"}
+        {pending ? "Writing…" : "Write the recs"}
       </button>
     </form>
   );

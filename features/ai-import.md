@@ -14,10 +14,10 @@
 
 Hotel room, one thumb, ~60 seconds. Lumen talks as little as possible.
 
-1. **Talk once.** Header **Share your intel** → one screen, one box. Lumen: *“Dump what you did. One rec, a few recs, or the whole day.”* They dictate with the **phone keyboard mic** (OS, $0) or type. Same box. Button: **Fill the draft.** No Eat/Do/Buy picker first — **she decides** rec vs recs vs day. Sharing from a city page already has the city.
+1. **Talk once.** Header **Share your intel**. Public copy does **not** introduce Lumen by name: *Skip the form. Describe the layover — one place, a few, or the whole day. We’ll look it up and write the rec. You check, then publish.* Box label *What did you do?* Button **Write the recs**. Phone mic is fine. No Eat/Do/Buy picker first — she still decides rec vs recs vs day. Sharing from a city page already has the city.
 2. **One extract.** `grok-4.3` fills one rec, several independent recs, or a full layover (standalone recs + plan, max 4). **Do not invent a day.** “Then” alone is not an itinerary. Rec blurbs always stand alone. **No second model call** to chase a dish, zone, or hours.
 3. **Holes are the follow-up.** Draft screen, same fields we have today. Empty bits sit obvious. Lumen one-liner: *“I filled what I heard. Tap the blanks, add a pic, publish.”* They tap. They do not answer her. City-open banner: *“{City} ({IATA}) is on the map now.”* **only** if she actually just opened it. Already live: omit, or *“Still {City}.”* Never *“I’ll put a city hero up when you publish.”* on that line. **The day** is filled from the dump. Empty narrative on Publish = refuse.
-4. **Photo on that same screen.** One shot of the rec (food, room, street — their choice), or she stills on publish if they skip it. Extra shots + pick hero on Edit rec (max 3). Eat/Buy **Get this** is names only. Never a black rectangle. Skip a photo = she generates.
+4. **Photos on review, max 3**, same album as Edit rec. Tap hero. Skip → she stills on publish. Eat/Buy **Get this** is names only. Never a black rectangle.
 5. **One question only if a required field is missing** (table below). Same screen, one line. They answer once. Then extract. Never a third turn. Never “what dish?” as chat.
 
 **Quotas they see (do not hide as a crash):** Over ~4k chars → *“Keep it to one layover.”* Monthly cap / kill switch → *“Lumen’s taking a nap.”* Daily 3-draft cap **parked** (John 2026-08-25) — put back in a later phase.

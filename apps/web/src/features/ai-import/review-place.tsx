@@ -1,15 +1,13 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import {
-  attachPlaceImage,
-  publishReviewed,
-  savePlaceReview,
-} from "@/features/ai-import/media-actions";
-import { compressStill } from "@/features/ai-import/compress-still";
-import { createClient } from "@/lib/supabase/client";
+import { publishReviewed, savePlaceReview } from "@/features/ai-import/media-actions";
 import { recKindFromCategory, REC_KIND_LABEL } from "@/features/places/kind";
 import { PlatesEditor } from "@/features/places/plates-editor";
+import {
+  RecPhotosEditor,
+  type RecPhotoSlot,
+} from "@/features/places/rec-photos-editor";
 import type { Dish, Place } from "@/features/places/types";
 import type { Playbook } from "@/features/playbooks/types";
 
@@ -19,12 +17,14 @@ export function ReviewQueue({
   authorId,
   logId,
   dishesByPlace,
+  photosByPlace,
 }: {
   places: Place[];
   playbook: Playbook | null;
   authorId: string;
   logId: string;
   dishesByPlace: Record<string, Dish[]>;
+  photosByPlace: Record<string, RecPhotoSlot[]>;
 }) {
   const [left, setLeft] = useState(places);
   const [filed, setFiled] = useState<Place[]>([]);
@@ -56,7 +56,7 @@ export function ReviewQueue({
     <section className="mt-8">
       <h2 className="font-semibold">Places first</h2>
       <p className="mt-1 text-sm text-zinc-600">
-        I wrote the blurb. Edit if you want. Photo or AI still — then next.
+        Check the rec. Add up to three photos, or we’ll make one.
       </p>
       <div className="mt-4">
         <ReviewPlaceCard
@@ -69,6 +69,7 @@ export function ReviewQueue({
           last={!left[1]}
           recOnly={!playbook}
           dishes={dishesByPlace[current.id] ?? []}
+          photos={photosByPlace[current.id] ?? []}
           onFiled={(next) => {
             setFiled((q) => [...q, next]);
             setLeft((q) => q.slice(1));
@@ -231,6 +232,7 @@ function ReviewPlaceCard({
   last,
   recOnly,
   dishes: initialDishes,
+  photos: initialPhotos,
   onFiled,
 }: {
   place: Place;
@@ -241,15 +243,19 @@ function ReviewPlaceCard({
   last: boolean;
   recOnly: boolean;
   dishes: Dish[];
+  photos: RecPhotoSlot[];
   onFiled: (filed: Place) => void;
 }) {
   const [blurb, setBlurb] = useState(place.blurb ?? "");
-  const [preview, setPreview] = useState(place.image_url ?? null);
+  const [preview, setPreview] = useState<string | null>(
+    place.image_url ?? initialPhotos[0]?.src ?? null,
+  );
   const [wantAi, setWantAi] = useState(
-    !place.image_url && place.want_ai_still !== false,
+    !place.image_url &&
+      initialPhotos.length === 0 &&
+      place.want_ai_still !== false,
   );
   const [msg, setMsg] = useState<string | null>(null);
-  const [uploading, setUploading] = useState(false);
   const [pending, start] = useTransition();
   const kind = recKindFromCategory(place.category);
   const showPlates = kind === "eat" || kind === "shop";
@@ -269,46 +275,12 @@ function ReviewPlaceCard({
     return savePlaceReview(place.id, {}, fd);
   }
 
-  async function onFile(file: File) {
-    setMsg(null);
-    setUploading(true);
-    try {
-      let blob: Blob;
-      try {
-        blob = await compressStill(file);
-      } catch (e) {
-        const why = e instanceof Error ? e.message : "";
-        setMsg(
-          why === "too-large"
-            ? "That file is huge. Try a photo from the camera roll."
-            : "Couldn’t read that photo. JPEG or PNG is safest.",
-        );
-        return;
-      }
-      const supabase = createClient();
-      const path = `${authorId}/${place.id}.jpg`;
-      const { error } = await supabase.storage
-        .from("place-stills")
-        .upload(path, blob, {
-          upsert: true,
-          contentType: "image/jpeg",
-        });
-      if (error) {
-        setMsg("Couldn’t upload that photo.");
-        return;
-      }
-      const { data } = supabase.storage.from("place-stills").getPublicUrl(path);
-      const result = await attachPlaceImage(place.id, data.publicUrl, "user");
-      if (result.error) setMsg(result.error);
-      else {
-        setPreview(`${data.publicUrl}?t=${Date.now()}`);
-        setWantAi(false);
-        setMsg(result.success ?? "Photo saved.");
-      }
-    } finally {
-      setUploading(false);
-    }
-  }
+  const photoSlots =
+    initialPhotos.length > 0
+      ? initialPhotos
+      : preview
+        ? [{ id: "legacy-hero", src: preview, alt: place.name }]
+        : [];
 
   return (
     <article className="rounded-2xl border border-zinc-200 bg-white p-4">
@@ -330,57 +302,27 @@ function ReviewPlaceCard({
         </label>
       </div>
 
-      <div className="mt-4">
-        <p className="text-sm font-medium">Photo</p>
-        <p className="mt-0.5 text-xs text-zinc-500">
-          Any shot of this rec. You can add more and pick the hero on Edit.
-        </p>
-        {preview ? (
-          <div className="relative mt-2 aspect-[4/5] max-w-xs overflow-hidden rounded-xl bg-zinc-100">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={preview}
-              alt={place.name}
-              className="h-full w-full object-cover"
-            />
-          </div>
-        ) : (
-          <p className="mt-1 text-sm text-zinc-500">
-            Upload one, or I’ll make one when you publish (~2¢).
-          </p>
-        )}
-        {preview ? (
-          <p className="mt-1 text-xs text-zinc-500">
-            This is how it sits on the city page. Hate the crop — upload another.
-          </p>
-        ) : null}
-        <div className="mt-2 flex flex-wrap items-center gap-3">
-          <label className="inline-block cursor-pointer rounded-lg border border-zinc-300 px-3 py-2 text-sm">
-            {uploading ? "Uploading…" : "Upload a photo"}
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              disabled={uploading}
-              onChange={(e) => {
-                const f = e.target.files?.[0];
-                if (f) void onFile(f);
-                e.target.value = "";
-              }}
-            />
-          </label>
-          {!preview ? (
-            <label className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                checked={wantAi}
-                onChange={(e) => setWantAi(e.target.checked)}
-              />
-              AI still on publish
-            </label>
-          ) : null}
-        </div>
-      </div>
+      <RecPhotosEditor
+        placeId={place.id}
+        authorId={authorId}
+        heroSrc={preview}
+        photos={photoSlots}
+        className="mt-4 max-w-lg"
+        onChange={(next, hero) => {
+          setPreview(hero);
+          setWantAi(next.length === 0);
+        }}
+      />
+      {!preview ? (
+        <label className="mt-2 flex items-center gap-2 text-sm">
+          <input
+            type="checkbox"
+            checked={wantAi}
+            onChange={(e) => setWantAi(e.target.checked)}
+          />
+          We’ll generate a picture if you skip this
+        </label>
+      ) : null}
 
       {showPlates ? (
         <PlatesEditor
@@ -393,7 +335,7 @@ function ReviewPlaceCard({
 
       <button
         type="button"
-        disabled={pending || uploading}
+        disabled={pending}
         onClick={() =>
           start(async () => {
             setMsg(null);

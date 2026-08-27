@@ -3,7 +3,11 @@ import { AppShell } from "@/features/auth/shell";
 import { requireUser } from "@/features/auth/get-profile";
 import { createClient } from "@/lib/supabase/server";
 import { ReviewQueue } from "@/features/ai-import/review-place";
-import { getPlace, listDishesForPlace } from "@/features/places/queries";
+import {
+  getPlace,
+  listDishesForPlace,
+  listPlacePhotos,
+} from "@/features/places/queries";
 import { getPlaybook } from "@/features/playbooks/queries";
 
 export default async function ShareReviewPage({
@@ -36,8 +40,19 @@ export default async function ShareReviewPage({
   const dishLists = await Promise.all(
     places.map((p) => listDishesForPlace(p.id)),
   );
+  const albums = await Promise.all(places.map((p) => listPlacePhotos(p.id)));
   const dishesByPlace = Object.fromEntries(
     places.map((p, i) => [p.id, dishLists[i] ?? []]),
+  );
+  const photosByPlace = Object.fromEntries(
+    places.map((p, i) => [
+      p.id,
+      (albums[i] ?? []).map((ph) => ({
+        id: ph.id,
+        src: ph.image_url,
+        alt: p.name,
+      })),
+    ]),
   );
   const playbook = log.created_playbook_id
     ? await getPlaybook(log.created_playbook_id)
@@ -78,6 +93,7 @@ export default async function ShareReviewPage({
         authorId={profile.id}
         logId={log.id}
         dishesByPlace={dishesByPlace}
+        photosByPlace={photosByPlace}
       />
     </AppShell>
   );

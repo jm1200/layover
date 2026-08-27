@@ -18,11 +18,15 @@ export function RecPhotosEditor({
   authorId,
   heroSrc,
   photos: initial,
+  onChange,
+  className,
 }: {
   placeId: string;
   authorId: string;
   heroSrc?: string | null;
   photos: RecPhotoSlot[];
+  onChange?: (photos: RecPhotoSlot[], hero: string | null) => void;
+  className?: string;
 }) {
   const [photos, setPhotos] = useState((initial ?? []).slice(0, MAX));
   const [hero, setHero] = useState(heroSrc ?? initial?.[0]?.src ?? null);
@@ -62,15 +66,18 @@ export function RecPhotosEditor({
         return;
       }
       const src = `${url}?t=${Date.now()}`;
-      setPhotos((p) => [...p, { id: added.photoId ?? src, src, alt: "Photo" }]);
+      const next = [...photos, { id: added.photoId ?? src, src, alt: "Photo" }];
+      const nextHero = hero ?? url;
+      setPhotos(next);
       if (!hero) setHero(url);
+      onChange?.(next, nextHero);
     } finally {
       setUploading(false);
     }
   }
 
   return (
-    <div className="mt-8 max-w-lg">
+    <div className={className ?? "mt-8 max-w-lg"}>
       <p className="text-sm font-medium">Photos</p>
       <p className="mt-0.5 text-xs text-zinc-500">
         Any pictures of this rec. Tap one to use as the hero — that’s the
@@ -96,6 +103,7 @@ export function RecPhotosEditor({
                     else {
                       setHero(p.src);
                       setMsg("That’s the hero.");
+                      onChange?.(photos, p.src);
                     }
                   })
                 }
@@ -126,10 +134,12 @@ export function RecPhotosEditor({
                       return;
                     }
                     const next = photos.filter((x) => x.id !== p.id);
+                    const nextHero = selected
+                      ? (next[0]?.src ?? null)
+                      : hero;
                     setPhotos(next);
-                    if (selected) {
-                      setHero(next[0]?.src ?? null);
-                    }
+                    if (selected) setHero(nextHero);
+                    onChange?.(next, nextHero);
                   });
                 }}
                 className="absolute right-1 top-1 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-black/70 text-xs text-white"
