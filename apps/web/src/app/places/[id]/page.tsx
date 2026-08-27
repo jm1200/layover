@@ -10,6 +10,7 @@ import {
 } from "@/features/places/kind";
 import { PlaceMap } from "@/features/places/place-map";
 import { stillForPlace } from "@/features/places/rec-media";
+import { ZoomPhoto } from "@/features/places/zoom-photo";
 import {
   getPlace,
   listCities,
@@ -61,12 +62,19 @@ export default async function PlacePage({
       });
     }
   }
-  if (photos.length === 0 && still) {
-    photos.push({
-      src: still.src,
-      alt: still.alt,
-      badge: still.badge ?? null,
-    });
+  if (still) {
+    const heroSrc = still.src.split("?")[0];
+    const i = photos.findIndex((x) => x.src.split("?")[0] === heroSrc);
+    if (i < 0) {
+      photos.unshift({
+        src: still.src,
+        alt: still.alt,
+        badge: still.badge ?? null,
+      });
+    } else if (i > 0) {
+      const [hero] = photos.splice(i, 1);
+      photos.unshift(hero);
+    }
   }
   const canEdit = Boolean(profile && profile.id === place.author_id);
   const mapQuery = [place.name, city?.name, city?.country]
@@ -131,36 +139,29 @@ export default async function PlacePage({
               {place.blurb}
             </p>
           ) : null}
-          {photos.filter(
-            (p) =>
-              !still || p.src.split("?")[0] !== still.src.split("?")[0],
-          ).length > 0 ? (
+          {photos.length > 0 ? (
             <section className="mt-10">
               <h2 className="font-mono text-sm uppercase tracking-[0.28em] text-zinc-400">
                 Photos
               </h2>
               <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {photos
-                  .filter(
-                    (p) =>
-                      !still ||
-                      p.src.split("?")[0] !== still.src.split("?")[0],
-                  )
-                  .map((p) => (
+                {photos.map((p) => (
                   <li
                     key={p.src}
                     className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-100"
                   >
-                    <AiStill
-                      src={p.src}
-                      alt={p.alt}
-                      sizes="30vw"
-                      className="object-cover"
-                      badge={
-                        p.badge ??
-                        (p.src.startsWith("/landing/") ? "ai" : null)
-                      }
-                    />
+                    <ZoomPhoto src={p.src} alt={p.alt}>
+                      <AiStill
+                        src={p.src}
+                        alt={p.alt}
+                        sizes="30vw"
+                        className="object-cover"
+                        badge={
+                          p.badge ??
+                          (p.src.startsWith("/landing/") ? "ai" : null)
+                        }
+                      />
+                    </ZoomPhoto>
                   </li>
                 ))}
               </ul>
