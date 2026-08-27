@@ -17,6 +17,22 @@ Log in. Use **your** recs (e.g. Geneva dim-sum), not Zurich seed. Dashboard must
 | 6 | Delete rec worked; copy was confusing | Sofia copy. Rec gone; day keeps other stops. |
 | 7 | Order on edit didn’t stick; two buttons; delete day failed | One Save → public layover. Delete day must work. |
 
+## Feel pass — you (2026-08-27)
+
+Not the whole click list. Playwright already does browse, email login, create/save/delete, zoom. **~10 minutes. Your recs, not Zurich seed.**
+
+Dev: http://localhost:3000
+
+1. **Google.** Sign out. `/login`. Button should look like every other site (G + Continue with Google). Click it. Land on **Yours**. If Google isn’t wired, skip and say so — email still works.
+2. **Dump.** `/share`. Paste a real place (a few sentences). Phone photo if you have one, or skip. **Write it up** → check → **Publish**. Land on the rec. Hero is in **Photos**. Tap a photo → blows up → **X** closes. No black rectangle. No word “rec”. Get this is names only.
+3. **Yours.** Only your published recs and days. No Zurich seed. No `(draft)`.
+4. **Hotel (optional).** Dump a line with a crew hotel name. Public rec must not show it.
+5. **Feel.** Walk that rec like a crewmate. Intel, or homework?
+
+If something’s wrong: URL + what you clicked + what you saw. Then we freeze dump/edit/photos.
+
+---
+
 ## Playwright (2026-08-27)
 
 **Milo owns this.** He writes and runs `cd apps/web && npm run test:e2e` before anyone pings you. Theo reviews. You are not the regression suite.

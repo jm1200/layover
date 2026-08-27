@@ -79,7 +79,7 @@ Logged-out: Layover · Share your intel · Cities · Log in.
 |------|------|
 | Headline | **In from a trip?** |
 | Sub | **Describe the layover. We’ll fill it in.** |
-| Google | **Continue with Google** |
+| Google | **Continue with Google** — official four-color G, white button (not a plain zinc pill) |
 | Quiet | **Use email instead** |
 | Email submit | **Log in** |
 | Footer | **No account? Sign up** |
