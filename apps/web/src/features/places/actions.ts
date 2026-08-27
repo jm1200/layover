@@ -71,7 +71,7 @@ export async function createPlace(
     .single();
 
   if (error || !place) {
-    return { error: error?.message ?? "Could not create rec." };
+    return { error: error?.message ?? "Could not create this." };
   }
 
   if (dishName) {
@@ -84,7 +84,7 @@ export async function createPlace(
     if (dishErr) {
       await supabase.from("places").delete().eq("id", place.id);
       return {
-        error: `Could not save item: ${dishErr.message}. Rec was not created.`,
+        error: `Could not save item: ${dishErr.message}. Nothing was created.`,
       };
     }
   }
@@ -183,9 +183,9 @@ export async function attachPlaceStill(
     .select("id, author_id")
     .eq("id", placeId)
     .maybeSingle();
-  if (!place) return { error: "Rec not found." };
+  if (!place) return { error: "Not found." };
   if (profile.role !== "admin" && place.author_id !== profile.id) {
-    return { error: "Not your rec." };
+    return { error: "Not yours." };
   }
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
   const ours =
@@ -261,9 +261,9 @@ export async function addPlacePhoto(
     .select("id, author_id, image_url")
     .eq("id", placeId)
     .maybeSingle();
-  if (!place) return { error: "Rec not found." };
+  if (!place) return { error: "Not found." };
   if (profile.role !== "admin" && place.author_id !== profile.id) {
-    return { error: "Not your rec." };
+    return { error: "Not yours." };
   }
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
   const ours =
@@ -320,9 +320,9 @@ export async function removePlacePhoto(
     .select("id, author_id, image_url")
     .eq("id", placeId)
     .maybeSingle();
-  if (!place) return { error: "Rec not found." };
+  if (!place) return { error: "Not found." };
   if (profile.role !== "admin" && place.author_id !== profile.id) {
-    return { error: "Not your rec." };
+    return { error: "Not yours." };
   }
   const { data: photo } = await supabase
     .from("place_photos")
@@ -401,9 +401,9 @@ export async function addPlaceDish(
     .select("id, author_id")
     .eq("id", placeId)
     .maybeSingle();
-  if (!place) return { error: "Rec not found." };
+  if (!place) return { error: "Not found." };
   if (profile.role !== "admin" && place.author_id !== profile.id) {
-    return { error: "Not your rec." };
+    return { error: "Not yours." };
   }
   const { count } = await supabase
     .from("dishes")
@@ -452,9 +452,9 @@ export async function updatePlaceDish(
     .select("id, author_id")
     .eq("id", dish.place_id)
     .maybeSingle();
-  if (!place) return { error: "Rec not found." };
+  if (!place) return { error: "Not found." };
   if (profile.role !== "admin" && place.author_id !== profile.id) {
-    return { error: "Not your rec." };
+    return { error: "Not yours." };
   }
   const { data: updated, error } = await supabase
     .from("dishes")
@@ -488,9 +488,9 @@ export async function deletePlaceDish(
     .select("id, author_id")
     .eq("id", dish.place_id)
     .maybeSingle();
-  if (!place) return { error: "Rec not found." };
+  if (!place) return { error: "Not found." };
   if (profile.role !== "admin" && place.author_id !== profile.id) {
-    return { error: "Not your rec." };
+    return { error: "Not yours." };
   }
   const { error } = await supabase.from("dishes").delete().eq("id", dishId);
   if (error) return { error: error.message };
@@ -518,9 +518,9 @@ export async function attachDishStill(
     .select("id, author_id")
     .eq("id", dish.place_id)
     .maybeSingle();
-  if (!place) return { error: "Rec not found." };
+  if (!place) return { error: "Not found." };
   if (profile.role !== "admin" && place.author_id !== profile.id) {
-    return { error: "Not your rec." };
+    return { error: "Not yours." };
   }
   const { data: rec } = await supabase
     .from("places")
@@ -559,9 +559,9 @@ export async function deletePlace(
     .select("id, city_id, author_id")
     .eq("id", placeId)
     .maybeSingle();
-  if (!place) return { error: "Rec not found." };
+  if (!place) return { error: "Not found." };
   if (profile.role !== "admin" && place.author_id !== profile.id) {
-    return { error: "Not your rec." };
+    return { error: "Not yours." };
   }
   const { data: city } = await supabase
     .from("cities")

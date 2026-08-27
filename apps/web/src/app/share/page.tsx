@@ -20,7 +20,7 @@ export default async function SharePage({
     <AppShell profile={profile} title="Share your intel">
       <p className="mb-6 max-w-lg text-zinc-600">
         Skip the form. Describe the layover — one place, a few, or the
-        whole day. We’ll look it up and write the rec. You check, then
+        whole day. We’ll look it up and write it up. You check, then
         publish.
       </p>
       <DumpBox citySlug={city?.slug} cityName={city?.name} />

@@ -196,7 +196,7 @@ export async function updatePlaybookMeta(
   return {
     success:
       status === "published"
-        ? "Live on the city — recs too."
+        ? "Live on the city — Eat, Do, and Buy too."
         : "Saved as draft (only you).",
   };
 }
@@ -391,5 +391,5 @@ export async function savePlaybookStops(
       .maybeSingle();
     if (city?.slug) revalidatePath(`/cities/${city.slug}`);
   }
-  return { success: "Stops updated. Recs are unchanged." };
+  return { success: "Stops updated. Eat, Do, and Buy are unchanged." };
 }

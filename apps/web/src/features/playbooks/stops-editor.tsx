@@ -34,7 +34,7 @@ export function StopsEditor({
     <div className="mt-8 max-w-xl">
       <p className="text-sm font-medium">Stops</p>
       <p className="mt-0.5 text-xs text-zinc-500">
-        Tug the day. Recs stay. Cap 4.
+        Tug the day. Eat, Do, and Buy stay. Cap 4.
       </p>
       <ul className="mt-3 space-y-2">
         {stops.map((s, i) => (
@@ -61,7 +61,7 @@ export function StopsEditor({
                   href={`/places/${s.place_id}`}
                   className="text-xs text-zinc-500 underline"
                 >
-                  Rec
+                  Open
                 </Link>
               ) : null}
             </div>

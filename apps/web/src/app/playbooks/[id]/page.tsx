@@ -164,7 +164,7 @@ export default async function PlaybookPage({
                         href={`/places/${s.place_id}`}
                         className="underline"
                       >
-                        Open rec
+                        Open
                       </Link>
                     </p>
                   ) : null}

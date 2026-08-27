@@ -14,7 +14,7 @@
 
 Hotel room, one thumb, ~60 seconds. Lumen talks as little as possible.
 
-1. **Talk once.** Header **Share your intel**. Public copy does **not** introduce Lumen by name: *Skip the form. Describe the layover — one place, a few, or the whole day. We’ll look it up and write the rec. You check, then publish.* Box label *What did you do?* Button **Write the recs**. Phone mic is fine. No Eat/Do/Buy picker first — she still decides rec vs recs vs day. Sharing from a city page already has the city.
+1. **Talk once.** Header **Share your intel**. Public copy does **not** introduce Lumen by name and does **not** say “rec”: *Skip the form. Describe the layover — one place, a few, or the whole day. We’ll look it up and write it up. You check, then publish.* Box: *What did you do?* Helper: *Type or dictate using your mic.* Button **Write it up**. No Eat/Do/Buy picker first — she still decides place vs places vs day. Sharing from a city page already has the city.
 2. **One extract.** `grok-4.3` fills one rec, several independent recs, or a full layover (standalone recs + plan, max 4). **Do not invent a day.** “Then” alone is not an itinerary. Rec blurbs always stand alone. **No second model call** to chase a dish, zone, or hours.
 3. **Holes are the follow-up.** Draft screen, same fields we have today. Empty bits sit obvious. Lumen one-liner: *“I filled what I heard. Tap the blanks, add a pic, publish.”* They tap. They do not answer her. City-open banner: *“{City} ({IATA}) is on the map now.”* **only** if she actually just opened it. Already live: omit, or *“Still {City}.”* Never *“I’ll put a city hero up when you publish.”* on that line. **The day** is filled from the dump. Empty narrative on Publish = refuse.
 4. **Photos on review, max 3**, same album as Edit rec. Tap hero. Skip → she stills on publish. Eat/Buy **Get this** is names only. Never a black rectangle.
@@ -147,14 +147,14 @@ Do not invent a CMS voice. Login strings also live in `features/auth.md`. Photo 
 **Login `/login`** — Google first. Not an admin form. **Never “Steal a day.”** John killed steal.
 
 - Headline: `In from a trip?`
-- Supporting: `Dump the rec. She fills the form.`
+- Supporting: `Describe the layover. We’ll fill it in.`
 - Primary: `Continue with Google`
 - Quiet: `Use email instead`
 - Email submit: `Log in`
 - Footer: `No account? Sign up`
 - Kill: `Crew, explorers, and sponsors` / signup `Default role is user…` / `Steal a day` / `Google is the door.`
 - Signup headline: `First time?`
-- Signup supporting: `Dump the rec. She fills the form.`
+- Signup supporting: `Describe the layover. We’ll fill it in.`
 - Signup email: `Sign up`
 - Signup quiet: `Already in? Log in`
 

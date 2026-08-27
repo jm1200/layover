@@ -430,7 +430,7 @@ export async function fillDraft(
         payload: extract as unknown as Record<string, unknown>,
       });
       return {
-        error: "Those recs are already on the city.",
+        error: "Those are already on the city.",
         story,
         hintSlug: city.slug,
       };
@@ -475,7 +475,7 @@ export async function fillDraft(
       dishNote: extract.dish_note,
     });
     if (!pid) {
-      return { error: "Couldn’t save the rec. Try again.", story };
+      return { error: "Couldn’t save that. Try again.", story };
     }
     if (!createdPlaceIds.length) {
       await supabase.from("ai_import_logs").insert({
@@ -486,7 +486,7 @@ export async function fillDraft(
         payload: extract as unknown as Record<string, unknown>,
       });
       return {
-        error: "That rec is already on the city.",
+        error: "That’s already on the city.",
         alreadyHref: `/places/${pid}`,
         story,
         hintSlug: city.slug,

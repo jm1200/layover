@@ -47,6 +47,6 @@ A **full layover** is a combo of places. When Lumen drafts a plan from a story, 
 
 ## UI copy (locked 2026-08-26 — Sofia)
 
-**Dashboard** (`/dashboard`): title **Yours**. Lists **Your recs** and **Your layovers**. This user’s **published** rows only — seed and other people are not yours. **No** `(draft)` / `(published)`. Rec page: never **Status: draft**. Empty hero = labeled 4:5 (*The outside — door, street, walk-up. This is the city card.*), never a black rectangle.
+**Dashboard** (`/dashboard`): title **Yours**. Lists **Your Eat, Do & Buy** and **Your layovers**. This user’s **published** rows only — seed and other people are not yours. **No** `(draft)` / `(published)`. Never say **rec** on the site.
 
 **Edit layover** (`/dashboard/playbooks/[id]/edit`): **one button.** Label **Save**. Persists title + story + stop drop/reorder, keeps the day live, then **lands on the layover** (`/playbooks/[id]`). Kill **Publish — live on the city** here. Kill **Save stop order**. New layover create still uses **Publish**.  

@@ -34,7 +34,7 @@ function whatSheDid(row: LogRow): string {
     case "need_name":
       return "Couldn’t find the place";
     case "linked":
-      return "Linked an existing rec";
+      return "Linked an existing place";
     case "parse":
       return "Couldn’t read the dump";
     case "xai":
@@ -48,7 +48,7 @@ function whatSheDid(row: LogRow): string {
   if (row.success && row.created_playbook_id) return "Filed a layover";
   if (row.success && (row.created_place_ids?.length ?? 0) > 0) {
     const n = row.created_place_ids!.length;
-    return n === 1 ? "Filed a rec" : `Filed ${n} recs`;
+    return n === 1 ? "Filed Eat, Do, or Buy" : `Filed ${n} places`;
   }
   if (row.success) return "Dump ok";
   return "Failed";

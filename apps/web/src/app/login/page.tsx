@@ -30,7 +30,7 @@ export default async function LoginPage({
           Come in.
         </h1>
         <p className="mt-2 text-sm text-white/60">
-          Dump the rec. She fills the form.
+          Describe the layover. We’ll fill it in.
         </p>
       </div>
       {errorText ? (

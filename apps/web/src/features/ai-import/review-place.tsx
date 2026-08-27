@@ -45,7 +45,7 @@ export function ReviewQueue({
           <RecPublish logId={logId} />
         ) : (
           <p className="mt-8 text-sm text-zinc-500">
-            Nothing new to file — that rec is already on the city.
+            Nothing new to file — that’s already on the city.
           </p>
         )}
       </div>
@@ -56,7 +56,7 @@ export function ReviewQueue({
     <section className="mt-8">
       <h2 className="font-semibold">Places first</h2>
       <p className="mt-1 text-sm text-zinc-600">
-        Check the rec. Add up to three photos, or we’ll make one.
+        Check this. Add up to three photos, or we’ll make one.
       </p>
       <div className="mt-4">
         <ReviewPlaceCard
@@ -132,7 +132,7 @@ function LayoverPublish({
     <section>
       <h2 className="font-semibold">Now the layover</h2>
       <p className="mt-1 text-sm text-zinc-600">
-        The day that strings those recs. Publish when you’re ready — stills
+        The day that strings those stops. Publish when you’re ready — stills
         generate after that, if you asked for them.
       </p>
       <div className="mt-4 overflow-hidden rounded-2xl bg-white ring-1 ring-zinc-200">

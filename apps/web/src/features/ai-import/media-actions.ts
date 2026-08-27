@@ -51,9 +51,9 @@ async function ownPlace(placeId: string) {
         .eq("id", placeId)
         .maybeSingle()
     : full;
-  if (!place) return { ok: false as const, error: "Rec not found." };
+  if (!place) return { ok: false as const, error: "Not found." };
   if (profile.role !== "admin" && place.author_id !== profile.id) {
-    return { ok: false as const, error: "Not your rec." };
+    return { ok: false as const, error: "Not yours." };
   }
   return { ok: true as const, profile, supabase, place };
 }
@@ -178,7 +178,7 @@ async function generatePlaceStillNow(
     return { success: "Already has a photo.", imageUrl: ctx.place.image_url };
   }
   if (ctx.place.image_source === "ai") {
-    return { error: "One AI still per rec — upload yours to replace it." };
+    return { error: "One generated picture each — upload yours to replace it." };
   }
   const blocked = await aiBlocked(ctx.supabase, STILL_USD);
   if (blocked) return { error: blocked };
@@ -446,7 +446,7 @@ export async function sellPlaceBlurb(
   const ctx = await ownPlace(placeId);
   if (!ctx.ok) return { error: ctx.error };
   if (ctx.place.status !== "draft" && ctx.profile.role !== "admin") {
-    return { error: "That rec is already live." };
+    return { error: "That’s already live." };
   }
   const blocked = await aiBlocked(ctx.supabase);
   if (blocked) return { error: blocked };

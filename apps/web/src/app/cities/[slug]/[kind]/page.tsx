@@ -75,7 +75,7 @@ export default async function CityKindPage({
         </h2>
         {list.length === 0 ? (
           <p className="mt-6 text-zinc-600">
-            No {label} recs in {city.name} yet.{" "}
+            No {label} in {city.name} yet.{" "}
             <Link
               href={profile ? `/share?city=${encodeURIComponent(city.slug)}` : "/signup"}
               className="font-medium text-zinc-900 underline"

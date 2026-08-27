@@ -212,7 +212,7 @@ function EmptyInvite({
 }) {
   return (
     <p className="mt-6 max-w-xl text-zinc-600">
-      No {label} recs in {cityName} yet.{" "}
+      No {label} in {cityName} yet.{" "}
       <Link
         href={loggedIn ? `/share?city=${encodeURIComponent(citySlug)}` : "/signup"}
         className="font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4"

@@ -40,7 +40,7 @@ export function DumpBox({
           className="rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-base leading-relaxed outline-none focus:border-zinc-900"
         />
         <span className="text-xs text-zinc-500">
-          Type or use the phone mic. We do the rest of the legwork.
+          Type or dictate using your mic.
         </span>
       </label>
 
@@ -80,7 +80,7 @@ export function DumpBox({
         disabled={pending}
         className="rounded-full bg-zinc-950 px-6 py-3 text-sm font-bold uppercase tracking-wider text-white disabled:opacity-60"
       >
-        {pending ? "Writing…" : "Write the recs"}
+        {pending ? "Writing…" : "Write it up"}
       </button>
     </form>
   );

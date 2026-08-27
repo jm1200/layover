@@ -37,7 +37,7 @@ export default async function DashboardPage() {
       <section className="mt-8">
         <h2 className="font-semibold">Your layovers</h2>
         {myPlaybooks.length === 0 ? (
-          <p className="mt-3 text-sm text-zinc-500">No days yet. Dump one.</p>
+          <p className="mt-3 text-sm text-zinc-500">No days yet. Share one.</p>
         ) : (
           <ul className="mt-3 space-y-3">
             {myPlaybooks.map((pb) => (
@@ -56,9 +56,9 @@ export default async function DashboardPage() {
       </section>
 
       <section className="mt-8">
-        <h2 className="font-semibold">Your recs</h2>
+        <h2 className="font-semibold">Your Eat, Do & Buy</h2>
         {myPlaces.length === 0 ? (
-          <p className="mt-3 text-sm text-zinc-500">No recs yet. Dump one.</p>
+          <p className="mt-3 text-sm text-zinc-500">Nothing here yet. Share one.</p>
         ) : (
           <ul className="mt-3 space-y-3">
             {myPlaces.map((p) => (

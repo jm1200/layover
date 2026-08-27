@@ -115,9 +115,9 @@ This page is **Yours** — published recs and days. It is not a form farm, not a
 | Title | Yours |
 | Line | What you put on the map. |
 | Layovers heading | Your layovers |
-| Layovers empty | No days yet. Dump one. |
-| Recs heading | Your recs |
-| Recs empty | No recs yet. Dump one. |
+| Layovers empty | No days yet. Share one. |
+| Eat/Do/Buy heading | Your Eat, Do & Buy |
+| Eat/Do/Buy empty | Nothing here yet. Share one. |
 | Manual (quiet, after the lists) | or type it yourself |
 | Manual links | Eat · Do · Buy · Full layover |
 
@@ -144,13 +144,13 @@ Google first if the button exists. Email is not the first thing they see. Do not
 | Slot | String |
 |------|--------|
 | Headline | In from a trip? |
-| Supporting | Dump the rec. She fills the form. |
+| Supporting | Describe the layover. We’ll fill it in. |
 | Primary button | Continue with Google |
 | Quiet email link | Use email instead |
 | Email submit | Log in |
 | Footer | No account? Sign up |
 | Signup headline | First time? |
-| Signup supporting | Dump the rec. She fills the form. |
+| Signup supporting | Describe the layover. We’ll fill it in. |
 | Signup email | Sign up |
 | Signup quiet | Already in? Log in |
 

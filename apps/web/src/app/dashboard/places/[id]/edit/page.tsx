@@ -57,7 +57,7 @@ export default async function EditPlacePage({
         : [];
 
   return (
-    <AppShell profile={profile} title="Edit rec">
+    <AppShell profile={profile} title="Edit">
       <PlaceForm
         action={bound}
         cities={cities}

@@ -12,7 +12,7 @@ export function DeleteLayoverButton({ playbookId }: { playbookId: string }) {
       onClick={() => {
         if (
           !confirm(
-            "Take this layover off the city? The recs stay on Eat / Do / Buy.",
+            "Take this layover off the city? Eat, Do, and Buy stay.",
           )
         ) {
           return;

@@ -86,7 +86,7 @@ export function EditLayoverForm({
       <div>
         <p className="text-sm font-medium">Stops</p>
         <p className="mt-0.5 text-xs text-zinc-500">
-          Tug the day. Recs stay on Eat / Do / Buy.
+          Tug the day. Eat, Do, and Buy stay.
         </p>
         <ul className="mt-3 space-y-2">
           {stops.map((s, i) => (
@@ -113,7 +113,7 @@ export function EditLayoverForm({
                     href={`/places/${s.place_id}`}
                     className="text-xs text-zinc-500 underline"
                   >
-                    Rec
+                    Open
                   </Link>
                 ) : null}
               </div>
@@ -172,7 +172,7 @@ export function EditLayoverForm({
         onClick={() => {
           if (
             !confirm(
-              "This day leaves the city. Recs stay on Eat / Do / Buy.",
+              "This day leaves the city. Eat, Do, and Buy stay.",
             )
           ) {
             return;

@@ -74,7 +74,7 @@ export default async function ShareReviewPage({
         {n > 0 && playbook
           ? `I’ll file ${n} place${n === 1 ? "" : "s"} first — one at a time — then the layover that strings them.`
           : n > 0
-            ? "This rec first. Edit the blurb if you want, then publish."
+            ? "This place first. Edit the blurb if you want, then publish."
             : "I filled what I heard."}
       </p>
       {newCityLabel ? (

@@ -19,7 +19,7 @@ export default async function NewPlacePage({
   const lockKind = parseRecKind(raw);
   const title = lockKind
     ? `Add: ${REC_KIND_LABEL[lockKind]}`
-    : "Add a rec";
+    : "Add Eat, Do, or Buy";
 
   const [cities, zones] = await Promise.all([listCities(), listAllZones()]);
 

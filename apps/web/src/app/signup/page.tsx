@@ -22,7 +22,7 @@ export default async function SignupPage() {
           First time?
         </h1>
         <p className="mt-2 text-sm text-white/60">
-          Dump the rec. She fills the form.
+          Describe the layover. We’ll fill it in.
         </p>
       </div>
       <div className="w-full max-w-sm">

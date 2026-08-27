@@ -77,7 +77,7 @@ Logged-out: Layover · Share your intel · Cities · Log in.
 | Slot | Copy |
 |------|------|
 | Headline | **In from a trip?** |
-| Sub | **Dump the rec. She fills the form.** |
+| Sub | **Describe the layover. We’ll fill it in.** |
 | Google | **Continue with Google** |
 | Quiet | **Use email instead** |
 | Email submit | **Log in** |
@@ -88,7 +88,7 @@ Logged-out: Layover · Share your intel · Cities · Log in.
 | Slot | Copy |
 |------|------|
 | Headline | **First time?** |
-| Sub | **Dump the rec. She fills the form.** |
+| Sub | **Describe the layover. We’ll fill it in.** |
 | Google | **Continue with Google** |
 | Email submit | **Sign up** |
 | Footer | **Already in? Log in** |
