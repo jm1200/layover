@@ -17,6 +17,18 @@ Log in. Use **your** recs (e.g. Geneva dim-sum), not Zurich seed. Dashboard must
 | 6 | Delete rec worked; copy was confusing | Sofia copy. Rec gone; day keeps other stops. |
 | 7 | Order on edit didn’t stick; two buttons; delete day failed | One Save → public layover. Delete day must work. |
 
+## Playwright (2026-08-27)
+
+Grok now clicks a real browser: `cd apps/web && npm run test:e2e`.
+
+Covers: home/cities, rec Photos + zoom + X, email login, Yours is yours, create rec, upload still, Get this name, Save → rec, delete rec, layover publish + delete day.
+
+**Does not cover (you still click):** Google button, a photo from your phone, dump → Lumen (xAI spend), “does this feel like crew.”
+
+Needs an email/password user. Either Confirm email OFF so the suite can sign one up, or put `E2E_EMAIL` / `E2E_PASSWORD` in `apps/web/.env.local`.
+
+---
+
 ## Grok already checked (2026-08-26)
 
 | Check | Result |

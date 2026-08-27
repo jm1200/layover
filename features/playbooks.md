@@ -35,6 +35,8 @@ A **full layover** is a combo of places. When Lumen drafts a plan from a story, 
 
 **Edit day (locked 2026-08-26):** **one Save** — persists drop/reorder, keeps the day live, redirects to the public layover. No second Publish / Save order / Back. **Delete day must work**; recs stay.
 
+- [x] Playwright E2E: publish a day, then take it off (`apps/web/e2e/layover.spec.ts`).
+
 ## UI copy (shipped 2026-08-21; homepage series + Buy 2026-08-22)
 
 - [x] Customer name for the object: **layover plan**. Do not say “playbook” on city, dashboard, or forms. Do not say “full package adventure.” Do not say **guide** as a product noun.

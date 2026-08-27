@@ -2,7 +2,7 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-08-27 (rec photos: album + hero; Get this names)  
+**Last updated:** 2026-08-27 (Playwright E2E clicks the founder list; you still do Google + feel)  
 **Company:** Layover (working name)  
 **Stage:** **Phase 4 close.** Engineers fix what you found. Not Phase 3. Not Stripe.
 
@@ -25,7 +25,7 @@ Engineering ships this cut. Sofia + Lumen own login, photo labels, and delete-re
 ## You
 
 1. Google Cloud → OAuth web client → paste into Supabase Auth. Recipe: `docs/board/HUMAN-SETUP.md`. Maya cannot do this. Login restyle still ships without it.
-2. After the fix pack: click `docs/board/FOUNDER-TEST.md` again on **your** recs.
+2. After the fix pack: feel-pass `docs/board/FOUNDER-TEST.md` on **your** recs. Grok runs `cd apps/web && npm run test:e2e` for the click-script (not Google, not dump/Lumen).
 
 **Money:** $20/mo. 4k chars. Kill switch. Daily 3-draft cap still off.
 

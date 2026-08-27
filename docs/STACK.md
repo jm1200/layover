@@ -59,3 +59,4 @@ See also: free-tier pause on Supabase Free; Vercel Hobby non-commercial policy â
 - `service_role` key only on server.  
 - Document env var names in `features/auth.md` when scaffolding.  
 - Update `docs/MAP.md` when `apps/web` exists.
+- **E2E:** Playwright in `apps/web/e2e`. Run `cd apps/web && npm run test:e2e`. Chromium only. Email/password test user (`E2E_EMAIL` / `E2E_PASSWORD` or auto-signup if Confirm email is off). Do not hit xAI from the suite. Google OAuth is not scripted.

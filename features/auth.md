@@ -31,6 +31,7 @@ Single login for `user`, `sponsor`, and `admin`. Server-enforced roles.
 - [x] Env vars documented (`.env.local.example`); secrets gitignored
 - [x] Migration SQL: `apps/web/supabase/migrations/001_profiles.sql`
 - [x] Live verification with shareholder Supabase project (admin working)
+- [x] Playwright E2E logs in with email/password (`apps/web/e2e`). Google OAuth is not in the suite.
 
 ## Env vars (intent)
 

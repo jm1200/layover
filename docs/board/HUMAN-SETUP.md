@@ -78,6 +78,8 @@ Supabase → **Authentication** → **URL configuration**:
 Authentication → **Providers** → **Email** → turn **OFF** “Confirm email”.  
 Then signup logs you in immediately (no email link / callback). You can turn confirmation back on later for production.
 
+Playwright (`cd apps/web && npm run test:e2e`) uses that same setting to sign up a throwaway email user. Or set `E2E_EMAIL` / `E2E_PASSWORD` in `.env.local`. Google login is not in the suite.
+
 If you still see “wait X seconds”: that is Supabase **rate limiting** after several tries — wait a minute and use **Log in** (not Sign up again) with the same email/password.
 
 ### 6. Tell the engineer “keys are in”
