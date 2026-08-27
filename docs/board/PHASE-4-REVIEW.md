@@ -90,3 +90,59 @@ The dump → review → publish path works as a product, and the locked rec-edit
 ## Verdict
 
 Not shippable as a Phase 4 freeze until the album is one table. Dump → upload or AI still → publish → Edit rec is a fake `legacy-hero` row; X fails; extra photos and the public unshift can break “max 3.” Stop Up/Down + Save stop order will bounce on the position unique. Both are in the founder script. Leftover actions (`sellPlaceBlurb`, `lumenOffersStill`, `addReviewDish`, `attachDishImage`, dish still maps, unused `allowHidden` / `submitLabel`) are churn, not the blocker — delete them in a cleanup pass after the album write is unified. RecStillEditor is already gone. Nested Save looks correctly `type="button"`; still click it. Playbook staying on edit is the inconsistency you already locked — don’t reverse rec redirect to match it. 011 and 016 must actually be in the project or the spend RPC and album 500 in the brief stay true. After those two bugs and SQL, founder CRUD/photo test is the gate, not more features.
+
+---
+
+# 2026-08-27 — Milo
+
+Read the files. Did not implement. Did not rubber-stamp the 8/26 list — that review is stale against what is on disk now.
+
+## E2E vs product (I own this)
+
+Suite: `apps/web/e2e` — `auth`, `browse`, `rec`, `layover`. Chromium. Email user. Does not call xAI. Does not click Google. That split is correct.
+
+**Matches the 8/27 chrome:**
+
+- Login lands on heading **Your recommendations** (`auth.spec.ts`, `helpers.ts`).
+- Profile icon is `aria-label="Account"`; menu has **Your recs** + Sign out (`you-nav.tsx`, asserted in `auth.spec.ts`).
+- `homeForRole` is always `/dashboard` — admin included (`get-profile.ts:87–90`). Callback uses it.
+- Dashboard is **grouped by city** (`dashboard/page.tsx`: city `h2`, then **Full days** / **Recs**). Published-mine only. No `(draft)`. Seed Limmat is asserted not yours.
+- Rec: Create → Edit upload → Get this name → **Save** → public rec → Photos + zoom + Close → delete. Layover: **Publish — live on the city** on *new* (PlaybookForm still uses that string) → dashboard link → **Take this day off**.
+
+**Does not match / does not cover:**
+
+- City grouping is in the page, **not in the suite**. After a Zurich rec/day, nothing asserts the **Zurich** heading or Full days vs Recs. If grouping regresses, E2E still greens.
+- **Continue with Google** is on `/login` and `/signup`. Suite never even checks the button is visible. Clicking it stays human — John’s OAuth client. Fine. Blind to the button is a gap.
+- **`/admin` Lumen log** (last 50 + month spend) exists. Suite user is not admin. No spec. Kill switch untested.
+- Edit-day reorder + one Save → public layover: product has it (`savePlaybookEdit` + `writeStopOrder` offset). `layover.spec.ts` only create + delete. Founder item 7 is still a human click.
+- Did not re-run `npm run test:e2e` this pass. Last claimed 9 passed (`NEXT-SESSION.md`). I will not stamp green without a run.
+
+## Disagree with Theo (8/26) — the code moved
+
+| 8/26 claim | Now |
+|------------|-----|
+| Dump/AI still never insert `place_photos` | They do: `rememberInAlbum` after `attachPlaceImage`, `generatePlaceStillNow`, `attachPlaceStill`. |
+| Stop reorder unique-violates | Two-phase: position `i+100` then `1..n` (`writeStopOrder`). |
+| Review farms plate JPEGs | Review mounts `PlatesEditor` with `namesOnly`. |
+| Layover Save stays on edit; button never says Save | Edit is `EditLayoverForm` — one **Save**, `savePlaybookEdit` redirects to `/playbooks/[id]`. |
+| Playbook title/narrative skip hotel gate | `refusePublicCopy` on create, meta, edit, and `publishReviewed`. |
+| X on `legacy-hero` → “Photo not found.” | `removePlacePhoto` handles `legacy-hero`. Fake slot still exists if album is empty. |
+
+Do not treat those as current blockers.
+
+## Still real (I agree, or leftover)
+
+- **Two stores + unshift.** Public rec and dashboard still `unshift` `places.image_url` if it is not in the album. `rememberInAlbum` no-ops at count ≥ 3. A rec with 3 album rows and a different hero can still show **4**. Cap is app-count only — no trigger. `legacy-hero` is still synthesized on empty album (edit + dump review).
+- **`listPlacePhotos` still swallows** a missing table (`queries.ts:168–170` → `[]`). Write path says “paste 016.” Read does not. 016 is live per founder check; fail-open is still the wrong shape.
+- Dead twins still sit in `media-actions.ts`: `addReviewDish`, `attachDishImage`, `sellPlaceBlurb` (still spends if called). `quality.ts` `lumenOffersStill` unused. `PlaceForm.allowHidden` destructured, never rendered. `PlaybookForm.submitLabel` still `_submitLabel` — create path always “Publish — live on the city.” Cleanup, not freeze.
+- `lumen_set_city_hero` still `grant execute … to authenticated`. App skips when `CITY_HERO[slug]` exists; the RPC does not.
+- Stop **titles/bodies** still skip `refusePublicCopy`. Day title/narrative are gated. Cheap regex is still not a lodging firewall.
+
+## Admin / Google (gaps, not suite bugs)
+
+- `/admin` = kill switch + Lumen log last 50. Phase 4 slice is built. E2E cannot see it without an admin fixture. Do not invent one this week.
+- Google button is real (official G, Continue with Google). Land is `/dashboard`. Wiring the OAuth client is John. Playwright must not script Google.
+
+## Verdict
+
+Theo’s freeze-blockers from 8/26 are mostly gone. Remaining album issue is the unshift safety net, not “dump never writes `place_photos`.” E2E matches title / Account / Your recs / mine-only / rec CRUD / layover delete. It does **not** lock city grouping, the Google button’s existence, or the admin log. Founder feel-pass (Google if wired, dump/Lumen, a phone photo) is still the gate. Do not start Phase 3.
