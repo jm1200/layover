@@ -132,8 +132,9 @@ Two stacks, not one mixed list. **Full days** first (the sequenced layover). **R
 
 **Cards, not underlines.** Two visual families — not two identical link stacks.
 
-- **Day card:** stop-still strip (city layover-card DNA). Day title. **{City}** bold. `Posted {Mon D}`. ~hours if we have it. Tap → public day.
-- **Rec card:** one 4:5 hero (never a black tile). Eat/Do/Buy stamp on the photo. Place name. **{City}** bold. `Posted {Mon D}`. Extra album shots as tiny thumbs if they uploaded more than one (max 3). Tap → public rec.
+- **Card order (founder 2026-08-27):** **{City}** first, big bold. Then `Posted {Mon D}`. Then pic/pics. Then name + blurb. Never photo-first.
+- **Day card:** city, date (~hours on the date line), stop-still strip, day title, the day blurb. Tap → public day.
+- **Rec card:** city, date, album (max 3, never a black tile), Eat/Do/Buy stamp on the photos, place name, blurb. Tap → public rec.
 - Newest posted first. `created_at`. Not `updated_at`.
 - Click the card. Edit lives on the public rec/day, not a pencil on the face.
 

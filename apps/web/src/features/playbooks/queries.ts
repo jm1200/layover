@@ -102,6 +102,7 @@ export async function listMyPlaces(authorId: string): Promise<
     status: string;
     city_id: string;
     category: string | null;
+    blurb: string | null;
     image_url: string | null;
     image_source: string | null;
     created_at: string;
@@ -111,7 +112,7 @@ export async function listMyPlaces(authorId: string): Promise<
   const { data, error } = await supabase
     .from("places")
     .select(
-      "id, name, status, city_id, category, image_url, image_source, created_at",
+      "id, name, status, city_id, category, blurb, image_url, image_source, created_at",
     )
     .eq("author_id", authorId)
     .eq("status", "published")

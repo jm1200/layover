@@ -53,7 +53,7 @@ Logged-in: **Layover** · **Share your intel** · **Cities** · **profile icon**
 Profile dropdown: **Your recs** → `/dashboard`. Admin (admin only) · Sponsor (sponsor/admin) · **Sign out**.  
 Logged-out: Layover · Share your intel · Cities · Log in.
 
-`/dashboard` title **Your recommendations**. Line: *What you put on the map.* Two stacks: **Full days** (stop-still strip), then **Recs** (4:5 hero + Eat/Do/Buy stamp). **{City}** bold. `Posted {Mon D}`. Recs may say rec here; public pages do not. Quiet line after the cards: *or type it yourself* Eat · Do · Buy · Full layover — stays, does not move, does not die, is not four tiles. No Share card, no Browse cities / Admin in the body.
+`/dashboard` title **Your recommendations**. Line: *What you put on the map.* Two stacks: **Full days**, then **Recs**. Card order: **{City}** big bold → `Posted {Mon D}` → pics → name + blurb. Recs may say rec here; public pages do not. Quiet line after the cards: *or type it yourself* Eat · Do · Buy · Full layover — stays, does not move, does not die, is not four tiles. No Share card, no Browse cities / Admin in the body.
 
 Strings: `agents/lumen.md` **Copy (locked)**.
 

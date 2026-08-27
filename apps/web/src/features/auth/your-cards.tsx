@@ -16,44 +16,78 @@ export function postedOn(iso?: string | null) {
   return `Posted ${when}`;
 }
 
+type Still = { src: string; alt: string; badge?: "ai" | null };
+
+function PhotoRow({
+  stills,
+  kind,
+  sizes,
+}: {
+  stills: Still[];
+  kind?: string;
+  sizes: string;
+}) {
+  if (stills.length === 0) return null;
+  const n = Math.min(stills.length, 3);
+  return (
+    <div
+      className="relative mt-4 grid gap-1 overflow-hidden rounded-xl bg-zinc-100"
+      style={{ gridTemplateColumns: `repeat(${n}, minmax(0, 1fr))` }}
+    >
+      {stills.slice(0, 3).map((still) => (
+        <div key={still.src} className="relative aspect-[4/5]">
+          <AiStill
+            src={still.src}
+            alt={still.alt}
+            sizes={sizes}
+            className="object-cover"
+            badge={still.badge ?? null}
+          />
+        </div>
+      ))}
+      {kind ? (
+        <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-black/65 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
+          {kind}
+        </span>
+      ) : null}
+    </div>
+  );
+}
+
 export function RecCard({
   href,
   name,
   city,
   kind,
   posted,
-  still,
+  blurb,
+  stills,
 }: {
   href: string;
   name: string;
   city: string;
   kind?: string;
   posted?: string | null;
-  still?: { src: string; alt: string; badge?: "ai" | null } | null;
+  blurb?: string | null;
+  stills: Still[];
 }) {
   return (
     <Link href={href} className="group block">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-zinc-900">
-        {still ? (
-          <AiStill
-            src={still.src}
-            alt={still.alt}
-            sizes="(min-width: 640px) 33vw, 100vw"
-            className="object-cover transition duration-300 group-hover:scale-[1.03]"
-            badge={still.badge ?? null}
-          />
-        ) : null}
-        {kind ? (
-          <span className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/70 to-transparent px-3 pb-10 pt-3 font-mono text-xs font-semibold uppercase tracking-[0.28em] text-white">
-            {kind}
-          </span>
-        ) : null}
-      </div>
+      <p className="text-3xl font-bold tracking-tight sm:text-4xl">{city}</p>
+      {posted ? (
+        <p className="mt-1 text-sm text-zinc-500">{posted}</p>
+      ) : null}
+      <PhotoRow
+        stills={stills}
+        kind={kind}
+        sizes="(min-width: 640px) 33vw, 100vw"
+      />
       <p className="mt-3 font-medium tracking-tight">{name}</p>
-      <p className="mt-0.5 text-sm text-zinc-600">
-        <span className="font-semibold text-zinc-900">{city}</span>
-        {posted ? <span className="text-zinc-500"> · {posted}</span> : null}
-      </p>
+      {blurb ? (
+        <p className="mt-1 line-clamp-3 text-sm leading-relaxed text-zinc-600">
+          {blurb}
+        </p>
+      ) : null}
     </Link>
   );
 }
@@ -64,6 +98,7 @@ export function DayCard({
   city,
   posted,
   hours,
+  blurb,
   stills,
 }: {
   href: string;
@@ -71,48 +106,23 @@ export function DayCard({
   city: string;
   posted?: string | null;
   hours?: number | null;
-  stills: { src: string; alt: string; badge?: "ai" | null }[];
+  blurb?: string | null;
+  stills: Still[];
 }) {
-  const tiles = stills.slice(0, 4);
-  const n = Math.min(Math.max(tiles.length, 1), 4);
   return (
-    <Link
-      href={href}
-      className="group block overflow-hidden rounded-xl bg-white ring-1 ring-zinc-200 hover:ring-zinc-400"
-    >
-      <div
-        className="relative grid gap-0.5 bg-zinc-950"
-        style={{ gridTemplateColumns: `repeat(${n}, minmax(0, 1fr))` }}
-      >
-        {(tiles.length ? tiles : [null]).map((still, i) => (
-          <div key={still?.src ?? i} className="relative aspect-square bg-zinc-800">
-            {still ? (
-              <AiStill
-                src={still.src}
-                alt={still.alt}
-                sizes="15vw"
-                className="object-cover"
-                badge={null}
-              />
-            ) : null}
-          </div>
-        ))}
-        <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-black/65 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
-          Full day
-        </span>
-      </div>
-      <div className="px-4 py-3">
-        {hours ? (
-          <p className="font-mono text-2xl font-semibold tracking-tight">
-            ~{hours}h
-          </p>
-        ) : null}
-        <p className="mt-1 font-medium tracking-tight">{title}</p>
-        <p className="mt-0.5 text-sm text-zinc-600">
-          <span className="font-semibold text-zinc-900">{city}</span>
-          {posted ? <span className="text-zinc-500"> · {posted}</span> : null}
+    <Link href={href} className="group block">
+      <p className="text-3xl font-bold tracking-tight sm:text-4xl">{city}</p>
+      <p className="mt-1 text-sm text-zinc-500">
+        {posted}
+        {hours ? ` · ~${hours}h` : null}
+      </p>
+      <PhotoRow stills={stills} kind="Full day" sizes="15vw" />
+      <p className="mt-3 font-medium tracking-tight">{title}</p>
+      {blurb ? (
+        <p className="mt-1 line-clamp-3 text-sm leading-relaxed text-zinc-600">
+          {blurb}
         </p>
-      </div>
+      ) : null}
     </Link>
   );
 }

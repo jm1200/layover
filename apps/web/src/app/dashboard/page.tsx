@@ -14,7 +14,11 @@ import {
   stillForPlace,
   stillForStop,
 } from "@/features/places/rec-media";
-import { getPlace, listCities } from "@/features/places/queries";
+import {
+  getPlace,
+  listCities,
+  listPlacePhotos,
+} from "@/features/places/queries";
 import {
   listMyPlaces,
   listMyPlaybooks,
@@ -35,6 +39,9 @@ export default async function DashboardPage() {
     listMyPlaces(profile.id),
     listCities(),
   ]);
+  const albums = await Promise.all(
+    myPlaces.map((p) => listPlacePhotos(p.id)),
+  );
   const city = (id: string) => cities.find((c) => c.id === id);
   const mineById: Record<
     string,
@@ -71,7 +78,7 @@ export default async function DashboardPage() {
         {myPlaybooks.length === 0 ? (
           <p className="mt-4 text-sm text-zinc-500">No days yet. Share one.</p>
         ) : (
-          <ul className="mt-5 grid gap-6 sm:grid-cols-2">
+          <ul className="mt-5 grid gap-10 sm:grid-cols-2">
             {myPlaybooks.map((pb, i) => {
               const c = city(pb.city_id);
               const hero = c ? heroForCity(c) : null;
@@ -89,6 +96,7 @@ export default async function DashboardPage() {
                     posted={postedOn(pb.created_at)}
                     hours={pb.hours_available}
                     stills={stills.length ? stills : hero ? [hero] : []}
+                    blurb={pb.narrative}
                   />
                 </li>
               );
@@ -106,9 +114,29 @@ export default async function DashboardPage() {
             Nothing here yet. Share one.
           </p>
         ) : (
-          <ul className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {myPlaces.map((p) => {
+          <ul className="mt-5 grid gap-10 sm:grid-cols-2">
+            {myPlaces.map((p, i) => {
               const c = city(p.city_id);
+              const hero = stillForPlace(p);
+              const stills: {
+                src: string;
+                alt: string;
+                badge?: "ai" | null;
+              }[] = [];
+              for (const photo of albums[i] ?? []) {
+                if (!stills.some((x) => x.src === photo.image_url)) {
+                  stills.push({
+                    src: photo.image_url,
+                    alt: p.name,
+                    badge: photo.image_url.startsWith("/landing/")
+                      ? "ai"
+                      : null,
+                  });
+                }
+              }
+              if (hero && !stills.some((x) => x.src.split("?")[0] === hero.src.split("?")[0])) {
+                stills.unshift(hero);
+              }
               return (
                 <li key={p.id}>
                   <RecCard
@@ -117,7 +145,8 @@ export default async function DashboardPage() {
                     city={c?.name ?? ""}
                     kind={recKindLabel(p.category)}
                     posted={postedOn(p.created_at)}
-                    still={stillForPlace(p) ?? null}
+                    blurb={p.blurb}
+                    stills={stills}
                   />
                 </li>
               );
