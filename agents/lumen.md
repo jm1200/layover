@@ -144,13 +144,87 @@ Grouped **by city** (A–Z). City name is the section, big bold — not repeated
 
 ### Admin `/admin` · Sponsor `/sponsor`
 
+This page is **her switch + her scrapbook.** Not a CMS, not Phase 6 (no reports, likes, Stripe, ban queue). John should see: is she on, what she spent, **the named things she put on the map.**
+
 | Slot | String |
 |------|--------|
 | Admin title | Admin |
+| Spend | This month ${spent} of ${cap}. |
+| Key (quiet) | Key is set. **or** Key is missing — she can’t file. |
 | Sponsor title | Sponsor |
 | Back | *(the header — profile icon → Your recs)* |
 
-Kill switch + Lumen log stay on Admin. **Never** footer underlines: User dashboard, Sponsor dashboard. Back is the profile menu.
+**Never** under the title: *Kill switch and her log. Full moderation queue lands in Phase 6.* **Never** a SQL / HUMAN-SETUP footer. **Never** User dashboard, Sponsor dashboard.
+
+#### Kill switch
+
+| Slot | String |
+|------|--------|
+| Card title | Lumen |
+| On | On. She’ll file dumps. |
+| Off | Off. Dumps get a nap. |
+| Button (she’s on) | Turn her off |
+| Button (she’s off) | Turn her on |
+| After | Lumen is on. **/** Lumen is off. |
+| **Never** | Kill Lumen · extract is live · kill switch · On (kill switch) · provider · API |
+
+#### Log
+
+| Slot | String |
+|------|--------|
+| Heading | What she’s been doing |
+| Empty | Nothing yet. |
+| Unreadable | Can’t read her log. |
+| **Never as body copy** | Last 50 actions · No dump text here · N refused in this list · N searches · follow-up · model · tokens |
+
+Last 50 is the cap, not a sentence on the page. Refuses are rows, not a counter. Engineer resolves `created_place_ids` → place name + `/places/[id]`, `created_playbook_id` → day title + `/playbooks/[id]`, `city_id` → city name. **Never** select dump text, payload, or a hotel name (OPS).
+
+#### Row (one sentence)
+
+He reads the **name**, taps it, lands on the rec or the day. A verb with no place is a miss.
+
+**Shape:**
+
+`Filed **Jamon Jamon** in Barcelona · Posted Aug 27 · $0.02`
+
+| Slot | Rule |
+|------|------|
+| Name | Place or day title, **bold**. **Required** when she filed something. The name **is** the link. Live rec → `/places/[id]`. Live day → `/playbooks/[id]`. Not live yet: same sentence, no link. No `(draft)`. No edit URL. |
+| City | `in {City}` once. Never an id. Omit if unknown. |
+| When | `Posted {Mon D}` when she filed / stilled / hero’d / matched a day. `{Mon D}` when she refused / asked / napped / failed. Same as the dashboard — no time, no ISO, no year. |
+| Money | `$0.02` two decimals if she spent. **Omit** if zero. Never `$0.00`. Never an em dash. |
+| One dump | One row. Every named rec, and the day if she filed one. Never collapse to *Filed 7 places* or *Filed Eat, Do, or Buy*. Commas between recs; middle dots between a day and its recs. No “and”. No “+2 more”. |
+| Missing rec name | a rec |
+| Missing day title | a day |
+| Rec gone | Taken off the city. No dead UUID. |
+
+| When | Row |
+|------|-----|
+| One rec | Filed **{Place}** in {City} · Posted {Mon D} · ${n} |
+| Several recs | Filed **{Place}**, **{Place}** in {City} · Posted {Mon D} · ${n} |
+| A day | Filed **{Day}** in {City} · **{Place}** · **{Place}** · Posted {Mon D} · ${n} |
+| Still | Still for **{Place}** in {City} · Posted {Mon D} · ${n} |
+| City hero | City hero for {City} · Posted {Mon D} · ${n} |
+| Opened a city | {City} is on the map now. · Posted {Mon D} |
+| Already on the city | Already on the city — **{Place}** in {City} · {Mon D} |
+| Same day (twin) | Same day — **{Day}** in {City} · Posted {Mon D} |
+| Rec gone | Taken off the city · {Mon D} |
+| Refused (hotel / fake / PG-13) | Wouldn’t file that · {Mon D} |
+| Asked which city | Asked which city · {Mon D} |
+| Place name missing | What’s the place called? · {Mon D} |
+| Couldn’t parse | Couldn’t read that · {Mon D} |
+| Nap / no key / over cap | Lumen’s taking a nap · {Mon D} |
+| Write failed | Write failed · {Mon D} |
+| Write failed, recs exist | Write failed · **{Place}** in {City} · {Mon D} · ${n} |
+| Didn’t land | Didn’t land · {Mon D} |
+
+Tap **{Place}** / **{Day}** — the name is the door. Do not add **Open it** on the row (that string stays on the twin-day refuse screen). City is context, except **City hero for {City}** and **{City} is on the map now.**, which may go to `/cities/{slug}`. `{City} is on the map now.` **only** if she actually opened it this dump.
+
+#### Never show (Admin)
+
+Dump text · payload · emails · user ids · hotel names · airline lodging · “where [airline] stays” · model names · tokens · search counts · follow-up · error_code · ISO timestamps · `$0.00` · *Dump ok* · *Filed Eat, Do, or Buy* · *Filed a layover* *(no title)* · *Filed N places* · *Generated a still* *(no rec name)* · *Failed* · *Nap / provider fail* · hide/approve · a queue · Phase 6 · freeze · extract · CMS · SQL
+
+Kill switch + Lumen log stay on Admin. Back is the profile menu. Phase 6 queue is **not** this cut.
 
 ### Login `/login`
 
@@ -237,7 +311,7 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - Seed density in thin cities (Delhi shop, Munich meal, Santiago walk) — John’s call, not a dump.
 - Daily 3-draft cap parked for testing.
 - Edit rec still hides plate uploads (`namesOnly`) while Share and the rec page use dish JPEGs. Same two jobs; Edit should match.
-- Pixels still lag this lock: Google can dump an admin on `/admin`; header still says You + Sign out in the bar; dashboard is still a list of underlines named Yours. Copy is this file. Engineering owns the cut.
+- Pixels still lag this lock: Admin log is a verb feed (*Filed Eat, Do, or Buy*) with no place/day name and no link. Copy is this file. Engineering owns the cut.
 
 ## Lessons
 
@@ -254,4 +328,5 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - Two headers is two sites. One family: Layover · Share your intel · Cities · profile icon. Sign out lives in the menu. Never You. Never `{email} · {role}`.
 - Dashboard is not a CMS chooser. **Your recommendations** is a scrapbook: Full days (stop strip), then Recs (4:5 + stamp), stills, **city** bold, `Posted {Mon D}`. Share already lives in the header. Four form cards are homework. Quiet *or type it yourself* stays after the cards.
 - Admin is a quiet word in the profile menu. Never the page they land on after Google. Never a button in the body. Never “User dashboard” at the bottom like a 2009 CMS.
+- Admin log is a caption: **Filed Jamon Jamon in Barcelona · Posted Aug 27 · $0.02.** He taps the name. A verb with no place is a miss. Never dump text. Never hotels. Not a queue.
 - Public pages do not say rec. The dashboard and **Your recs** in the menu may.

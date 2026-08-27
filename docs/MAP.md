@@ -106,7 +106,7 @@ ModerationAction / MetricSnapshot            — Phase 6
 | `/login` | Public | Email + Google. | Phase 1 |
 | `/dashboard` | User (all roles land here) | **Your recommendations** — this user’s published recs and days. Cards, not a CMS. Header is the same as the rest of the site. | Phase 4 |
 | `/sponsor` | Sponsor | Campaigns, billing, creatives | Phase 1 stub |
-| `/admin` | Admin | Kill switch + Lumen log (last 50). Full queue is Phase 6 | Phase 4 slice |
+| `/admin` | Admin | Kill switch + Lumen log (last 50, named rec/day, no dump text). Full queue is Phase 6 | Phase 4 slice |
 | `/cities` | Public | City list | Phase 2 |
 | `/cities/[slug]` | Public | Dark hero · Eat/Do/Buy preview (top 3) · full layover below | Phase 2 |
 | `/cities/[slug]/eat` `/do` `/buy` | Public | Full list for one verb | Phase 2 |
@@ -153,7 +153,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] BCN city hero (`public/landing/hero-barcelona.jpg` + `CITY_HERO.barcelona`)
 - [x] `/cities` as hero cards (not a phone book); search hint lists live IATA codes
 - [x] Lumen live baseline (`agents/lumen.md` + `.grok/agents/lumen.md`)
-- [x] `/admin` shows Lumen’s log (last 50 + month spend). Not Phase 6.
+- [x] `/admin` shows Lumen’s log (last 50 + month spend). Rows name the rec/day and link it. Not Phase 6.
 - [x] User photo upload: compress (no 2 MB cap as homework); 4:5 card preview; no silent AI reframe
 - [x] Up to 3 plate photos per Eat/Buy rec (SQL **012**). City cards stay one still.
 - [x] Sample plates on Zurich raclette rec (`plate-zurich-*.jpg`, SQL **013**). Edit rec can add/replace plates after publish.

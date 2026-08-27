@@ -42,3 +42,4 @@ Energetic, visual, specific. What the user sees, feels, does. Not “engagement�
 - Login is Lumen’s: **In from a trip?** Google first. Never “Crew, explorers, and sponsors.”
 - Rec photos are two jobs, not two grey **Add photo** boxes. City card = the outside. Get this = the dish. If both uploads show the same picture, the model is broken.
 - Dashboard is **Your recommendations** — Full days (stop strip) then Recs (4:5 + stamp), stills, **city** bold, `Posted {Mon D}`. Header: profile icon, not You; Sign out in the menu. Quiet *or type it yourself* stays after the cards. No `(draft)`. Delete rec: **This rec comes off the city. The layover day stays.** Edit layover: one **Save**, then the day.
+- Admin log is a caption, not a spreadsheet and not a stamp rail. **Filed Jamon Jamon in Barcelona · Posted Aug 27 · $0.02** — name he can tap. *Filed Eat, Do, or Buy* is dead. Never dump text. Not Phase 6. “Freeze” is not a product word.
