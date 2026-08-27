@@ -67,6 +67,7 @@ Durable history only. Not a chat transcript.
 - **2026-08-26 — Close Phase 4 before Phase 3.** Next milestone is founder click pass + freeze dump/edit/photos. Not likes, not Stripe, not QR. SQL **011 + 016 are live** (probed). Script: `docs/board/FOUNDER-TEST.md`. Review: `docs/board/PHASE-4-REVIEW.md`.
 - **2026-08-26 — Founder-test pack.** Place shot (1, city card) ≠ dish shots (Get this). Google login this cut (John pastes OAuth client). Dashboard = your published only. Same stop set = same day. One Save on edit layover. No “on the map now” for cities that already exist.
 - **2026-08-26 — One chrome.** Logged-in header is the same family as the city bar: Layover · Share your intel · Cities · You · Sign out. Dashboard is **Yours**. Admin lives under You. No CMS footer.
+- **2026-08-27 — Rec photos (founder).** Any pics of the rec (max 3). Tap hero = city tile + rec top. No pic → Lumen still. Get this = names only. Not “building vs food.”
 - **2026-08-26 — Edit rec Save is last.** Photos and Get this plates persist as you go (no extra Save). Rename or X a plate. Save then returns to the rec.
 - **2026-08-25 — Edit.** Rec: hero upload, plates, delete rec. No status dropdown. Zone = cluster (downtown/airport/station). Layover: reorder/drop stops; delete day **keeps recs**. Do not start over to fix a stop. **2026-08-26:** layover edit is **one Save** then the public day; delete day must actually work.
 - Live rotating homepage from “where crew have been going” needs either a human moderator or the AI pipeline. Not hired. Not built.

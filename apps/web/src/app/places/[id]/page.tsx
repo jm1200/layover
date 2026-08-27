@@ -173,21 +173,11 @@ export default async function PlacePage({
               </h2>
               <ul className="mt-4 space-y-2">
                 {dishes.map((d) => (
-                  <li key={d.id} className="flex items-start gap-3">
-                    {d.image_url ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={d.image_url}
-                        alt={d.name}
-                        className="h-16 w-12 shrink-0 rounded object-cover"
-                      />
+                  <li key={d.id}>
+                    <p className="font-medium">{d.name}</p>
+                    {d.note ? (
+                      <p className="text-sm text-zinc-600">{d.note}</p>
                     ) : null}
-                    <div>
-                      <p className="font-medium">{d.name}</p>
-                      {d.note ? (
-                        <p className="text-sm text-zinc-600">{d.note}</p>
-                      ) : null}
-                    </div>
                   </li>
                 ))}
               </ul>

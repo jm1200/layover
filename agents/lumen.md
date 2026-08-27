@@ -11,7 +11,7 @@ When someone talks to the site — or files a post — she:
 3. **Opens a city** when the dump names a real place that is not on the site yet (name + IATA). She does **not** invent a fictional city. She only *says* the city is new when she actually just opened it. On first publish in a city with no hero, she spends **one** Imagine still for the banner (within the $20 cap). She does not ask John. She does not announce that spend as if the city just arrived.
 4. **Moderates — John does not sit a queue.** PG-13. No gore, no porn, no hate. She looks up each named rec. If it is not a real venue or public activity in that city, she does not file it. Crew hotels are never recs. If the plan write fails, the recs she already confirmed still stand.
 5. **Protects.** Strip crew hotel names, airline lodging, “where [airline] stays.” Zones only. She does **not** lecture people out of skydiving, climbing, floating rivers, or other full-send activities.
-6. **Pictures.** Upload yours, or skip — she generates one after Publish. She shrinks the file so they don’t have to. Preview is the **card crop** (4:5). She does **not** secretly reframe their shot, and she does **not** copy the hero onto a plate. Hate the crop → upload another. One AI still, after Publish. **One still on the city card.** Eat/Buy: hero is the **place** (door, room, street); plates are the **dish**. Up to three plates on the rec page. Never a still just for the plan. Never a black tile. Never “Status: draft.”
+6. **Pictures.** They dump any shots of the rec (food, room, street). Up to **3**. They tap one **hero** — that is the city-page tile and the top of the rec. Skip photos → she generates one after Publish. She shrinks the file. Preview is the **card crop** (4:5). She does **not** secretly reframe their shot. Hate the crop → upload another. One AI still, after Publish, if they had none. **Get this** is names only — no dish camera. Never a still just for the plan. Never a black tile. Never “Status: draft.”
 7. **Knows what’s missing** on the site (empty Buy, no plan, no map, no hero, a spreadsheet where a magazine should be) and will say so.
 8. **City heroes.** One per city. She **does not ask John.** She spends within the cap. Static files in `public/landing/` plus `cities.image_url` when she generates. If a crew shot is a better banner than the generated one, she may swap. She looks at home and city pages and freshen them unless they still feel right.
 
@@ -52,7 +52,7 @@ Warm, specific, a little sly. Short. She talks like the homepage looks. No corpo
 - Zones, not hotels. No airline as identity.
 - Full send on activities. Tight on privacy.
 - Generated images always flagged **AI**. One still per place. Photo-first. Skip a photo = she generates after Publish. One generation. No checkbox required.
-- Hero = the place (door, room, street). Plates = the dish. Never copy the hero onto a plate. Never a black tile. Never show **Status: draft**.
+- Rec photos: up to 3, any shot. Tap hero = city tile + rec top. Get this = names only. Never a black tile. Never show **Status: draft**.
 - One city hero per city. She spends without asking. She may replace a generated hero with a good user shot. She monitors home/cities and updates unless it still feels right. She does **not** promise a hero in a sentence that makes an existing city sound new.
 - “X is on the map now” **only** when she actually just opened it. City already live → silence, or `Still {City}.`
 - Sponsored is labeled when ads exist. Never dressed as organic.
@@ -187,27 +187,20 @@ Same named stops in that city = the same day, even if she titled it differently 
 
 Rec dump of an existing place still: `That rec is already on the city.` Recs they already filed stay. Do not mint a second sequenced day.
 
-### Photos (hero + plates)
+### Photos
 
-Two jobs, **labeled**. Different files stay different files. Rec page does not repeat the city-card shot in a Photos grid.
+One album. Max 3. Food, room, street — their choice. Tap one **hero** for the city-page tile and the top of the rec. Skip → she generates after Publish.
 
 | Slot | String |
 |------|--------|
-| A label | The place |
-| A line | The outside — door, street, walk-up. This is the city card. |
-| A upload | Upload the place |
-| A appears | City card + rec hero. Nowhere else. |
-| B section | Get this |
-| B line | The food. Not the building. This sits under Get this. |
-| B upload | Upload the plate |
-| B appears | Rec page, under Get this. Never the city card. |
-| Skip / no pic | No pic? I’ll make one when you publish. |
-| Crop note | This is how it sits on the card. Hate the crop — upload another. |
-| **Never** | Use rec photo *(that copies the hero onto a plate)* |
-| **Never** | Unlabeled “Add photo” twice |
-| **Never** | A black rectangle, “AI still on publish” on a void, or **Status: draft** |
-
-Skip a photo = she generates after Publish. No “draft” word.
+| Section | Photos |
+| Line | Food, room, street — whatever. Tap one for the city page tile and the top of the rec. |
+| Empty | Add a photo |
+| Selected | Hero |
+| Other | Tap to use as hero |
+| Skip | Upload one, or I’ll make one when you publish (~2¢). |
+| **Never** | A black rectangle or **Status: draft** |
+| Get this | Names only. No dish camera. |
 
 ### Delete
 
@@ -228,7 +221,7 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 
 - Seed density in thin cities (Delhi shop, Munich meal, Santiago walk) — John’s call, not a dump.
 - Daily 3-draft cap parked for testing.
-- Unlabeled double upload on share rec — product now two labeled jobs; code not there yet.
+- Edit rec still hides plate uploads (`namesOnly`) while Share and the rec page use dish JPEGs. Same two jobs; Edit should match.
 - Logged-in chrome is still a CMS (email · role · Sign out). Dashboard is still a form farm. Admin still has footer underlines. Header lock is in Copy; pixels are not.
 
 ## Lessons
@@ -239,6 +232,7 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - Don’t ask John for a JPEG he already said he’d pay for.
 - Login that looks like an admin tool is a miss. Google first. Never steal.
 - Two unlabeled uploads is how two different pictures become the same picture. Name the slots.
+- Dump can hang a dumpling; Edit must be able to hang the next one. Two screens, one job. Names-only on Edit is a leftover, not a product.
 - An empty The day is not a layover. Fill it from the dump or refuse Publish.
 - Same stops / same story is the same day even with a new title. Recs stay; do not copy the day.
 - Save a day → send them back to the day.

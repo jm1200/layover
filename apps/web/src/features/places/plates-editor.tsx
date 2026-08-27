@@ -85,9 +85,7 @@ export function PlatesEditor({
     <div className="mt-6 border-t border-zinc-200 pt-4">
       <p className="text-sm font-medium">Get this</p>
       <p className="mt-0.5 text-xs text-zinc-500">
-        {namesOnly
-          ? `Names on the rec page. Rename, add, or X to remove — saved as you go. Photos of the place live in the album above. Up to ${MAX_PLATES}.`
-          : `The food. Not the building. This sits under Get this. Name it, then upload that plate. Up to ${MAX_PLATES}.`}
+        {`What to order. Names only — photos go in Photos above. Rename, add, or X. Up to ${MAX_PLATES}.`}
       </p>
       {plates.length > 0 ? (
         <ul className="mt-3 divide-y divide-zinc-200 rounded-xl border border-zinc-200 bg-white">

@@ -210,7 +210,7 @@ export async function attachPlaceStill(
   return { success: "Hero saved.", imageUrl: url };
 }
 
-const MAX_REC_PHOTOS = 1;
+const MAX_REC_PHOTOS = 3;
 
 export async function rememberInAlbum(
   supabase: Awaited<ReturnType<typeof createClient>>,
@@ -280,7 +280,7 @@ export async function addPlacePhoto(
     return { error: albumMissing(counted.error.message) };
   }
   if ((counted.count ?? 0) >= MAX_REC_PHOTOS) {
-    return { error: "One place shot is enough." };
+    return { error: "Three photos is enough." };
   }
   const { data: photo, error } = await supabase
     .from("place_photos")

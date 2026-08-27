@@ -44,13 +44,7 @@ Not a schema change. Not Phase 3. Not four new routes. Not a photo grid.
 - [x] Optional child item: Eat = “signature dish”; Buy = “what to get”; Do = hide the dish fields.
 - [x] Empty group: one line “None yet.” Do not build `/cities/[slug]/eat` style landings this cut.
 - **Cities/zones:** users cannot insert via a form (004). **Lumen may open a city** from a dump (name + 3-letter IATA) via `lumen_ensure_city` (009, quota in **011**). No public city form. One city hero per city — Lumen spends without asking (within $20), on first publish if missing.
-- **Photos (locked 2026-08-26 — supersedes album/tap-hero):** two **labeled** jobs, never two unlabeled uploads. Same strings on share review and Edit rec (`features/ai-import.md`).
-  - **The place (1):** *The outside — door, street, walk-up. This is the city card.* Button **Upload the place**. Rec page hero. Do = this only. Empty 4:5 = that sentence, never **Add photo**, never a black rectangle.
-  - **Get this (0–3, Eat/Buy):** *The food. Not the building. This sits under Get this.* Button **Upload the plate**. Rec page under Get this. Never on the city card. No AI per plate. Never **Use rec photo**.
-  - Rec page does **not** repeat the city-card shot in a Photos grid.
-  - Dump/AI must write these rows (`place_photos` for the place; dish image on the plate). `places.image_url` only is a bug.
-  - Edit rec: same two sections; adding a dish must not wipe the place still. Save is for city/name/blurb; photos persist as you go.
-  - Crew extra pics + reviews = Phase 3.
+- **Photos (locked 2026-08-27 — founder):** one album, max **3**, any shots of the rec (food, room, street). Tap one **hero** = city-page tile + rec top. No pic → Lumen still on publish. **Get this** = names only (Eat/Buy). No dish camera. Dump/AI write `place_photos` and set hero. Edit rec: add / X / tap hero. Save is for city/name/blurb. Crew extra pics + reviews = Phase 3.
 
 - **Delete rec confirm (Sofia, locked 2026-08-26):** button **Take this rec off**. Confirm: **This rec leaves the city. Plates go too. Days keep their other stops.** (strings in `agents/lumen.md`)
 

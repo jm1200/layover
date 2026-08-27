@@ -17,7 +17,7 @@ Hotel room, one thumb, ~60 seconds. Lumen talks as little as possible.
 1. **Talk once.** Header **Share your intel** → one screen, one box. Lumen: *“Dump what you did. One rec, a few recs, or the whole day.”* They dictate with the **phone keyboard mic** (OS, $0) or type. Same box. Button: **Fill the draft.** No Eat/Do/Buy picker first — **she decides** rec vs recs vs day. Sharing from a city page already has the city.
 2. **One extract.** `grok-4.3` fills one rec, several independent recs, or a full layover (standalone recs + plan, max 4). **Do not invent a day.** “Then” alone is not an itinerary. Rec blurbs always stand alone. **No second model call** to chase a dish, zone, or hours.
 3. **Holes are the follow-up.** Draft screen, same fields we have today. Empty bits sit obvious. Lumen one-liner: *“I filled what I heard. Tap the blanks, add a pic, publish.”* They tap. They do not answer her. City-open banner: *“{City} ({IATA}) is on the map now.”* **only** if she actually just opened it. Already live: omit, or *“Still {City}.”* Never *“I’ll put a city hero up when you publish.”* on that line. **The day** is filled from the dump. Empty narrative on Publish = refuse.
-4. **Photo on that same screen — two labeled jobs.** **The place** (door, room, street — this is the city card) — camera roll, or she stills on publish if they skip it. Eat/Buy: **The plate** (the food, 0–3, named). Never two unlabeled uploads. Never copy the place shot onto a plate. Never a black rectangle. Skip a photo = she generates.
+4. **Photo on that same screen.** One shot of the rec (food, room, street — their choice), or she stills on publish if they skip it. Extra shots + pick hero on Edit rec (max 3). Eat/Buy **Get this** is names only. Never a black rectangle. Skip a photo = she generates.
 5. **One question only if a required field is missing** (table below). Same screen, one line. They answer once. Then extract. Never a third turn. Never “what dish?” as chat.
 
 **Quotas they see (do not hide as a crash):** Over ~4k chars → *“Keep it to one layover.”* Monthly cap / kill switch → *“Lumen’s taking a nap.”* Daily 3-draft cap **parked** (John 2026-08-25) — put back in a later phase.
@@ -174,16 +174,9 @@ Do not invent a CMS voice. Login strings also live in `features/auth.md`. Photo 
 
 - `Same day. Recs stay — I didn’t copy the layover.` + `Open it`
 
-**Share rec photos — two jobs, labeled. This is the fight.**
+**Rec photos (locked 2026-08-27)**
 
-Never two grey boxes that say `Add photo`. Never copy the outside onto a plate. Rec page does not repeat the city-card shot in a Photos grid.
-
-| Slot | Label | One sentence | Button | Where it appears |
-|------|-------|--------------|--------|------------------|
-| **A** (every rec) | **The place** | **The outside — door, street, walk-up. This is the city card.** | **Upload the place** / **Replace** | City card + rec hero. Nowhere else. |
-| **B** (Eat/Buy, 0–3) | **Get this** | **The food. Not the building. This sits under Get this.** | **Upload the plate** / **Replace** | Rec page, under Get this. Never the city card. |
-
-Empty Slot A = that sentence in a 4:5 hole. Not `Add photo`. Not a black rectangle. Skip Slot A → she stills after Publish (`No pic? I’ll make one when you publish.`). Do recs: Slot A only. Name-only plates are fine.
+One album, max 3. Any shots of the rec. Tap one **hero** = city-page tile + rec top. Share: one upload or she stills. Edit: add more, tap hero. Get this = names only.
 
 **Delete rec** (Sofia)
 

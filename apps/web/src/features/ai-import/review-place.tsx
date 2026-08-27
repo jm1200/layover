@@ -331,9 +331,9 @@ function ReviewPlaceCard({
       </div>
 
       <div className="mt-4">
-        <p className="text-sm font-medium">The place</p>
+        <p className="text-sm font-medium">Photo</p>
         <p className="mt-0.5 text-xs text-zinc-500">
-          The outside — door, street, walk-up. This is the city card.
+          Any shot of this rec. You can add more and pick the hero on Edit.
         </p>
         {preview ? (
           <div className="relative mt-2 aspect-[4/5] max-w-xs overflow-hidden rounded-xl bg-zinc-100">
@@ -346,17 +346,17 @@ function ReviewPlaceCard({
           </div>
         ) : (
           <p className="mt-1 text-sm text-zinc-500">
-            Upload the place, or I’ll make one when you publish (~2¢).
+            Upload one, or I’ll make one when you publish (~2¢).
           </p>
         )}
         {preview ? (
           <p className="mt-1 text-xs text-zinc-500">
-            This is the city-card crop. Hate it — upload another.
+            This is how it sits on the city page. Hate the crop — upload another.
           </p>
         ) : null}
         <div className="mt-2 flex flex-wrap items-center gap-3">
           <label className="inline-block cursor-pointer rounded-lg border border-zinc-300 px-3 py-2 text-sm">
-            {uploading ? "Uploading…" : "Upload the place"}
+            {uploading ? "Uploading…" : "Upload a photo"}
             <input
               type="file"
               accept="image/*"
@@ -387,6 +387,7 @@ function ReviewPlaceCard({
           placeId={place.id}
           authorId={authorId}
           initial={initialDishes}
+          namesOnly
         />
       ) : null}
 

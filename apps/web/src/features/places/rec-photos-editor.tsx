@@ -9,7 +9,7 @@ import {
 import { compressStill } from "@/features/ai-import/compress-still";
 import { createClient } from "@/lib/supabase/client";
 
-const MAX = 1;
+const MAX = 3;
 
 export type RecPhotoSlot = { id: string; src: string; alt: string };
 
@@ -71,10 +71,10 @@ export function RecPhotosEditor({
 
   return (
     <div className="mt-8 max-w-lg">
-      <p className="text-sm font-medium">The place</p>
+      <p className="text-sm font-medium">Photos</p>
       <p className="mt-0.5 text-xs text-zinc-500">
-        The outside — door, street, walk-up. This is the city card. Not the
-        plate. Saves as soon as you add or remove.
+        Food, room, street — whatever. Tap one for the city page tile and the
+        top of the rec. Max {MAX}. Saves as you go.
       </p>
       <ul className="mt-3 grid grid-cols-3 gap-2">
         {photos.map((p) => {
@@ -145,7 +145,7 @@ export function RecPhotosEditor({
         {Array.from({ length: emptySlots }).map((_, i) => (
           <li key={`empty-${i}`}>
             <label className="flex aspect-[4/5] cursor-pointer items-center justify-center rounded-lg bg-zinc-100 text-center text-[11px] text-zinc-500 ring-1 ring-zinc-200">
-              {uploading ? "Uploading…" : "Upload the place"}
+              {uploading ? "Uploading…" : "Add a photo"}
               <input
                 type="file"
                 accept="image/*"

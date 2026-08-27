@@ -2,7 +2,7 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-08-26 (Google this week; Facebook/IG parked)  
+**Last updated:** 2026-08-27 (rec photos: album + hero; Get this names)  
 **Company:** Layover (working name)  
 **Stage:** **Phase 4 close.** Engineers fix what you found. Not Phase 3. Not Stripe.
 
@@ -17,7 +17,7 @@ Engineering ships this cut. Sofia + Lumen own login, photo labels, and delete-re
 | Item | Call |
 |------|------|
 | Login | **Google** this cut — you create the OAuth client. Email stays. Not Apple. **Not Facebook / Instagram.** |
-| Rec photos | **Place (1)** = outside, city card. **Dishes (0–3)** = named shots on Get this (Eat/Buy). Labels on both. No photo → Lumen still. No black rectangle. |
+| Rec photos | Up to **3 pics** of the rec (food, room, street — their choice). Tap one **hero** = city tile + rec top. No pic → Lumen still. **Get this** = names only. |
 | Drafts / dashboard | **Your published** recs and days only. No `(draft)`. No seed. No everyone else’s. Admin queue = Phase 6. |
 | Dedup | Same stop set = same day. Title drift does not ship a twin. Day blurb from the dump. “On the map now” only for a **new** city. |
 | Edit day | **One Save** (keeps it live) → public layover. Drop/reorder stick. Delete day must work. |
