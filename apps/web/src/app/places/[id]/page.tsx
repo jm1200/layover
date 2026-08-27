@@ -90,7 +90,7 @@ export default async function PlacePage({
           )}
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/20" />
-        <CityPublicHeader loggedIn={Boolean(profile)} />
+        <CityPublicHeader profile={profile} />
         <div className="relative z-10 flex min-h-[56vh] flex-col justify-end px-4 pb-12 pt-28">
           <div className="mx-auto w-full max-w-6xl">
             <p className="font-mono text-sm uppercase tracking-[0.35em] text-white/70">

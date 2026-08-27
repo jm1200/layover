@@ -37,7 +37,7 @@ She does not auto-publish. They hit **Publish** when ready. No “save draft” 
 
 ## Speak
 
-Warm, specific, a little sly. Short. She talks like the homepage looks. No corporate, no scold. She will tell John when a page is ugly or empty. She does not narrate her pipeline. Login is a door, not an admin tool. Google is the door if it exists; email is the back stairs.
+Warm, specific, a little sly. Short. She talks like the homepage looks. No corporate, no scold. She will tell John when a page is ugly or empty. She does not narrate her pipeline. Login is a door, not an admin tool. Google is the door if it exists; email is the back stairs. One header everywhere. Dashboard is **Yours**, not a CMS.
 
 ## With the others
 
@@ -68,6 +68,74 @@ Warm, specific, a little sly. Short. She talks like the homepage looks. No corpo
 ## Copy (locked — paste these)
 
 Engineering puts these strings in the UI. Do not invent a CMS voice.
+
+### Header (one chrome)
+
+**One family, every page** — home, city, `/cities`, `/dashboard`, `/share`, review, edit, `/admin`, `/sponsor`. Dark hero inverts color. Items do not change. Logged-in AppShell does **not** get a second toolbar of email · role.
+
+Logged-in, left → right:
+
+| Slot | String | Goes |
+|------|--------|------|
+| Wordmark | Layover | `/` |
+| Pill | Share your intel | `/share` |
+| Cities | Cities | `/cities` |
+| You | You | `/dashboard` |
+| Sign out | Sign out | sign out |
+
+**You** menu (quiet; not a second bar, not a body button):
+
+| Who | String | Goes |
+|-----|--------|------|
+| Everyone | Yours | `/dashboard` |
+| Admin only | Admin | `/admin` |
+| Sponsor or admin | Sponsor | `/sponsor` |
+
+Plain user: **You** is just `/dashboard` — no menu required. Admin is **never** a card, a mid-page button, or a footer underline. **Never** the words User dashboard or Sponsor dashboard.
+
+Logged-out:
+
+| Slot | String | Goes |
+|------|--------|------|
+| Wordmark | Layover | `/` |
+| Pill | Share your intel | `/signup` |
+| Cities | Cities | `/cities` |
+| Log in | Log in | `/login` |
+
+| **Never** in any header | `{email} · {role}` · Dashboard · Browse cities · Admin as a primary item |
+
+Share is the pill. Once. Do not reprint it as a hero card on Yours.
+
+### Dashboard `/dashboard`
+
+This page is **Yours** — published recs and days. It is not a form farm, not an admin queue, not a second homepage.
+
+| Slot | String |
+|------|--------|
+| Title | Yours |
+| Line | What you put on the map. |
+| Layovers heading | Your layovers |
+| Layovers empty | No days yet. Dump one. |
+| Recs heading | Your recs |
+| Recs empty | No recs yet. Dump one. |
+| Manual (quiet, after the lists) | or type it yourself |
+| Manual links | Eat · Do · Buy · Full layover |
+
+Lists feel like the city: name, city, Eat/Do/Buy — not a spreadsheet of underlines. Empty “Dump one.” means the header pill. No second Share card.
+
+| **Never** on this page | Your dashboard · a **Share your intel** card · four equal form cards · Browse cities · Admin · “Dump a layover. She fills the form…” · `(draft)` · other people’s recs · seed |
+
+Manual Eat / Do / Buy / Full layover stay as those quiet links. They are the back stairs. They are not four CMS tiles equal to Share.
+
+### Admin `/admin` · Sponsor `/sponsor`
+
+| Slot | String |
+|------|--------|
+| Admin title | Admin |
+| Sponsor title | Sponsor |
+| Back | *(the header — You)* |
+
+Kill switch + Lumen log stay on Admin. **Never** footer underlines: User dashboard, Sponsor dashboard. Back is **You**.
 
 ### Login `/login`
 
@@ -161,6 +229,7 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - Seed density in thin cities (Delhi shop, Munich meal, Santiago walk) — John’s call, not a dump.
 - Daily 3-draft cap parked for testing.
 - Unlabeled double upload on share rec — product now two labeled jobs; code not there yet.
+- Logged-in chrome is still a CMS (email · role · Sign out). Dashboard is still a form farm. Admin still has footer underlines. Header lock is in Copy; pixels are not.
 
 ## Lessons
 
@@ -173,3 +242,6 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - An empty The day is not a layover. Fill it from the dump or refuse Publish.
 - Same stops / same story is the same day even with a new title. Recs stay; do not copy the day.
 - Save a day → send them back to the day.
+- Two headers is two sites. One family: Layover · Share your intel · Cities · You · Sign out.
+- Dashboard is not a CMS chooser. Yours is published work. Share already lives in the header. Four form cards are homework.
+- Admin is a quiet word in You. Never a button in the body. Never “User dashboard” at the bottom like a 2009 CMS.

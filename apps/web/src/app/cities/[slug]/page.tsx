@@ -79,11 +79,7 @@ export default async function CityPage({
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
-      <CityHero
-        city={city}
-        hero={hero}
-        loggedIn={Boolean(profile)}
-      />
+      <CityHero city={city} hero={hero} profile={profile} />
 
       <main className="mx-auto max-w-6xl px-4 py-8">
         {REC_KINDS.map((kind) => (

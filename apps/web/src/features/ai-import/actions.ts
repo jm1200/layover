@@ -522,7 +522,7 @@ export async function fillDraft(
     .single();
 
   if (logErr || !logRow) {
-    return { error: "Draft saved but I lost the review link. Check Dashboard." };
+    return { error: "Draft saved but I lost the review link. Check Yours." };
   }
 
   revalidatePath("/dashboard");

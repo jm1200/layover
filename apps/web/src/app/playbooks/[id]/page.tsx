@@ -73,7 +73,7 @@ export default async function PlaybookPage({
           </div>
         ) : null}
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/25" />
-        <CityPublicHeader loggedIn={Boolean(profile)} />
+        <CityPublicHeader profile={profile} />
         <div className="relative z-10 mx-auto max-w-6xl">
           {city ? (
             <Link

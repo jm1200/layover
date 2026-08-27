@@ -44,6 +44,16 @@ SUPABASE_SERVICE_ROLE_KEY=   # server only
 
 Shareholder creates Supabase project and provides keys (see `docs/STACK.md`). Engineer cannot create the cloud account.
 
+## Chrome (locked 2026-08-26 — Lumen)
+
+One header on home, cities, rec, day, share, Yours, admin, sponsor. Dark on heroes, light inside. Never `{email} · {role}`. Never **Dashboard** as the word.
+
+Logged-in: **Layover** · **Share your intel** · **Cities** · **You** · **Sign out**.  
+You → `/dashboard`. Admin/sponsor: You opens Yours / Admin / Sponsor.  
+Logged-out: Layover · Share your intel · Cities · Log in.
+
+`/dashboard` title **Yours**. Lists only published recs and days. Quiet line after: *or type it yourself* Eat · Do · Buy · Full layover. No Share card, no four CMS tiles, no Browse cities / Admin in the body.
+
 ## Google (locked 2026-08-26 — this cut)
 
 - **Continue with Google** is the button. Email + password stays. Not Apple / Facebook / Instagram. Instagram-as-content is not a login provider — parked (2026-08-26).

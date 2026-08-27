@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { AppShell } from "@/features/auth/shell";
 import { requireRole, homeForRole } from "@/features/auth/get-profile";
@@ -42,18 +41,6 @@ export default async function AdminPage() {
         To promote another account to sponsor or admin, run SQL in Supabase (see
         HUMAN-SETUP.md).
       </p>
-      <ul className="mt-6 flex flex-col gap-2 text-sm">
-        <li>
-          <Link href="/dashboard" className="underline">
-            User dashboard
-          </Link>
-        </li>
-        <li>
-          <Link href="/sponsor" className="underline">
-            Sponsor dashboard
-          </Link>
-        </li>
-      </ul>
     </AppShell>
   );
 }

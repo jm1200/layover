@@ -103,8 +103,8 @@ ModerationAction / MetricSnapshot            — Phase 6
 | Path | Audience | Purpose | Status |
 |------|----------|---------|--------|
 | `/` | Public | Layover Intel; collage + tappable Eat/Do/Buy + city search | Phase 2 |
-| `/login` | Public | Email + **Google this cut** (John’s OAuth client). Sofia restyle. | Phase 1; Google not wired |
-| `/dashboard` | User | **This user’s published** recs and days. No drafts. Not an admin queue. | Phase 4 lock; code still leaks |
+| `/login` | Public | Email + Google. | Phase 1 |
+| `/dashboard` | User | **Yours** — this user’s published recs and days. Header is the same as the rest of the site. | Phase 4 |
 | `/sponsor` | Sponsor | Campaigns, billing, creatives | Phase 1 stub |
 | `/admin` | Admin | Kill switch + Lumen log (last 50). Full queue is Phase 6 | Phase 4 slice |
 | `/cities` | Public | City list | Phase 2 |
@@ -164,6 +164,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] SQL **011** — global $20 RPC, city-hero column, generate-on-publish flag, city-open quota. **Live** (spend RPC probed 2026-08-26).
 - [x] SQL **016** `place_photos` — **live**. Dump/AI still now write the album too.
 - [x] Founder-test pack (2026-08-26): labeled place vs dish; no drafts on dashboard; mine-only Edit; stop-set + place-id dedup; day blurb from dump; city-open copy only when new; one Save on edit day + redirect; Google button (needs John’s OAuth client). Retest `FOUNDER-TEST.md`.
+- [x] One site chrome (Lumen 2026-08-26): Layover · Share your intel · Cities · You · Sign out. Dashboard is **Yours**. Manual forms are a quiet line. Admin under You.
 
 ## Session checklist for agents
 

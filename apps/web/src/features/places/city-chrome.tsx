@@ -1,33 +1,17 @@
-import Link from "next/link";
+import { SiteHeader } from "@/features/auth/site-header";
+import type { Profile } from "@/features/auth/types";
 import { AiStill } from "@/features/places/ai-still";
 import { CITY_FEEL } from "@/features/places/rec-media";
 import type { City } from "@/features/places/types";
 
-export function CityPublicHeader({ loggedIn }: { loggedIn: boolean }) {
+export function CityPublicHeader({
+  profile,
+}: {
+  profile: Profile | null;
+}) {
   return (
     <header className="absolute inset-x-0 top-0 z-20">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 text-white">
-        <Link href="/" className="text-lg font-semibold tracking-tight">
-          Layover
-        </Link>
-        <nav className="flex items-center gap-4 text-sm text-white/90">
-          <Link
-            href={loggedIn ? "/share" : "/signup"}
-            className="rounded-full bg-white px-4 py-2 text-xs font-bold uppercase tracking-wider text-zinc-950 hover:bg-white/90"
-          >
-            Share your intel
-          </Link>
-          {loggedIn ? (
-            <Link href="/dashboard" className="hover:text-white">
-              Dashboard
-            </Link>
-          ) : (
-            <Link href="/login" className="hover:text-white">
-              Log in
-            </Link>
-          )}
-        </nav>
-      </div>
+      <SiteHeader profile={profile} tone="dark" />
     </header>
   );
 }
@@ -35,11 +19,11 @@ export function CityPublicHeader({ loggedIn }: { loggedIn: boolean }) {
 export function CityHero({
   city,
   hero,
-  loggedIn,
+  profile,
 }: {
   city: City;
   hero: { src: string; alt: string; badge?: "ai" | null } | null;
-  loggedIn: boolean;
+  profile: Profile | null;
 }) {
   const feel = CITY_FEEL[city.slug];
   return (
@@ -64,7 +48,7 @@ export function CityHero({
             : "absolute inset-0 bg-gradient-to-t from-black via-zinc-950 to-zinc-900"
         }
       />
-      <CityPublicHeader loggedIn={loggedIn} />
+      <CityPublicHeader profile={profile} />
       <div className="relative z-10 flex min-h-[34vh] flex-col justify-end px-4 pb-8 pt-24 sm:min-h-[40vh]">
         <div className="mx-auto w-full max-w-6xl">
           <p className="font-mono text-sm uppercase tracking-[0.35em] text-white/70">

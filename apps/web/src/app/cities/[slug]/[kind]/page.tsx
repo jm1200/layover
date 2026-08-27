@@ -62,7 +62,7 @@ export default async function CityKindPage({
       <CityHero
         city={city}
         hero={heroForCity(city)}
-        loggedIn={Boolean(profile)}
+        profile={profile}
       />
       <main className="mx-auto max-w-6xl px-4 py-12">
         <p className="text-sm text-zinc-500">

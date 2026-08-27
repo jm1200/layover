@@ -7,33 +7,11 @@ import {
   recKindFromCategory,
   REC_KIND_LABEL,
 } from "@/features/places/kind";
+import { listCities } from "@/features/places/queries";
 import {
   listMyPlaces,
   listMyPlaybooks,
 } from "@/features/playbooks/queries";
-
-const ADD_CARDS = [
-  {
-    href: "/dashboard/playbooks/new",
-    title: "Full layover",
-    body: "A stealable whole-day plan.",
-  },
-  {
-    href: "/dashboard/places/new?kind=eat",
-    title: "Eat",
-    body: "Restaurant, bar, or a dish.",
-  },
-  {
-    href: "/dashboard/places/new?kind=do",
-    title: "Do",
-    body: "An activity — float, climb, walk.",
-  },
-  {
-    href: "/dashboard/places/new?kind=shop",
-    title: "Buy",
-    body: "A store or a thing to buy.",
-  },
-] as const;
 
 export default async function DashboardPage() {
   const { profile, error } = await requireRole(["user", "sponsor", "admin"]);
@@ -44,93 +22,81 @@ export default async function DashboardPage() {
   }
   if (error === "forbidden" || !profile) redirect("/login");
 
-  const [myPlaybooks, myPlaces] = await Promise.all([
+  const [myPlaybooks, myPlaces, cities] = await Promise.all([
     listMyPlaybooks(profile.id),
     listMyPlaces(profile.id),
+    listCities(),
   ]);
+  const cityName = (id: string) =>
+    cities.find((c) => c.id === id)?.name ?? "";
 
   return (
-    <AppShell profile={profile} title="Your dashboard">
-      <p className="text-zinc-600">
-        Dump a layover. She fills the form. Nothing is a draft on this
-        list — only what you published.
-      </p>
+    <AppShell profile={profile} title="Yours">
+      <p className="text-zinc-600">What you put on the map.</p>
 
-      <Link
-        href="/share"
-        className="mt-6 block rounded-2xl bg-zinc-950 px-5 py-4 text-white hover:bg-zinc-800"
-      >
-        <span className="text-sm font-bold uppercase tracking-wider">
-          Share your intel
-        </span>
-        <p className="mt-1 text-sm text-white/70">
-          Talk once. She fills the form.
-        </p>
-      </Link>
-
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
-        {ADD_CARDS.map((c) => (
-          <Link
-            key={c.href}
-            href={c.href}
-            className="rounded-xl border border-zinc-200 bg-white px-4 py-3 hover:border-zinc-400"
-          >
-            <span className="font-medium">{c.title}</span>
-            <p className="mt-1 text-sm text-zinc-500">{c.body}</p>
-          </Link>
-        ))}
-      </div>
-
-      <div className="mt-6 flex flex-wrap gap-3 text-sm">
-        <Link
-          href="/cities"
-          className="rounded-lg border border-zinc-300 bg-white px-3 py-2 font-medium"
-        >
-          Browse cities
-        </Link>
-        {profile.role === "admin" ? (
-          <Link href="/admin" className="rounded-lg border px-3 py-2">
-            Admin
-          </Link>
-        ) : null}
-      </div>
-
-      <section className="mt-10">
-        <h2 className="font-semibold">Your layover plans</h2>
-        <ul className="mt-3 space-y-2 text-sm">
-          {myPlaybooks.length === 0 ? (
-            <li className="text-zinc-500">None yet.</li>
-          ) : (
-            myPlaybooks.map((pb) => (
+      <section className="mt-8">
+        <h2 className="font-semibold">Your layovers</h2>
+        {myPlaybooks.length === 0 ? (
+          <p className="mt-3 text-sm text-zinc-500">No days yet. Dump one.</p>
+        ) : (
+          <ul className="mt-3 space-y-3">
+            {myPlaybooks.map((pb) => (
               <li key={pb.id}>
-                <Link href={`/playbooks/${pb.id}`} className="underline">
+                <Link
+                  href={`/playbooks/${pb.id}`}
+                  className="font-medium hover:underline"
+                >
                   {pb.title}
                 </Link>
+                <p className="text-sm text-zinc-500">{cityName(pb.city_id)}</p>
               </li>
-            ))
-          )}
-        </ul>
+            ))}
+          </ul>
+        )}
       </section>
 
       <section className="mt-8">
         <h2 className="font-semibold">Your recs</h2>
-        <ul className="mt-3 space-y-2 text-sm">
-          {myPlaces.length === 0 ? (
-            <li className="text-zinc-500">None yet.</li>
-          ) : (
-            myPlaces.map((p) => (
+        {myPlaces.length === 0 ? (
+          <p className="mt-3 text-sm text-zinc-500">No recs yet. Dump one.</p>
+        ) : (
+          <ul className="mt-3 space-y-3">
+            {myPlaces.map((p) => (
               <li key={p.id}>
-                <Link href={`/places/${p.id}`} className="underline">
+                <Link
+                  href={`/places/${p.id}`}
+                  className="font-medium hover:underline"
+                >
                   {p.name}
-                </Link>{" "}
-                <span className="text-zinc-400">
-                  ({REC_KIND_LABEL[recKindFromCategory(p.category)]})
-                </span>
+                </Link>
+                <p className="text-sm text-zinc-500">
+                  {cityName(p.city_id)} ·{" "}
+                  {REC_KIND_LABEL[recKindFromCategory(p.category)]}
+                </p>
               </li>
-            ))
-          )}
-        </ul>
+            ))}
+          </ul>
+        )}
       </section>
+
+      <p className="mt-10 text-sm text-zinc-500">
+        or type it yourself{" "}
+        <Link href="/dashboard/places/new?kind=eat" className="underline">
+          Eat
+        </Link>
+        {" · "}
+        <Link href="/dashboard/places/new?kind=do" className="underline">
+          Do
+        </Link>
+        {" · "}
+        <Link href="/dashboard/places/new?kind=shop" className="underline">
+          Buy
+        </Link>
+        {" · "}
+        <Link href="/dashboard/playbooks/new" className="underline">
+          Full layover
+        </Link>
+      </p>
     </AppShell>
   );
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { CitySearch } from "@/features/places/city-search";
 import { AiStill } from "@/features/places/ai-still";
 import { getProfile } from "@/features/auth/get-profile";
+import { SiteHeader } from "@/features/auth/site-header";
 import { listCities } from "@/features/places/queries";
 
 /** Seed IDs from 003 (Limmat) and 005 (Santiago steak, Munich mustard). */
@@ -31,7 +32,6 @@ const IDEAS = [
 
 export default async function HomePage() {
   const [profile, cities] = await Promise.all([getProfile(), listCities()]);
-  const loggedIn = Boolean(profile);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-900">
@@ -45,26 +45,7 @@ export default async function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/25" />
 
         <header className="absolute inset-x-0 top-0 z-20">
-          <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5">
-            <span className="text-lg font-semibold tracking-tight">Layover</span>
-            <nav className="flex items-center gap-4 text-sm text-white/90">
-              <Link
-                href={loggedIn ? "/share" : "/signup"}
-                className="rounded-full bg-white px-4 py-2 text-xs font-bold uppercase tracking-wider text-zinc-950 hover:bg-white/90"
-              >
-                Share your intel
-              </Link>
-              {loggedIn ? (
-                <Link href="/dashboard" className="hover:text-white">
-                  Dashboard
-                </Link>
-              ) : (
-                <Link href="/login" className="hover:text-white">
-                  Log in
-                </Link>
-              )}
-            </nav>
-          </div>
+          <SiteHeader profile={profile} tone="dark" />
         </header>
 
         <div className="relative z-10 flex min-h-[78vh] flex-col justify-end px-4 pb-14 pt-28">

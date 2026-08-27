@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { listCities } from "@/features/places/queries";
 import { getProfile } from "@/features/auth/get-profile";
+import { SiteHeader } from "@/features/auth/site-header";
 import { AiStill } from "@/features/places/ai-still";
 import { CITY_FEEL, heroForCity } from "@/features/places/rec-media";
 
@@ -9,29 +10,7 @@ export default async function CitiesPage() {
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
-      <header className="border-b border-zinc-200 bg-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-          <Link href="/" className="font-semibold tracking-tight">
-            Layover
-          </Link>
-          <nav className="flex items-center gap-3 text-sm">
-            <Link href="/cities" className="font-medium">
-              Cities
-            </Link>
-            <Link
-              href={profile ? "/share" : "/signup"}
-              className="rounded-full bg-zinc-950 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white hover:bg-zinc-800"
-            >
-              Share your intel
-            </Link>
-            {profile ? (
-              <Link href="/dashboard">Dashboard</Link>
-            ) : (
-              <Link href="/login">Log in</Link>
-            )}
-          </nav>
-        </div>
-      </header>
+      <SiteHeader profile={profile} tone="light" />
       <main className="mx-auto max-w-6xl px-4 py-10">
         <h1 className="text-2xl font-semibold tracking-tight">Cities</h1>
         <p className="mt-2 text-zinc-600">

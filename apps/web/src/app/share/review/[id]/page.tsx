@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { AppShell } from "@/features/auth/shell";
 import { requireUser } from "@/features/auth/get-profile";
@@ -80,16 +79,6 @@ export default async function ShareReviewPage({
         logId={log.id}
         dishesByPlace={dishesByPlace}
       />
-
-      <p className="mt-10 text-sm">
-        <Link href="/share" className="underline">
-          Dump another
-        </Link>
-        {" · "}
-        <Link href="/dashboard" className="underline">
-          Dashboard
-        </Link>
-      </p>
     </AppShell>
   );
 }
