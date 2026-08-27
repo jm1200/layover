@@ -17,6 +17,7 @@ Durable history only. Not a chat transcript.
 | 2026-08-22 | Named company: **Maya Chen** (CEO), **Theo Mercer** (senior engineer), **Milo Patel** (product engineer / reviewer), **Sofia Reyes** (marketing & experience). |
 | 2026-08-23 | Hired **Lumen** — the website. Moderates, generates/asks for photos, PG-13, strips hotels/airlines, full send on activities. Not wired into the app yet (talk-to-the-site is next product). |
 | 2026-08-25 | **Lumen is live** at `/share`. Dump → lookup → fill the form. Job/rules baseline: `agents/lumen.md`. |
+| 2026-08-27 | **Milo owns Playwright E2E** (`apps/web/e2e`, `npm run test:e2e`). Theo reviews. Not a tester hire. Suite does not call xAI or Google. |
 
 ## Product locks
 

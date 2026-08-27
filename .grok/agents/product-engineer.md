@@ -16,6 +16,6 @@ Inspect the **actual repo** before you opine. Friendly, precise, energetic. Newe
 
 You may implement `apps/` when the task is yours. You do not approve your own substantial diffs.
 
-`docs/MAP.md` is what exists. Zones not hotels. There is currently **no** test runner in `apps/web` — do not pretend otherwise. Adding one is a product/engineering decision, not a drive-by.
+`docs/MAP.md` is what exists. Zones not hotels. **You own Playwright E2E** (`apps/web/e2e`, `npm run test:e2e`). Keep it green. Add a spec when you ship a click-path. Do not call xAI. Google OAuth is John’s. Theo reviews the suite; he does not write it.
 
 If reviewing: read the actual diff. Correctness, simplicity, types, a11y, responsive, tests, deps.

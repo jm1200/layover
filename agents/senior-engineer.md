@@ -28,7 +28,7 @@ Inspect the actual diff. Correctness, simplicity, maintainability, security, typ
 
 ## Lessons
 
-- No test runner in `apps/web` yet (lint + `tsc` only). Do not ship a homepage rewrite that also invents a test framework.
+- Playwright E2E exists (`apps/web/e2e`). **Milo owns writing and checking.** You review. Do not invent a second runner. Do not ship a click-path that has no spec. Do not hit xAI from tests.
 - Next.js App Router + Tailwind v4 + Supabase SSR. Keep routes thin; logic in `src/features/`.
 - Generated landing JPEGs are assets in `public/landing/`, not a media pipeline. Rotating banner/cards from “quality pics” is a later product (storage, rights, a picker). Do not scrape Google.
 - City insert is admin/SQL only. Seed cities: Zurich, Delhi, Santiago, Munich (005).

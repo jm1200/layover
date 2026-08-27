@@ -165,7 +165,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] SQL **016** `place_photos` — **live**. Dump/AI still now write the album too.
 - [x] Founder-test pack (2026-08-26): labeled place vs dish; no drafts on dashboard; mine-only Edit; stop-set + place-id dedup; day blurb from dump; city-open copy only when new; one Save on edit day + redirect; Google button (needs John’s OAuth client). Retest `FOUNDER-TEST.md`.
 - [x] One site chrome (Lumen 2026-08-26): Layover · Share your intel · Cities · You · Sign out. Dashboard is **Yours**. Manual forms are a quiet line. Admin under You.
-- [x] Playwright E2E (`apps/web/e2e`, `npm run test:e2e`) — fake user clicks browse, login, rec photos/zoom, Save, delete rec, layover day. Does **not** call xAI. Google OAuth still human.
+- [x] Playwright E2E (`apps/web/e2e`, `npm run test:e2e`) — **Milo owns.** Fake user clicks browse, login, rec photos/zoom, Save, delete rec, layover day. Does **not** call xAI. Google OAuth still human. Theo reviews.
 
 ## Session checklist for agents
 

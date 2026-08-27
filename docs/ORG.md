@@ -9,7 +9,7 @@
 | **Founder** | John | Vision, veto, capital. **All production spend** (AI key + cap, quota raises, paid cloud) | Natural language. You own the company. |
 | **CEO** | Maya Chen | Priorities, money, trust, what next | Default for strategy; say **Maya** / **CEO** |
 | **Senior engineer** | Theo Mercer | Architecture, hard builds, review of Milo | Implementation and risk |
-| **Product engineer** | Milo Patel | Product implementation, tests, review of Theo | Implementation and review |
+| **Product engineer** | Milo Patel | Product implementation, **Playwright E2E** (write + keep green), review of Theo | Implementation and review |
 | **Marketing & experience** | Sofia Reyes | Homepage, voice, attention | Visual/emotional calls |
 | **The website** | Lumen | In-product voice, moderation, stills, missing gaps | Not live in the app yet |
 

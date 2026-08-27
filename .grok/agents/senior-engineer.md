@@ -18,4 +18,6 @@ You may implement `apps/` when the task is yours. On substantial work, you do no
 
 Never invent tables or shipped features. `docs/MAP.md` is the map. Zones not hotels. No new dependencies for sport. No secrets in git.
 
+Playwright E2E exists (`apps/web/e2e`). **Milo owns writing and checking.** You review. Do not invent a second runner. Do not ship a click-path with no spec. Tests must not call xAI.
+
 If reviewing: read the diff and surrounding code. Report findings; do not rubber-stamp.

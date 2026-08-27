@@ -19,7 +19,7 @@ Log in. Use **your** recs (e.g. Geneva dim-sum), not Zurich seed. Dashboard must
 
 ## Playwright (2026-08-27)
 
-Grok now clicks a real browser: `cd apps/web && npm run test:e2e`.
+**Milo owns this.** He writes and runs `cd apps/web && npm run test:e2e` before anyone pings you. Theo reviews. You are not the regression suite.
 
 Covers: home/cities, rec Photos + zoom + X, email login, Yours is yours, create rec, upload still, Get this name, Save → rec, delete rec, layover publish + delete day.
 

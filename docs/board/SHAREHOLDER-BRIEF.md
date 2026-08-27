@@ -2,7 +2,7 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-08-27 (Playwright E2E clicks the founder list; you still do Google + feel)  
+**Last updated:** 2026-08-27 (Phase 4 close. Milo owns E2E. You still do Google + feel.)  
 **Company:** Layover (working name)  
 **Stage:** **Phase 4 close.** Engineers fix what you found. Not Phase 3. Not Stripe.
 
