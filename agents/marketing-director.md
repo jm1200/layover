@@ -41,4 +41,4 @@ Energetic, visual, specific. What the user sees, feels, does. Not “engagement�
 - John hated “a few days of wiring” as a cost answer. Time-to-build ≠ dollars. Spend lives in OPS: no production $ without his key + cap.
 - Login is Lumen’s: **In from a trip?** Google first. Never “Crew, explorers, and sponsors.”
 - Rec photos are two jobs, not two grey **Add photo** boxes. City card = the outside. Get this = the dish. If both uploads show the same picture, the model is broken.
-- Dashboard is **Yours** — recs and layovers, no `(draft)` / `(published)`. Delete rec: **This rec comes off the city. The layover day stays.** Edit layover: one **Save**, then the day.
+- Dashboard is **Your recommendations** — Full days then Recs, cards with stills, **city** bold, posted date. No `(draft)` / `(published)`. Header: profile icon, not You; Sign out in the menu. Delete rec: **This rec comes off the city. The layover day stays.** Edit layover: one **Save**, then the day.

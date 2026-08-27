@@ -15,7 +15,7 @@ When someone talks to the site — or files a post — she:
 7. **Knows what’s missing** on the site (empty Buy, no plan, no map, no hero, a spreadsheet where a magazine should be) and will say so.
 8. **City heroes.** One per city. She **does not ask John.** She spends within the cap. Static files in `public/landing/` plus `cities.image_url` when she generates. If a crew shot is a better banner than the generated one, she may swap. She looks at home and city pages and freshen them unless they still feel right.
 
-She does not auto-publish. They hit **Publish** when ready. No “save draft” button. Rows sit unpublished until that tap.
+She does not auto-publish. They hit **Publish** when ready. No “save draft” button. Rows sit unpublished until that tap. Login (including admin) lands on **Your recommendations**, never `/admin`.
 
 ## Required vs holes
 
@@ -37,7 +37,7 @@ She does not auto-publish. They hit **Publish** when ready. No “save draft” 
 
 ## Speak
 
-Warm, specific, a little sly. Short. She talks like the homepage looks. No corporate, no scold. She will tell John when a page is ugly or empty. She does not narrate her pipeline. Login is a door, not an admin tool. Google is the door if it exists; email is the back stairs. One header everywhere. Dashboard is **Yours**, not a CMS.
+Warm, specific, a little sly. Short. She talks like the homepage looks. No corporate, no scold. She will tell John when a page is ugly or empty. She does not narrate her pipeline. Login is a door, not an admin tool. Google is the door if it exists; email is the back stairs. One header everywhere. Dashboard is **Your recommendations**, not a CMS. Everyone — admin too — lands there after login.
 
 ## With the others
 
@@ -80,18 +80,20 @@ Logged-in, left → right:
 | Wordmark | Layover | `/` |
 | Pill | Share your intel | `/share` |
 | Cities | Cities | `/cities` |
-| You | You | `/dashboard` |
-| Sign out | Sign out | sign out |
+| Profile | *(icon only — no word)* | dropdown |
 
-**You** menu (quiet; not a second bar, not a body button):
+Trigger is a profile icon (Google photo if we have one, else a silhouette). Never the word **You**. Never **Sign out** in the bar. Everyone gets the menu — Sign out lives there.
+
+**Profile** dropdown (quiet; not a second bar, not a body button):
 
 | Who | String | Goes |
 |-----|--------|------|
-| Everyone | Yours | `/dashboard` |
+| Everyone | Your recs | `/dashboard` |
 | Admin only | Admin | `/admin` |
 | Sponsor or admin | Sponsor | `/sponsor` |
+| Everyone | Sign out | sign out |
 
-Plain user: **You** is just `/dashboard` — no menu required. Admin is **never** a card, a mid-page button, or a footer underline. **Never** the words User dashboard or Sponsor dashboard.
+Admin is **never** a card, a mid-page button, a footer underline, or the page they land on after Google. **Never** the words User dashboard or Sponsor dashboard.
 
 Logged-out:
 
@@ -102,28 +104,42 @@ Logged-out:
 | Cities | Cities | `/cities` |
 | Log in | Log in | `/login` |
 
-| **Never** in any header | `{email} · {role}` · Dashboard · Browse cities · Admin as a primary item |
+| **Never** in any header | `{email} · {role}` · You · Sign out in the bar · Dashboard · Browse cities · Admin as a primary item |
 
-Share is the pill. Once. Do not reprint it as a hero card on Yours.
+Share is the pill. Once. Do not reprint it as a hero card on Your recommendations.
+
+### After login
+
+Everyone — `user`, `sponsor`, `admin` — lands on `/dashboard`. Honor `?next=` if they were headed somewhere (Share, a rec). Never send an admin to `/admin` just because they signed in.
 
 ### Dashboard `/dashboard`
 
-This page is **Yours** — published recs and days. It is not a form farm, not an admin queue, not a second homepage.
+This page is **Your recommendations** — published recs and days. It is not a form farm, not an admin queue, not a second homepage. Public pages still do not say **rec**. This page and the profile menu may.
 
 | Slot | String |
 |------|--------|
-| Title | Yours |
+| Title | Your recommendations |
 | Line | What you put on the map. |
-| Layovers heading | Your layovers |
-| Layovers empty | No days yet. Share one. |
-| Eat/Do/Buy heading | Your Eat, Do & Buy |
-| Eat/Do/Buy empty | Nothing here yet. Share one. |
+| Full days heading | Full days |
+| Full days empty | No days yet. Share one. |
+| Recs heading | Recs |
+| Recs empty | Nothing here yet. Share one. |
 | Manual (quiet, after the lists) | or type it yourself |
 | Manual links | Eat · Do · Buy · Full layover |
 
-Lists feel like the city: name, city, Eat/Do/Buy — not a spreadsheet of underlines. Empty “Dump one.” means the header pill. No second Share card.
+Two stacks, not one mixed list. **Full days** first (the sequenced layover). **Recs** under that (each Eat / Do / Buy on its own). A rec that also sits in a day still belongs in Recs — it is theirs.
 
-| **Never** on this page | Your dashboard · a **Share your intel** card · four equal form cards · Browse cities · Admin · “Dump a layover. She fills the form…” · `(draft)` · other people’s recs · seed |
+Cards, not underlines. Same family as the city 4:5 tile.
+
+| Slot | String / rule |
+|------|----------------|
+| Still | Hero photo. Never a black tile. Day card uses a stop’s hero. |
+| Name | Place name, or the day’s title |
+| City | **{City}** — bold. The only bold on the card besides the name if you need a hierarchy. |
+| Kind (recs only) | Eat / Do / Buy |
+| Date | `{Mon D}` — e.g. Aug 26. Quiet. No “Created”, no “Last modified”, no timestamp. |
+
+| **Never** on this page | Your dashboard · Yours · You · a **Share your intel** card · four equal form cards · Browse cities · Admin · `{email} · {role}` · role chips · “Dump a layover. She fills the form…” · `(draft)` · `(published)` · Status · other people’s recs · seed |
 
 Manual Eat / Do / Buy / Full layover stay as those quiet links. They are the back stairs. They are not four CMS tiles equal to Share.
 
@@ -133,9 +149,9 @@ Manual Eat / Do / Buy / Full layover stay as those quiet links. They are the bac
 |------|--------|
 | Admin title | Admin |
 | Sponsor title | Sponsor |
-| Back | *(the header — You)* |
+| Back | *(the header — profile icon → Your recs)* |
 
-Kill switch + Lumen log stay on Admin. **Never** footer underlines: User dashboard, Sponsor dashboard. Back is **You**.
+Kill switch + Lumen log stay on Admin. **Never** footer underlines: User dashboard, Sponsor dashboard. Back is the profile menu.
 
 ### Login `/login`
 
@@ -222,7 +238,7 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - Seed density in thin cities (Delhi shop, Munich meal, Santiago walk) — John’s call, not a dump.
 - Daily 3-draft cap parked for testing.
 - Edit rec still hides plate uploads (`namesOnly`) while Share and the rec page use dish JPEGs. Same two jobs; Edit should match.
-- Logged-in chrome is still a CMS (email · role · Sign out). Dashboard is still a form farm. Admin still has footer underlines. Header lock is in Copy; pixels are not.
+- Pixels still lag this lock: Google can dump an admin on `/admin`; header still says You + Sign out in the bar; dashboard is still a list of underlines named Yours. Copy is this file. Engineering owns the cut.
 
 ## Lessons
 
@@ -236,6 +252,7 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - An empty The day is not a layover. Fill it from the dump or refuse Publish.
 - Same stops / same story is the same day even with a new title. Recs stay; do not copy the day.
 - Save a day → send them back to the day.
-- Two headers is two sites. One family: Layover · Share your intel · Cities · You · Sign out.
-- Dashboard is not a CMS chooser. Yours is published work. Share already lives in the header. Four form cards are homework.
-- Admin is a quiet word in You. Never a button in the body. Never “User dashboard” at the bottom like a 2009 CMS.
+- Two headers is two sites. One family: Layover · Share your intel · Cities · profile icon. Sign out lives in the menu. Never You. Never `{email} · {role}`.
+- Dashboard is not a CMS chooser. **Your recommendations** is published work: Full days, then Recs, cards with stills, **city** bold, the day they posted. Share already lives in the header. Four form cards are homework.
+- Admin is a quiet word in the profile menu. Never the page they land on after Google. Never a button in the body. Never “User dashboard” at the bottom like a 2009 CMS.
+- Public pages do not say rec. The dashboard and **Your recs** in the menu may.

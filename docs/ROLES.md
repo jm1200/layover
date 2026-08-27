@@ -1,6 +1,6 @@
 # ROLES.md — Admin, user, sponsor
 
-One authentication system. Three roles. Same login entry; post-login routing differs.
+One authentication system. Three roles. Same login entry. Everyone lands on `/dashboard` (**Your recommendations**). Admin and Sponsor stay behind the profile menu — they are not post-login homes.
 
 ## Roles
 

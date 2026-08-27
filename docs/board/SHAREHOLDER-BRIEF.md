@@ -18,7 +18,7 @@ Engineering ships this cut. Sofia + Lumen own login, photo labels, and delete-re
 |------|------|
 | Login | **Google** this cut — you create the OAuth client. Email stays. Not Apple. **Not Facebook / Instagram.** |
 | Rec photos | Up to **3 pics** of the rec (food, room, street — their choice). Tap one **hero** = city tile + rec top. No pic → Lumen still. **Get this** = names only. |
-| Drafts / dashboard | **Your published** recs and days only. No `(draft)`. No seed. No everyone else’s. Admin queue = Phase 6. |
+| Drafts / dashboard | **Your recommendations.** Your published recs and days only. No `(draft)`. No seed. No everyone else’s. Admin queue = Phase 6. Google (even admin) lands here, not `/admin`. |
 | Dedup | Same stop set = same day. Title drift does not ship a twin. Day blurb from the dump. “On the map now” only for a **new** city. |
 | Edit day | **One Save** (keeps it live) → public layover. Drop/reorder stick. Delete day must work. |
 

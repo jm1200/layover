@@ -23,9 +23,9 @@ Not the whole click list. Playwright already does browse, email login, create/sa
 
 Dev: http://localhost:3000
 
-1. **Google.** Sign out. `/login`. Button should look like every other site (G + Continue with Google). Click it. Land on **Yours**. If Google isn’t wired, skip and say so — email still works.
+1. **Google.** Sign out. `/login`. Button should look like every other site (G + Continue with Google). Click it. Land on **Your recommendations** (`/dashboard`) — even if you are admin. Never `/admin` as the landing. If Google isn’t wired, skip and say so — email still works.
 2. **Dump.** `/share`. Paste a real place (a few sentences). Phone photo if you have one, or skip. **Write it up** → check → **Publish**. Land on the rec. Hero is in **Photos**. Tap a photo → blows up → **X** closes. No black rectangle. No word “rec”. Get this is names only.
-3. **Yours.** Only your published recs and days. No Zurich seed. No `(draft)`.
+3. **Your recommendations.** Only your published recs and days. Stills on the cards. City bold. Full days separate from Recs. No Zurich seed. No `(draft)`.
 4. **Hotel (optional).** Dump a line with a crew hotel name. Public rec must not show it.
 5. **Feel.** Walk that rec like a crewmate. Intel, or homework?
 
@@ -37,7 +37,7 @@ If something’s wrong: URL + what you clicked + what you saw. Then we freeze du
 
 **Milo owns this.** He writes and runs `cd apps/web && npm run test:e2e` before anyone pings you. Theo reviews. You are not the regression suite.
 
-Covers: home/cities, rec Photos + zoom + X, email login, Yours is yours, create rec, upload still, Get this name, Save → rec, delete rec, layover publish + delete day.
+Covers: home/cities, rec Photos + zoom + X, email login, Your recommendations is yours, create rec, upload still, Get this name, Save → rec, delete rec, layover publish + delete day.
 
 **Does not cover (you still click):** Google button, a photo from your phone, dump → Lumen (xAI spend), “does this feel like crew.”
 

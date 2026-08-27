@@ -47,8 +47,8 @@ A **full layover** is a combo of places. When Lumen drafts a plan from a story, 
 - [x] Add chooser offers **Full layover** next to Eat / Do / Buy (those three are places).
 - [x] City page: layover-plan list stays first, then Eat/Do/Buy groups. Jump chip **Full layover** with count. No separate `/plans` IA this cut. No photo grid this cut.
 
-## UI copy (locked 2026-08-26 — Sofia)
+## UI copy (locked 2026-08-26 — Sofia; dashboard 2026-08-27 — Lumen)
 
-**Dashboard** (`/dashboard`): title **Yours**. Lists **Your Eat, Do & Buy** and **Your layovers**. This user’s **published** rows only — seed and other people are not yours. **No** `(draft)` / `(published)`. Never say **rec** on the site.
+**Dashboard** (`/dashboard`): title **Your recommendations**. Two stacks: **Full days**, then **Recs**. Cards with still, name, **city** (bold), quiet `{Mon D}` date. This user’s **published** rows only — seed and other people are not yours. **No** `(draft)` / `(published)`. Public pages never say **rec**. Dashboard and the profile menu (**Your recs**) may.
 
 **Edit layover** (`/dashboard/playbooks/[id]/edit`): **one button.** Label **Save**. Persists title + story + stop drop/reorder, keeps the day live, then **lands on the layover** (`/playbooks/[id]`). Kill **Publish — live on the city** here. Kill **Save stop order**. New layover create still uses **Publish**.  
