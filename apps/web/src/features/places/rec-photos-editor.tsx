@@ -73,8 +73,8 @@ export function RecPhotosEditor({
     <div className="mt-8 max-w-lg">
       <p className="text-sm font-medium">Photos</p>
       <p className="mt-0.5 text-xs text-zinc-500">
-        Food, room, street — whatever. Tap one for the city page tile and the
-        top of the rec. Max {MAX}. Saves as you go.
+        Any pictures of this rec. Tap one to use as the hero — that’s the
+        city-page tile and the top of the rec. Max {MAX}. Saves as you go.
       </p>
       <ul className="mt-3 grid grid-cols-3 gap-2">
         {photos.map((p) => {
