@@ -392,7 +392,7 @@ export async function addPlaceDish(
     return { error: "Log in first." };
   }
   const n = name.trim();
-  if (!n) return { error: "Name the plate." };
+  if (!n) return { error: "Name it." };
   const lodging = refusePublicCopy(n, null);
   if (lodging) return { error: lodging };
   const supabase = await createClient();
@@ -410,7 +410,7 @@ export async function addPlaceDish(
     .select("id", { count: "exact", head: true })
     .eq("place_id", placeId);
   if ((count ?? 0) >= MAX_PLATES) {
-    return { error: "Three plates is enough." };
+    return { error: "Three is enough." };
   }
   const { data: dish, error } = await supabase
     .from("dishes")
@@ -422,10 +422,10 @@ export async function addPlaceDish(
     .select("id, place_id, name, note, sort_order, image_url")
     .single();
   if (error || !dish) {
-    return { error: error?.message ?? "Couldn’t add that plate." };
+    return { error: error?.message ?? "Couldn’t add that." };
   }
   revalidatePath(`/places/${placeId}`);
-  return { success: "Plate added.", dish: dish as Dish };
+  return { success: "Added.", dish: dish as Dish };
 }
 
 export async function updatePlaceDish(
@@ -437,7 +437,7 @@ export async function updatePlaceDish(
     return { error: "Log in first." };
   }
   const n = name.trim();
-  if (!n) return { error: "Name the plate." };
+  if (!n) return { error: "Name it." };
   const lodging = refusePublicCopy(n, null);
   if (lodging) return { error: lodging };
   const supabase = await createClient();
@@ -463,10 +463,10 @@ export async function updatePlaceDish(
     .select("id, place_id, name, note, sort_order, image_url")
     .single();
   if (error || !updated) {
-    return { error: error?.message ?? "Couldn’t rename that plate." };
+    return { error: error?.message ?? "Couldn’t rename that." };
   }
   revalidatePath(`/places/${dish.place_id}`);
-  return { success: "Plate renamed.", dish: updated as Dish };
+  return { success: "Saved.", dish: updated as Dish };
 }
 
 export async function deletePlaceDish(
@@ -495,7 +495,7 @@ export async function deletePlaceDish(
   const { error } = await supabase.from("dishes").delete().eq("id", dishId);
   if (error) return { error: error.message };
   revalidatePath(`/places/${dish.place_id}`);
-  return { success: "Plate removed." };
+  return { success: "Removed." };
 }
 
 export async function attachDishStill(
@@ -528,7 +528,7 @@ export async function attachDishStill(
     .eq("id", place.id)
     .maybeSingle();
   if (rec?.image_url && rec.image_url.split("?")[0] === url.split("?")[0]) {
-    return { error: "That’s the place shot. Upload the plate." };
+    return { error: "That’s the hero. Upload a different photo." };
   }
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
   const ours =
@@ -543,7 +543,7 @@ export async function attachDishStill(
     .eq("id", dishId);
   if (error) return { error: error.message };
   revalidatePath(`/places/${dish.place_id}`);
-  return { success: "Plate photo saved.", imageUrl: url };
+  return { success: "Photo saved.", imageUrl: url };
 }
 
 export async function deletePlace(

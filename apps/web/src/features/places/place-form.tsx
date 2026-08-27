@@ -232,7 +232,7 @@ export function PlaceForm({
 
       {children ? (
         <p className="text-xs text-zinc-500">
-          Photos and plates save as you go. This button is for city, name,
+          Photos and Get this save as you go. This button is for city, name,
           type, and blurb.
         </p>
       ) : null}

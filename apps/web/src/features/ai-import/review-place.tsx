@@ -54,7 +54,9 @@ export function ReviewQueue({
 
   return (
     <section className="mt-8">
-      <h2 className="font-semibold">Places first</h2>
+      {total > 1 ? (
+        <h2 className="font-semibold">One at a time</h2>
+      ) : null}
       <p className="mt-1 text-sm text-zinc-600">
         Check this. Add up to three photos, or we’ll make one.
       </p>
@@ -285,7 +287,9 @@ function ReviewPlaceCard({
   return (
     <article className="rounded-2xl border border-zinc-200 bg-white p-4">
       <p className="text-xs font-bold uppercase tracking-wider text-zinc-500">
-        Place {index} of {total} · {REC_KIND_LABEL[kind]}
+        {total > 1
+          ? `${index} of ${total} · ${REC_KIND_LABEL[kind]}`
+          : REC_KIND_LABEL[kind]}
       </p>
       <h3 className="mt-1 text-lg font-semibold">{place.name}</h3>
 

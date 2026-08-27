@@ -85,7 +85,7 @@ export function PlatesEditor({
     <div className="mt-6 border-t border-zinc-200 pt-4">
       <p className="text-sm font-medium">Get this</p>
       <p className="mt-0.5 text-xs text-zinc-500">
-        {`What to order. Names only — photos go in Photos above. Rename, add, or X. Up to ${MAX_PLATES}.`}
+        {`Names only. Rename, add, or X. Up to ${MAX_PLATES}.`}
       </p>
       {plates.length > 0 ? (
         <ul className="mt-3 divide-y divide-zinc-200 rounded-xl border border-zinc-200 bg-white">
@@ -144,7 +144,7 @@ export function PlatesEditor({
             onClick={addPlate}
             className="rounded-lg border border-zinc-300 px-3 py-2 text-sm disabled:opacity-60"
           >
-            {pending ? "Adding…" : "Add plate"}
+            {pending ? "Adding…" : "Add"}
           </button>
         </div>
       ) : null}
@@ -203,7 +203,7 @@ function PlateRow({
       ) : null}
       <input
         value={draft}
-        aria-label="Plate name"
+        aria-label="Get this name"
         disabled={pending}
         onChange={(e) => setDraft(e.target.value)}
         onBlur={() => void saveIfDirty()}
@@ -222,7 +222,7 @@ function PlateRow({
               ? "Uploading…"
               : dish.image_url
                 ? "Replace"
-                : "Upload the plate"}
+                : "Upload"}
             <input
               type="file"
               accept="image/*"
@@ -239,7 +239,7 @@ function PlateRow({
       )}
       <button
         type="button"
-        aria-label="Remove plate"
+        aria-label="Remove"
         disabled={pending}
         onClick={onDelete}
         className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-zinc-400 hover:bg-zinc-100 hover:text-zinc-800 disabled:opacity-60"

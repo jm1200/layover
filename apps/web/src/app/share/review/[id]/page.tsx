@@ -69,13 +69,16 @@ export default async function ShareReviewPage({
   const n = places.length;
 
   return (
-    <AppShell profile={profile} title="File this layover">
+    <AppShell
+      profile={profile}
+      title={playbook ? "The day" : "Check this"}
+    >
       <p className="max-w-lg text-zinc-700">
         {n > 0 && playbook
-          ? `I’ll file ${n} place${n === 1 ? "" : "s"} first — one at a time — then the layover that strings them.`
+          ? `Check each stop, then the day that strings them.`
           : n > 0
-            ? "This place first. Edit the blurb if you want, then publish."
-            : "I filled what I heard."}
+            ? "Edit the blurb if you want, add photos, then publish."
+            : "Nothing new to file."}
       </p>
       {newCityLabel ? (
         <p className="mt-2 text-sm text-zinc-600">

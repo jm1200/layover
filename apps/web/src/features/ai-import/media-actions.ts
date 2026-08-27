@@ -116,7 +116,7 @@ export async function addReviewDish(
   const ctx = await ownPlace(placeId);
   if (!ctx.ok) return { error: ctx.error };
   const n = name.trim();
-  if (!n) return { error: "Name the plate." };
+  if (!n) return { error: "Name it." };
   const lodging = refusePublicCopy(n, null);
   if (lodging) return { error: lodging };
   const { count } = await ctx.supabase
@@ -124,7 +124,7 @@ export async function addReviewDish(
     .select("id", { count: "exact", head: true })
     .eq("place_id", placeId);
   if ((count ?? 0) >= MAX_PLATES) {
-    return { error: `Three plates is enough.` };
+    return { error: `Three is enough.` };
   }
   const { data: dish, error } = await ctx.supabase
     .from("dishes")
@@ -135,9 +135,9 @@ export async function addReviewDish(
     })
     .select("id, place_id, name, note, sort_order, image_url")
     .single();
-  if (error || !dish) return { error: error?.message ?? "Couldn’t add that plate." };
+  if (error || !dish) return { error: error?.message ?? "Couldn’t add that." };
   revalidatePath(`/places/${placeId}`);
-  return { success: "Plate added.", dish: dish as Dish };
+  return { success: "Added.", dish: dish as Dish };
 }
 
 export async function attachDishImage(
@@ -154,7 +154,7 @@ export async function attachDishImage(
     .select("id, place_id")
     .eq("id", dishId)
     .maybeSingle();
-  if (!dish) return { error: "Plate not found." };
+  if (!dish) return { error: "Not found." };
   const ctx = await ownPlace(dish.place_id);
   if (!ctx.ok) return { error: ctx.error };
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
@@ -168,7 +168,7 @@ export async function attachDishImage(
     .eq("id", dishId);
   if (error) return { error: error.message };
   revalidatePath(`/places/${dish.place_id}`);
-  return { success: "Plate photo saved.", imageUrl: url };
+  return { success: "Photo saved.", imageUrl: url };
 }
 
 async function generatePlaceStillNow(
