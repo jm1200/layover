@@ -1,101 +1,122 @@
-# Phase 4 review — Theo, 2026-08-26
+# Phase 4 review
 
-Read the files. Did not implement. Did not rubber-stamp. RecStillEditor is already gone.
+## 2026-08-27 — Theo, after feel pass
 
-## Summary
+Read the files. Did not implement. Did not rubber-stamp. 08-26 is archive below; this pass is the code as it sits, not that memo.
 
-The dump → review → publish path works as a product, and the locked rec-edit decisions (album max 3, plates as Get this names, Save then `/places/[id]`) are in the right files. What the burst left behind is two write paths for the same photos, a plate photo farm that public Get this no longer shows, and a stop-reorder that will unique-violate. Founder CRUD/photo test will hit the album split-brain unless 016 is applied *and* review/AI stills actually insert `place_photos` — they currently do not.
+### Verdict
 
-## Dead / leftover (safe to delete later)
+The two freeze blockers from 08-26 are **fixed in code**: dump/AI/edit stills now `rememberInAlbum`, and stop reorder is a two-phase write (`position + 100`, then `1..n`). Edit day is one Save → `/playbooks/[id]`. Dashboard is published-mine-only. Admin is kill switch + last 50. Playwright exists and does not call xAI.
 
-- `apps/web/src/features/ai-import/quality.ts:2` — `lumenOffersStill`. No importer. Whole file.
-- `apps/web/src/features/ai-import/media-actions.ts:110` — `addReviewDish`. Twin of `addPlaceDish`. Nothing imports it. Review uses `PlatesEditor` → `addPlaceDish`.
-- `apps/web/src/features/ai-import/media-actions.ts:141` — `attachDishImage`. Twin of `attachDishStill`. Nothing imports it.
-- `apps/web/src/features/ai-import/media-actions.ts:435` — `sellPlaceBlurb` (“Make this sell”). Nothing imports it. Still spends if someone called it. `lumen-log.tsx:26` still labels old `sell_blurb` rows; keep the label, delete the action.
-- `apps/web/src/features/places/rec-media.ts:111` `DISH_STILL` and `:126` `stillForDish` — only wired on edit rec (`dashboard/places/[id]/edit/page.tsx:10,45`) to stuff `image_url` onto plates that render `namesOnly`. Public Get this is names. 016 already copied those JPEGs into `place_photos`.
-- `apps/web/src/features/places/place-form.tsx:34,49` — `allowHidden` destructured, never rendered. Edit rec still passes it (`edit/page.tsx:74`). Admin cannot hide a rec from this form.
-- `apps/web/src/features/playbooks/playbook-form.tsx:33` — `submitLabel` bound as `_submitLabel` and ignored. Edit layover passes `"Save"` (`edit/page.tsx:58`); the button always says “Publish — live on the city”.
-- `apps/web/src/features/places/plates-editor.tsx:34–70, 239–269` — upload / Replace / “Use rec photo” when `namesOnly` is false. Public rec page does not show dish photos (`places/[id]/page.tsx:160–176`). Review still mounts `PlatesEditor` without `namesOnly` (`review-place.tsx:379–385`), so dump review is a second plate-photo farm that writes `dishes.image_url` and never `place_photos`.
-- Duplicate attach-hero: `media-actions.ts:83` `attachPlaceImage` (review) vs `places/actions.ts:171` `attachPlaceStill` (edit). Same `places.image_url` update. Collapse later; both are live today.
-- Schema-cache retries (`queries.ts` PLACE_COLS / LEGACY / BARE, `media-actions.ts` `ownPlace` 44–52, `lumen-log.tsx` 70–85) are leftover from the 010/011 churn. Harmless if 011+016 are applied; do not delete until John has run them.
+Not shippable as a freeze until dump **dedup matches the lock** (stop set, not title-first) and the public rec **stops showing four photos**. The rest is leftover and copy.
 
-## Bugs
+### 08-26 scorecard
 
-### Album is not the source of truth after dump/publish — Severity: bug
+| Item | Now |
+|------|-----|
+| Album write on dump upload / AI still / tap-hero | **FIXED.** `attachPlaceImage`, `generatePlaceStillNow`, `attachPlaceStill` all call `rememberInAlbum`. Review upload goes through `addPlacePhoto`. |
+| Stop reorder `unique (playbook_id, position)` | **FIXED.** `writeStopOrder` in `playbooks/actions.ts:328–360`. |
+| `listPlacePhotos` swallows missing table | **Still true.** Returns `[]` + console warn (`queries.ts:161–172`). Write path still says “paste 016”. 016 is live per founder-test table; this is a disagree-on-failure, not the album split-brain. |
+| Review farms plate JPEGs | **FIXED.** `review-place.tsx` passes `namesOnly`. Edit rec too. Photo branch in `PlatesEditor` is dead UI. |
+| Playbook Save stays on edit / button says Publish | **FIXED** for the live path. `savePlaybookEdit` redirects. `EditLayoverForm` button is Save. `PlaybookForm` still ignores `submitLabel` — only `/dashboard/playbooks/new` uses it, and Publish is the right word there. |
+| Playbook title/narrative skip hotel gate | **FIXED** on create / meta / save / `publishReviewed`. Stop title + body still skip. Regex is still cheap (`Hilton crew stay` sails). |
+| `lumen_set_city_hero` callable by any logged-in user | **Unfixed.** Same 011 RPC. App skips when `CITY_HERO[slug]` exists; the RPC does not. |
+| No DB cap of 3 on `place_photos` | **Unfixed.** App `count` only. 016 backfill has no cap. |
+| Nested Save | **Looks correct.** Rec e2e uploads a still then Adds a plate then Save without an accidental submit. Not a browser proof of every control. |
+| Dead: `sellPlaceBlurb`, `addReviewDish`, `attachDishImage`, `quality.ts` / `lumenOffersStill` | **Still there.** Exported from `"use server"` files. `sellPlaceBlurb` still spends if anyone hits it. |
+| `allowHidden` on `PlaceForm` | **Still unused.** Admin cannot hide a rec from this form. Status is a hidden field of the current value. |
+| `legacy-hero` fake slot | **Still synthesized** when the album is empty (`edit/page.tsx:55–57`, `review-place.tsx:280–285`). `removePlacePhoto` special-cases the id so X no longer 404s. New dumps with a photo should have album rows. |
 
-- File: `apps/web/src/features/ai-import/media-actions.ts:95–102` (`attachPlaceImage`), `:220–227` (`generatePlaceStillNow`), `apps/web/src/app/places/[id]/page.tsx:54–66`, `apps/web/src/app/dashboard/places/[id]/edit/page.tsx:48–57`, `apps/web/src/features/places/actions.ts:271–276`
-- Description: Locked rule is rec photos = `place_photos` max 3. Review upload and AI-still-on-publish only set `places.image_url`. They never insert `place_photos`. Public rec then does: album rows, then `unshift` the hero if that URL is not in the album — so a rec with 3 album shots plus a different hero shows **4**. Edit rec, if the album is empty, synthesizes `{ id: "legacy-hero", src: heroSrc }`. X calls `removePlacePhoto(placeId, "legacy-hero")` → “Photo not found.” Adding a second photo via `addPlacePhoto` writes the *new* URL into the album and leaves the original hero only on `places.image_url` (because that column is already set). Tap-hero then overwrites `places.image_url` and the original dump photo drops out of the album entirely.
-- Suggestion: One write. `attachPlaceImage`, `generatePlaceStillNow`, and `attachPlaceStill` should upsert the URL into `place_photos` (cap 3) and set hero from that row. Public rec should render the album only — no unshift. Delete the `legacy-hero` fake slot.
+### Bugs
 
-### Stop reorder hits `unique (playbook_id, position)` — Severity: bug
+#### Dump dedup still keys off title first — Severity: bug
 
-- File: `apps/web/src/features/playbooks/actions.ts:262–268`, constraint `apps/web/supabase/migrations/002_content.sql:108`
-- Description: `savePlaybookStops` updates position 1..n in order. Swapping two stops tries to set B to position 1 while A still holds 1. Constraint is not deferrable. Founder “tug a day” + Save stop order will error unless they also dropped a stop (delete first frees the slot).
-- Suggestion: Two-phase update (offset positions, then 1..n) or delete-and-reinsert the kept rows in one statement.
+- File: `apps/web/src/features/ai-import/actions.ts:244–272` (`matchExistingPlan`), helpers in `extract.ts:242–253`
+- Lock: same **stop set** = same day. Title drift must not ship a twin (`docs/MAP.md`, shareholder brief).
+- What the code does, in order: `titlesMatch` → stop **titles** (`sameStopSet`, requires length ≥ 2) → place-id set (also ≥ 2) → first 80 chars of the day blurb.
+- Two failures vs the lock:
+  1. Two different days that Lumen titles the same (`Geneva layover`) collide. Title is hers, not the identity.
+  2. A **one-stop** day with a new title does not hit `sameStopSet` or the place-id set (both require ≥ 2). Twin ships.
+- Suggestion: Match place-id set (allow length 1) or normalized stop names. Drop title-first. Narrative prefix is a nice extra, not the key.
 
-### `listPlacePhotos` swallows a missing table — Severity: bug
+#### Public rec still unshifts the hero — Severity: bug
 
-- File: `apps/web/src/features/places/queries.ts:161–172` vs write path `places/actions.ts:214–221, 253–255`
-- Description: If 016 is not applied, or PostgREST schema cache is stale, list returns `[]` with a console warn. Edit looks empty / falls back to `legacy-hero`. X does not mention 016. Add photo *does* (`albumMissing`). Read and write disagree. Shareholder brief already says 016 is missing in the live project.
-- Suggestion: Surface the same “paste 016” string on list failure, or fail the edit page closed. Do not invent an empty album.
+- File: `apps/web/src/app/places/[id]/page.tsx:54–78`, dashboard cards do the same then slice to 3 (`dashboard/page.tsx:93–99`, `your-cards.tsx:31`)
+- Locked rule is album max 3, album is the list. New writes put the URL in `place_photos`. Public rec still: album rows, then `unshift` `stillForPlace` if that URL is not in the album.
+- Seed exhibit: Zurich raclette. 016 backfill copied three plate JPEGs. Place has no `image_url`, so `stillForPlace` is `PLACE_STILL` `/landing/eat-zurich-raclette.jpg` — a fourth URL. Public rec shows **4**. Dashboard cards hide it (`slice(0, 3)`). Public rec does not.
+- Suggestion: Render the album only, cap 3. If album is empty, one hero from `stillForPlace`. Delete the unshift. Then a trigger/check for the cap.
 
-### Dump review still farms plate photos — Severity: suggestion
+#### City-open line still promises a hero — Severity: bug
 
-- File: `apps/web/src/features/ai-import/review-place.tsx:379–385`, `apps/web/src/features/places/plates-editor.tsx:20, 88–90, 239–269`
-- Description: Locked: plates on Edit rec = names (Get this); photos live in the album. Review omits `namesOnly`, so you can still attach JPEGs to `dishes.image_url`. Public Get this ignores those URLs. 016’s backfill copied historical dish JPEGs into the rec album once; new review uploads do not.
-- Suggestion: Pass `namesOnly` on review too, then delete `attachDishStill` / the photo branch. Do not keep two galleries.
+- File: `apps/web/src/app/share/review/[id]/page.tsx:65–88`
+- `opened_city` gating is correct (copy only when she actually opened it). The sentence is not: `{City} ({IATA}) is on the map now. I’ll put a city hero up when you publish.`
+- Spec (`features/ai-import.md`): never that second sentence on that line.
+- Suggestion: First sentence only.
 
-### Playbook Save stays on edit; button never says Save — Severity: suggestion
+#### Skip-photo is still a checkbox — Severity: suggestion
 
-- File: `apps/web/src/features/playbooks/actions.ts:191–196` (`updatePlaybookMeta` returns success, no `redirect`), `playbook-form.tsx:33, 173–180`
-- Description: Rec Save redirects to `/places/[id]` (`places/actions.ts:168`). Layover meta save stays on `/dashboard/playbooks/[id]/edit` and the ignored `submitLabel` means the primary button is still “Publish — live on the city”. Locked: note only, do not reverse rec redirect. The dead label is leftover, not a product call.
-- Suggestion: Use `submitLabel`. Hide vs Publish copy is wrong for `status === "hidden"` (`actions.ts:191–196` says “Saved as draft”).
+- File: `apps/web/src/features/ai-import/review-place.tsx:255–329, 346–348`
+- Lock: no pic → Lumen still. No checkbox homework (founder #5).
+- Default is checked, so a rushed Next still generates. They can uncheck and get blocked. That is the homework.
+- Suggestion: No checkbox. Empty album → `want_ai_still` true.
 
-### Layover title/narrative skip the hotel gate — Severity: suggestion
+### Suggestions
 
-- File: `apps/web/src/features/ai-import/media-actions.ts:380–392` (`publishReviewed` patches playbook with no `refusePublicCopy`), `apps/web/src/features/playbooks/actions.ts:21–25, 113–117` (create/update playbook same)
-- Description: Rec name/blurb and plate names go through `refusePublicCopy` (`moderate.ts:10–17`). The regex is cheap (`crew hotel|the hotel|crash pad|…`) — “Hilton crew stay” still sails. Playbook title, narrative, and stop body never hit it. Lumen’s extract prompt is the real strip for dumps; a user can type a hotel into “The day” on review and publish.
-- Suggestion: Run `refusePublicCopy` on playbook title + narrative + stop titles in `publishReviewed` / `createPlaybook` / `updatePlaybookMeta`. Do not pretend the regex is a lodging firewall.
+- **`lumen_set_city_hero`:** any authenticated client can set `cities.image_url` when it is null. `heroForCity` prefers that column over static `CITY_HERO`. Validate URL host/bucket; refuse when a static hero exists; or restrict execute.
+- **Hotel gate on stops:** `createPlaybook` still does not run `refusePublicCopy` on stop title/body. Day title/narrative now do. Regex is still not a lodging firewall.
+- **`sellPlaceBlurb`:** unused UI, live server action, spends. Delete with `addReviewDish` / `attachDishImage` / `quality.ts`. Keep the `sell_blurb` log label.
+- **`listPlacePhotos` vs write:** list still returns `[]` on a missing table. `addPlacePhoto` tells you to paste 016. Fail the edit/review closed, or show the same string.
+- **`rememberInAlbum` swallows errors** (`counted.error` → return). Publish AI still then looks like a `legacy-hero` again.
+- **`writeStopOrder`** does not check the delete error, and does not verify `orderedIds` belong to this playbook. Empty POST drops every stop.
+- **Public rec Edit** is author-only (`places/[id]/page.tsx:79`). Layover Edit includes admin. Admin still has the URL.
+- **`/playbooks/[id]`** still prints `Status: draft (not public)` (`page.tsx:114–118`). Dashboard will not send anyone there; the badge you killed on Yours still lives on that page.
+- **E2E gap:** `layover.spec.ts` publishes a day and deletes it. It never Opens Edit → Up/Down → Save. That is the path that used to unique-violate. Rec spec never X’s a photo. Do not invent a second runner; Milo adds those clicks if we want them in the suite.
+- **You-nav** adds Sponsor for admin/sponsor. MAP dropdown is Your recs, Admin if admin, Sign out.
 
-### `lumen_set_city_hero` is callable by any logged-in user — Severity: suggestion
+### Nits / leftover
 
-- File: `apps/web/supabase/migrations/011_lumen_spend.sql:37–68`
-- Description: Security-definer RPC, `grant execute … to authenticated`, no check that the caller filed a rec in that city. URL is not required to live in `place-stills`. `heroForCity` prefers `cities.image_url` over the static `CITY_HERO` JPEGs (`rec-media.ts:9–16`), so a client call can replace Zurich’s editorial banner if `image_url` is still null. App path `generateCityHeroIfNeeded` skips when `CITY_HERO[slug]` exists (`media-actions.ts:256`); the RPC does not.
-- Suggestion: Validate URL host/bucket; refuse when a static hero exists; or restrict execute to the server role you actually use.
+- `PlaceForm.allowHidden` destructured, never rendered.
+- `PlaybookForm` `_submitLabel`. `updatePlaybookMeta` unused. `StopsEditor` unused (`savePlaybookStops` only lives for that dead component).
+- `DISH_STILL` / `stillForDish` still stuffed onto edit-rec plates that render `namesOnly`.
+- `AiStill` defaults `badge = "ai"`. Playbook city hero omits `badge`, so Zurich’s editorial banner gets the AI chip on `/playbooks/[id]`. City page also forces undefined → `"ai"`.
+- `fillDraft` log-insert failure: “Check Yours.” Yours does not list drafts.
+- Schema-cache retries (`PLACE_COLS` / `LEGACY` / `BARE`, `ownPlace`, `lumen-log`) — leftover 010/011 churn. Harmless if 011+016 stay applied.
+- Nested photos/plates inside the Save `<form>`: controls are `type="button"`; rec e2e exercises the happy path.
 
-### No DB cap of 3 on `place_photos` — Severity: nit
+### Dashboard / admin / chrome (08-27)
 
-- File: `apps/web/supabase/migrations/016_place_photos.sql` (table, no check), `places/actions.ts:212, 256–257`
-- Description: Cap is app `count` only. Two parallel uploads can both see `count < 3`. 016 backfill also has no cap — raclette’s three dish JPEGs plus a distinct `places.image_url` / `PLACE_STILL` unshift is how you get four on the public rec.
-- Suggestion: After the album write path is unified, add a trigger or unique+check. Not first.
+- `homeForRole` is `/dashboard` for everyone, including admin. Good.
+- Dashboard: published only (`listMyPlaces` / `listMyPlaybooks`), city as a bold section, Full days vs Recs, seed Limmat excluded in e2e. Cards are not a CMS. No Edit on the card — public rec → Edit. Matches the lock.
+- Header: Layover · Share your intel · Cities · profile icon. Account dropdown works; e2e opens it.
+- `/admin`: kill switch + last 50 + month spend. No dump text. Non-admin redirected via `homeForRole`. Fine for this slice.
+- Google button is the official G + “Continue with Google”. OAuth client is still John’s.
 
-### PlaceForm nested controls — Severity: nit
+### E2E
 
-- File: `apps/web/src/features/places/place-form.tsx:68, 231`, `rec-photos-editor.tsx:85, 117, 147`, `plates-editor.tsx:158, 271`
-- Description: Photos and plates sit inside the Save `<form>`. I checked: hero tap, X, Add plate, Remove plate are `type="button"`. File pickers are `<label>` + hidden `<input type="file">`. Plate name Enter is `preventDefault`. This is the class of bug that survives a churn; it looks correct on the page, not proven in a browser.
-- Suggestion: Founder test: Add photo / X / Add plate / rename plate must not fire rec Save. If anything submits, that control is missing `type="button"`.
+- `apps/web/e2e`: browse, email login, rec create/upload/Get this/Save/zoom/delete, layover publish + delete day. `auth.spec.ts` says do not click Write it up. No `xai` / `XAI` / `images.generate` under `e2e/`. Workers = 1. Creds path is gitignored.
+- Does not cover: Google, dump/Lumen, stop reorder + Save, X a photo, hotel dump.
+- That is the right split. Founder still clicks dump.
 
-## Do not delete (still used)
+### Do not delete (still used)
 
 - `attachPlaceStill` — RecPhotosEditor tap-hero.
-- `attachPlaceImage` — dump review upload. Duplicate, but live.
-- `addPlaceDish` / `updatePlaceDish` / `deletePlaceDish` / `attachDishStill` — PlatesEditor. `attachDishStill` only while review is not `namesOnly`.
-- `addPlacePhoto` / `removePlacePhoto` — RecPhotosEditor.
-- `stillForPlace` / `PLACE_STILL` / `CITY_HERO` / `STOP_STILL` — city cards, rec hero, layover tiles. Seed stills are not a pipeline; do not rip them because dish stills died.
-- `savePlaceReview` / `publishReviewed` / `generatePlaceStillNow` — the share review path.
-- `compressStill` — both upload UIs.
-- `lumen_month_spend_usd` / `aiBlocked` — fail closed if the RPC is missing (`spend.ts:9–16`).
-- RecStillEditor — already absent. Do not go looking for a file to restore.
-
-## Verdict
-
-Not shippable as a Phase 4 freeze until the album is one table. Dump → upload or AI still → publish → Edit rec is a fake `legacy-hero` row; X fails; extra photos and the public unshift can break “max 3.” Stop Up/Down + Save stop order will bounce on the position unique. Both are in the founder script. Leftover actions (`sellPlaceBlurb`, `lumenOffersStill`, `addReviewDish`, `attachDishImage`, dish still maps, unused `allowHidden` / `submitLabel`) are churn, not the blocker — delete them in a cleanup pass after the album write is unified. RecStillEditor is already gone. Nested Save looks correctly `type="button"`; still click it. Playbook staying on edit is the inconsistency you already locked — don’t reverse rec redirect to match it. 011 and 016 must actually be in the project or the spend RPC and album 500 in the brief stay true. After those two bugs and SQL, founder CRUD/photo test is the gate, not more features.
+- `attachPlaceImage` — exported, **nothing imports it**. Duplicate of `attachPlaceStill`. Dead as of this pass.
+- `addPlaceDish` / `updatePlaceDish` / `deletePlaceDish` — PlatesEditor names.
+- `attachDishStill` — only while `namesOnly` is false. Both live mounts pass `namesOnly`.
+- `addPlacePhoto` / `removePlacePhoto` / `rememberInAlbum` — album.
+- `stillForPlace` / `PLACE_STILL` / `CITY_HERO` / `STOP_STILL` — city cards, rec hero, layover tiles. Seed stills are not a pipeline.
+- `savePlaceReview` / `publishReviewed` / `generatePlaceStillNow` — share review.
+- `compressStill` — upload UIs.
+- `lumen_month_spend_usd` / `aiBlocked` — fail closed.
+- RecStillEditor — still absent.
 
 ---
 
 # 2026-08-27 — Milo
 
 Read the files. Did not implement. Did not rubber-stamp the 8/26 list — that review is stale against what is on disk now.
+
+Restored here after Theo’s 08-27 pass (it was appended to the 08-26 file; the rewrite dropped it). Theo agrees with the “still real” list. He adds three the E2E pass did not: dump **dedup is title-first** (and one-stop twins slip), city-open copy still promises a hero, skip-photo is still a checkbox.
 
 ## E2E vs product (I own this)
 
@@ -146,3 +167,30 @@ Do not treat those as current blockers.
 ## Verdict
 
 Theo’s freeze-blockers from 8/26 are mostly gone. Remaining album issue is the unshift safety net, not “dump never writes `place_photos`.” E2E matches title / Account / Your recs / mine-only / rec CRUD / layover delete. It does **not** lock city grouping, the Google button’s existence, or the admin log. Founder feel-pass (Google if wired, dump/Lumen, a phone photo) is still the gate. Do not start Phase 3.
+
+---
+
+## Archive — 2026-08-26 (Theo)
+
+Read the files. Did not implement. Did not rubber-stamp. RecStillEditor is already gone.
+
+The dump → review → publish path works as a product, and the locked rec-edit decisions (album max 3, plates as Get this names, Save then `/places/[id]`) are in the right files. What the burst left behind is two write paths for the same photos, a plate photo farm that public Get this no longer shows, and a stop-reorder that will unique-violate. Founder CRUD/photo test will hit the album split-brain unless 016 is applied *and* review/AI stills actually insert `place_photos` — they currently do not.
+
+### Dead / leftover (as of 08-26; see scorecard above)
+
+- `apps/web/src/features/ai-import/quality.ts:2` — `lumenOffersStill`. No importer. Whole file.
+- `apps/web/src/features/ai-import/media-actions.ts:110` — `addReviewDish`. Twin of `addPlaceDish`. Nothing imports it. Review uses `PlatesEditor` → `addPlaceDish`.
+- `apps/web/src/features/ai-import/media-actions.ts:141` — `attachDishImage`. Twin of `attachDishStill`. Nothing imports it.
+- `apps/web/src/features/ai-import/media-actions.ts:435` — `sellPlaceBlurb` (“Make this sell”). Nothing imports it. Still spends if someone called it. `lumen-log.tsx:26` still labels old `sell_blurb` rows; keep the label, delete the action.
+- `apps/web/src/features/places/rec-media.ts:111` `DISH_STILL` and `:126` `stillForDish` — only wired on edit rec (`dashboard/places/[id]/edit/page.tsx:10,45`) to stuff `image_url` onto plates that render `namesOnly`. Public Get this is names. 016 already copied those JPEGs into `place_photos`.
+- `apps/web/src/features/places/place-form.tsx:34,49` — `allowHidden` destructured, never rendered. Edit rec still passes it (`edit/page.tsx:74`). Admin cannot hide a rec from this form.
+- `apps/web/src/features/playbooks/playbook-form.tsx:33` — `submitLabel` bound as `_submitLabel` and ignored. Edit layover passes `"Save"` (`edit/page.tsx:58`); the button always says “Publish — live on the city”.
+- `apps/web/src/features/places/plates-editor.tsx` — upload / Replace when `namesOnly` is false. Public rec page does not show dish photos. Review now passes `namesOnly` (fixed 08-27).
+- Duplicate attach-hero: `media-actions.ts` `attachPlaceImage` (review) vs `places/actions.ts` `attachPlaceStill` (edit). Collapse later; both were live on 08-26. 08-27: review no longer imports `attachPlaceImage`.
+- Schema-cache retries (`queries.ts` PLACE_COLS / LEGACY / BARE, `media-actions.ts` `ownPlace`, `lumen-log.tsx`) are leftover from the 010/011 churn. Harmless if 011+016 are applied; do not delete until John has run them.
+
+### Bugs (as filed 08-26)
+
+Album not source of truth after dump/publish; stop reorder unique-violate; `listPlacePhotos` swallows missing table; review plate-photo farm; playbook Save stays on edit; layover title/narrative skip hotel gate; `lumen_set_city_hero` any authenticated; no DB cap of 3; PlaceForm nested controls.
+
+08-26 verdict: not shippable until the album is one table and stop reorder does not unique-violate. Both of those are **fixed in code** as of 08-27. Remaining freeze issues are on this pass’s scorecard, not this archive.
