@@ -164,8 +164,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] SQL **011** — global $20 RPC, city-hero column, generate-on-publish flag, city-open quota. **Live** (spend RPC probed 2026-08-26).
 - [x] SQL **016** `place_photos` — **live**. Dump/AI still now write the album too.
 - [x] Founder-test pack (2026-08-26): labeled place vs dish; no drafts on dashboard; mine-only Edit; stop-set + place-id dedup; day blurb from dump; city-open copy only when new; one Save on edit day + redirect; Google button (needs John’s OAuth client). Retest `FOUNDER-TEST.md`.
-- [x] One site chrome (Lumen 2026-08-26): Layover · Share your intel · Cities · You · Sign out. Dashboard is **Yours**. Manual forms are a quiet line. Admin under You.
-- [ ] Chrome + Yours cut (Lumen 2026-08-27): everyone lands on `/dashboard` (not `/admin`). Header: Layover · Share your intel · Cities · **profile icon**. Dropdown: **Your recs**, Admin if admin, Sign out. Title **Your recommendations**. Cards: still, posted date, **city** bold. Full days vs Recs. Copy locked in `agents/lumen.md`. **Not pixels yet.**
+- [x] Chrome + dashboard (Lumen/Sofia 2026-08-27): sign-in → `/dashboard` (not `/admin`). Header: Layover · Share your intel · Cities · **profile icon**. Dropdown: **Your recs**, Admin if admin, Sign out. Title **Your recommendations**. Cards: still, posted date, **city** bold. Full days vs Recs.
 - [x] Playwright E2E (`apps/web/e2e`, `npm run test:e2e`) — **Milo owns.** Fake user clicks browse, login, rec photos/zoom, Save, delete rec, layover day. Does **not** call xAI. Google OAuth still human. Theo reviews.
 
 ## Session checklist for agents

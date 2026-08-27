@@ -15,15 +15,18 @@ test.describe("email login", () => {
     await expect(page).toHaveURL(/\/login/);
   });
 
-  test("login lands on Yours; seed recs are not yours", async ({ page }) => {
+  test("login lands on Your recommendations; seed recs are not yours", async ({
+    page,
+  }) => {
     await login(page);
-    await expect(page.getByRole("heading", { name: "Yours" })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Your recommendations" }),
+    ).toBeVisible();
     await expect(
       page.getByRole("link", { name: "Limmat river float (DIY)" }),
     ).toHaveCount(0);
-    await expect(
-      page.getByRole("link", { name: "You", exact: true }),
-    ).toBeVisible();
+    await page.getByLabel("Account").click();
+    await expect(page.getByRole("link", { name: "Your recs" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Sign out" })).toBeVisible();
   });
 

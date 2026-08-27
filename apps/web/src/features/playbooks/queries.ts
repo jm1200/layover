@@ -83,11 +83,11 @@ export async function listMyPlaybooks(authorId: string): Promise<Playbook[]> {
   const { data, error } = await supabase
     .from("playbooks")
     .select(
-      "id, city_id, title, narrative, hours_available, status, author_id",
+      "id, city_id, title, narrative, hours_available, status, author_id, created_at",
     )
     .eq("author_id", authorId)
     .eq("status", "published")
-    .order("updated_at", { ascending: false });
+    .order("created_at", { ascending: false });
   if (error) {
     console.warn("[listMyPlaybooks]", error.message);
     return [];
@@ -102,15 +102,20 @@ export async function listMyPlaces(authorId: string): Promise<
     status: string;
     city_id: string;
     category: string | null;
+    image_url: string | null;
+    image_source: string | null;
+    created_at: string;
   }[]
 > {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("places")
-    .select("id, name, status, city_id, category")
+    .select(
+      "id, name, status, city_id, category, image_url, image_source, created_at",
+    )
     .eq("author_id", authorId)
     .eq("status", "published")
-    .order("updated_at", { ascending: false });
+    .order("created_at", { ascending: false });
   if (error) {
     console.warn("[listMyPlaces]", error.message);
     return [];

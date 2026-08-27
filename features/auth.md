@@ -53,7 +53,7 @@ Logged-in: **Layover** · **Share your intel** · **Cities** · **profile icon**
 Profile dropdown: **Your recs** → `/dashboard`. Admin (admin only) · Sponsor (sponsor/admin) · **Sign out**.  
 Logged-out: Layover · Share your intel · Cities · Log in.
 
-`/dashboard` title **Your recommendations**. Two stacks of cards: **Full days**, then **Recs**. Still, name, **city** (bold), quiet `{Mon D}` date. Recs may say rec here; public pages do not. Quiet line after: *or type it yourself* Eat · Do · Buy · Full layover. No Share card, no four CMS tiles, no Browse cities / Admin in the body.
+`/dashboard` title **Your recommendations**. Line: *What you put on the map.* Two stacks: **Full days** (stop-still strip), then **Recs** (4:5 hero + Eat/Do/Buy stamp). **{City}** bold. `Posted {Mon D}`. Recs may say rec here; public pages do not. Quiet line after the cards: *or type it yourself* Eat · Do · Buy · Full layover — stays, does not move, does not die, is not four tiles. No Share card, no Browse cities / Admin in the body.
 
 Strings: `agents/lumen.md` **Copy (locked)**.
 
@@ -106,10 +106,10 @@ Paste strings from `agents/lumen.md` **Copy (locked) → Dashboard**. Do not inv
 |------|------|
 | Title | **Your recommendations** |
 | Line | **What you put on the map.** |
-| Days | **Your days** / empty **No days yet. Share one.** |
-| Recs | **Eat, Do & Buy** / empty **Nothing here yet. Share one.** |
+| Days | **Full days** / empty **No days yet. Share one.** |
+| Recs | **Recs** / empty **Nothing here yet. Share one.** |
 | Menu | **Your recs** |
-| Posted | **Posted {D Mon}** |
-| Manual | **or type it yourself** Eat · Do · Buy · Full layover |
+| Posted | **Posted {Mon D}** |
+| Manual | **or type it yourself** Eat · Do · Buy · Full layover — stays after the cards |
 
-**Feel:** city page is a magazine; this page is your camera roll of what you filed. Not a zinc list of underlines. Not `/admin`.
+**Feel:** city page is a magazine; this page is your camera roll of what you filed. Day cards are a strip of stops. Rec cards are a 4:5 still with Eat/Do/Buy stamped on the photo. Not a zinc list of underlines. Not `/admin`.

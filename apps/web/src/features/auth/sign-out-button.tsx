@@ -4,18 +4,21 @@
 export function SignOutButton({
   action,
   tone = "light",
+  className,
 }: {
   action: () => Promise<void>;
   tone?: "dark" | "light";
+  className?: string;
 }) {
   return (
     <form action={action}>
       <button
         type="submit"
         className={
-          tone === "dark"
+          className ??
+          (tone === "dark"
             ? "text-sm text-white/90 hover:text-white"
-            : "text-sm text-zinc-600 hover:text-zinc-900"
+            : "text-sm text-zinc-600 hover:text-zinc-900")
         }
       >
         Sign out

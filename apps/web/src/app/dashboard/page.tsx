@@ -4,13 +4,21 @@ import { AppShell } from "@/features/auth/shell";
 import { requireRole } from "@/features/auth/get-profile";
 import { SuspendedPanel } from "@/features/auth/suspended-panel";
 import {
-  recKindFromCategory,
-  REC_KIND_LABEL,
-} from "@/features/places/kind";
-import { listCities } from "@/features/places/queries";
+  DayCard,
+  RecCard,
+  postedOn,
+  recKindLabel,
+} from "@/features/auth/your-cards";
+import {
+  heroForCity,
+  stillForPlace,
+  stillForStop,
+} from "@/features/places/rec-media";
+import { getPlace, listCities } from "@/features/places/queries";
 import {
   listMyPlaces,
   listMyPlaybooks,
+  listStopsForPlaybook,
 } from "@/features/playbooks/queries";
 
 export default async function DashboardPage() {
@@ -27,59 +35,98 @@ export default async function DashboardPage() {
     listMyPlaces(profile.id),
     listCities(),
   ]);
-  const cityName = (id: string) =>
-    cities.find((c) => c.id === id)?.name ?? "";
+  const city = (id: string) => cities.find((c) => c.id === id);
+  const mineById: Record<
+    string,
+    {
+      id: string;
+      name: string;
+      image_url?: string | null;
+      image_source?: string | null;
+    }
+  > = Object.fromEntries(myPlaces.map((p) => [p.id, p]));
+
+  const stopSets = await Promise.all(
+    myPlaybooks.map((pb) => listStopsForPlaybook(pb.id)),
+  );
+  const needed = new Set<string>();
+  for (const stops of stopSets) {
+    for (const s of stops) {
+      if (s.place_id && !mineById[s.place_id]) needed.add(s.place_id);
+    }
+  }
+  const extras = await Promise.all([...needed].map((id) => getPlace(id)));
+  for (const p of extras) {
+    if (p) mineById[p.id] = p;
+  }
 
   return (
-    <AppShell profile={profile} title="Yours">
+    <AppShell profile={profile} title="Your recommendations" wide>
       <p className="text-zinc-600">What you put on the map.</p>
 
-      <section className="mt-8">
-        <h2 className="font-semibold">Your layovers</h2>
+      <section className="mt-10">
+        <h2 className="font-mono text-sm uppercase tracking-[0.28em] text-zinc-400">
+          Full days
+        </h2>
         {myPlaybooks.length === 0 ? (
-          <p className="mt-3 text-sm text-zinc-500">No days yet. Share one.</p>
+          <p className="mt-4 text-sm text-zinc-500">No days yet. Share one.</p>
         ) : (
-          <ul className="mt-3 space-y-3">
-            {myPlaybooks.map((pb) => (
-              <li key={pb.id}>
-                <Link
-                  href={`/playbooks/${pb.id}`}
-                  className="font-medium hover:underline"
-                >
-                  {pb.title}
-                </Link>
-                <p className="text-sm text-zinc-500">{cityName(pb.city_id)}</p>
-              </li>
-            ))}
+          <ul className="mt-5 grid gap-6 sm:grid-cols-2">
+            {myPlaybooks.map((pb, i) => {
+              const c = city(pb.city_id);
+              const hero = c ? heroForCity(c) : null;
+              const stills = stopSets[i]
+                .map((s) =>
+                  stillForStop(s, s.place_id ? mineById[s.place_id] : null),
+                )
+                .filter((x): x is NonNullable<typeof x> => Boolean(x));
+              return (
+                <li key={pb.id}>
+                  <DayCard
+                    href={`/playbooks/${pb.id}`}
+                    title={pb.title}
+                    city={c?.name ?? ""}
+                    posted={postedOn(pb.created_at)}
+                    hours={pb.hours_available}
+                    stills={stills.length ? stills : hero ? [hero] : []}
+                  />
+                </li>
+              );
+            })}
           </ul>
         )}
       </section>
 
-      <section className="mt-8">
-        <h2 className="font-semibold">Your Eat, Do & Buy</h2>
+      <section className="mt-14 border-t border-zinc-200 pt-10">
+        <h2 className="font-mono text-sm uppercase tracking-[0.28em] text-zinc-400">
+          Recs
+        </h2>
         {myPlaces.length === 0 ? (
-          <p className="mt-3 text-sm text-zinc-500">Nothing here yet. Share one.</p>
+          <p className="mt-4 text-sm text-zinc-500">
+            Nothing here yet. Share one.
+          </p>
         ) : (
-          <ul className="mt-3 space-y-3">
-            {myPlaces.map((p) => (
-              <li key={p.id}>
-                <Link
-                  href={`/places/${p.id}`}
-                  className="font-medium hover:underline"
-                >
-                  {p.name}
-                </Link>
-                <p className="text-sm text-zinc-500">
-                  {cityName(p.city_id)} ·{" "}
-                  {REC_KIND_LABEL[recKindFromCategory(p.category)]}
-                </p>
-              </li>
-            ))}
+          <ul className="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {myPlaces.map((p) => {
+              const c = city(p.city_id);
+              return (
+                <li key={p.id}>
+                  <RecCard
+                    href={`/places/${p.id}`}
+                    name={p.name}
+                    city={c?.name ?? ""}
+                    kind={recKindLabel(p.category)}
+                    posted={postedOn(p.created_at)}
+                    still={stillForPlace(p) ?? null}
+                  />
+                </li>
+              );
+            })}
           </ul>
         )}
       </section>
 
-      <p className="mt-10 text-sm text-zinc-500">
+      <p className="mt-12 text-sm text-zinc-500">
         or type it yourself{" "}
         <Link href="/dashboard/places/new?kind=eat" className="underline">
           Eat

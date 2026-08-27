@@ -2,7 +2,7 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-08-27 (Phase 4 close. Milo owns E2E. You still do Google + feel.)  
+**Last updated:** 2026-08-27 (Feel pass: dump is in. Sign-in → Your recommendations, not Admin.)  
 **Company:** Layover (working name)  
 **Stage:** **Phase 4 close.** Engineers fix what you found. Not Phase 3. Not Stripe.
 

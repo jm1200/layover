@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { signOut } from "@/features/auth/actions";
-import { SignOutButton } from "@/features/auth/sign-out-button";
 import { YouNav } from "@/features/auth/you-nav";
 import type { Profile } from "@/features/auth/types";
 
@@ -39,10 +38,7 @@ export function SiteHeader({
             Cities
           </Link>
           {loggedIn && profile ? (
-            <>
-              <YouNav role={profile.role} tone={tone} />
-              <SignOutButton action={signOut} tone={tone} />
-            </>
+            <YouNav role={profile.role} tone={tone} signOut={signOut} />
           ) : (
             <Link href="/login" className={citiesCls}>
               Log in

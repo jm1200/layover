@@ -8,6 +8,7 @@ export type Playbook = {
   hours_available: number | null;
   status: ContentStatus;
   author_id: string | null;
+  created_at?: string;
 };
 
 export type PlaybookStop = {

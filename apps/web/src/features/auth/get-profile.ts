@@ -84,14 +84,7 @@ export async function requireRole(allowed: UserRole[]) {
   return result;
 }
 
-/** Post-login home path by role */
-export function homeForRole(role: UserRole): string {
-  switch (role) {
-    case "admin":
-      return "/admin";
-    case "sponsor":
-      return "/sponsor";
-    default:
-      return "/dashboard";
-  }
+/** Post-login home. Everyone — including admin — lands on their recs. */
+export function homeForRole(_role?: UserRole): string {
+  return "/dashboard";
 }

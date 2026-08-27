@@ -124,24 +124,22 @@ This page is **Your recommendations** — published recs and days. It is not a f
 | Full days empty | No days yet. Share one. |
 | Recs heading | Recs |
 | Recs empty | Nothing here yet. Share one. |
-| Manual (quiet, after the lists) | or type it yourself |
+| Posted | Posted {Mon D} |
+| Manual (quiet, after the cards) | or type it yourself |
 | Manual links | Eat · Do · Buy · Full layover |
 
 Two stacks, not one mixed list. **Full days** first (the sequenced layover). **Recs** under that (each Eat / Do / Buy on its own). A rec that also sits in a day still belongs in Recs — it is theirs.
 
-Cards, not underlines. Same family as the city 4:5 tile.
+**Cards, not underlines.** Two visual families — not two identical link stacks.
 
-| Slot | String / rule |
-|------|----------------|
-| Still | Hero photo. Never a black tile. Day card uses a stop’s hero. |
-| Name | Place name, or the day’s title |
-| City | **{City}** — bold. The only bold on the card besides the name if you need a hierarchy. |
-| Kind (recs only) | Eat / Do / Buy |
-| Date | `{Mon D}` — e.g. Aug 26. Quiet. No “Created”, no “Last modified”, no timestamp. |
+- **Day card:** stop-still strip (city layover-card DNA). Day title. **{City}** bold. `Posted {Mon D}`. ~hours if we have it. Tap → public day.
+- **Rec card:** one 4:5 hero (never a black tile). Eat/Do/Buy stamp on the photo. Place name. **{City}** bold. `Posted {Mon D}`. Extra album shots as tiny thumbs if they uploaded more than one (max 3). Tap → public rec.
+- Newest posted first. `created_at`. Not `updated_at`.
+- Click the card. Edit lives on the public rec/day, not a pencil on the face.
 
-| **Never** on this page | Your dashboard · Yours · You · a **Share your intel** card · four equal form cards · Browse cities · Admin · `{email} · {role}` · role chips · “Dump a layover. She fills the form…” · `(draft)` · `(published)` · Status · other people’s recs · seed |
+| **Never** on this page | Your dashboard · Yours · You · a **Share your intel** card · four equal form cards · Browse cities · Admin · `{email} · {role}` · role chips · “Dump a layover. She fills the form…” · `(draft)` · `(published)` · Status · other people’s recs · seed · ISO dates · “updated” · hotels |
 
-Manual Eat / Do / Buy / Full layover stay as those quiet links. They are the back stairs. They are not four CMS tiles equal to Share.
+*or type it yourself* **stays** after the cards. Dump is the door. These links are the back stairs. Do not move them to the header. Do not kill them. Do not promote them to four CMS tiles.
 
 ### Admin `/admin` · Sponsor `/sponsor`
 
@@ -253,6 +251,6 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - Same stops / same story is the same day even with a new title. Recs stay; do not copy the day.
 - Save a day → send them back to the day.
 - Two headers is two sites. One family: Layover · Share your intel · Cities · profile icon. Sign out lives in the menu. Never You. Never `{email} · {role}`.
-- Dashboard is not a CMS chooser. **Your recommendations** is published work: Full days, then Recs, cards with stills, **city** bold, the day they posted. Share already lives in the header. Four form cards are homework.
+- Dashboard is not a CMS chooser. **Your recommendations** is a scrapbook: Full days (stop strip), then Recs (4:5 + stamp), stills, **city** bold, `Posted {Mon D}`. Share already lives in the header. Four form cards are homework. Quiet *or type it yourself* stays after the cards.
 - Admin is a quiet word in the profile menu. Never the page they land on after Google. Never a button in the body. Never “User dashboard” at the bottom like a 2009 CMS.
 - Public pages do not say rec. The dashboard and **Your recs** in the menu may.
