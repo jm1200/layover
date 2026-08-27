@@ -128,13 +128,13 @@ This page is **Your recommendations** — published recs and days. It is not a f
 | Manual (quiet, after the cards) | or type it yourself |
 | Manual links | Eat · Do · Buy · Full layover |
 
-Two stacks, not one mixed list. **Full days** first (the sequenced layover). **Recs** under that (each Eat / Do / Buy on its own). A rec that also sits in a day still belongs in Recs — it is theirs.
+Grouped **by city** (A–Z). City name is the section, big bold — not repeated on every card. Under each city: **Full days** then **Recs**. A rec that also sits in a day still belongs in Recs.
 
-**Cards, not underlines.** Two visual families — not two identical link stacks.
+**Cards, not underlines.** Smaller on desktop (3-wide). Date first on the card.
 
-- **Card order (founder 2026-08-27):** **{City}** first, big bold. Then `Posted {Mon D}`. Then pic/pics. Then name + blurb. Never photo-first.
-- **Day card:** city, date (~hours on the date line), stop-still strip, day title, the day blurb. Tap → public day.
-- **Rec card:** city, date, album (max 3, never a black tile), Eat/Do/Buy stamp on the photos, place name, blurb. Tap → public rec.
+- **Card order (founder 2026-08-27):** `Posted {Mon D}` at the top. Then pic/pics. Then name + blurb. City lives on the section, not the card.
+- **Day card:** date (~hours on the date line), stop-still strip, day title, the day blurb. Tap → public day.
+- **Rec card:** date, album (max 3, never a black tile), Eat/Do/Buy stamp on the photos, place name, blurb. Tap → public rec.
 - Newest posted first. `created_at`. Not `updated_at`.
 - Click the card. Edit lives on the public rec/day, not a pencil on the face.
 

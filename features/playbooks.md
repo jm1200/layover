@@ -49,6 +49,6 @@ A **full layover** is a combo of places. When Lumen drafts a plan from a story, 
 
 ## UI copy (locked 2026-08-26 — Sofia; dashboard 2026-08-27 — Lumen)
 
-**Dashboard** (`/dashboard`): title **Your recommendations**. Two stacks: **Full days**, then **Recs**. Card: **city** big bold → posted date → pics → name + blurb. This user’s **published** rows only — seed and other people are not yours. **No** `(draft)` / `(published)`. Public pages never say **rec**. Dashboard and the profile menu (**Your recs**) may. Quiet *or type it yourself* stays after the cards.
+**Dashboard** (`/dashboard`): title **Your recommendations**. Grouped **by city**. Under each: **Full days** then **Recs**. Card: posted date → pics → name + blurb. This user’s **published** rows only — seed and other people are not yours. **No** `(draft)` / `(published)`. Public pages never say **rec**. Dashboard and the profile menu (**Your recs**) may. Quiet *or type it yourself* stays after the cards.
 
 **Edit layover** (`/dashboard/playbooks/[id]/edit`): **one button.** Label **Save**. Persists title + story + stop drop/reorder, keeps the day live, then **lands on the layover** (`/playbooks/[id]`). Kill **Publish — live on the city** here. Kill **Save stop order**. New layover create still uses **Publish**.  

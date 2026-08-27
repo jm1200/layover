@@ -31,11 +31,11 @@ function PhotoRow({
   const n = Math.min(stills.length, 3);
   return (
     <div
-      className="relative mt-4 grid gap-1 overflow-hidden rounded-xl bg-zinc-100"
+      className="relative mt-2 grid gap-0.5 overflow-hidden rounded-lg bg-zinc-100"
       style={{ gridTemplateColumns: `repeat(${n}, minmax(0, 1fr))` }}
     >
       {stills.slice(0, 3).map((still) => (
-        <div key={still.src} className="relative aspect-[4/5]">
+        <div key={still.src} className="relative aspect-[3/4]">
           <AiStill
             src={still.src}
             alt={still.alt}
@@ -46,7 +46,7 @@ function PhotoRow({
         </div>
       ))}
       {kind ? (
-        <span className="pointer-events-none absolute left-3 top-3 rounded-full bg-black/65 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
+        <span className="pointer-events-none absolute left-2 top-2 rounded-full bg-black/65 px-2 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-white">
           {kind}
         </span>
       ) : null}
@@ -57,7 +57,6 @@ function PhotoRow({
 export function RecCard({
   href,
   name,
-  city,
   kind,
   posted,
   blurb,
@@ -65,7 +64,6 @@ export function RecCard({
 }: {
   href: string;
   name: string;
-  city: string;
   kind?: string;
   posted?: string | null;
   blurb?: string | null;
@@ -73,18 +71,17 @@ export function RecCard({
 }) {
   return (
     <Link href={href} className="group block">
-      <p className="text-3xl font-bold tracking-tight sm:text-4xl">{city}</p>
       {posted ? (
-        <p className="mt-1 text-sm text-zinc-500">{posted}</p>
+        <p className="text-xs text-zinc-500">{posted}</p>
       ) : null}
       <PhotoRow
         stills={stills}
         kind={kind}
-        sizes="(min-width: 640px) 33vw, 100vw"
+        sizes="(min-width: 1024px) 20vw, (min-width: 640px) 30vw, 50vw"
       />
-      <p className="mt-3 font-medium tracking-tight">{name}</p>
+      <p className="mt-2 text-sm font-medium tracking-tight">{name}</p>
       {blurb ? (
-        <p className="mt-1 line-clamp-3 text-sm leading-relaxed text-zinc-600">
+        <p className="mt-0.5 line-clamp-2 text-xs leading-relaxed text-zinc-600">
           {blurb}
         </p>
       ) : null}
@@ -95,7 +92,6 @@ export function RecCard({
 export function DayCard({
   href,
   title,
-  city,
   posted,
   hours,
   blurb,
@@ -103,7 +99,6 @@ export function DayCard({
 }: {
   href: string;
   title: string;
-  city: string;
   posted?: string | null;
   hours?: number | null;
   blurb?: string | null;
@@ -111,15 +106,14 @@ export function DayCard({
 }) {
   return (
     <Link href={href} className="group block">
-      <p className="text-3xl font-bold tracking-tight sm:text-4xl">{city}</p>
-      <p className="mt-1 text-sm text-zinc-500">
+      <p className="text-xs text-zinc-500">
         {posted}
         {hours ? ` · ~${hours}h` : null}
       </p>
       <PhotoRow stills={stills} kind="Full day" sizes="15vw" />
-      <p className="mt-3 font-medium tracking-tight">{title}</p>
+      <p className="mt-2 text-sm font-medium tracking-tight">{title}</p>
       {blurb ? (
-        <p className="mt-1 line-clamp-3 text-sm leading-relaxed text-zinc-600">
+        <p className="mt-0.5 line-clamp-2 text-xs leading-relaxed text-zinc-600">
           {blurb}
         </p>
       ) : null}
