@@ -3,10 +3,12 @@ import Link from "next/link";
 export function Byline({
   name,
   href,
+  posted,
   tone = "light",
 }: {
   name: string;
   href?: string | null;
+  posted?: string | null;
   tone?: "light" | "dark";
 }) {
   const cls =
@@ -17,15 +19,18 @@ export function Byline({
     tone === "dark" ? "underline hover:text-white" : "underline hover:text-zinc-800";
 
   return (
-    <p className={cls}>
-      Posted by{" "}
-      {href ? (
-        <Link href={href} className={linkCls}>
-          {name}
-        </Link>
-      ) : (
-        name
-      )}
-    </p>
+    <div className={cls}>
+      <p>
+        Posted by{" "}
+        {href ? (
+          <Link href={href} className={linkCls}>
+            {name}
+          </Link>
+        ) : (
+          name
+        )}
+      </p>
+      {posted ? <p className="mt-0.5">{posted}</p> : null}
+    </div>
   );
 }

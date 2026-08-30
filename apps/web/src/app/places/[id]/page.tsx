@@ -19,6 +19,7 @@ import {
   listZonesForCity,
 } from "@/features/places/queries";
 import { ZONE_LABELS, type ZoneType } from "@/features/places/types";
+import { postedOn } from "@/features/auth/your-cards";
 import { Byline } from "@/features/social/byline";
 import { CommentThread } from "@/features/social/comment-thread";
 import { LikeButton } from "@/features/social/like-button";
@@ -136,6 +137,7 @@ export default async function PlacePage({
             <Byline
               name={byline}
               href={place.author_id ? `/u/${place.author_id}` : null}
+              posted={postedOn(place.created_at)}
               tone="dark"
             />
             <div className="mt-3">

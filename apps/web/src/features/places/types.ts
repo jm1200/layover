@@ -27,6 +27,7 @@ export type Place = {
   category: string | null;
   status: ContentStatus;
   author_id: string | null;
+  created_at?: string;
   image_url?: string | null;
   image_source?: string | null;
   want_ai_still?: boolean | null;

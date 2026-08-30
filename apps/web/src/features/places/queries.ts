@@ -2,11 +2,11 @@ import { createClient } from "@/lib/supabase/server";
 import type { City, Dish, Place, PlacePhoto, Zone } from "@/features/places/types";
 
 const PLACE_COLS =
-  "id, city_id, zone_id, name, blurb, category, status, author_id, image_url, image_source, want_ai_still";
+  "id, city_id, zone_id, name, blurb, category, status, author_id, created_at, image_url, image_source, want_ai_still";
 const PLACE_COLS_LEGACY =
-  "id, city_id, zone_id, name, blurb, category, status, author_id, image_url, image_source";
+  "id, city_id, zone_id, name, blurb, category, status, author_id, created_at, image_url, image_source";
 const PLACE_COLS_BARE =
-  "id, city_id, zone_id, name, blurb, category, status, author_id";
+  "id, city_id, zone_id, name, blurb, category, status, author_id, created_at";
 
 const CITY_COLS =
   "id, slug, name, country, airport_code, image_url, image_source";

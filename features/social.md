@@ -52,7 +52,7 @@ Lumen paste list: `agents/lumen.md` → Header dropdown, Rec/day hero, Comments,
 
 | Slot | String |
 |------|--------|
-| Rec/day byline | Posted by {name} (fallback **Crew**). **Link** if there is an author. Never a face. |
+| Rec/day byline | Posted by {name} (fallback **Crew**). **Link** if there is an author. Never a face. **Posted {Mon D}** under it. |
 | Like | **Like** / **Liked** · count. Visible never **Unlike**. Never a who-list. |
 | Person title | {name} / empty **Crew** |
 | Person line | Where they've been. |
@@ -65,6 +65,8 @@ Lumen paste list: `agents/lumen.md` → Header dropdown, Rec/day hero, Comments,
 | Comments heading | Comments |
 | Empty | None yet. |
 | Form | Leave a note / Been? Add a line. / **Post** |
+| Note date | Posted {Mon D} |
+| Note photos | View: pictures only. Edit: Add a photo / X. Compose form may add pics before Post. |
 | Own delete | **Remove** (aria **Remove note**) |
 | **Never on a note** | Take off · Delete · Remove comment |
 | Header menu | **Profile** → `/u/[id]`. **Your recs** → `/dashboard`. Never the display name in the menu. |

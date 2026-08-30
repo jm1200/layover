@@ -11,6 +11,7 @@ import {
   getPlaybook,
   listStopsForPlaybook,
 } from "@/features/playbooks/queries";
+import { postedOn } from "@/features/auth/your-cards";
 import { Byline } from "@/features/social/byline";
 import { CommentThread } from "@/features/social/comment-thread";
 import { LikeButton } from "@/features/social/like-button";
@@ -117,6 +118,7 @@ export default async function PlaybookPage({
           <Byline
             name={byline}
             href={playbook.author_id ? `/u/${playbook.author_id}` : null}
+            posted={postedOn(playbook.created_at)}
             tone="dark"
           />
           <div className="mt-3">

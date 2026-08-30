@@ -14,6 +14,7 @@ import {
   DraftCommentPhotos,
   OwnCommentPhotos,
 } from "@/features/social/comment-photos";
+import { postedOn } from "@/features/auth/your-cards";
 import { FaceCircle } from "@/features/social/face";
 import type { CommentRow, SocialKind } from "@/features/social/types";
 
@@ -63,9 +64,10 @@ export function CommentThread({
           {comments.map((c) => {
             const mine = userId === c.author_id;
             const editing = editingId === c.id;
+            const when = postedOn(c.created_at);
             return (
               <li key={c.id}>
-                <p className="flex items-center gap-2 text-sm font-medium text-zinc-800">
+                <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium text-zinc-800">
                   <Link
                     href={`/u/${c.author_id}`}
                     className="flex items-center gap-2"
@@ -77,6 +79,11 @@ export function CommentThread({
                     />
                     <span className="underline">{c.byline}</span>
                   </Link>
+                  {when ? (
+                    <span className="text-xs font-normal text-zinc-500">
+                      {when}
+                    </span>
+                  ) : null}
                 </p>
                 {editing ? (
                   <div className="mt-1 max-w-lg">
@@ -136,7 +143,7 @@ export function CommentThread({
                     {c.body}
                   </p>
                 )}
-                {mine && userId ? (
+                {editing && mine && userId ? (
                   <OwnCommentPhotos
                     commentId={c.id}
                     kind={kind}

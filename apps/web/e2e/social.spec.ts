@@ -8,9 +8,11 @@ test.describe("like, comment, byline", () => {
   test("public rec and day show a byline and comments", async ({ page }) => {
     await page.goto(LIMMAT);
     await expect(page.getByText(/^Posted by /)).toBeVisible();
+    await expect(page.getByText(/^Posted [A-Z][a-z]{2} \d/)).toBeVisible();
     await expect(page.getByRole("heading", { name: "Comments" })).toBeVisible();
     await page.goto(ZRH_DAY);
     await expect(page.getByText(/^Posted by /)).toBeVisible();
+    await expect(page.getByText(/^Posted [A-Z][a-z]{2} \d/)).toBeVisible();
     await expect(page.getByRole("heading", { name: "Comments" })).toBeVisible();
   });
 
@@ -62,8 +64,14 @@ test.describe("like, comment, byline", () => {
     await expect(
       recComments.getByRole("button", { name: "View photo" }).first(),
     ).toBeVisible();
+    await expect(
+      recComments.getByRole("button", { name: "Remove photo" }),
+    ).toHaveCount(0);
 
     await recComments.getByRole("button", { name: "Edit note" }).last().click();
+    await expect(
+      recComments.getByRole("button", { name: "Remove photo" }),
+    ).toBeVisible();
     await recComments.getByRole("textbox", { name: "Edit note" }).fill(edited);
     await recComments.getByRole("button", { name: "Save note" }).click();
     await expect(page.getByText(edited)).toBeVisible({ timeout: 15_000 });

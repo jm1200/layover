@@ -22,7 +22,7 @@ export async function getPlaybook(id: string): Promise<Playbook | null> {
   const { data, error } = await supabase
     .from("playbooks")
     .select(
-      "id, city_id, title, narrative, hours_available, status, author_id",
+      "id, city_id, title, narrative, hours_available, status, author_id, created_at",
     )
     .eq("id", id)
     .maybeSingle();

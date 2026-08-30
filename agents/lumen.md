@@ -324,6 +324,7 @@ A like is a **stamp**. The count lives on the button. A roster under Like is a p
 | Slot | String |
 |------|--------|
 | Byline | Posted by {name} |
+| Byline date | Posted {Mon D} |
 | Byline fallback | Crew |
 | Like off | Like |
 | Like on | Liked |
@@ -341,6 +342,8 @@ Heading matches **Photos** / **Get this**. The thing they write is a **note**.
 | Heading | Comments |
 | Empty | None yet. |
 | Note byline | Circle + {name} — not “Posted by”. Link to their page. **Crew** if no author, not a link. |
+| Note date | Posted {Mon D} |
+| Note photos | View is pictures only. Edit is when they Add / X. |
 | Own | Edit · **Remove** |
 | Aria (own delete) | Remove note |
 | Form | Leave a note |
