@@ -54,12 +54,17 @@ test.describe("like, comment, byline", () => {
       timeout: 30_000,
     });
     await recComments.getByRole("button", { name: "Post" }).click();
-    await expect(page.getByText(note).or(needSql)).toBeVisible({
-      timeout: 15_000,
+    const nap = page.getByText(/taking a nap/i);
+    await expect(page.getByText(note).or(needSql).or(nap)).toBeVisible({
+      timeout: 25_000,
     });
     test.skip(
       (await needSql.count()) > 0,
       "Paste 018_social.sql then 019_comments.sql in the Supabase SQL Editor, then re-run.",
+    );
+    test.skip(
+      (await nap.count()) > 0,
+      "Lumen is off or over the $20 cap — she has to be on to post a note.",
     );
     await expect(page.getByText(note)).toBeVisible();
     await expect(
@@ -89,7 +94,7 @@ test.describe("like, comment, byline", () => {
       .filter({ has: page.getByRole("heading", { name: "Comments" }) });
     await dayComments.getByPlaceholder("Been? Add a line.").fill(note);
     await dayComments.getByRole("button", { name: "Post" }).click();
-    await expect(page.getByText(note)).toBeVisible({ timeout: 15_000 });
+    await expect(page.getByText(note)).toBeVisible({ timeout: 25_000 });
     await dayComments.getByRole("button", { name: "Remove note" }).last().click();
     await expect(page.getByText(note)).toHaveCount(0);
   });

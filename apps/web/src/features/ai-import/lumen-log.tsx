@@ -51,6 +51,7 @@ function groupPosts(rows: LogRow[]): Cluster[] {
   for (const r of rows) {
     if (r.error_code === "still") stills.push(r);
     else if (r.error_code === "city_hero") heroes.push(r);
+    else if (r.error_code === "note_ok") continue;
     else anchors.push(r);
   }
 
@@ -105,6 +106,7 @@ export async function LumenLog() {
     .select(
       "id, created_at, success, error_code, estimated_usd, city_id, created_place_ids, created_playbook_id, payload",
     )
+    .or("error_code.is.null,error_code.neq.note_ok")
     .order("created_at", { ascending: false })
     .limit(100);
 
@@ -285,6 +287,10 @@ function headline(
       );
     case "blocked":
       return <>Wouldn’t file that</>;
+    case "note_blocked":
+      return <>Wouldn’t post that</>;
+    case "note_fail":
+      return <>Lumen’s taking a nap</>;
     case "sell_blurb":
       return <>Rewrote a blurb</>;
     case "duplicate_plan":

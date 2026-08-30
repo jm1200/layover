@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/features/auth/get-profile";
 import { refuseComment } from "@/features/ai-import/moderate";
+import { lumenCheckNote } from "@/features/social/lumen-note";
 import { socialTablesError } from "@/features/social/queries";
 import {
   MAX_COMMENT_PHOTOS,
@@ -89,6 +90,9 @@ export async function addComment(
   }
 
   const supabase = await createClient();
+  const lumen = await lumenCheckNote(supabase, profile.id, body, photoUrls);
+  if (lumen) return { error: lumen };
+
   const inserted =
     kind === "place"
       ? await supabase
@@ -138,11 +142,37 @@ export async function editComment(
   if (refused) return { error: refused };
 
   const supabase = await createClient();
-  const { error } = await supabase
+  const { data: existing, error: findErr } = await supabase
+    .from("comments")
+    .select("id, author_id")
+    .eq("id", commentId)
+    .maybeSingle();
+  if (findErr) return { error: socialTablesError(findErr.message) };
+  if (!existing) return { error: "Not found." };
+  if (profile.role !== "admin" && existing.author_id !== profile.id) {
+    return { error: "Not yours." };
+  }
+
+  const { data: pics } = await supabase
+    .from("comment_photos")
+    .select("image_url")
+    .eq("comment_id", commentId);
+  const lumen = await lumenCheckNote(
+    supabase,
+    profile.id,
+    body,
+    (pics ?? []).map((p) => String(p.image_url)),
+  );
+  if (lumen) return { error: lumen };
+
+  let save = supabase
     .from("comments")
     .update({ body, updated_at: new Date().toISOString() })
     .eq("id", commentId);
+  if (profile.role !== "admin") save = save.eq("author_id", profile.id);
+  const { data, error } = await save.select("id").maybeSingle();
   if (error) return { error: socialTablesError(error.message) };
+  if (!data) return { error: "Not yours." };
   revalidateTarget(kind, id);
   return { success: "Saved." };
 }
@@ -178,7 +208,7 @@ export async function addCommentPhoto(
   const supabase = await createClient();
   const { data: comment, error: findErr } = await supabase
     .from("comments")
-    .select("id, author_id")
+    .select("id, author_id, body")
     .eq("id", commentId)
     .maybeSingle();
   if (findErr) return { error: socialTablesError(findErr.message) };
@@ -195,6 +225,14 @@ export async function addCommentPhoto(
   if ((counted.count ?? 0) >= MAX_COMMENT_PHOTOS) {
     return { error: "Three photos is enough." };
   }
+
+  const lumen = await lumenCheckNote(
+    supabase,
+    profile.id,
+    String(comment.body ?? ""),
+    [url],
+  );
+  if (lumen) return { error: lumen };
 
   const { data: photo, error } = await supabase
     .from("comment_photos")

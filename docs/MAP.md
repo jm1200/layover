@@ -171,7 +171,8 @@ Exact paths may adjust; update this table when implementing.
 - [x] Playwright E2E (`apps/web/e2e`, `npm run test:e2e`) — **Milo owns.** Fake user clicks browse, login, rec photos/zoom, Save, delete rec, layover day. Does **not** call xAI. Google OAuth still human. Theo reviews.
 - [x] Hygiene (2026-08-27): deleted `sellPlaceBlurb` + dead twins; album errors no longer swallowed; hotel gate on stop text; Playwright reorder Save + X photo. **SQL 017** locks `lumen_set_city_hero` (John pastes in SQL Editor).
 - [x] Phase 3 start: like recs + days, comments on days, byline. Playwright `e2e/social.spec.ts`. **SQL 018** (John pastes).
-- [x] Comments on recs too. Edit own note. Up to 3 photos. Lumen hotel + PG-13 gate. **SQL 019** (John pastes after 018). Dump/edit/photos still frozen.
+- [x] Comments on recs too. Edit own note. Up to 3 photos. **SQL 019** (John pastes after 018). Dump/edit/photos still frozen.
+- [x] Lumen reads notes + comment photos before they go live (`grok-4.3`, spend on the $20). Word filter first. Off/over cap → note does not go up.
 - [x] Public author page `/u/[id]`. Name + photo. Posted by links. Likes = count. SQL **020** (John pastes after 019). Follow still out.
 
 ## Session checklist for agents

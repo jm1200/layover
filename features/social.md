@@ -13,7 +13,7 @@ Like, comment, and a **byline** as trust signals under content. The byline opens
 - [x] Like playbooks (and optionally places)
 - [x] Comment threads on playbooks **and recs**
 - [x] Edit own comment. Up to **3** photos on a comment (same cap as a rec)
-- [x] Lumen moderates notes: zones not hotels, PG-13. No founder queue
+- [x] Lumen reads each note and its pictures before they go live (same Grok as dumps, pennies). Word filter first. If she is off or the $20 is spent, the note does not go up.
 - [x] Byline on playbooks/places (display name). Poster is secondary; city stays the hero
 - [x] Playwright covers like + comment on day one of the build
 - [x] No public follower graph

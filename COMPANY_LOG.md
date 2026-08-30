@@ -24,6 +24,7 @@ Durable history only. Not a chat transcript.
 | 2026-08-31 | **Comments:** recs too, not only days. Edit own. Up to 3 photos. Lumen hotel + PG-13 gate (no founder queue). SQL **019**. Dump/edit/photos still frozen. |
 | 2026-08-31 | **Note delete copy:** **Remove** (not Take off, not Delete). Recs/days still “come off the city.” |
 | 2026-08-31 | **Author page instead of follow.** Public twin of Your recommendations. Follow still out. Likes = count only. SQL **020**. |
+| 2026-08-31 | **Lumen reads notes.** Text + comment photos before they go live. Same Grok as dumps, $20 cap. If she is off, the note does not go up. |
 | 2026-08-27 | Board rec: **hygiene then Phase 3.** Phase 3 v1 = like + comment + byline. Follow / profile / pings / QR out. |
 
 ## Product locks

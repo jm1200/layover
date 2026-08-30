@@ -26,7 +26,9 @@ Dump a layover → she writes it up → you publish. Feel pass passed. Trust sti
 
 ## You
 
-Paste in Supabase SQL Editor, in order if not already: **017**, **018_social.sql**, **019_comments.sql**, **020_author.sql**. Then open the profile menu, tap your name, **Edit**, put a name on it.
+Paste in Supabase SQL Editor, in order if not already: **017**, **018_social.sql**, **019_comments.sql**, **020_author.sql**.
+
+Lumen now reads each note and its pictures before they go live. Same $20 pot as dumps. If she is off or the money is spent, the note does not go up.
 
 **Money:** $20/mo. 4k chars. Kill switch. Daily 3-draft cap still off. Avatars are not stills.
 

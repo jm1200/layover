@@ -32,6 +32,14 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-31 — Lumen reads notes
+
+**Source:** Shareholder — start moderating comments and comment photos now.
+
+**Decision:** She reads the text and the pictures before a note goes live. Same Grok as dumps (`grok-4.3`). Counted on the $20. Word filter first (free). If she is off, the key is missing, or the $20 is spent, the note does not go up. John does not click yes/no on each one. Dump/edit still frozen.
+
+---
+
 ## 2026-08-31 — Comment delete is Remove
 
 **Source:** Shareholder — “Take off” on a note is weird. Meant delete or remove comment. Asked Maya + Lumen how like / comment / byline look.

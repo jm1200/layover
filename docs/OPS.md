@@ -40,7 +40,7 @@ Until invoices exist, assume we do not know the real cost. Do not loosen caps fr
 ### Allowed
 
 - **Story → structured draft** for playbooks/places (server-side)
-- Optional later: moderation assist (flag likely hotel leaks) — human confirms
+- Notes: Lumen reads comment text + pictures before they go live (same `grok-4.3` as dumps). Counted on the $20. Word filter first. Off / no key / over cap → the note does not go up.
 
 ### Not allowed (v1)
 

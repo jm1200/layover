@@ -436,7 +436,7 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - Admin is a quiet word in the profile menu. Never the page they land on after Google. Never a button in the body. Never “User dashboard” at the bottom like a 2009 CMS.
 - Admin log is a caption: **Filed Jamon Jamon in Barcelona · Posted Aug 27 · $0.02.** He taps the name. A verb with no place is a miss. Never dump text. Never hotels. Not a queue.
 - Public pages do not say rec. The dashboard and **Your recs** in the menu may.
-- Notes on recs are comments, same as days. She still gates hotels and PG-13. Three photos, same cap as a rec. John does not sit that queue.
+- Notes on recs are comments, same as days. She **reads** the text and the pictures before they go live. Hotels and PG-13 still refused. If she is off or the $20 is spent, the note does not go up. Three photos, same cap as a rec.
 - **Take off** is a rec or day leaving the city. A note is **Remove**. Do not steal admin “Taken off the city” for comments. Do not say Delete.
 - **Crew** is a blank name, not a personality. Copy the Gmail name. Keep the word.
 - A person page is a side door from Posted by. Cities stay the map. No follow, no bio, no cover, no Imagine face.
