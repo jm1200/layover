@@ -14,7 +14,7 @@
 | **1.1 — Pre–Phase 2 gate** | **Complete** | Docs/MAP honesty + `PRE-PHASE-2-GATE.md`; code re-reviewed |
 | **2 — Cities, zones, places, playbooks** | **Complete** | Content model + public browse + forms. Migrations 002–004 (+ seeds 003, 005, 006; stop timing 007). Gate in `PRE-PHASE-2-GATE.md` is met. |
 | **2.1 — Verify + harden** | **Complete** | Homepage + city/place/plan UI in (heroes, Eat/Do/Buy, full layover). RLS smoke: `docs/board/RLS-SMOKE.md`. **Parked (not blockers):** admin city form (SQL), Vercel deploy, photo upload (Phase 4). |
-| 3 — Social | Not started | Hygiene **in code**; SQL **017** needs John in the SQL Editor. Then like + comment + byline. Follow / profile / pings / QR **out**. Dump/edit/photos stay frozen. |
+| 3 — Social | **In progress** | Like + comment + byline. SQL **018**. Follow / profile / pings / QR **out**. Dump/edit/photos frozen. |
 | 4 — AI story import | **Complete** | Dump → she writes it up → publish. Feel pass 2026-08-27. Dump/edit/photos **frozen**. Dead-code cleanup is leftover, not a new phase. Not Phase 3/5 until John says. |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
 | 6 — Metrics + admin moderation | Not started | money/trust dashboard |
@@ -73,7 +73,7 @@ layover/
 | Auth & roles | `features/auth.md` | `apps/web/src/features/auth/` | — | 1 **done** |
 | Places & zones | `features/places-and-zones.md` | `apps/web/src/features/places/` | Auth (for write) | 2 **done** |
 | Playbooks | `features/playbooks.md` | `apps/web/src/features/playbooks/` | Places, Auth | 2 **done** |
-| Social | `features/social.md` | `.../social/` | Auth, content | 3 — hygiene then like+comment+byline; not started |
+| Social | `features/social.md` | `apps/web/src/features/social/` | Auth, content | 3 **in progress** |
 | AI import | `features/ai-import.md` | `apps/web/src/features/ai-import/` | Playbooks, Auth, OPS quotas | 4 **done** |
 | Sponsorship | `features/sponsorship.md` | `.../sponsorship/` | Auth sponsor, Stripe, cities | 5 |
 | Admin & metrics | `features/admin-and-metrics.md` | `.../admin/`, `.../metrics/` | All of the above | 6 |
@@ -168,11 +168,12 @@ Exact paths may adjust; update this table when implementing.
 - [x] Chrome + dashboard (Lumen/Sofia 2026-08-27): sign-in → `/dashboard` (not `/admin`). Header: Layover · Share your intel · Cities · **profile icon**. Dropdown: **Your recs**, Admin if admin, Sign out. Title **Your recommendations**. Cards: still, posted date, **city** bold. Full days vs Recs.
 - [x] Playwright E2E (`apps/web/e2e`, `npm run test:e2e`) — **Milo owns.** Fake user clicks browse, login, rec photos/zoom, Save, delete rec, layover day. Does **not** call xAI. Google OAuth still human. Theo reviews.
 - [x] Hygiene (2026-08-27): deleted `sellPlaceBlurb` + dead twins; album errors no longer swallowed; hotel gate on stop text; Playwright reorder Save + X photo. **SQL 017** locks `lumen_set_city_hero` (John pastes in SQL Editor).
+- [x] Phase 3 start: like recs + days, comments on days, byline. Playwright `e2e/social.spec.ts`. **SQL 018** (John pastes).
 
 ## Session checklist for agents
 
 1. Read `AGENTS.md` + this file (+ `docs/STACK.md` before infra/auth work).
-2. Confirm current phase with owner if doing implementation. Phase 2 is **done**. Phase 4 is **done**. Phase 3 waits on John.
+2. Confirm current phase with owner if doing implementation. Phase 2 is **done**. Phase 4 is **done**. Phase 3 like/comment/byline is **in progress** (SQL **018**).
 3. Touch only the feature folder + its spec + this map.
 4. End of session: MAP and feature spec reflect reality. Prefer “unknown / not built” over inventing.
 

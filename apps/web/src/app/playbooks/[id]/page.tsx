@@ -11,6 +11,15 @@ import {
   getPlaybook,
   listStopsForPlaybook,
 } from "@/features/playbooks/queries";
+import { Byline } from "@/features/social/byline";
+import { CommentThread } from "@/features/social/comment-thread";
+import { LikeButton } from "@/features/social/like-button";
+import {
+  bylineFor,
+  likeCount,
+  likedByMe,
+  listComments,
+} from "@/features/social/queries";
 
 export async function generateMetadata({
   params,
@@ -31,11 +40,19 @@ export default async function PlaybookPage({
   const playbook = await getPlaybook(id);
   if (!playbook) notFound();
 
-  const [stops, cities, profile] = await Promise.all([
+  const [stops, cities, profile, byline, likes, comments] = await Promise.all([
     listStopsForPlaybook(playbook.id),
     listCities(),
     getProfile(),
+    bylineFor(playbook.author_id),
+    likeCount("playbook", playbook.id),
+    listComments(playbook.id),
   ]);
+  const mine = await likedByMe(
+    "playbook",
+    playbook.id,
+    profile?.id ?? null,
+  );
   const city = cities.find((c) => c.id === playbook.city_id) ?? null;
   const hero = city ? heroForCity(city) : null;
   const canEdit =
@@ -97,6 +114,18 @@ export default async function PlaybookPage({
               {playbook.narrative}
             </p>
           ) : null}
+          <Byline name={byline} tone="dark" />
+          <div className="mt-3">
+            <LikeButton
+              kind="playbook"
+              id={playbook.id}
+              count={likes}
+              liked={mine}
+              loggedIn={Boolean(profile)}
+              nextPath={`/playbooks/${playbook.id}`}
+              tone="dark"
+            />
+          </div>
           {canEdit ? (
             <p className="mt-4 text-sm">
               <Link
@@ -175,6 +204,13 @@ export default async function PlaybookPage({
         </ol>
 
         <StartItinerary stops={timedStops} />
+        <CommentThread
+          playbookId={playbook.id}
+          comments={comments}
+          loggedIn={Boolean(profile)}
+          userId={profile?.id ?? null}
+          nextPath={`/playbooks/${playbook.id}`}
+        />
       </main>
     </div>
   );

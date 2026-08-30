@@ -19,6 +19,13 @@ import {
   listZonesForCity,
 } from "@/features/places/queries";
 import { ZONE_LABELS, type ZoneType } from "@/features/places/types";
+import { Byline } from "@/features/social/byline";
+import { LikeButton } from "@/features/social/like-button";
+import {
+  bylineFor,
+  likeCount,
+  likedByMe,
+} from "@/features/social/queries";
 
 export async function generateMetadata({
   params,
@@ -39,12 +46,15 @@ export default async function PlacePage({
   const place = await getPlace(id);
   if (!place) notFound();
 
-  const [dishes, cities, profile, album] = await Promise.all([
+  const [dishes, cities, profile, album, byline, likes] = await Promise.all([
     listDishesForPlace(place.id),
     listCities(),
     getProfile(),
     listPlacePhotos(place.id),
+    bylineFor(place.author_id),
+    likeCount("place", place.id),
   ]);
+  const mine = await likedByMe("place", place.id, profile?.id ?? null);
   const city = cities.find((c) => c.id === place.city_id);
   const zones = city ? await listZonesForCity(city.id) : [];
   const zone = place.zone_id
@@ -119,6 +129,18 @@ export default async function PlacePage({
                 ? ` · ${zone.name || ZONE_LABELS[zone.type as ZoneType] || zone.type}`
                 : null}
             </p>
+            <Byline name={byline} tone="dark" />
+            <div className="mt-3">
+              <LikeButton
+                kind="place"
+                id={place.id}
+                count={likes}
+                liked={mine}
+                loggedIn={Boolean(profile)}
+                nextPath={`/places/${place.id}`}
+                tone="dark"
+              />
+            </div>
             {canEdit ? (
               <p className="mt-3 text-sm">
                 <Link

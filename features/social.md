@@ -1,7 +1,7 @@
 # Feature: Social
 
 **Phase:** 3  
-**Status:** Spec locked for v1 — **not implemented.** Hygiene first, then this cut. Waits on John.  
+**Status:** **In progress.** Like + comment + byline. SQL **018**. Dump/edit/photos stay frozen.  
 **Code (planned):** `apps/web/src/features/social/`
 
 ## Goal
@@ -10,11 +10,11 @@ Like, comment, and a **byline** as trust signals under content — who posted th
 
 ## Acceptance criteria (v1)
 
-- [ ] Like playbooks (and optionally places)
-- [ ] Comment threads on playbooks
-- [ ] Byline on playbooks/places (display name). Poster is secondary; city stays the hero
-- [ ] Playwright covers like + comment on day one of the build
-- [ ] No public follower graph
+- [x] Like playbooks (and optionally places)
+- [x] Comment threads on playbooks
+- [x] Byline on playbooks/places (display name). Poster is secondary; city stays the hero
+- [x] Playwright covers like + comment on day one of the build
+- [x] No public follower graph
 
 ## Out of this cut (v1)
 

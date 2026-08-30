@@ -2,9 +2,9 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-08-27  
+**Last updated:** 2026-08-31  
 **Company:** Layover (working name)  
-**Stage:** **Phase 4 complete.** Next rec: **hygiene, then Phase 3** (like + comment + byline). Dump/edit/photos frozen. Not Stripe.
+**Stage:** **Phase 3 in progress** — like, comment, byline. Dump/edit/photos frozen. Not Stripe.
 
 Dump a layover → she writes it up → you publish. Feel pass passed. Trust still beats revenue. Zones, not hotels.
 
@@ -21,7 +21,7 @@ Dump a layover → she writes it up → you publish. Feel pass passed. Trust sti
 
 ## You
 
-Hygiene is **coded**. Paste `017_lumen_city_hero_lock.sql` in Supabase. Then say yes on Phase 3 (like + comment + byline).
+Paste `018_social.sql` in Supabase (and **017** if you have not). Then like a rec and leave a note on a day.
 
 **Money:** $20/mo. 4k chars. Kill switch. Daily 3-draft cap still off.
 

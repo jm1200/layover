@@ -69,6 +69,8 @@ If earlier files already ran, only run the ones you have not applied yet.
 
 **Now (hygiene):** paste `017_lumen_city_hero_lock.sql` — stops any logged-in user from setting a city banner.
 
+**Phase 3:** paste `018_social.sql` — likes, comments, byline. Without it, Like shows a paste-018 message.
+
 ### 5. Auth URL config (so login redirects work)
 
 Supabase → **Authentication** → **URL configuration**:

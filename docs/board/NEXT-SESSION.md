@@ -1,18 +1,18 @@
 # Next session — founder notes
 
-**Paused:** 2026-08-27 — Phase 4 complete. Hygiene **coded**. SQL **017** still needs a paste in Supabase.
+**Paused:** 2026-08-31 — Phase 3 like/comment/byline **coded**. Needs SQL **018** (and **017** if not pasted).
 
 ## Where we are
 
-Dump/edit/photos frozen. Hygiene: dead spend actions gone, album errors surface, hotel gate on stop text, Playwright reorder + X photo.
+Dump/edit/photos frozen. Hygiene done. Phase 3 UI is in: like on recs and days, comments on days, byline.
 
-**You:** paste `apps/web/supabase/migrations/017_lumen_city_hero_lock.sql` in the Supabase SQL Editor. Until then, any logged-in user can still call the old city-hero RPC.
+**You:** paste in Supabase SQL Editor, in order if not already:
+1. `017_lumen_city_hero_lock.sql`
+2. `018_social.sql`
 
-## First up (when John says)
+## First up (when that SQL is in)
 
-**Phase 3:** like + comment + byline. Spec: `features/social.md`. Playwright for likes on day one of that build.
-
-Not Stripe. Not follow. Not Facebook.
+Feel-pass like + a comment on a Zurich day. Then freeze this cut. Follow / profiles / Stripe still out.
 
 ## Dev
 
