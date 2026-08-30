@@ -88,13 +88,13 @@ Trigger is a **circle**: their upload, else initials of the display name, else a
 
 | Who | String | Goes |
 |-----|--------|------|
-| Everyone | {name} | their person page |
+| Everyone | Profile | their person page (`/u/[id]`) |
 | Everyone | Your recs | `/dashboard` |
 | Admin only | Admin | `/admin` |
 | Sponsor or admin | Sponsor | `/sponsor` |
 | Everyone | Sign out | sign out |
 
-`{name}` is the display name; empty → **Crew**. That row is the public page. **Your recs** stays the private scrapbook.
+**Profile** is the public page (`/u/[id]`). **Your recs** is the private scrapbook. Never put the display name in the menu.
 
 Admin is **never** a card, a mid-page button, a footer underline, or the page they land on after Google. **Never** the words User dashboard or Sponsor dashboard.
 
@@ -340,13 +340,13 @@ Heading matches **Photos** / **Get this**. The thing they write is a **note**.
 |------|--------|
 | Heading | Comments |
 | Empty | None yet. |
-| Note byline | {name} — not “Posted by”. Link to their page. **Crew** if no author, not a link. |
+| Note byline | Circle + {name} — not “Posted by”. Link to their page. **Crew** if no author, not a link. |
 | Own | Edit · **Remove** |
 | Aria (own delete) | Remove note |
 | Form | Leave a note |
 | Placeholder | Been? Add a line. |
-| Submit | Add |
-| Submit pending | Adding… |
+| Submit | Post |
+| Submit pending | Posting… |
 | Logged-out | Log in to leave a note. |
 | Login error | Log in to leave a note. |
 | Empty body | Write a note first. |
@@ -428,7 +428,7 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - An empty The day is not a layover. Fill it from the dump or refuse Publish.
 - Same stops / same story is the same day even with a new title. Recs stay; do not copy the day.
 - Save a day → send them back to the day.
-- Two headers is two sites. One family: Layover · Share your intel · Cities · profile icon. Sign out lives in the menu. Never You. Never `{email} · {role}`.
+- Two headers is two sites. One family: Layover · Share your intel · Cities · profile icon. Menu: **Profile** (their page), **Your recs** (the desk), Sign out. Never the display name in the menu. Never You. Never `{email} · {role}`.
 - Dashboard is not a CMS chooser. **Your recommendations** is a scrapbook: Full days (stop strip), then Recs (4:5 + stamp), stills, **city** bold, `Posted {Mon D}`. Share already lives in the header. Four form cards are homework. Quiet *or type it yourself* stays after the cards.
 - Admin is a quiet word in the profile menu. Never the page they land on after Google. Never a button in the body. Never “User dashboard” at the bottom like a 2009 CMS.
 - Admin log is a caption: **Filed Jamon Jamon in Barcelona · Posted Aug 27 · $0.02.** He taps the name. A verb with no place is a miss. Never dump text. Never hotels. Not a queue.

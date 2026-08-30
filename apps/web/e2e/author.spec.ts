@@ -17,7 +17,7 @@ test.describe("author page", () => {
     const name = `E2E ${stamp()}`;
 
     await page.getByLabel("Account").click();
-    await page.locator("nav details a").first().click();
+    await page.getByRole("link", { name: "Profile" }).click();
     await page.waitForURL(/\/u\/[0-9a-f-]{36}/, { timeout: 15_000 });
     await expect(page.getByText("Where they've been.")).toBeVisible();
 

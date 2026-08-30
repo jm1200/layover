@@ -15,10 +15,15 @@ export function FaceCircle({
 }: {
   name: string;
   src?: string | null;
-  size: "sm" | "lg";
+  size: "xs" | "sm" | "lg";
   tone?: "light" | "dark";
 }) {
-  const px = size === "lg" ? "h-20 w-20 text-xl" : "h-9 w-9 text-xs";
+  const px =
+    size === "lg"
+      ? "h-20 w-20 text-xl"
+      : size === "sm"
+        ? "h-9 w-9 text-xs"
+        : "h-5 w-5 text-[10px]";
   const fill =
     tone === "dark"
       ? "bg-white text-zinc-900"
@@ -57,8 +62,8 @@ export function FaceCircle({
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        width={size === "lg" ? 36 : 18}
-        height={size === "lg" ? 36 : 18}
+        width={size === "lg" ? 36 : size === "sm" ? 18 : 12}
+        height={size === "lg" ? 36 : size === "sm" ? 18 : 12}
         fill="none"
         stroke="currentColor"
         strokeWidth="1.75"

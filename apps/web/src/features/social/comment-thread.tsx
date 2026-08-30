@@ -14,6 +14,7 @@ import {
   DraftCommentPhotos,
   OwnCommentPhotos,
 } from "@/features/social/comment-photos";
+import { FaceCircle } from "@/features/social/face";
 import type { CommentRow, SocialKind } from "@/features/social/types";
 
 const initial: SocialState = {};
@@ -64,9 +65,17 @@ export function CommentThread({
             const editing = editingId === c.id;
             return (
               <li key={c.id}>
-                <p className="text-sm font-medium text-zinc-800">
-                  <Link href={`/u/${c.author_id}`} className="underline">
-                    {c.byline}
+                <p className="flex items-center gap-2 text-sm font-medium text-zinc-800">
+                  <Link
+                    href={`/u/${c.author_id}`}
+                    className="flex items-center gap-2"
+                  >
+                    <FaceCircle
+                      name={c.byline}
+                      src={c.avatar_url}
+                      size="xs"
+                    />
+                    <span className="underline">{c.byline}</span>
                   </Link>
                 </p>
                 {editing ? (
@@ -200,7 +209,7 @@ export function CommentThread({
             disabled={pending}
             className="mt-3 rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
           >
-            {pending ? "Adding…" : "Add"}
+            {pending ? "Posting…" : "Post"}
           </button>
         </form>
       ) : (

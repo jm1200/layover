@@ -64,10 +64,11 @@ Lumen paste list: `agents/lumen.md` → Header dropdown, Rec/day hero, Comments,
 | Save | Save |
 | Comments heading | Comments |
 | Empty | None yet. |
-| Form | Leave a note / Been? Add a line. / Add |
+| Form | Leave a note / Been? Add a line. / **Post** |
 | Own delete | **Remove** (aria **Remove note**) |
 | **Never on a note** | Take off · Delete · Remove comment |
-| **Never on a person** | rec · Profile · Follow · Bio · Content creator · Take off · Delete · a cover |
+| Header menu | **Profile** → `/u/[id]`. **Your recs** → `/dashboard`. Never the display name in the menu. |
+| **Never on a person page** | rec · Follow · Bio · Content creator · Take off · Delete · a cover |
 
 **Take off** stays on rec/day delete and admin “Taken off the city.” A note is not on the city.
 

@@ -154,9 +154,15 @@ export async function listComments(
   }
 
   const photosBy = await photosForComments(rows.map((r) => r.id));
-  const labels = await Promise.all(
-    rows.map((r) => bylineFor(r.author_id)),
-  );
+  const authorIds = [...new Set(rows.map((r) => r.author_id))];
+  const [labels, cards] = await Promise.all([
+    Promise.all(rows.map((r) => bylineFor(r.author_id))),
+    Promise.all(authorIds.map((id) => authorCard(id))),
+  ]);
+  const avatarBy: Record<string, string | null> = {};
+  for (let i = 0; i < authorIds.length; i++) {
+    avatarBy[authorIds[i]] = cards[i]?.avatar_url ?? null;
+  }
   return rows.map((r, i) => ({
     id: r.id,
     playbook_id: r.playbook_id,
@@ -165,6 +171,7 @@ export async function listComments(
     body: r.body,
     created_at: r.created_at,
     byline: labels[i] ?? "Crew",
+    avatar_url: avatarBy[r.author_id] ?? null,
     photos: (photosBy[r.id] ?? []).slice(0, MAX_COMMENT_PHOTOS),
   }));
 }

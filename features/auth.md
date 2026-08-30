@@ -50,7 +50,7 @@ Shareholder creates Supabase project and provides keys (see `docs/STACK.md`). En
 One header on home, cities, rec, day, share, Your recommendations, admin, sponsor. Dark on heroes, light inside. Never `{email} · {role}`. Never **Dashboard** as the word. Never **You**. Never **Sign out** in the bar.
 
 Logged-in: **Layover** · **Share your intel** · **Cities** · **profile icon**.  
-Profile dropdown: **Your recs** → `/dashboard`. Admin (admin only) · Sponsor (sponsor/admin) · **Sign out**.  
+Profile dropdown: **Profile** → `/u/[id]`. **Your recs** → `/dashboard`. Admin (admin only) · Sponsor (sponsor/admin) · **Sign out**.  
 Logged-out: Layover · Share your intel · Cities · Log in.
 
 `/dashboard` title **Your recommendations**. Line: *What you put on the map.* Grouped **by city** (A–Z). Under each city: **Full days** then **Recs**. Card: `Posted {Mon D}` → pics → name + blurb. Recs may say rec here; public pages do not. Quiet line after the cards: *or type it yourself* Eat · Do · Buy · Full layover — stays, does not move, does not die, is not four tiles. No Share card, no Browse cities / Admin in the body.
@@ -108,7 +108,7 @@ Paste strings from `agents/lumen.md` **Copy (locked) → Dashboard**. Do not inv
 | Line | **What you put on the map.** |
 | Days | **Full days** / empty **No days yet. Share one.** |
 | Recs | **Recs** / empty **Nothing here yet. Share one.** |
-| Menu | **Your recs** |
+| Menu | **Profile** · **Your recs** |
 | Posted | **Posted {Mon D}** |
 | Manual | **or type it yourself** Eat · Do · Buy · Full layover — stays after the cards |
 

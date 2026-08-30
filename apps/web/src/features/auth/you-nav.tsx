@@ -37,7 +37,7 @@ export function YouNav({
       </summary>
       <div className="absolute right-0 z-30 mt-2 min-w-[11rem] overflow-hidden rounded-lg bg-white py-1 shadow-lg ring-1 ring-zinc-200">
         <Link href={href} className={link}>
-          {name}
+          Profile
         </Link>
         <Link href="/dashboard" className={link}>
           Your recs

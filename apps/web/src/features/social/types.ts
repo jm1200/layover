@@ -16,5 +16,6 @@ export type CommentRow = {
   body: string;
   created_at: string;
   byline: string;
+  avatar_url: string | null;
   photos: CommentPhoto[];
 };

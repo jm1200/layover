@@ -40,7 +40,7 @@ test.describe("like, comment, byline", () => {
     await recComments.getByPlaceholder("Been? Add a line.").fill(
       "Stay at the crew hotel.",
     );
-    await recComments.getByRole("button", { name: "Add" }).click();
+    await recComments.getByRole("button", { name: "Post" }).click();
     await expect(page.getByText("Zones, not hotels.")).toBeVisible({
       timeout: 15_000,
     });
@@ -50,7 +50,7 @@ test.describe("like, comment, byline", () => {
     await expect(recComments.getByRole("button", { name: "Remove photo" })).toBeVisible({
       timeout: 30_000,
     });
-    await recComments.getByRole("button", { name: "Add" }).click();
+    await recComments.getByRole("button", { name: "Post" }).click();
     await expect(page.getByText(note).or(needSql)).toBeVisible({
       timeout: 15_000,
     });
@@ -79,7 +79,7 @@ test.describe("like, comment, byline", () => {
       .locator("section")
       .filter({ has: page.getByRole("heading", { name: "Comments" }) });
     await dayComments.getByPlaceholder("Been? Add a line.").fill(note);
-    await dayComments.getByRole("button", { name: "Add" }).click();
+    await dayComments.getByRole("button", { name: "Post" }).click();
     await expect(page.getByText(note)).toBeVisible({ timeout: 15_000 });
     await dayComments.getByRole("button", { name: "Remove note" }).last().click();
     await expect(page.getByText(note)).toHaveCount(0);
