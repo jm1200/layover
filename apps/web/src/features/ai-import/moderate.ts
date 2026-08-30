@@ -16,3 +16,14 @@ export function refusePublicCopy(
   }
   return null;
 }
+
+/** Cheap PG-13 / hate check. Lumen’s extract does the real-place lookup for dumps. */
+const PG13 =
+  /\b(porn|porno|xxx|onlyfans|gore|behead(?:ing)?|rape|nigger|nigga|faggot|kike|spic|tranny)\b/i;
+
+export function refuseComment(body: string): string | null {
+  const lodging = refusePublicCopy(body, null);
+  if (lodging) return lodging;
+  if (PG13.test(body)) return "Keep it PG-13.";
+  return null;
+}

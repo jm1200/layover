@@ -46,7 +46,7 @@ export default async function PlaybookPage({
     getProfile(),
     bylineFor(playbook.author_id),
     likeCount("playbook", playbook.id),
-    listComments(playbook.id),
+    listComments("playbook", playbook.id),
   ]);
   const mine = await likedByMe(
     "playbook",
@@ -205,7 +205,8 @@ export default async function PlaybookPage({
 
         <StartItinerary stops={timedStops} />
         <CommentThread
-          playbookId={playbook.id}
+          kind="playbook"
+          id={playbook.id}
           comments={comments}
           loggedIn={Boolean(profile)}
           userId={profile?.id ?? null}

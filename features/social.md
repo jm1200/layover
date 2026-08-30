@@ -1,8 +1,8 @@
 # Feature: Social
 
 **Phase:** 3  
-**Status:** **In progress.** Like + comment + byline. SQL **018**. Dump/edit/photos stay frozen.  
-**Code (planned):** `apps/web/src/features/social/`
+**Status:** **In progress.** Like + comment + byline. SQL **018** + **019**. Dump/edit/photos stay frozen.  
+**Code:** `apps/web/src/features/social/`
 
 ## Goal
 
@@ -11,7 +11,9 @@ Like, comment, and a **byline** as trust signals under content — who posted th
 ## Acceptance criteria (v1)
 
 - [x] Like playbooks (and optionally places)
-- [x] Comment threads on playbooks
+- [x] Comment threads on playbooks **and recs**
+- [x] Edit own comment. Up to **3** photos on a comment (same cap as a rec)
+- [x] Lumen moderates notes: zones not hotels, PG-13. No founder queue
 - [x] Byline on playbooks/places (display name). Poster is secondary; city stays the hero
 - [x] Playwright covers like + comment on day one of the build
 - [x] No public follower graph

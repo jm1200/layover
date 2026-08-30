@@ -20,11 +20,13 @@ import {
 } from "@/features/places/queries";
 import { ZONE_LABELS, type ZoneType } from "@/features/places/types";
 import { Byline } from "@/features/social/byline";
+import { CommentThread } from "@/features/social/comment-thread";
 import { LikeButton } from "@/features/social/like-button";
 import {
   bylineFor,
   likeCount,
   likedByMe,
+  listComments,
 } from "@/features/social/queries";
 
 export async function generateMetadata({
@@ -46,14 +48,16 @@ export default async function PlacePage({
   const place = await getPlace(id);
   if (!place) notFound();
 
-  const [dishes, cities, profile, album, byline, likes] = await Promise.all([
-    listDishesForPlace(place.id),
-    listCities(),
-    getProfile(),
-    listPlacePhotos(place.id),
-    bylineFor(place.author_id),
-    likeCount("place", place.id),
-  ]);
+  const [dishes, cities, profile, album, byline, likes, comments] =
+    await Promise.all([
+      listDishesForPlace(place.id),
+      listCities(),
+      getProfile(),
+      listPlacePhotos(place.id),
+      bylineFor(place.author_id),
+      likeCount("place", place.id),
+      listComments("place", place.id),
+    ]);
   const mine = await likedByMe("place", place.id, profile?.id ?? null);
   const city = cities.find((c) => c.id === place.city_id);
   const zones = city ? await listZonesForCity(city.id) : [];
@@ -209,6 +213,16 @@ export default async function PlacePage({
           ) : null}
         </div>
         <PlaceMap query={mapQuery} />
+        <div className="lg:col-span-2">
+          <CommentThread
+            kind="place"
+            id={place.id}
+            comments={comments}
+            loggedIn={Boolean(profile)}
+            userId={profile?.id ?? null}
+            nextPath={`/places/${place.id}`}
+          />
+        </div>
       </main>
     </div>
   );

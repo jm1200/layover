@@ -3,21 +3,32 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/features/auth/get-profile";
-import { refusePublicCopy } from "@/features/ai-import/moderate";
+import { refuseComment } from "@/features/ai-import/moderate";
 import { socialTablesError } from "@/features/social/queries";
+import {
+  MAX_COMMENT_PHOTOS,
+  type SocialKind,
+} from "@/features/social/types";
 
 export type SocialState = { error?: string; success?: string };
 
-function revalidateTarget(
-  kind: "place" | "playbook",
-  id: string,
-) {
+function revalidateTarget(kind: SocialKind, id: string) {
   if (kind === "place") revalidatePath(`/places/${id}`);
   else revalidatePath(`/playbooks/${id}`);
 }
 
+function stillUrlOurs(url: string): boolean {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
+  return Boolean(
+    supabaseUrl &&
+      url.startsWith(supabaseUrl) &&
+      url.includes("/place-stills/") &&
+      !url.startsWith("//"),
+  );
+}
+
 export async function toggleLike(
-  kind: "place" | "playbook",
+  kind: SocialKind,
   id: string,
 ): Promise<SocialState> {
   const profile = await getProfile();
@@ -53,7 +64,8 @@ export async function toggleLike(
 }
 
 export async function addComment(
-  playbookId: string,
+  kind: SocialKind,
+  id: string,
   _prev: SocialState,
   formData: FormData,
 ): Promise<SocialState> {
@@ -64,23 +76,81 @@ export async function addComment(
   const body = String(formData.get("body") ?? "").trim();
   if (!body) return { error: "Write a note first." };
   if (body.length > 500) return { error: "Keep it under 500 characters." };
-  const lodging = refusePublicCopy(body, null);
-  if (lodging) return { error: lodging };
+  const refused = refuseComment(body);
+  if (refused) return { error: refused };
+
+  const photoUrls = formData
+    .getAll("photo_url")
+    .map((v) => String(v).trim())
+    .filter(Boolean)
+    .slice(0, MAX_COMMENT_PHOTOS);
+  for (const url of photoUrls) {
+    if (!stillUrlOurs(url)) return { error: "Bad image URL." };
+  }
 
   const supabase = await createClient();
-  const { error } = await supabase.from("comments").insert({
-    playbook_id: playbookId,
-    author_id: profile.id,
-    body,
-  });
-  if (error) return { error: socialTablesError(error.message) };
-  revalidatePath(`/playbooks/${playbookId}`);
+  const inserted =
+    kind === "place"
+      ? await supabase
+          .from("comments")
+          .insert({ place_id: id, author_id: profile.id, body })
+          .select("id")
+          .single()
+      : await supabase
+          .from("comments")
+          .insert({ playbook_id: id, author_id: profile.id, body })
+          .select("id")
+          .single();
+  if (inserted.error || !inserted.data) {
+    return { error: socialTablesError(inserted.error?.message) };
+  }
+
+  for (const [i, url] of photoUrls.entries()) {
+    const { error } = await supabase.from("comment_photos").insert({
+      comment_id: inserted.data.id,
+      image_url: url,
+      sort_order: i + 1,
+    });
+    if (error) {
+      await supabase.from("comments").delete().eq("id", inserted.data.id);
+      return { error: socialTablesError(error.message) };
+    }
+  }
+
+  revalidateTarget(kind, id);
   return { success: "Added." };
+}
+
+export async function editComment(
+  commentId: string,
+  kind: SocialKind,
+  id: string,
+  bodyRaw: string,
+): Promise<SocialState> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "Log in first." };
+  }
+  const body = bodyRaw.trim();
+  if (!body) return { error: "Write a note first." };
+  if (body.length > 500) return { error: "Keep it under 500 characters." };
+  const refused = refuseComment(body);
+  if (refused) return { error: refused };
+
+  const supabase = await createClient();
+  const { error } = await supabase
+    .from("comments")
+    .update({ body, updated_at: new Date().toISOString() })
+    .eq("id", commentId);
+  if (error) return { error: socialTablesError(error.message) };
+  revalidateTarget(kind, id);
+  return { success: "Saved." };
 }
 
 export async function deleteComment(
   commentId: string,
-  playbookId: string,
+  kind: SocialKind,
+  id: string,
 ): Promise<SocialState> {
   const profile = await getProfile();
   if (!profile || profile.status === "suspended") {
@@ -89,6 +159,84 @@ export async function deleteComment(
   const supabase = await createClient();
   const { error } = await supabase.from("comments").delete().eq("id", commentId);
   if (error) return { error: socialTablesError(error.message) };
-  revalidatePath(`/playbooks/${playbookId}`);
+  revalidateTarget(kind, id);
+  return { success: "Removed." };
+}
+
+export async function addCommentPhoto(
+  commentId: string,
+  kind: SocialKind,
+  id: string,
+  url: string,
+): Promise<SocialState & { photoId?: string }> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "Log in first." };
+  }
+  if (!stillUrlOurs(url)) return { error: "Bad image URL." };
+
+  const supabase = await createClient();
+  const { data: comment, error: findErr } = await supabase
+    .from("comments")
+    .select("id, author_id")
+    .eq("id", commentId)
+    .maybeSingle();
+  if (findErr) return { error: socialTablesError(findErr.message) };
+  if (!comment) return { error: "Not found." };
+  if (profile.role !== "admin" && comment.author_id !== profile.id) {
+    return { error: "Not yours." };
+  }
+
+  const counted = await supabase
+    .from("comment_photos")
+    .select("id", { count: "exact", head: true })
+    .eq("comment_id", commentId);
+  if (counted.error) return { error: socialTablesError(counted.error.message) };
+  if ((counted.count ?? 0) >= MAX_COMMENT_PHOTOS) {
+    return { error: "Three photos is enough." };
+  }
+
+  const { data: photo, error } = await supabase
+    .from("comment_photos")
+    .insert({
+      comment_id: commentId,
+      image_url: url,
+      sort_order: (counted.count ?? 0) + 1,
+    })
+    .select("id")
+    .single();
+  if (error || !photo) return { error: socialTablesError(error?.message) };
+  revalidateTarget(kind, id);
+  return { success: "Photo added.", photoId: photo.id as string };
+}
+
+export async function removeCommentPhoto(
+  commentId: string,
+  photoId: string,
+  kind: SocialKind,
+  id: string,
+): Promise<SocialState> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "Log in first." };
+  }
+  const supabase = await createClient();
+  const { data: comment, error: findErr } = await supabase
+    .from("comments")
+    .select("id, author_id")
+    .eq("id", commentId)
+    .maybeSingle();
+  if (findErr) return { error: socialTablesError(findErr.message) };
+  if (!comment) return { error: "Not found." };
+  if (profile.role !== "admin" && comment.author_id !== profile.id) {
+    return { error: "Not yours." };
+  }
+  const { error } = await supabase
+    .from("comment_photos")
+    .delete()
+    .eq("id", photoId)
+    .eq("comment_id", commentId);
+  if (error) return { error: socialTablesError(error.message) };
+  revalidateTarget(kind, id);
   return { success: "Removed." };
 }

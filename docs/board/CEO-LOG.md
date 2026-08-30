@@ -4,6 +4,16 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-31 — Comments on recs, edit own, photos, Lumen gate
+
+**Source:** Shareholder — comments showed on full days, not recs. Asked to edit own comment, upload pictures (3 max), Lumen moderate.
+
+**Facts:** v1 spec put threads on playbooks only. Recs already had like + byline. Dump/edit/photos stay frozen. No AI spend for this gate — same cheap lodging regex as dumps, plus PG-13 keywords. John does not sit a queue.
+
+**Decision:** Comments on recs and days. Author can edit/take off. Up to 3 photos (same cap as a rec). Lumen refuses hotel copy and PG-13. SQL **019** after **018**. Follow / profiles still out.
+
+---
+
 ## 2026-08-27 — Hygiene then thin Phase 3
 
 **Source:** Shareholder — Phase 4 felt chaotic, lots of bugs and bandaids. Asked whether to organize / code-review before Phase 3.

@@ -335,3 +335,4 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - Admin is a quiet word in the profile menu. Never the page they land on after Google. Never a button in the body. Never “User dashboard” at the bottom like a 2009 CMS.
 - Admin log is a caption: **Filed Jamon Jamon in Barcelona · Posted Aug 27 · $0.02.** He taps the name. A verb with no place is a miss. Never dump text. Never hotels. Not a queue.
 - Public pages do not say rec. The dashboard and **Your recs** in the menu may.
+- Notes on recs are comments, same as days. She still gates hotels and PG-13. Three photos, same cap as a rec. John does not sit that queue.

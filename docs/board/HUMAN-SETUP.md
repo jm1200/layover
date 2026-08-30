@@ -69,7 +69,7 @@ If earlier files already ran, only run the ones you have not applied yet.
 
 **Now (hygiene):** paste `017_lumen_city_hero_lock.sql` — stops any logged-in user from setting a city banner.
 
-**Phase 3:** paste `018_social.sql` — likes, comments, byline. Without it, Like shows a paste-018 message.
+**Phase 3:** paste `018_social.sql` then `019_comments.sql` — likes, comments on recs and days, edit own, comment photos. Without 018, Like shows a paste message. Without 019, rec comments and photos fail the same way.
 
 ### 5. Auth URL config (so login redirects work)
 

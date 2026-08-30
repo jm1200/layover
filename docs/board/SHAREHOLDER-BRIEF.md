@@ -4,7 +4,7 @@
 
 **Last updated:** 2026-08-31  
 **Company:** Layover (working name)  
-**Stage:** **Phase 3 in progress** — like, comment, byline. Dump/edit/photos frozen. Not Stripe.
+**Stage:** **Phase 3 in progress** — like, comment (recs + days), byline. Dump/edit/photos frozen. Not Stripe.
 
 Dump a layover → she writes it up → you publish. Feel pass passed. Trust still beats revenue. Zones, not hotels.
 
@@ -17,11 +17,11 @@ Dump a layover → she writes it up → you publish. Feel pass passed. Trust sti
 | Dashboard | Grouped by city. Date on the card, then pics, then blurb. |
 | Dedup | Same **stop set** = same day. Title drift does not ship a twin. |
 | Admin | Kill switch + her log, one card per dump. Not a Phase 6 queue. |
-| Phase 3 v1 | **Like + comment + byline.** City stays destination-first. Follow / profile / pings / QR **out**. |
+| Phase 3 v1 | **Like + comment + byline.** Comments on recs and days. Edit own. 3 photos. Lumen gates hotels / PG-13. Follow / profile / pings / QR **out**. |
 
 ## You
 
-Paste `018_social.sql` in Supabase (and **017** if you have not). Then like a rec and leave a note on a day.
+Paste in Supabase SQL Editor, in order if not already: **017**, **018_social.sql**, **019_comments.sql**. Then like a rec, leave a note on a rec, edit it.
 
 **Money:** $20/mo. 4k chars. Kill switch. Daily 3-draft cap still off.
 

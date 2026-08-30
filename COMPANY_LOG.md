@@ -21,6 +21,7 @@ Durable history only. Not a chat transcript.
 | 2026-08-27 | **Phase 4 complete.** Dump/edit/photos frozen. Feel pass passed. Phase 3 waits on John. |
 | 2026-08-27 | **Hygiene coded** (dead spend actions gone, album errors surface, hotel gate on stops, e2e reorder + X photo). City-hero RPC lock is SQL **017** — John pastes. |
 | 2026-08-31 | **Phase 3 started:** like recs + days, comments on days, byline. SQL **018**. Follow/profiles still out. |
+| 2026-08-31 | **Comments:** recs too, not only days. Edit own. Up to 3 photos. Lumen hotel + PG-13 gate (no founder queue). SQL **019**. Dump/edit/photos still frozen. |
 | 2026-08-27 | Board rec: **hygiene then Phase 3.** Phase 3 v1 = like + comment + byline. Follow / profile / pings / QR out. |
 
 ## Product locks
