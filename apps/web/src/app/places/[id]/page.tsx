@@ -133,7 +133,11 @@ export default async function PlacePage({
                 ? ` · ${zone.name || ZONE_LABELS[zone.type as ZoneType] || zone.type}`
                 : null}
             </p>
-            <Byline name={byline} tone="dark" />
+            <Byline
+              name={byline}
+              href={place.author_id ? `/u/${place.author_id}` : null}
+              tone="dark"
+            />
             <div className="mt-3">
               <LikeButton
                 kind="place"

@@ -72,7 +72,7 @@ Ordered story/itinerary: stops + notes + transit + gear. **UI name: layover plan
 
 ### Social
 
-Like, comment, **byline → public author page** — **trust signals under content**, not a creator-celebrity product. The author page is the public twin of Your recommendations (published recs/days by city). Follow is a later content filter, not this cut. City browse stays destination-led. Reputation ranks playbooks/places/items. Not a person feed as the home experience. **Likes = count only** unless John overrides (named people live on notes; sponsors never get liker PII).
+Like, comment, **byline → public author page** — **trust signals under content**, not a creator-celebrity product. The author page is the public twin of Your recommendations (published recs/days by city). Follow is a later content filter, not this cut. City browse stays destination-led. Reputation ranks playbooks/places/items. Not a person feed as the home experience. **Likes = count only** (named people live on notes; sponsors never get liker PII).
 
 ### Sponsorship (labeled)
 

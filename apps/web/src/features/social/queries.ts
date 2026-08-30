@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { getProfile } from "@/features/auth/get-profile";
 import {
   MAX_COMMENT_PHOTOS,
   type CommentPhoto,
@@ -9,11 +10,11 @@ import {
 export function socialTablesError(message?: string): string {
   if (
     message &&
-    /likes|comments|comment_photos|byline_for|schema cache|place_id/i.test(
+    /likes|comments|comment_photos|byline_for|author_card|like_count_of|avatar_url|row-level security|schema cache|place_id/i.test(
       message,
     )
   ) {
-    return "Social tables aren’t in the database yet. Paste 018_social.sql then 019_comments.sql in the Supabase SQL Editor, then try again.";
+    return "Social tables aren’t in the database yet. Paste 018_social.sql, 019_comments.sql, then 020_author.sql in the Supabase SQL Editor, then try again.";
   }
   return message ?? "Couldn’t load that.";
 }
@@ -26,11 +27,51 @@ export async function bylineFor(userId: string | null): Promise<string> {
   return String(data);
 }
 
+export type AuthorCard = {
+  id: string;
+  display_name: string;
+  avatar_url: string | null;
+};
+
+export async function authorCard(
+  userId: string | null,
+): Promise<AuthorCard | null> {
+  if (!userId) return null;
+  const supabase = await createClient();
+  const { data, error } = await supabase.rpc("author_card", { p_id: userId });
+  if (error) {
+    const me = await getProfile();
+    if (me?.id === userId) {
+      return {
+        id: me.id,
+        display_name: me.display_name?.trim() || "Crew",
+        avatar_url: me.avatar_url,
+      };
+    }
+    console.warn("[authorCard]", error.message);
+    return null;
+  }
+  const row = Array.isArray(data) ? data[0] : data;
+  if (!row || !row.id) return null;
+  const name = String(row.display_name ?? "").trim();
+  return {
+    id: row.id as string,
+    display_name: name || "Crew",
+    avatar_url: (row.avatar_url as string | null) ?? null,
+  };
+}
+
 export async function likeCount(
   kind: SocialKind,
   id: string,
 ): Promise<number> {
   const supabase = await createClient();
+  const rpc = await supabase.rpc("like_count_of", {
+    p_place: kind === "place" ? id : null,
+    p_playbook: kind === "playbook" ? id : null,
+  });
+  if (!rpc.error && rpc.data != null) return Number(rpc.data);
+
   const col = kind === "place" ? "place_id" : "playbook_id";
   const { count, error } = await supabase
     .from("likes")

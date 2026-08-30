@@ -240,3 +240,115 @@ export async function removeCommentPhoto(
   revalidateTarget(kind, id);
   return { success: "Removed." };
 }
+
+const MAX_NAME = 80;
+
+function revalidateAuthor(id: string) {
+  revalidatePath(`/u/${id}`);
+  revalidatePath(`/u/${id}/edit`);
+  revalidatePath("/dashboard");
+}
+
+export async function saveProfile(
+  _prev: SocialState,
+  formData: FormData,
+): Promise<SocialState> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "Log in first." };
+  }
+  const name = String(formData.get("name") ?? "").trim();
+  if (name.length > MAX_NAME) {
+    return { error: "Keep the name under 80 characters." };
+  }
+  const lodging = refuseComment(name);
+  if (name && lodging) return { error: lodging };
+
+  const avatarRaw = String(formData.get("avatar_url") ?? "").trim();
+  const clearPhoto = String(formData.get("clear_photo") ?? "") === "1";
+  let avatar_url: string | null | undefined;
+  if (clearPhoto) avatar_url = null;
+  else if (avatarRaw) {
+    if (!stillUrlOurs(avatarRaw)) return { error: "Bad image URL." };
+    avatar_url = avatarRaw.split("?")[0];
+  }
+
+  const supabase = await createClient();
+  const patch: { display_name: string | null; avatar_url?: string | null } = {
+    display_name: name || null,
+  };
+  if (avatar_url !== undefined) patch.avatar_url = avatar_url;
+  const { data, error } = await supabase
+    .from("profiles")
+    .update(patch)
+    .eq("id", profile.id)
+    .select("id")
+    .maybeSingle();
+  if (error) return { error: socialTablesError(error.message) };
+  if (!data) {
+    return {
+      error: socialTablesError("avatar_url"),
+    };
+  }
+  revalidateAuthor(profile.id);
+  return { success: "Saved." };
+}
+
+export async function useGooglePhoto(): Promise<
+  SocialState & { imageUrl?: string }
+> {
+  const profile = await getProfile();
+  if (!profile || profile.status === "suspended") {
+    return { error: "Log in first." };
+  }
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  const meta = user?.user_metadata ?? {};
+  const src = String(meta.picture ?? meta.avatar_url ?? "").trim();
+  if (!isGooglePhotoUrl(src)) {
+    return { error: "No Google photo on this login." };
+  }
+
+  let blob: Blob;
+  try {
+    const res = await fetch(src);
+    if (!res.ok) return { error: "Couldn’t read that Google photo." };
+    blob = await res.blob();
+  } catch {
+    return { error: "Couldn’t read that Google photo." };
+  }
+
+  const path = `${profile.id}/avatar.jpg`;
+  const { error: upErr } = await supabase.storage
+    .from("place-stills")
+    .upload(path, blob, { upsert: true, contentType: "image/jpeg" });
+  if (upErr) return { error: "Couldn’t upload that photo." };
+  const url = supabase.storage.from("place-stills").getPublicUrl(path).data
+    .publicUrl;
+  const { data, error } = await supabase
+    .from("profiles")
+    .update({ avatar_url: url })
+    .eq("id", profile.id)
+    .select("id")
+    .maybeSingle();
+  if (error) return { error: socialTablesError(error.message) };
+  if (!data) return { error: socialTablesError("avatar_url") };
+  revalidateAuthor(profile.id);
+  return { success: "Photo added.", imageUrl: url };
+}
+
+function isGooglePhotoUrl(url: string): boolean {
+  if (!url || url.startsWith("//")) return false;
+  try {
+    const u = new URL(url);
+    return (
+      u.protocol === "https:" &&
+      (u.hostname === "lh3.googleusercontent.com" ||
+        u.hostname.endsWith(".googleusercontent.com"))
+    );
+  } catch {
+    return false;
+  }
+}

@@ -30,11 +30,18 @@ export async function getProfile(): Promise<Profile | null> {
 
   if (!user) return null;
 
-  const { data, error } = await supabase
+  const full = await supabase
     .from("profiles")
-    .select("id, email, role, status, display_name")
+    .select("id, email, role, status, display_name, avatar_url")
     .eq("id", user.id)
     .maybeSingle();
+  const { data, error } = full.error
+    ? await supabase
+        .from("profiles")
+        .select("id, email, role, status, display_name")
+        .eq("id", user.id)
+        .maybeSingle()
+    : full;
 
   if (error) {
     console.warn("[getProfile] profiles read failed:", error.message);
@@ -49,7 +56,22 @@ export async function getProfile(): Promise<Profile | null> {
       role: "user",
       status: "active",
       display_name: null,
+      avatar_url: null,
     };
+  }
+
+  let displayName = (data.display_name as string | null) ?? null;
+  if (!displayName?.trim()) {
+    const fromGoogle = String(
+      user.user_metadata?.full_name ?? user.user_metadata?.name ?? "",
+    ).trim();
+    if (fromGoogle) {
+      const { error: fillErr } = await supabase
+        .from("profiles")
+        .update({ display_name: fromGoogle.slice(0, 80) })
+        .eq("id", user.id);
+      if (!fillErr) displayName = fromGoogle.slice(0, 80);
+    }
   }
 
   return {
@@ -57,7 +79,8 @@ export async function getProfile(): Promise<Profile | null> {
     email: (data.email as string | null) ?? user.email ?? null,
     role: asRole(data.role),
     status: asStatus(data.status),
-    display_name: (data.display_name as string | null) ?? null,
+    display_name: displayName,
+    avatar_url: "avatar_url" in data ? ((data.avatar_url as string | null) ?? null) : null,
   };
 }
 

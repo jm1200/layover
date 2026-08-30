@@ -114,7 +114,11 @@ export default async function PlaybookPage({
               {playbook.narrative}
             </p>
           ) : null}
-          <Byline name={byline} tone="dark" />
+          <Byline
+            name={byline}
+            href={playbook.author_id ? `/u/${playbook.author_id}` : null}
+            tone="dark"
+          />
           <div className="mt-3">
             <LikeButton
               kind="playbook"

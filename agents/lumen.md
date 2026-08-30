@@ -414,7 +414,7 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - Daily 3-draft cap parked for testing.
 - Edit rec still hides plate uploads (`namesOnly`) while Share and the rec page use dish JPEGs. Same two jobs; Edit should match.
 - Pixels still lag this lock: Admin log is a verb feed (*Filed Eat, Do, or Buy*) with no place/day name and no link. Copy is this file. Engineering owns the cut.
-- Signup still does not copy Google’s name — everyone is **Crew**. Header is still a silhouette. Person page is copy-locked, not built.
+- Person page is live at `/u/[id]`. SQL **020** copies Google’s name and allows the photo. Until that’s pasted, email users stay **Crew**.
 
 ## Lessons
 

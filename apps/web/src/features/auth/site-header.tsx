@@ -38,7 +38,14 @@ export function SiteHeader({
             Cities
           </Link>
           {loggedIn && profile ? (
-            <YouNav role={profile.role} tone={tone} signOut={signOut} />
+            <YouNav
+              role={profile.role}
+              tone={tone}
+              signOut={signOut}
+              name={profile.display_name?.trim() || "Crew"}
+              href={`/u/${profile.id}`}
+              avatarUrl={profile.avatar_url}
+            />
           ) : (
             <Link href="/login" className={citiesCls}>
               Log in

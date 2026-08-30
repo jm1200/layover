@@ -28,7 +28,7 @@ Append-only decisions and board outcomes. Newest first.
 
 **Shareholder ask:** Yes on the author page. **Yes/no on like lists** (rec: no). No `apps/` from CEO.
 
-**Status:** Spec in `features/social.md`. Build after 018+019 and his likes call.
+**Status:** John said likes = count and go on the author page. Built `/u/[id]` + SQL **020**.
 
 ---
 

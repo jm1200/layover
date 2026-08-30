@@ -1,7 +1,7 @@
 # Feature: Social
 
 **Phase:** 3  
-**Status:** **In progress.** Like + comment + byline shipped in code (SQL **018** + **019** — John pastes). **Author page** is the next cut (CEO rec 2026-08-31). Dump/edit/photos stay frozen.  
+**Status:** **In progress.** Like + comment + byline + author page. SQL **018**–**020** (John pastes). Dump/edit/photos stay frozen.  
 **Code:** `apps/web/src/features/social/`
 
 ## Goal
@@ -17,8 +17,9 @@ Like, comment, and a **byline** as trust signals under content. The byline opens
 - [x] Byline on playbooks/places (display name). Poster is secondary; city stays the hero
 - [x] Playwright covers like + comment on day one of the build
 - [x] No public follower graph
+- [x] Public author page: name + photo, Posted by is a link, likes are a count
 
-## Author page (next cut — not built)
+## Author page
 
 Public twin of **Your recommendations**. Tap Posted by {name} (or a note byline) → their published recs and days, grouped by city, Eat / Do / Buy. Where they’ve been = cities they posted in. Not GPS. Not hotels.
 
@@ -35,7 +36,7 @@ Public twin of **Your recommendations**. Tap Posted by {name} (or a note byline)
 
 **Avatar (Sofia/Lumen 2026-08-31):** Circle. Upload, else initials, else silhouette. **No Imagine.** Do not auto-publish the Google headshot. Edit may offer **Use my Google photo** if Google has one. Initials: first + last word; one word → one letter; Crew → **C**. Zinc-800 / white (invert on dark). No rainbow hash. One photo, compressed, circle preview. Never a face on the city card or the rec byline.
 
-**Likes (CEO rec — John confirms):** **count only.** Button shows Like / Liked · n. You know you liked it. Nobody sees a list of who. A roster is a party; a count is a stamp. Notes already name people. Sponsors never get crew PII (`docs/ROLES.md`). If he says yes, likes RLS must not dump `user_id` to anon — today’s `likes_select` `using (true)` would be a who-list via the API.
+**Likes (locked):** **count only.** Button shows Like / Liked · n. You know you liked it. Nobody sees a list of who. A roster is a party; a count is a stamp. Notes already name people. Sponsors never get crew PII (`docs/ROLES.md`). SQL **020** replaces public `likes_select` with own-only + `like_count_of` RPC.
 
 **Byline:** Posted by {name} **is a link** when `author_id` exists. Seed / null author stays **Crew**, not a link. City pages do not grow a people rail.
 

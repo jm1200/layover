@@ -64,7 +64,11 @@ export function CommentThread({
             const editing = editingId === c.id;
             return (
               <li key={c.id}>
-                <p className="text-sm font-medium text-zinc-800">{c.byline}</p>
+                <p className="text-sm font-medium text-zinc-800">
+                  <Link href={`/u/${c.author_id}`} className="underline">
+                    {c.byline}
+                  </Link>
+                </p>
                 {editing ? (
                   <div className="mt-1 max-w-lg">
                     <label className="sr-only" htmlFor={`edit-note-${c.id}`}>

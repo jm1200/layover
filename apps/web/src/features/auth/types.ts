@@ -7,6 +7,7 @@ export type Profile = {
   role: UserRole;
   status: AccountStatus;
   display_name: string | null;
+  avatar_url: string | null;
 };
 
 export type AuthFormState = {
