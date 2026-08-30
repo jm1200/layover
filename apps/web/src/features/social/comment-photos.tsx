@@ -82,7 +82,7 @@ export function DraftCommentPhotos({ userId }: { userId: string }) {
     return (
       <button
         type="button"
-        className="mt-3 text-sm text-zinc-600 underline"
+        className="mt-2 block text-sm text-zinc-500 underline"
         onClick={() => setOpen(true)}
       >
         Add a photo

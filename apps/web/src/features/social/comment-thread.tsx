@@ -214,7 +214,7 @@ export function CommentThread({
           <button
             type="submit"
             disabled={pending}
-            className="mt-3 rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
+            className="mt-4 rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
           >
             {pending ? "Posting…" : "Post"}
           </button>
