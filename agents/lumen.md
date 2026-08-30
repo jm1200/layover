@@ -82,16 +82,19 @@ Logged-in, left → right:
 | Cities | Cities | `/cities` |
 | Profile | *(icon only — no word)* | dropdown |
 
-Trigger is a profile icon (Google photo if we have one, else a silhouette). Never the word **You**. Never **Sign out** in the bar. Everyone gets the menu — Sign out lives there.
+Trigger is a **circle**: their upload, else initials of the display name, else a silhouette. Same circle as the person page. Never auto-publish the Google headshot here. Never the word **You**. Never **Sign out** in the bar. Everyone gets the menu — Sign out lives there. Aria on the trigger stays **Account**.
 
 **Profile** dropdown (quiet; not a second bar, not a body button):
 
 | Who | String | Goes |
 |-----|--------|------|
+| Everyone | {name} | their person page |
 | Everyone | Your recs | `/dashboard` |
 | Admin only | Admin | `/admin` |
 | Sponsor or admin | Sponsor | `/sponsor` |
 | Everyone | Sign out | sign out |
+
+`{name}` is the display name; empty → **Crew**. That row is the public page. **Your recs** stays the private scrapbook.
 
 Admin is **never** a card, a mid-page button, a footer underline, or the page they land on after Google. **Never** the words User dashboard or Sponsor dashboard.
 
@@ -114,7 +117,7 @@ Everyone — `user`, `sponsor`, `admin` — lands on `/dashboard`. Honor `?next=
 
 ### Dashboard `/dashboard`
 
-This page is **Your recommendations** — published recs and days. It is not a form farm, not an admin queue, not a second homepage. Public pages still do not say **rec**. This page and the profile menu may.
+This page is **Your recommendations** — published recs and days. It is not a form farm, not an admin queue, not a second homepage. Public pages still do not say **rec** — including the person page. This page and the profile menu may.
 
 | Slot | String |
 |------|--------|
@@ -312,7 +315,11 @@ A rec or day **comes off the city**. That metaphor stays here. Do not reuse it o
 
 ### Rec / day hero (byline + like)
 
-Quiet. Destination stays first. Not a profile. Not a heart with a face.
+Quiet. Destination stays first. Not a heart with a face. **Posted by {name}** stays; `{name}` is a **text link** to their person page. Never a circle, never a face, on the rec, the day, or the city card.
+
+Seed / no author: **Crew**, not a link. There is no person page for that.
+
+A like is a **stamp**. The count lives on the button. A roster under Like is a party. Who liked stays off the rec. Names belong in notes.
 
 | Slot | String |
 |------|--------|
@@ -323,7 +330,7 @@ Quiet. Destination stays first. Not a profile. Not a heart with a face.
 | Count | Like · {n} **/** Liked · {n} — omit ` · {n}` when 0 |
 | Logged-out | Same **Like** (links to login) |
 | Aria when on | Unlike |
-| **Never** | Unlike as visible copy · Follow · a name that is a profile link |
+| **Never** | Unlike as visible copy · Follow · a face on the byline · who liked · a like roster |
 
 ### Comments
 
@@ -333,7 +340,7 @@ Heading matches **Photos** / **Get this**. The thing they write is a **note**.
 |------|--------|
 | Heading | Comments |
 | Empty | None yet. |
-| Note byline | {name} — not “Posted by” |
+| Note byline | {name} — not “Posted by”. Link to their page. **Crew** if no author, not a link. |
 | Own | Edit · **Remove** |
 | Aria (own delete) | Remove note |
 | Form | Leave a note |
@@ -350,6 +357,53 @@ Heading matches **Photos** / **Get this**. The thing they write is a **note**.
 
 **Remove** is the locked delete. Same family as Remove photo. **Take off** is recs/days leaving the city. **Delete** is a CMS.
 
+### Person page
+
+Side door from **Posted by {name}**. Cities stay the map. This is not a creator network. Light page — circle + name, then cities. No dark hero. They are not a city.
+
+Same card family as Your recommendations. **Public:** do not say **rec**. City name is the section, A–Z. Under each city: **Full days** then Eat / Do / Buy cards (stamp on the photo). Omit empty groups. Newest posted first inside a city. Tap the card → the rec or the day. A rec taken off the city is just gone — do not print Taken off the city here.
+
+Picture is one system, header and this page:
+
+1. Their upload → circle
+2. Else initials of the display name → circle
+3. Else silhouette (no name, no photo)
+
+Never Imagine. Never auto-publish the Google headshot. If Google has a picture, edit offers **Use my Google photo** — that’s them choosing it.
+
+Circle. Initials: first letter of the first word + first letter of the last word. One word → one letter. **Crew** → **C**. Light: zinc-800 fill, white letters. Dark header: white fill, zinc-900 letters. No rainbow hash. Upload preview is the **circle** they will see. She does not secretly reframe; hate the crop → another photo. One photo. Compress. **Remove** returns to initials.
+
+| Slot | String |
+|------|--------|
+| Title | {name} |
+| Title fallback | Crew |
+| Line | Where they've been. |
+| Empty | Nothing on the map yet. |
+| Full days heading | Full days |
+| Own only | Edit |
+| **Never** | rec · Profile · Follow · Followers · Following · Bio · About · Content creator · Author · Posts · Liked · Take off · Delete · airline · hotel · home base · `{email}` · `{role}` · a cover photo · a face on a city card |
+
+Own **Edit** is a text link by the name, not a pencil on the circle. Recs still edit on the rec.
+
+After they **Save** name or photo, send them back here. No toast.
+
+### Name and photo (own)
+
+| Slot | String |
+|------|--------|
+| Title | Name and photo |
+| Line | This is Posted by. |
+| Name | Name |
+| Photo empty | Add a photo |
+| Photo has one | Change photo |
+| Google (only if we have one) | Use my Google photo |
+| Remove photo | Remove |
+| Save | Save |
+| Save pending | Saving… |
+| **Never** | Profile settings · Avatar · Display name · Username · Bio · Delete · Take off · Status |
+
+Name is one line. Empty name is **Crew**. Copy Google’s name on signup so Crew is the blank, not everyone.
+
 ### After save (a day)
 
 No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
@@ -360,6 +414,7 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - Daily 3-draft cap parked for testing.
 - Edit rec still hides plate uploads (`namesOnly`) while Share and the rec page use dish JPEGs. Same two jobs; Edit should match.
 - Pixels still lag this lock: Admin log is a verb feed (*Filed Eat, Do, or Buy*) with no place/day name and no link. Copy is this file. Engineering owns the cut.
+- Signup still does not copy Google’s name — everyone is **Crew**. Header is still a silhouette. Person page is copy-locked, not built.
 
 ## Lessons
 
@@ -380,3 +435,7 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - Public pages do not say rec. The dashboard and **Your recs** in the menu may.
 - Notes on recs are comments, same as days. She still gates hotels and PG-13. Three photos, same cap as a rec. John does not sit that queue.
 - **Take off** is a rec or day leaving the city. A note is **Remove**. Do not steal admin “Taken off the city” for comments. Do not say Delete.
+- **Crew** is a blank name, not a personality. Copy the Gmail name. Keep the word.
+- A person page is a side door from Posted by. Cities stay the map. No follow, no bio, no cover, no Imagine face.
+- Initials or their upload. Google’s headshot is a button they tap, not a surprise on the internet.
+- Like is a stamp. A roster under Like is a party. Who liked stays off the rec.

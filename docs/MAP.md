@@ -14,7 +14,7 @@
 | **1.1 — Pre–Phase 2 gate** | **Complete** | Docs/MAP honesty + `PRE-PHASE-2-GATE.md`; code re-reviewed |
 | **2 — Cities, zones, places, playbooks** | **Complete** | Content model + public browse + forms. Migrations 002–004 (+ seeds 003, 005, 006; stop timing 007). Gate in `PRE-PHASE-2-GATE.md` is met. |
 | **2.1 — Verify + harden** | **Complete** | Homepage + city/place/plan UI in (heroes, Eat/Do/Buy, full layover). RLS smoke: `docs/board/RLS-SMOKE.md`. **Parked (not blockers):** admin city form (SQL), Vercel deploy, photo upload (Phase 4). |
-| 3 — Social | **In progress** | Like + comment + byline. SQL **018** + **019** (rec comments, edit own, 3 photos, Lumen gate). Follow / profile / pings / QR **out**. Dump/edit/photos frozen. |
+| 3 — Social | **In progress** | Like + comment + byline. SQL **018** + **019**. **Author page recommended** (not built) — public twin of Your recommendations; follow still **out**. Dump/edit/photos frozen. |
 | 4 — AI story import | **Complete** | Dump → she writes it up → publish. Feel pass 2026-08-27. Dump/edit/photos **frozen**. Dead-code cleanup is leftover, not a new phase. Not Phase 3/5 until John says. |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
 | 6 — Metrics + admin moderation | Not started | money/trust dashboard |
@@ -73,7 +73,7 @@ layover/
 | Auth & roles | `features/auth.md` | `apps/web/src/features/auth/` | — | 1 **done** |
 | Places & zones | `features/places-and-zones.md` | `apps/web/src/features/places/` | Auth (for write) | 2 **done** |
 | Playbooks | `features/playbooks.md` | `apps/web/src/features/playbooks/` | Places, Auth | 2 **done** |
-| Social | `features/social.md` | `apps/web/src/features/social/` | Auth, content | 3 **in progress** (018+019) |
+| Social | `features/social.md` | `apps/web/src/features/social/` | Auth, content | 3 **in progress** (018+019; author page next, not built) |
 | AI import | `features/ai-import.md` | `apps/web/src/features/ai-import/` | Playbooks, Auth, OPS quotas | 4 **done** |
 | Sponsorship | `features/sponsorship.md` | `.../sponsorship/` | Auth sponsor, Stripe, cities | 5 |
 | Admin & metrics | `features/admin-and-metrics.md` | `.../admin/`, `.../metrics/` | All of the above | 6 |
@@ -92,7 +92,7 @@ Playbook + PlaybookStop                      — Phase 2
 # Deferred (not Phase 2):
 #   Activity (separate entity) — later if needed
 #   Event (dates; can expire) — later
-Like / Comment / Follow                      — Phase 3
+Like / Comment / Author page (Follow later)  — Phase 3
 SponsorProfile / Campaign / Placement        — Phase 5
 AiImportLog                                  — Phase 4
 ModerationAction / MetricSnapshot            — Phase 6
@@ -170,11 +170,12 @@ Exact paths may adjust; update this table when implementing.
 - [x] Hygiene (2026-08-27): deleted `sellPlaceBlurb` + dead twins; album errors no longer swallowed; hotel gate on stop text; Playwright reorder Save + X photo. **SQL 017** locks `lumen_set_city_hero` (John pastes in SQL Editor).
 - [x] Phase 3 start: like recs + days, comments on days, byline. Playwright `e2e/social.spec.ts`. **SQL 018** (John pastes).
 - [x] Comments on recs too. Edit own note. Up to 3 photos. Lumen hotel + PG-13 gate. **SQL 019** (John pastes after 018). Dump/edit/photos still frozen.
+- [ ] Public author page (spec 2026-08-31). Tap Posted by → published recs/days. Follow still out. Not built.
 
 ## Session checklist for agents
 
 1. Read `AGENTS.md` + this file (+ `docs/STACK.md` before infra/auth work).
-2. Confirm current phase with owner if doing implementation. Phase 2 is **done**. Phase 4 is **done**. Phase 3 like/comment/byline is **in progress** (SQL **018** + **019**).
+2. Confirm current phase with owner if doing implementation. Phase 2 is **done**. Phase 4 is **done**. Phase 3 like/comment/byline is **in progress** (SQL **018** + **019**). Public author page is spec’d, not built.
 3. Touch only the feature folder + its spec + this map.
 4. End of session: MAP and feature spec reflect reality. Prefer “unknown / not built” over inventing.
 

@@ -72,7 +72,7 @@ Ordered story/itinerary: stops + notes + transit + gear. **UI name: layover plan
 
 ### Social
 
-Like, comment, follow — **trust signals under content**, not a creator-celebrity product. Reputation ranks playbooks/places/items; city browse stays destination-led. Later: photo-first posting + reward high-signal creators (signals first; paid rewards only with trust-safe design). Phase 3 = basic signals only — not a person feed as the home experience. **Not next:** Phase 3 waits until after Phase 4 Lumen has produced real posts (board 2026-08-24).
+Like, comment, **byline → public author page** — **trust signals under content**, not a creator-celebrity product. The author page is the public twin of Your recommendations (published recs/days by city). Follow is a later content filter, not this cut. City browse stays destination-led. Reputation ranks playbooks/places/items. Not a person feed as the home experience. **Likes = count only** unless John overrides (named people live on notes; sponsors never get liker PII).
 
 ### Sponsorship (labeled)
 

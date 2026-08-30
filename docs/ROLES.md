@@ -13,7 +13,7 @@ Flight crew and other explorers.
 - Browse public cities, places, playbooks, events
 - Create/edit own playbooks, places, dishes, activities (subject to moderation)
 - Use AI story → draft import within quota
-- Like, comment, follow other users
+- Like, comment. Public author page (published recs/days). Follow later, not this cut
 - Report content
 
 **Cannot:**

@@ -1,12 +1,12 @@
 # Feature: Social
 
 **Phase:** 3  
-**Status:** **In progress.** Like + comment + byline. SQL **018** + **019**. Dump/edit/photos stay frozen.  
+**Status:** **In progress.** Like + comment + byline shipped in code (SQL **018** + **019** — John pastes). **Author page** is the next cut (CEO rec 2026-08-31). Dump/edit/photos stay frozen.  
 **Code:** `apps/web/src/features/social/`
 
 ## Goal
 
-Like, comment, and a **byline** as trust signals under content — who posted this, without making the product a person-centric social network. City browse stays **destination-first** (“what to do in Zurich”), not “whose feed is this.”
+Like, comment, and a **byline** as trust signals under content. The byline opens that person’s **published intel** — not a follower graph, not an influencer home. City browse stays **destination-first** (“what to do in Zurich”), not “whose feed is this.”
 
 ## Acceptance criteria (v1)
 
@@ -18,28 +18,63 @@ Like, comment, and a **byline** as trust signals under content — who posted th
 - [x] Playwright covers like + comment on day one of the build
 - [x] No public follower graph
 
+## Author page (next cut — not built)
+
+Public twin of **Your recommendations**. Tap Posted by {name} (or a note byline) → their published recs and days, grouped by city, Eat / Do / Buy. Where they’ve been = cities they posted in. Not GPS. Not hotels.
+
+| On | Off |
+|----|-----|
+| Display name (editable by owner) | Bio essay |
+| Avatar: upload, else initials, else silhouette | Auto-publish Google headshot |
+| Published recs + days only | Drafts, hidden, other people’s posts |
+| Grouped by city | Follower / following counts |
+| Edit own name + pic | Follow button, DMs, pings |
+| | Airline, hotel, home base, “people in this city” |
+
+**Name:** `handle_new_user` copies Google `raw_user_meta_data.full_name` or `name` into `display_name`. Owner can edit. Empty → **Crew**. Never email. Backfill existing nulls from Auth metadata. “Posted by Crew” today is this hole, not a Google-button bug.
+
+**Avatar (Sofia/Lumen 2026-08-31):** Circle. Upload, else initials, else silhouette. **No Imagine.** Do not auto-publish the Google headshot. Edit may offer **Use my Google photo** if Google has one. Initials: first + last word; one word → one letter; Crew → **C**. Zinc-800 / white (invert on dark). No rainbow hash. One photo, compressed, circle preview. Never a face on the city card or the rec byline.
+
+**Likes (CEO rec — John confirms):** **count only.** Button shows Like / Liked · n. You know you liked it. Nobody sees a list of who. A roster is a party; a count is a stamp. Notes already name people. Sponsors never get crew PII (`docs/ROLES.md`). If he says yes, likes RLS must not dump `user_id` to anon — today’s `likes_select` `using (true)` would be a who-list via the API.
+
+**Byline:** Posted by {name} **is a link** when `author_id` exists. Seed / null author stays **Crew**, not a link. City pages do not grow a people rail.
+
+**Route (intent):** one stable id URL (e.g. `/u/[id]`). Sofia/Lumen may rename the path. No vanity slug this cut. Dashboard stays private mine; this page is the public version of the same posts.
+
+**RLS (intent):** public may read `display_name` + avatar, never email/role/status. Owner may update own name + avatar, never role/status.
+
+**Still frozen:** dump / edit rec / photos pipeline.
+
 ## Copy (locked 2026-08-31)
 
-Lumen paste list: `agents/lumen.md` → Rec/day hero + Comments. Engineering does not invent a second voice.
+Lumen paste list: `agents/lumen.md` → Header dropdown, Rec/day hero, Comments, Person page, Name and photo. Engineering does not invent a second voice.
 
 | Slot | String |
 |------|--------|
-| Rec/day byline | Posted by {name} (fallback **Crew**). Not a link. |
-| Like | **Like** / **Liked** · count. Visible never **Unlike**. |
+| Rec/day byline | Posted by {name} (fallback **Crew**). **Link** if there is an author. Never a face. |
+| Like | **Like** / **Liked** · count. Visible never **Unlike**. Never a who-list. |
+| Person title | {name} / empty **Crew** |
+| Person line | Where they've been. |
+| Person empty | Nothing on the map yet. |
+| Own | Edit |
+| Edit title | Name and photo |
+| Edit line | This is Posted by. |
+| Photo | Add a photo / Change photo / **Use my Google photo** / **Remove** |
+| Save | Save |
 | Comments heading | Comments |
 | Empty | None yet. |
 | Form | Leave a note / Been? Add a line. / Add |
 | Own delete | **Remove** (aria **Remove note**) |
 | **Never on a note** | Take off · Delete · Remove comment |
+| **Never on a person** | rec · Profile · Follow · Bio · Content creator · Take off · Delete · a cover |
 
 **Take off** stays on rec/day delete and admin “Taken off the city.” A note is not on the city.
 
-## Out of this cut (v1)
+## Out of this cut (v1 + author page)
 
 - Follow users / “from people you follow” content filter — later, not this build
-- Profile as a product (bio, cities they post about, people pages) — byline is enough
-- DMs
-- Private circles
+- Bio, follower counts, DMs, private circles
+- Public **who liked** list
 - Complex reputation scores (simple like counts OK)
 - Influencer-style home feed where the **person** is the primary object of browse
 - Photo grid / media on city page

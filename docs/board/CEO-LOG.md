@@ -4,6 +4,34 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-31 — Profiles instead of follow
+
+**Source:** Shareholder — maybe no follow; do profiles. Tap someone else’s posts, see where they’ve been / eaten / done / bought. “Posted by Crew” is wrong. Get the Google name, let them edit, pic or initials. Asked who liked vs count. Sofia/Lumen on the picture.
+
+**Facts:** Phase 3 v1 locked like + comment + byline; follow and profile-as-product were **out**. `Posted by Crew` is not the Google button. `handle_new_user` writes id/email/role/status only — never `full_name`. `byline_for` maps empty → **Crew**. RLS is `profiles_select_own`; no update policy. Header icon is a silhouette. Dashboard **Your recommendations** is already “my posts.” What’s missing is the **public** twin. SQL 018+019 still need his paste. Dump/edit/photos frozen. `likes` select is currently open on the whole row (user_id included) — count-only means that cannot stay as a public who-list.
+
+**Not this product:** influencer network. No bio essay, follower count, follow button, DMs, “people in Zurich” rail. City pages stay Eat / Do / Buy + plans. Airline, hotel, home base stay off the page.
+
+### Decision (CEO rec — John confirms likes)
+
+| Item | Call |
+|------|------|
+| Primary bet | **Public author page, not follow.** Same object as Your recommendations, public. |
+| On the page | Name, avatar, published recs + days grouped by city. Edit own name + pic. |
+| Off the page | Bio, followers, follow, DMs, like-activity, completion scores, airline/hotel/base. |
+| Name | Copy Google `full_name` / `name` on signup. Editable. Empty → **Crew**. Not email. Not “Someone.” Backfill existing nulls. |
+| Avatar | Sofia/Lumen pick. Constraint: **no AI spend**, initials OK. Do **not** auto-publish Google picture. |
+| Likes | **Count only.** Named signal = the note. Sponsors never see who liked. |
+| Byline | **Link** to the author page when there is an author. Seed/null stays Crew, not a link. City is still the hero. |
+| Still out | Follow, pings, QR. Dump/edit/photos frozen. |
+| Spend | Avatars are uploads or initials. John’s $20 is rec/city stills. |
+
+**Shareholder ask:** Yes on the author page. **Yes/no on like lists** (rec: no). No `apps/` from CEO.
+
+**Status:** Spec in `features/social.md`. Build after 018+019 and his likes call.
+
+---
+
 ## 2026-08-31 — Comment delete is Remove
 
 **Source:** Shareholder — “Take off” on a note is weird. Meant delete or remove comment. Asked Maya + Lumen how like / comment / byline look.
