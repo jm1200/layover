@@ -285,6 +285,8 @@ function headline(
       );
     case "blocked":
       return <>Wouldn’t file that</>;
+    case "sell_blurb":
+      return <>Rewrote a blurb</>;
     case "duplicate_plan":
       return (
         <>

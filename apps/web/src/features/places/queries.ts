@@ -158,6 +158,13 @@ export async function listDishesForPlace(placeId: string): Promise<Dish[]> {
   return (data ?? []) as Dish[];
 }
 
+export function photosAlbumError(message?: string): string {
+  if (message && /place_photos|schema cache/i.test(message)) {
+    return "Photo album isn’t in the database yet. Paste 016_place_photos.sql in the Supabase SQL Editor, then try again.";
+  }
+  return message ?? "Couldn’t load photos.";
+}
+
 export async function listPlacePhotos(placeId: string): Promise<PlacePhoto[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
@@ -166,8 +173,7 @@ export async function listPlacePhotos(placeId: string): Promise<PlacePhoto[]> {
     .eq("place_id", placeId)
     .order("sort_order");
   if (error) {
-    console.warn("[listPlacePhotos]", error.message);
-    return [];
+    throw new Error(photosAlbumError(error.message));
   }
   return (data ?? []) as PlacePhoto[];
 }

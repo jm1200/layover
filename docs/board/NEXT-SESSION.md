@@ -1,21 +1,18 @@
 # Next session — founder notes
 
-**Paused:** 2026-08-27 — **Phase 4 complete.** Board rec: **hygiene then Phase 3.** Dump/edit/photos frozen. Waits on John.
+**Paused:** 2026-08-27 — Phase 4 complete. Hygiene **coded**. SQL **017** still needs a paste in Supabase.
 
 ## Where we are
 
-Lumen dump is live. Feel pass passed. Playwright: `cd apps/web && npm run test:e2e`. **Milo owns it.**
+Dump/edit/photos frozen. Hygiene: dead spend actions gone, album errors surface, hotel gate on stop text, Playwright reorder + X photo.
+
+**You:** paste `apps/web/supabase/migrations/017_lumen_city_hero_lock.sql` in the Supabase SQL Editor. Until then, any logged-in user can still call the old city-hero RPC.
 
 ## First up (when John says)
 
-1. **Bounded hygiene** (a day, not a phase). Do **not** unfreeze dump / rec photos / edit rec.
-   - Delete `sellPlaceBlurb` + dead twins
-   - Lock `lumen_set_city_hero` RPC
-   - Hotel gate on stop title/body
-   - Stop swallowing album errors
-   - Playwright: Edit day → Up/Down → Save; X a photo
-2. **Then Phase 3:** like + comment + byline. Spec: `features/social.md`. Playwright for likes on day one of that build.
-3. Not Stripe. Not follow. Not Facebook. Not the 3-draft cap unless he asks.
+**Phase 3:** like + comment + byline. Spec: `features/social.md`. Playwright for likes on day one of that build.
+
+Not Stripe. Not follow. Not Facebook.
 
 ## Dev
 

@@ -43,6 +43,10 @@ export async function createPlaybook(
   }
   const lodging = refusePublicCopy(title, narrative);
   if (lodging) return { error: lodging };
+  for (const s of stops) {
+    const stopLodging = refusePublicCopy(s.title, s.body);
+    if (stopLodging) return { error: stopLodging };
+  }
   if (!["draft", "published"].includes(status)) {
     return { error: "Invalid status." };
   }

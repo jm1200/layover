@@ -19,6 +19,7 @@ Durable history only. Not a chat transcript.
 | 2026-08-25 | **Lumen is live** at `/share`. Dump → lookup → fill the form. Job/rules baseline: `agents/lumen.md`. |
 | 2026-08-27 | **Milo owns Playwright E2E** (`apps/web/e2e`, `npm run test:e2e`). Theo reviews. Not a tester hire. Suite does not call xAI or Google. |
 | 2026-08-27 | **Phase 4 complete.** Dump/edit/photos frozen. Feel pass passed. Phase 3 waits on John. |
+| 2026-08-27 | **Hygiene coded** (dead spend actions gone, album errors surface, hotel gate on stops, e2e reorder + X photo). City-hero RPC lock is SQL **017** — John pastes. |
 | 2026-08-27 | Board rec: **hygiene then Phase 3.** Phase 3 v1 = like + comment + byline. Follow / profile / pings / QR out. |
 
 ## Product locks

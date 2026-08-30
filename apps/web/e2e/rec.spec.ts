@@ -25,6 +25,13 @@ test.describe("rec create / photos / save / delete", () => {
       await expect(page.getByRole("heading", { name: "Edit" })).toBeVisible();
       await page.locator('input[type="file"]').first().setInputFiles(STILL);
       await expect(page.getByText("Hero")).toBeVisible({ timeout: 30_000 });
+      await page.getByRole("button", { name: "Remove photo" }).click();
+      await expect(page.getByRole("button", { name: "Remove photo" })).toHaveCount(
+        0,
+      );
+      await expect(page.getByText("Add a photo").first()).toBeVisible();
+      await page.locator('input[type="file"]').first().setInputFiles(STILL);
+      await expect(page.getByText("Hero")).toBeVisible({ timeout: 30_000 });
 
       await page.getByPlaceholder("Filet, the dip…").fill("Ibérico");
       await page.getByRole("button", { name: "Add" }).click();

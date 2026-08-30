@@ -21,7 +21,7 @@ Dump a layover → she writes it up → you publish. Feel pass passed. Trust sti
 
 ## You
 
-Yes or no on: bounded hygiene, then that Phase 3 cut. No code until you say.
+Hygiene is **coded**. Paste `017_lumen_city_hero_lock.sql` in Supabase. Then say yes on Phase 3 (like + comment + byline).
 
 **Money:** $20/mo. 4k chars. Kill switch. Daily 3-draft cap still off.
 

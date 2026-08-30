@@ -14,7 +14,7 @@
 | **1.1 — Pre–Phase 2 gate** | **Complete** | Docs/MAP honesty + `PRE-PHASE-2-GATE.md`; code re-reviewed |
 | **2 — Cities, zones, places, playbooks** | **Complete** | Content model + public browse + forms. Migrations 002–004 (+ seeds 003, 005, 006; stop timing 007). Gate in `PRE-PHASE-2-GATE.md` is met. |
 | **2.1 — Verify + harden** | **Complete** | Homepage + city/place/plan UI in (heroes, Eat/Do/Buy, full layover). RLS smoke: `docs/board/RLS-SMOKE.md`. **Parked (not blockers):** admin city form (SQL), Vercel deploy, photo upload (Phase 4). |
-| 3 — Social | Not started | **Hygiene then this cut** (board 2026-08-27). Like + comment + byline. Follow / profile / pings / QR **out**. Dump/edit/photos stay frozen. Waits on John. |
+| 3 — Social | Not started | Hygiene **in code**; SQL **017** needs John in the SQL Editor. Then like + comment + byline. Follow / profile / pings / QR **out**. Dump/edit/photos stay frozen. |
 | 4 — AI story import | **Complete** | Dump → she writes it up → publish. Feel pass 2026-08-27. Dump/edit/photos **frozen**. Dead-code cleanup is leftover, not a new phase. Not Phase 3/5 until John says. |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
 | 6 — Metrics + admin moderation | Not started | money/trust dashboard |
@@ -167,6 +167,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] Founder-test pack (2026-08-26): labeled place vs dish; no drafts on dashboard; mine-only Edit; stop-set + place-id dedup; day blurb from dump; city-open copy only when new; one Save on edit day + redirect; Google button (needs John’s OAuth client). Retest `FOUNDER-TEST.md`.
 - [x] Chrome + dashboard (Lumen/Sofia 2026-08-27): sign-in → `/dashboard` (not `/admin`). Header: Layover · Share your intel · Cities · **profile icon**. Dropdown: **Your recs**, Admin if admin, Sign out. Title **Your recommendations**. Cards: still, posted date, **city** bold. Full days vs Recs.
 - [x] Playwright E2E (`apps/web/e2e`, `npm run test:e2e`) — **Milo owns.** Fake user clicks browse, login, rec photos/zoom, Save, delete rec, layover day. Does **not** call xAI. Google OAuth still human. Theo reviews.
+- [x] Hygiene (2026-08-27): deleted `sellPlaceBlurb` + dead twins; album errors no longer swallowed; hotel gate on stop text; Playwright reorder Save + X photo. **SQL 017** locks `lumen_set_city_hero` (John pastes in SQL Editor).
 
 ## Session checklist for agents
 

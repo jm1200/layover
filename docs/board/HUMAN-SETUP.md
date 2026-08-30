@@ -65,7 +65,9 @@ In Supabase: **SQL Editor** → New query → paste → **Run**:
 6. `apps/web/supabase/migrations/006_zurich_density.sql` — extra Zurich recs  
 7. `apps/web/supabase/migrations/007_stop_timing.sql` — stop duration / cost notes
 
-If earlier files already ran, only run the ones you have not applied yet (usually **006** then **007**).
+If earlier files already ran, only run the ones you have not applied yet.
+
+**Now (hygiene):** paste `017_lumen_city_hero_lock.sql` — stops any logged-in user from setting a city banner.
 
 ### 5. Auth URL config (so login redirects work)
 

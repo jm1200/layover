@@ -19,12 +19,25 @@ test.describe("layover day", () => {
         .getByLabel("Title")
         .fill("First walk");
       await page
+        .getByRole("group", { name: "Stop 2" })
+        .getByLabel("Title")
+        .fill("Second coffee");
+      await page
         .getByRole("button", { name: "Publish — live on the city" })
         .click();
       await page.waitForURL(/\/playbooks\/[0-9a-f-]{36}/, { timeout: 20_000 });
       playbookId = page.url().match(/\/playbooks\/([0-9a-f-]{36})/)?.[1] ?? "";
       await expect(page.getByRole("heading", { name: title })).toBeVisible();
       await expect(page.getByText("First walk")).toBeVisible();
+
+      await page.getByRole("link", { name: "Edit" }).click();
+      await expect(page.getByRole("heading", { name: "Edit layover" })).toBeVisible();
+      await page.getByRole("button", { name: "Down" }).first().click();
+      await page.getByRole("button", { name: "Save" }).click();
+      await page.waitForURL(/\/playbooks\/[0-9a-f-]{36}/, { timeout: 20_000 });
+      const stopTitles = page.locator("main h2");
+      await expect(stopTitles.nth(0)).toHaveText("Second coffee");
+      await expect(stopTitles.nth(1)).toHaveText("First walk");
 
       await page.goto("/dashboard");
       await expect(page.getByRole("link", { name: title })).toBeVisible();

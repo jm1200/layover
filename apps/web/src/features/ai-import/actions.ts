@@ -16,6 +16,7 @@ import {
   zoneIdFor,
 } from "@/features/ai-import/extract";
 import { aiBlocked } from "@/features/ai-import/spend";
+import { refusePublicCopy } from "@/features/ai-import/moderate";
 import { listAllZones, listCities } from "@/features/places/queries";
 import { listStopsForPlaybook } from "@/features/playbooks/queries";
 import type { City, Place } from "@/features/places/types";
@@ -293,6 +294,19 @@ export async function fillDraft(
 
     const stopIds: { title: string; body: string | null; place_id: string | null }[] =
       [];
+    for (const s of stops) {
+      const stopLodging = refusePublicCopy(s.name.trim(), s.body);
+      if (stopLodging) {
+        await supabase.from("ai_import_logs").insert({
+          ...logBase,
+          success: false,
+          error_code: "blocked",
+          city_id: city.id,
+          payload: extract as unknown as Record<string, unknown>,
+        });
+        return { error: stopLodging, story, hintSlug: city.slug };
+      }
+    }
     for (const s of stops) {
       const pid = await ensurePlace({
         name: s.name.trim(),

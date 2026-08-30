@@ -9,6 +9,7 @@ import type { ContentStatus } from "@/features/places/types";
 import { MAX_PLATES } from "@/features/ai-import/schema";
 import { refusePublicCopy } from "@/features/ai-import/moderate";
 import { assertZoneInCity } from "@/features/places/validate";
+import { photosAlbumError } from "@/features/places/queries";
 import type { Dish } from "@/features/places/types";
 
 export type PlaceFormState = { error?: string; success?: string };
@@ -203,7 +204,8 @@ export async function attachPlaceStill(
     })
     .eq("id", placeId);
   if (error) return { error: error.message };
-  await rememberInAlbum(supabase, placeId, url);
+  const albumErr = await rememberInAlbum(supabase, placeId, url);
+  if (albumErr) return { error: albumErr };
   revalidatePath(`/places/${placeId}`);
   revalidatePath("/dashboard");
   revalidatePath("/cities");
@@ -216,35 +218,32 @@ export async function rememberInAlbum(
   supabase: Awaited<ReturnType<typeof createClient>>,
   placeId: string,
   url: string,
-): Promise<void> {
-  const { data: already } = await supabase
+): Promise<string | null> {
+  const { data: already, error: alreadyErr } = await supabase
     .from("place_photos")
     .select("id")
     .eq("place_id", placeId)
     .eq("image_url", url)
     .maybeSingle();
-  if (already) return;
+  if (alreadyErr) return photosAlbumError(alreadyErr.message);
+  if (already) return null;
   const counted = await supabase
     .from("place_photos")
     .select("id", { count: "exact", head: true })
     .eq("place_id", placeId);
-  if (counted.error) return;
-  if ((counted.count ?? 0) >= MAX_REC_PHOTOS) return;
-  await supabase.from("place_photos").insert({
+  if (counted.error) return photosAlbumError(counted.error.message);
+  if ((counted.count ?? 0) >= MAX_REC_PHOTOS) return "Three photos is enough.";
+  const { error } = await supabase.from("place_photos").insert({
     place_id: placeId,
     image_url: url,
     sort_order: (counted.count ?? 0) + 1,
   });
+  if (error) return photosAlbumError(error.message);
+  return null;
 }
 
 function albumMissing(message?: string): string {
-  if (
-    message &&
-    /place_photos|schema cache/i.test(message)
-  ) {
-    return "Photo album isn’t in the database yet. Paste 016_place_photos.sql in the Supabase SQL Editor, then try again.";
-  }
-  return message ?? "Couldn’t save that photo.";
+  return photosAlbumError(message);
 }
 
 export async function addPlacePhoto(

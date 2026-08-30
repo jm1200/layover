@@ -5,28 +5,22 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/features/auth/get-profile";
 import {
-  EXTRACT_MODEL,
-  MAX_SEARCH_CALLS,
   STILL_MODEL,
   STILL_USD,
-  estimateUsd,
-  searchCallsFromResponse,
   xaiClient,
 } from "@/lib/ai/xai";
 import { refusePublicCopy } from "@/features/ai-import/moderate";
 import { aiBlocked } from "@/features/ai-import/spend";
 import { CITY_HERO } from "@/features/places/rec-media";
 import { listCities } from "@/features/places/queries";
-import { MAX_PLATES } from "@/features/ai-import/schema";
 import { rememberInAlbum } from "@/features/places/actions";
-import type { Dish, Place } from "@/features/places/types";
+import type { Place } from "@/features/places/types";
 
 export type PlaceMediaState = {
   error?: string;
   success?: string;
   blurb?: string;
   imageUrl?: string;
-  dish?: Dish;
 };
 
 async function ownPlace(placeId: string) {
@@ -102,73 +96,12 @@ export async function attachPlaceImage(
     })
     .eq("id", placeId);
   if (error) return { error: error.message };
-  await rememberInAlbum(ctx.supabase, placeId, url);
+  const albumErr = await rememberInAlbum(ctx.supabase, placeId, url);
+  if (albumErr) return { error: albumErr };
   revalidatePath(`/places/${placeId}`);
   revalidatePath("/dashboard");
   revalidatePath("/cities");
   return { success: source === "ai" ? "Still’s up." : "Photo saved." };
-}
-
-export async function addReviewDish(
-  placeId: string,
-  name: string,
-): Promise<PlaceMediaState> {
-  const ctx = await ownPlace(placeId);
-  if (!ctx.ok) return { error: ctx.error };
-  const n = name.trim();
-  if (!n) return { error: "Name it." };
-  const lodging = refusePublicCopy(n, null);
-  if (lodging) return { error: lodging };
-  const { count } = await ctx.supabase
-    .from("dishes")
-    .select("id", { count: "exact", head: true })
-    .eq("place_id", placeId);
-  if ((count ?? 0) >= MAX_PLATES) {
-    return { error: `Three is enough.` };
-  }
-  const { data: dish, error } = await ctx.supabase
-    .from("dishes")
-    .insert({
-      place_id: placeId,
-      name: n,
-      sort_order: (count ?? 0) + 1,
-    })
-    .select("id, place_id, name, note, sort_order, image_url")
-    .single();
-  if (error || !dish) return { error: error?.message ?? "Couldn’t add that." };
-  revalidatePath(`/places/${placeId}`);
-  return { success: "Added.", dish: dish as Dish };
-}
-
-export async function attachDishImage(
-  dishId: string,
-  url: string,
-): Promise<PlaceMediaState> {
-  const profile = await getProfile();
-  if (!profile || profile.status === "suspended") {
-    return { error: "Log in first." };
-  }
-  const supabase = await createClient();
-  const { data: dish } = await supabase
-    .from("dishes")
-    .select("id, place_id")
-    .eq("id", dishId)
-    .maybeSingle();
-  if (!dish) return { error: "Not found." };
-  const ctx = await ownPlace(dish.place_id);
-  if (!ctx.ok) return { error: ctx.error };
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
-  const ours =
-    url.startsWith("/") ||
-    (supabaseUrl && url.startsWith(supabaseUrl) && url.includes("/place-stills/"));
-  if (!ours) return { error: "Bad image URL." };
-  const { error } = await supabase
-    .from("dishes")
-    .update({ image_url: url })
-    .eq("id", dishId);
-  if (error) return { error: error.message };
-  revalidatePath(`/places/${dish.place_id}`);
-  return { success: "Photo saved.", imageUrl: url };
 }
 
 async function generatePlaceStillNow(
@@ -228,7 +161,12 @@ async function generatePlaceStillNow(
       })
       .eq("id", ctx.place.id);
     if (error) return { error: error.message };
-    await rememberInAlbum(ctx.supabase, ctx.place.id, pub.publicUrl);
+    const albumErr = await rememberInAlbum(
+      ctx.supabase,
+      ctx.place.id,
+      pub.publicUrl,
+    );
+    if (albumErr) return { error: albumErr };
     await ctx.supabase.from("ai_import_logs").insert({
       user_id: ctx.profile.id,
       model: STILL_MODEL,
@@ -438,77 +376,4 @@ export async function publishReviewed(
     redirect(`/places/${placeIds[0]}`);
   }
   redirect(slug ? `/cities/${slug}` : "/cities");
-}
-
-/** Optional rewrite — extract already writes the blurb. Kept for holes. */
-export async function sellPlaceBlurb(
-  placeId: string,
-): Promise<PlaceMediaState> {
-  const ctx = await ownPlace(placeId);
-  if (!ctx.ok) return { error: ctx.error };
-  if (ctx.place.status !== "draft" && ctx.profile.role !== "admin") {
-    return { error: "That’s already live." };
-  }
-  const blocked = await aiBlocked(ctx.supabase);
-  if (blocked) return { error: blocked };
-  const client = xaiClient();
-  if (!client) return { error: "Lumen’s taking a nap." };
-
-  const cities = await listCities();
-  const city = cities.find((c) => c.id === ctx.place.city_id);
-  const cityLabel = city
-    ? `${city.name}${city.airport_code ? ` (${city.airport_code})` : ""}`
-    : "this city";
-
-  try {
-    const response = await client.responses.create({
-      model: EXTRACT_MODEL,
-      tools: [{ type: "web_search" }],
-      input: [
-        {
-          role: "system",
-          content: `You are Lumen. Rewrite a layover rec blurb so it SELLS the place. 2–4 sentences. Specific: what it is, a hook (history, dish, room, water, send), where (street or neighborhood). Keep any crew note they already gave (dishes, dip, filet). Never "classic/nice/great/awesome spot in the X." PG-13. No hotels. Output only the blurb text, no quotes or preamble.`,
-        },
-        {
-          role: "user",
-          content: `City: ${cityLabel}\nPlace: ${ctx.place.name}\nKind: ${ctx.place.category ?? "do"}\nCurrent blurb:\n${ctx.place.blurb ?? "(none)"}`,
-        },
-      ],
-      max_tool_calls: MAX_SEARCH_CALLS,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } as any);
-    const blurb = (response.output_text ?? "").trim();
-    if (blurb.length < 40) return { error: "Couldn’t write that. Try an edit." };
-    const { error } = await ctx.supabase
-      .from("places")
-      .update({ blurb })
-      .eq("id", placeId);
-    if (error) return { error: error.message };
-    const usage = response.usage as
-      | { input_tokens?: number; output_tokens?: number }
-      | undefined;
-    const searchCalls = searchCallsFromResponse(response);
-    await ctx.supabase.from("ai_import_logs").insert({
-      user_id: ctx.profile.id,
-      model: EXTRACT_MODEL,
-      success: true,
-      error_code: "sell_blurb",
-      input_chars: (ctx.place.blurb ?? "").length,
-      input_tokens: usage?.input_tokens ?? null,
-      output_tokens: usage?.output_tokens ?? null,
-      search_calls: searchCalls,
-      estimated_usd: estimateUsd(
-        usage?.input_tokens ?? 0,
-        usage?.output_tokens ?? 0,
-        searchCalls,
-      ),
-      city_id: ctx.place.city_id,
-      payload: { place_id: placeId },
-    });
-    revalidatePath(`/places/${placeId}`);
-    revalidatePath("/dashboard");
-    return { success: "Rewrote the blurb.", blurb };
-  } catch {
-    return { error: "Lookup failed. Try again." };
-  }
 }
