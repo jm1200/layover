@@ -48,6 +48,7 @@ test.describe("like, comment, byline", () => {
     });
 
     await recComments.getByPlaceholder("Been? Add a line.").fill(note);
+    await recComments.getByRole("button", { name: "Add a photo" }).click();
     await recComments.locator("form input[type='file']").first().setInputFiles(STILL);
     await expect(recComments.getByRole("button", { name: "Remove photo" })).toBeVisible({
       timeout: 30_000,

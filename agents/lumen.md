@@ -343,7 +343,7 @@ Heading matches **Photos** / **Get this**. The thing they write is a **note**.
 | Empty | None yet. |
 | Note byline | Circle + {name} — not “Posted by”. Link to their page. **Crew** if no author, not a link. |
 | Note date | Posted {Mon D} |
-| Note photos | View is pictures only. Edit is when they Add / X. |
+| Note photos | View is pictures only. Edit is when they Add / X. New note: **Add a photo** opens the slots. |
 | Own | Edit · **Remove** |
 | Aria (own delete) | Remove note |
 | Form | Leave a note |

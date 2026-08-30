@@ -55,9 +55,11 @@ function AddSlot({
 
 export function DraftCommentPhotos({ userId }: { userId: string }) {
   const [urls, setUrls] = useState<string[]>([]);
+  const [open, setOpen] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const empty = Math.max(0, MAX_COMMENT_PHOTOS - urls.length);
+  const showGrid = open || urls.length > 0;
 
   async function onAdd(file: File) {
     if (urls.length >= MAX_COMMENT_PHOTOS) {
@@ -74,6 +76,18 @@ export function DraftCommentPhotos({ userId }: { userId: string }) {
     } finally {
       setUploading(false);
     }
+  }
+
+  if (!showGrid) {
+    return (
+      <button
+        type="button"
+        className="mt-3 text-sm text-zinc-600 underline"
+        onClick={() => setOpen(true)}
+      >
+        Add a photo
+      </button>
+    );
   }
 
   return (
