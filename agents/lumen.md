@@ -296,7 +296,9 @@ One album. Max 3. Food, room, street — their choice. Tap one **hero** for the 
 | **Never** | A black rectangle or **Status: draft** |
 | Get this | Names only. No dish camera. |
 
-### Delete
+### Delete (recs / days)
+
+A rec or day **comes off the city**. That metaphor stays here. Do not reuse it on a note.
 
 | Slot | String |
 |------|--------|
@@ -306,6 +308,47 @@ One album. Max 3. Food, room, street — their choice. Tap one **hero** for the 
 | Day button | Take this day off |
 | Day confirm | This day leaves the city. Recs stay on Eat / Do / Buy. |
 | Day pending | Taking it off… |
+| Admin, rec gone | Taken off the city. |
+
+### Rec / day hero (byline + like)
+
+Quiet. Destination stays first. Not a profile. Not a heart with a face.
+
+| Slot | String |
+|------|--------|
+| Byline | Posted by {name} |
+| Byline fallback | Crew |
+| Like off | Like |
+| Like on | Liked |
+| Count | Like · {n} **/** Liked · {n} — omit ` · {n}` when 0 |
+| Logged-out | Same **Like** (links to login) |
+| Aria when on | Unlike |
+| **Never** | Unlike as visible copy · Follow · a name that is a profile link |
+
+### Comments
+
+Heading matches **Photos** / **Get this**. The thing they write is a **note**.
+
+| Slot | String |
+|------|--------|
+| Heading | Comments |
+| Empty | None yet. |
+| Note byline | {name} — not “Posted by” |
+| Own | Edit · **Remove** |
+| Aria (own delete) | Remove note |
+| Form | Leave a note |
+| Placeholder | Been? Add a line. |
+| Submit | Add |
+| Submit pending | Adding… |
+| Logged-out | Log in to leave a note. |
+| Login error | Log in to leave a note. |
+| Empty body | Write a note first. |
+| Photos | Up to 3. What you actually saw. |
+| Add photo | Add a photo |
+| Photo cap | Three photos is enough. |
+| **Never** | Take off · Delete · Remove comment · Be the first to comment! |
+
+**Remove** is the locked delete. Same family as Remove photo. **Take off** is recs/days leaving the city. **Delete** is a CMS.
 
 ### After save (a day)
 
@@ -336,3 +379,4 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - Admin log is a caption: **Filed Jamon Jamon in Barcelona · Posted Aug 27 · $0.02.** He taps the name. A verb with no place is a miss. Never dump text. Never hotels. Not a queue.
 - Public pages do not say rec. The dashboard and **Your recs** in the menu may.
 - Notes on recs are comments, same as days. She still gates hotels and PG-13. Three photos, same cap as a rec. John does not sit that queue.
+- **Take off** is a rec or day leaving the city. A note is **Remove**. Do not steal admin “Taken off the city” for comments. Do not say Delete.

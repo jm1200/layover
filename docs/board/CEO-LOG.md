@@ -4,6 +4,28 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-31 — Comment delete is Remove
+
+**Source:** Shareholder — “Take off” on a note is weird. Meant delete or remove comment. Asked Maya + Lumen how like / comment / byline look.
+
+**Facts:** Visible own-note action is **Take off**, stolen from rec-gone admin “Taken off the city” and rec/day **Take this rec off**. Recs leave the city. A note does not. Dump/edit/photos stay frozen. Follow / profiles still out.
+
+**Lumen (simulated):** Byline and Like are quiet trust. Comments as notes is the right job. **Take off** is the wrong metaphor. **Delete** is a CMS. Lock **Remove**.
+
+**Decision:**
+
+| Item | Call |
+|------|------|
+| Note delete | **Remove** (aria **Remove note**) |
+| Rec/day delete | Unchanged — Take this rec/day off · Taken off the city |
+| Not the word | Delete · Remove comment · Take off on a note |
+| Product | Like + byline + notes stay. Destination-first. Not a people feed. |
+| Freeze | Copy is freeze-worthy **after** the string swap. Phase 3 is not frozen until he clicks it. Do not unfreeze dump. |
+
+Engineering swaps the string + Playwright. No `apps/` from CEO.
+
+---
+
 ## 2026-08-31 — Comments on recs, edit own, photos, Lumen gate
 
 **Source:** Shareholder — comments showed on full days, not recs. Asked to edit own comment, upload pictures (3 max), Lumen moderate.

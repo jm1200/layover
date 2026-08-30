@@ -71,7 +71,7 @@ export async function addComment(
 ): Promise<SocialState> {
   const profile = await getProfile();
   if (!profile || profile.status === "suspended") {
-    return { error: "Log in to comment." };
+    return { error: "Log in to leave a note." };
   }
   const body = String(formData.get("body") ?? "").trim();
   if (!body) return { error: "Write a note first." };

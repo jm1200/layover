@@ -18,6 +18,22 @@ Like, comment, and a **byline** as trust signals under content — who posted th
 - [x] Playwright covers like + comment on day one of the build
 - [x] No public follower graph
 
+## Copy (locked 2026-08-31)
+
+Lumen paste list: `agents/lumen.md` → Rec/day hero + Comments. Engineering does not invent a second voice.
+
+| Slot | String |
+|------|--------|
+| Rec/day byline | Posted by {name} (fallback **Crew**). Not a link. |
+| Like | **Like** / **Liked** · count. Visible never **Unlike**. |
+| Comments heading | Comments |
+| Empty | None yet. |
+| Form | Leave a note / Been? Add a line. / Add |
+| Own delete | **Remove** (aria **Remove note**) |
+| **Never on a note** | Take off · Delete · Remove comment |
+
+**Take off** stays on rec/day delete and admin “Taken off the city.” A note is not on the city.
+
 ## Out of this cut (v1)
 
 - Follow users / “from people you follow” content filter — later, not this build

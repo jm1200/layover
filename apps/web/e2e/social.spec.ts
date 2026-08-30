@@ -67,7 +67,7 @@ test.describe("like, comment, byline", () => {
     await recComments.getByRole("textbox", { name: "Edit note" }).fill(edited);
     await recComments.getByRole("button", { name: "Save note" }).click();
     await expect(page.getByText(edited)).toBeVisible({ timeout: 15_000 });
-    await recComments.getByRole("button", { name: "Take off" }).last().click();
+    await recComments.getByRole("button", { name: "Remove note" }).last().click();
     await expect(page.getByText(edited)).toHaveCount(0);
 
     await page.goto(ZRH_DAY);
@@ -81,7 +81,7 @@ test.describe("like, comment, byline", () => {
     await dayComments.getByPlaceholder("Been? Add a line.").fill(note);
     await dayComments.getByRole("button", { name: "Add" }).click();
     await expect(page.getByText(note)).toBeVisible({ timeout: 15_000 });
-    await dayComments.getByRole("button", { name: "Take off" }).last().click();
+    await dayComments.getByRole("button", { name: "Remove note" }).last().click();
     await expect(page.getByText(note)).toHaveCount(0);
   });
 });

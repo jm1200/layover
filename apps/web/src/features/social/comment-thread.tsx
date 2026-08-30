@@ -152,6 +152,7 @@ export function CommentThread({
                     ) : null}
                     <button
                       type="button"
+                      aria-label="Remove note"
                       disabled={delPending}
                       className="text-xs text-zinc-500 underline disabled:opacity-60"
                       onClick={() =>
@@ -161,7 +162,7 @@ export function CommentThread({
                         })
                       }
                     >
-                      Take off
+                      Remove
                     </button>
                   </div>
                 ) : null}

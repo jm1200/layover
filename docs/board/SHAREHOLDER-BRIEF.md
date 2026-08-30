@@ -18,10 +18,11 @@ Dump a layover → she writes it up → you publish. Feel pass passed. Trust sti
 | Dedup | Same **stop set** = same day. Title drift does not ship a twin. |
 | Admin | Kill switch + her log, one card per dump. Not a Phase 6 queue. |
 | Phase 3 v1 | **Like + comment + byline.** Comments on recs and days. Edit own. 3 photos. Lumen gates hotels / PG-13. Follow / profile / pings / QR **out**. |
+| Note delete | **Remove.** Not Take off (that’s recs off the city). Not Delete (CMS). |
 
 ## You
 
-Paste in Supabase SQL Editor, in order if not already: **017**, **018_social.sql**, **019_comments.sql**. Then like a rec, leave a note on a rec, edit it.
+Paste in Supabase SQL Editor, in order if not already: **017**, **018_social.sql**, **019_comments.sql**. After the **Remove** string swap: like a rec, leave a note, Remove it.
 
 **Money:** $20/mo. 4k chars. Kill switch. Daily 3-draft cap still off.
 

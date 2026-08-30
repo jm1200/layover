@@ -22,6 +22,7 @@ Durable history only. Not a chat transcript.
 | 2026-08-27 | **Hygiene coded** (dead spend actions gone, album errors surface, hotel gate on stops, e2e reorder + X photo). City-hero RPC lock is SQL **017** — John pastes. |
 | 2026-08-31 | **Phase 3 started:** like recs + days, comments on days, byline. SQL **018**. Follow/profiles still out. |
 | 2026-08-31 | **Comments:** recs too, not only days. Edit own. Up to 3 photos. Lumen hotel + PG-13 gate (no founder queue). SQL **019**. Dump/edit/photos still frozen. |
+| 2026-08-31 | **Note delete copy:** **Remove** (not Take off, not Delete). Recs/days still “come off the city.” |
 | 2026-08-27 | Board rec: **hygiene then Phase 3.** Phase 3 v1 = like + comment + byline. Follow / profile / pings / QR out. |
 
 ## Product locks
@@ -52,6 +53,7 @@ Durable history only. Not a chat transcript.
 - **2026-08-24 — Phase 2 + 2.1 complete.** Content + browse UI shipped. Parked: admin city form, Vercel, photo upload (Phase 4). Next is Phase 4 when John authorizes.
 - **2026-08-24 — Order locked (board; John has not said go):** **Phase 4 Lumen first.** Thin Phase 3 (like + comment + byline profile) **after** Lumen has produced real posts. Follow = content filter later, not a people-feed. Ban queue stays Phase 6.
 - **2026-08-27 — Hygiene then Phase 3.** Phase 4 complete; dump/edit/photos stay frozen. Next is a **bounded** hygiene slice (dead spend actions, lock `lumen_set_city_hero`, hotel gate on stops, fail-closed album reads, two Playwright clicks), then Phase 3. **Phase 3 v1 = like + comment + byline only.** Follow, profile-as-product, follow-pings, completion, QR are out of this cut. City stays destination-first. Not a cleanup month. Not likes with a dirty kitchen. Build waits on John.
+- **2026-08-31 — Note delete is Remove.** Own-note action is **Remove**, not Take off (rec/day leaving the city) and not Delete (CMS). Like / Posted by / Leave a note stay. Copy in `agents/lumen.md`.
 - **2026-08-24 — Phase 4 started.** John said yes. Dump box at `/share` → grok-4.3 extract → draft recs/plan. Caps: 3/day, 4k chars, $20/mo, kill switch. Needs his `XAI_API_KEY` + SQL 008. Photo stills not in this slice.
 - **2026-08-24 — Lumen lookup:** Extract uses **web_search** (cap 8) so blurbs include what/where, not just the dump. Measured on John’s BCN dump: **4 searches, ~4¢, ~17s**. Still not unbounded chat. No invented walk times.
 - **2026-08-24 — Review + stills:** After a dump, file **places first, then the layover**. Per place: upload a photo or Lumen generates (~2¢) only if the blurb sells (not “classic spot in the Gothic Quarter”). **Make this sell** rewrites a limp blurb. Admin does not approve each JPEG. Kill switch + $20 cap still bind. Needs SQL **010** + public Storage bucket `place-stills`.
