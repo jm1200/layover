@@ -202,7 +202,7 @@ export function CommentThread({
               maxLength={500}
               rows={3}
               placeholder="Been? Add a line."
-              className="rounded-lg border border-zinc-300 px-3 py-2"
+              className="rounded-lg border border-zinc-300 px-3 py-2 text-base"
             />
           </label>
           <DraftCommentPhotos key={photoKey} userId={userId} />

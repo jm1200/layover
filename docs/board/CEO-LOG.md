@@ -4,6 +4,16 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-31 — Phase 3 complete
+
+**Source:** Shareholder — he did his clicks. Asked for code review, hygiene, organization, Sofia/Lumen on the site, then commit. Hates the word “freeze.”
+
+**Reviews:** Theo ship-with-nits (drop Google name write-back; stamp complete). Milo ship-with-nits (unlike the day in e2e; nap-skip the second live note). Sofia: rec/day still destination-first; she’d rename Comments → Notes and kill “None yet.” Lumen: copy is hers; kill unpublished **Status:** line. Comments vs Notes still split — leave Comments unless John picks.
+
+**Decision:** Phase 3 **done.** Dump / rec edit / rec photos stay as they are. Don’t say freeze. Next product is John’s call.
+
+---
+
 ## 2026-08-31 — Profiles instead of follow
 
 **Source:** Shareholder — maybe no follow; do profiles. Tap someone else’s posts, see where they’ve been / eaten / done / bought. “Posted by Crew” is wrong. Get the Google name, let them edit, pic or initials. Asked who liked vs count. Sofia/Lumen on the picture.

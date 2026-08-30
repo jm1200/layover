@@ -14,8 +14,8 @@
 | **1.1 — Pre–Phase 2 gate** | **Complete** | Docs/MAP honesty + `PRE-PHASE-2-GATE.md`; code re-reviewed |
 | **2 — Cities, zones, places, playbooks** | **Complete** | Content model + public browse + forms. Migrations 002–004 (+ seeds 003, 005, 006; stop timing 007). Gate in `PRE-PHASE-2-GATE.md` is met. |
 | **2.1 — Verify + harden** | **Complete** | Homepage + city/place/plan UI in (heroes, Eat/Do/Buy, full layover). RLS smoke: `docs/board/RLS-SMOKE.md`. **Parked (not blockers):** admin city form (SQL), Vercel deploy, photo upload (Phase 4). |
-| 3 — Social | **In progress** | Like + comment + byline + **author page**. SQL **018**–**020**. Follow **out**. Likes = count. Dump/edit/photos frozen. |
-| 4 — AI story import | **Complete** | Dump → she writes it up → publish. Feel pass 2026-08-27. Dump/edit/photos **frozen**. Dead-code cleanup is leftover, not a new phase. Not Phase 3/5 until John says. |
+| 3 — Social | **Complete** | Like + comment + byline + author page. SQL **018**–**020**. Follow **out**. Likes = count. Lumen reads notes. Dump / rec edit / rec photos stay as they are. |
+| 4 — AI story import | **Complete** | Dump → she writes it up → you publish. Feel pass 2026-08-27. Dump / rec edit / rec photos stay as they are. |
 | 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
 | 6 — Metrics + admin moderation | Not started | money/trust dashboard |
 | 7 — Crew-only precision | Not started | optional; after verification story |
@@ -73,7 +73,7 @@ layover/
 | Auth & roles | `features/auth.md` | `apps/web/src/features/auth/` | — | 1 **done** |
 | Places & zones | `features/places-and-zones.md` | `apps/web/src/features/places/` | Auth (for write) | 2 **done** |
 | Playbooks | `features/playbooks.md` | `apps/web/src/features/playbooks/` | Places, Auth | 2 **done** |
-| Social | `features/social.md` | `apps/web/src/features/social/` | Auth, content | 3 **in progress** (018–020; author page on disk, SQL not live until John pastes) |
+| Social | `features/social.md` | `apps/web/src/features/social/` | Auth, content | 3 **done** |
 | AI import | `features/ai-import.md` | `apps/web/src/features/ai-import/` | Playbooks, Auth, OPS quotas | 4 **done** |
 | Sponsorship | `features/sponsorship.md` | `.../sponsorship/` | Auth sponsor, Stripe, cities | 5 |
 | Admin & metrics | `features/admin-and-metrics.md` | `.../admin/`, `.../metrics/` | All of the above | 6 |
@@ -173,12 +173,13 @@ Exact paths may adjust; update this table when implementing.
 - [x] Phase 3 start: like recs + days, comments on days, byline. Playwright `e2e/social.spec.ts`. **SQL 018** (John pastes).
 - [x] Comments on recs too. Edit own note. Up to 3 photos. **SQL 019** (John pastes after 018). Dump/edit/photos still frozen.
 - [x] Lumen reads notes + comment photos before they go live (`grok-4.3`, spend on the $20). Word filter first. Off/over cap → note does not go up.
-- [x] Public author page `/u/[id]`. Name + photo. Posted by links. Likes = count. SQL **020** (John pastes after 019). Follow still out.
+- [x] Public author page `/u/[id]`. Name + photo. Posted by links. Likes = count. SQL **020**. Follow still out.
+- [x] **Phase 3 complete** (2026-08-31). John clicked it. Theo/Milo review: ship with nits. Dump / rec edit / rec photos stay as they are.
 
 ## Session checklist for agents
 
 1. Read `AGENTS.md` + this file (+ `docs/STACK.md` before infra/auth work).
-2. Confirm current phase with owner if doing implementation. Phase 2 is **done**. Phase 4 is **done**. Phase 3 like/comment/byline/author page is **in progress** (SQL **018**–**020**).
+2. Confirm current phase with owner if doing implementation. Phase 2, 3, and 4 are **done**. Dump / rec edit / rec photos stay as they are. Not Phase 5 until John says.
 3. Touch only the feature folder + its spec + this map.
 4. End of session: MAP and feature spec reflect reality. Prefer “unknown / not built” over inventing.
 

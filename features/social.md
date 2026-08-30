@@ -1,7 +1,7 @@
 # Feature: Social
 
 **Phase:** 3  
-**Status:** **In progress.** Like + comment + byline + author page. SQL **018**–**020** (John pastes). Dump/edit/photos stay frozen.  
+**Status:** **Complete** (2026-08-31). Like + comment + byline + author page. SQL **018**–**020**. Dump / rec edit / rec photos stay as they are.  
 **Code:** `apps/web/src/features/social/`
 
 ## Goal
@@ -44,7 +44,7 @@ Public twin of **Your recommendations**. Tap Posted by {name} (or a note byline)
 
 **RLS (intent):** public may read `display_name` + avatar, never email/role/status. Owner may update own name + avatar, never role/status.
 
-**Still frozen:** dump / edit rec / photos pipeline.
+**Leave alone:** dump / edit rec / rec photos. Don’t reopen unless John says.
 
 ## Copy (locked 2026-08-31)
 

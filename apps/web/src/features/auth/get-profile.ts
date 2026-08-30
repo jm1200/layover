@@ -60,26 +60,12 @@ export async function getProfile(): Promise<Profile | null> {
     };
   }
 
-  let displayName = (data.display_name as string | null) ?? null;
-  if (!displayName?.trim()) {
-    const fromGoogle = String(
-      user.user_metadata?.full_name ?? user.user_metadata?.name ?? "",
-    ).trim();
-    if (fromGoogle) {
-      const { error: fillErr } = await supabase
-        .from("profiles")
-        .update({ display_name: fromGoogle.slice(0, 80) })
-        .eq("id", user.id);
-      if (!fillErr) displayName = fromGoogle.slice(0, 80);
-    }
-  }
-
   return {
     id: data.id as string,
     email: (data.email as string | null) ?? user.email ?? null,
     role: asRole(data.role),
     status: asStatus(data.status),
-    display_name: displayName,
+    display_name: (data.display_name as string | null) ?? null,
     avatar_url: "avatar_url" in data ? ((data.avatar_url as string | null) ?? null) : null,
   };
 }

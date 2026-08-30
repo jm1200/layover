@@ -146,12 +146,6 @@ export default async function PlaybookPage({
       </section>
 
       <main className="mx-auto max-w-6xl px-4 py-12">
-        {playbook.status !== "published" ? (
-          <p className="mb-6 text-sm text-amber-800">
-            Status: {playbook.status} (not public)
-          </p>
-        ) : null}
-
         <ol className="space-y-10">
           {stops.map((s) => {
             const pl = s.place_id ? placesById[s.place_id] : null;

@@ -94,8 +94,15 @@ test.describe("like, comment, byline", () => {
       .filter({ has: page.getByRole("heading", { name: "Comments" }) });
     await dayComments.getByPlaceholder("Been? Add a line.").fill(note);
     await dayComments.getByRole("button", { name: "Post" }).click();
-    await expect(page.getByText(note)).toBeVisible({ timeout: 25_000 });
+    await expect(page.getByText(note).or(nap)).toBeVisible({ timeout: 25_000 });
+    test.skip(
+      (await nap.count()) > 0,
+      "Lumen is off or over the $20 cap — she has to be on to post a note.",
+    );
+    await expect(page.getByText(note)).toBeVisible();
     await dayComments.getByRole("button", { name: "Remove note" }).last().click();
     await expect(page.getByText(note)).toHaveCount(0);
+    await page.getByRole("button", { name: "Unlike" }).click();
+    await expect(page.getByRole("button", { name: "Like" })).toBeVisible();
   });
 });

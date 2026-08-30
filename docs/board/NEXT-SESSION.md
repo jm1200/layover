@@ -1,20 +1,14 @@
 # Next session — founder notes
 
-**Paused:** 2026-08-31 — Author page coded. Needs SQL **018**, **019**, **020** (and **017** if not pasted).
+**Paused:** 2026-08-31 — Phase 3 **complete**.
 
 ## Where we are
 
-Dump/edit/photos frozen. Phase 3: like (count only), comments on recs and days, byline links to `/u/[id]`, name + photo.
+Like, notes, byline, author page. Lumen reads notes. Follow out. Dump / rec edit / rec photos stay as they are.
 
-**You:** paste in Supabase SQL Editor, in order if not already:
-1. `017_lumen_city_hero_lock.sql`
-2. `018_social.sql`
-3. `019_comments.sql`
-4. `020_author.sql`
+## First up
 
-## First up (when that SQL is in)
-
-Profile menu → your name → Edit → give it a name (and a pic if you want). Then tap Posted by on a rec you filed.
+Your call. Phase 5 is Stripe. Don’t reopen dump unless you mean to.
 
 ## Dev
 
