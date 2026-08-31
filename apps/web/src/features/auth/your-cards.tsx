@@ -29,6 +29,9 @@ function PhotoRow({
 }) {
   if (stills.length === 0) return null;
   const n = Math.min(stills.length, 3);
+  const showAi = stills.slice(0, 3).some((s) => s.badge === "ai");
+  const chip =
+    "absolute top-2 z-10 rounded-full bg-black/70 px-2 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-white";
   return (
     <div
       className="relative mt-2 grid gap-0.5 overflow-hidden rounded-lg bg-zinc-100"
@@ -41,13 +44,20 @@ function PhotoRow({
             alt={still.alt}
             sizes={sizes}
             className="object-cover"
-            badge={still.badge ?? null}
+            badge={null}
           />
         </div>
       ))}
       {kind ? (
-        <span className="pointer-events-none absolute left-2 top-2 rounded-full bg-black/65 px-2 py-0.5 font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-white">
-          {kind}
+        <span className={`${chip} pointer-events-none left-2`}>{kind}</span>
+      ) : null}
+      {showAi ? (
+        <span className={`group/ai ${chip} right-2`}>
+          AI
+          <span className="pointer-events-none absolute right-0 top-6 hidden w-52 rounded-lg bg-zinc-950 px-3 py-2 text-left font-sans text-xs font-normal normal-case tracking-normal text-white/90 shadow-lg group-hover/ai:block">
+            No crew photo yet — this still is generated, not a picture of this
+            exact room or stall.
+          </span>
         </span>
       ) : null}
     </div>
