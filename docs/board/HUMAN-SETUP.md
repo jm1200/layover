@@ -134,7 +134,10 @@ Bought on Vercel, so nameservers are already theirs. No GoDaddy DNS.
    - **Site URL:** `https://layoverintel.com`
    - **Redirect URLs** (keep the old ones too): `https://layoverintel.com/**`, `https://layoverintel.com/auth/callback`, plus the existing `https://layover-him7-eight.vercel.app/**` and localhost.
 5. Google Cloud → **Auth platform → Clients** → the Layover web client → **Authorized JavaScript origins** add `https://layoverintel.com` (and `https://www.layoverintel.com` if you didn’t redirect www). **Redirect URI stays** `https://ysuxlxwbaqestffskaqp.supabase.co/auth/v1/callback` — do not change that.
-6. Google **Branding**: homepage `https://layoverintel.com`, privacy `https://layoverintel.com/privacy`.
+6. Google **Branding**: homepage `https://layoverintel.com`, privacy `https://layoverintel.com/privacy`. If it says **Missing domain: layoverintel.com**, Google wants that host on **Authorized domains**, and it has to be verified in Search Console first (same Google account as the Cloud project):
+   1. [Search Console](https://search.google.com/search-console) → **Add property** → **Domain** → `layoverintel.com`. Copy the TXT record.
+   2. Vercel → **Domains** → `layoverintel.com` → DNS → **Add** TXT, name `@`, paste Google’s value. Save. Wait a minute, then **Verify** in Search Console.
+   3. Google Auth platform → **Branding** → **Authorized domains** → **Add domain** `layoverintel.com` (no `https://`). Save. Then set homepage / privacy again.
 
 Open `https://layoverintel.com`, then **Log in** with Google once. The old `*.vercel.app` URL can stay; it is just not the name you send people.  
 
