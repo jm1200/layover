@@ -35,42 +35,56 @@ export function RecPhotosEditor({
   const [uploading, setUploading] = useState(false);
   const emptySlots = Math.max(0, MAX - photos.length);
 
-  async function onAdd(file: File) {
+  async function onAddFiles(list: FileList | File[]) {
+    const room = MAX - photos.length;
+    if (room <= 0) {
+      setMsg("Three photos is enough.");
+      return;
+    }
+    const picked = Array.from(list);
+    if (picked.length === 0) return;
+    const files = picked.slice(0, room);
+    const extra = picked.length > room;
     setMsg(null);
     setUploading(true);
+    let album = [...photos];
+    let currentHero = hero;
     try {
-      let blob: Blob;
-      try {
-        blob = await compressStill(file);
-      } catch {
-        setMsg("Couldn’t read that photo. JPEG or PNG is safest.");
-        return;
+      for (const file of files) {
+        let blob: Blob;
+        try {
+          blob = await compressStill(file);
+        } catch {
+          setMsg("Couldn’t read that photo. JPEG or PNG is safest.");
+          break;
+        }
+        const supabase = createClient();
+        const path = `${authorId}/${placeId}-pic-${crypto.randomUUID()}.jpg`;
+        const { error } = await supabase.storage
+          .from("place-stills")
+          .upload(path, blob, {
+            upsert: true,
+            contentType: "image/jpeg",
+          });
+        if (error) {
+          setMsg("Couldn’t upload that photo.");
+          break;
+        }
+        const { data } = supabase.storage.from("place-stills").getPublicUrl(path);
+        const url = data.publicUrl;
+        const added = await addPlacePhoto(placeId, url);
+        if (added.error) {
+          setMsg(added.error);
+          break;
+        }
+        const src = `${url}?t=${Date.now()}`;
+        album = [...album, { id: added.photoId ?? src, src, alt: "Photo" }];
+        if (!currentHero) currentHero = url;
+        setPhotos(album);
+        setHero(currentHero);
       }
-      const supabase = createClient();
-      const path = `${authorId}/${placeId}-pic-${crypto.randomUUID()}.jpg`;
-      const { error } = await supabase.storage
-        .from("place-stills")
-        .upload(path, blob, {
-          upsert: true,
-          contentType: "image/jpeg",
-        });
-      if (error) {
-        setMsg("Couldn’t upload that photo.");
-        return;
-      }
-      const { data } = supabase.storage.from("place-stills").getPublicUrl(path);
-      const url = data.publicUrl;
-      const added = await addPlacePhoto(placeId, url);
-      if (added.error) {
-        setMsg(added.error);
-        return;
-      }
-      const src = `${url}?t=${Date.now()}`;
-      const next = [...photos, { id: added.photoId ?? src, src, alt: "Photo" }];
-      const nextHero = hero ?? url;
-      setPhotos(next);
-      if (!hero) setHero(url);
-      onChange?.(next, nextHero);
+      onChange?.(album, currentHero);
+      if (extra && album.length >= MAX) setMsg("Three photos is enough.");
     } finally {
       setUploading(false);
     }
@@ -80,8 +94,8 @@ export function RecPhotosEditor({
     <div className={className ?? "mt-8 max-w-lg"}>
       <p className="text-sm font-medium">Photos</p>
       <p className="mt-0.5 text-xs text-zinc-500">
-        Any pictures of this place. Tap one to use as the hero — that’s the
-        city-page tile and the top of the page. Max {MAX}. Saves as you go.
+        Pick up to {MAX} at once from your camera roll. Tap one for the
+        hero — city-page tile and the top of this page. Saves as you go.
       </p>
       <ul className="mt-3 grid grid-cols-3 gap-2">
         {photos.map((p) => {
@@ -152,22 +166,32 @@ export function RecPhotosEditor({
             </li>
           );
         })}
-        {Array.from({ length: emptySlots }).map((_, i) => (
-          <li key={`empty-${i}`}>
+        {emptySlots > 0 ? (
+          <li>
             <label className="flex aspect-[4/5] cursor-pointer items-center justify-center rounded-lg bg-zinc-100 text-center text-[11px] text-zinc-500 ring-1 ring-zinc-200">
-              {uploading ? "Uploading…" : "Add a photo"}
+              {uploading
+                ? "Uploading…"
+                : emptySlots === 1
+                  ? "Add a photo"
+                  : "Add photos"}
               <input
                 type="file"
                 accept="image/*"
+                multiple
                 className="hidden"
                 disabled={uploading || pending}
                 onChange={(e) => {
-                  const f = e.target.files?.[0];
-                  if (f) void onAdd(f);
+                  const files = e.target.files;
+                  if (files?.length) void onAddFiles(files);
                   e.target.value = "";
                 }}
               />
             </label>
+          </li>
+        ) : null}
+        {Array.from({ length: Math.max(0, emptySlots - 1) }).map((_, i) => (
+          <li key={`empty-${i}`}>
+            <div className="aspect-[4/5] rounded-lg bg-zinc-100 ring-1 ring-zinc-200" />
           </li>
         ))}
       </ul>

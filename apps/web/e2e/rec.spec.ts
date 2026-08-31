@@ -23,13 +23,25 @@ test.describe("rec create / photos / save / delete", () => {
 
       await page.getByRole("link", { name: "Edit" }).click();
       await expect(page.getByRole("heading", { name: "Edit" })).toBeVisible();
-      await page.locator('input[type="file"]').first().setInputFiles(STILL);
-      await expect(page.getByText("Hero")).toBeVisible({ timeout: 30_000 });
+      await expect(page.locator('input[type="file"]').first()).toHaveAttribute(
+        "multiple",
+      );
+      await page
+        .locator('input[type="file"]')
+        .first()
+        .setInputFiles([STILL, STILL]);
+      await expect(
+        page.getByRole("button", { name: "Remove photo" }),
+      ).toHaveCount(2, { timeout: 30_000 });
+      await page.getByRole("button", { name: "Remove photo" }).first().click();
+      await expect(page.getByRole("button", { name: "Remove photo" })).toHaveCount(
+        1,
+      );
       await page.getByRole("button", { name: "Remove photo" }).click();
       await expect(page.getByRole("button", { name: "Remove photo" })).toHaveCount(
         0,
       );
-      await expect(page.getByText("Add a photo").first()).toBeVisible();
+      await expect(page.getByText("Add photos").first()).toBeVisible();
       await page.locator('input[type="file"]').first().setInputFiles(STILL);
       await expect(page.getByText("Hero")).toBeVisible({ timeout: 30_000 });
 
