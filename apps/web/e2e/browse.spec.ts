@@ -4,16 +4,15 @@ import { gotoSeed } from "./helpers";
 const LIMMAT = "/places/c1000000-0000-4000-8000-000000000001";
 
 test.describe("public browse", () => {
-  test("home has Eat / Do / Buy and no hotel leak", async ({ page }) => {
+  test("home has pitch and no hotel leak", async ({ page }) => {
     await page.goto("/");
     await expect(
       page.getByRole("heading", { name: "Layover Intel" }),
     ).toBeVisible();
-    await expect(page.getByText("Eat", { exact: true })).toBeVisible();
-    await expect(page.getByText("Do", { exact: true })).toBeVisible();
-    await expect(page.getByText("Buy", { exact: true })).toBeVisible();
+    await expect(page.getByText("For Crew, By Crew.")).toBeVisible();
     await expect(page.getByText("Baseball steak in Santiago")).toHaveCount(0);
     await expect(page.getByText("Float the Limmat in Zurich")).toHaveCount(0);
+    await expect(page.getByAltText(/floating the Limmat/i)).toHaveCount(0);
     await expect(page.getByText(/crew hotel/i)).toHaveCount(0);
   });
 

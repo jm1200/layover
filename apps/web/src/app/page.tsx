@@ -7,28 +7,11 @@ import { listCities, listPublishedPlaces } from "@/features/places/queries";
 import {
   recKindFromCategory,
   REC_KIND_LABEL,
+  REC_KINDS,
   type RecKind,
 } from "@/features/places/kind";
+import { stillForPlace } from "@/features/places/rec-media";
 import type { Place } from "@/features/places/types";
-
-/** Editorial mood. Not demo recs — those were wiped in 021. */
-const MOOD: { kind: RecKind; src: string; alt: string }[] = [
-  {
-    kind: "eat",
-    src: "/landing/eat-santiago.jpg",
-    alt: "Thick grilled baseball-cut steak with pebre",
-  },
-  {
-    kind: "do",
-    src: "/landing/do-zurich.jpg",
-    alt: "People floating the Limmat on inflatable rings",
-  },
-  {
-    kind: "shop",
-    src: "/landing/buy-munich.jpg",
-    alt: "Jars of Bavarian sweet mustard at a market stall",
-  },
-];
 
 function latestOfKind(places: Place[], kind: RecKind): Place | undefined {
   return places
@@ -42,6 +25,11 @@ export default async function HomePage() {
     listCities(),
     listPublishedPlaces(),
   ]);
+
+  const cards = REC_KINDS.flatMap((kind) => {
+    const rec = latestOfKind(published, kind);
+    return rec ? [{ kind, rec }] : [];
+  });
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-900">
@@ -72,47 +60,38 @@ export default async function HomePage() {
       </section>
 
       <section className="bg-zinc-50 px-4 py-12 sm:py-16">
-        <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-3">
-          {MOOD.map((card) => {
-            const rec = latestOfKind(published, card.kind);
-            const inner = (
-              <>
-                <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
-                  <AiStill
-                    src={card.src}
-                    alt={card.alt}
-                    sizes="(min-width: 640px) 33vw, 100vw"
-                    className={
-                      rec
-                        ? "object-cover transition duration-300 group-hover:scale-[1.03]"
-                        : "object-cover"
-                    }
-                  />
-                  <span className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/75 to-transparent px-3 pb-16 pt-4 text-center font-mono text-2xl font-semibold uppercase tracking-[0.28em] text-white sm:text-3xl">
-                    {REC_KIND_LABEL[card.kind]}
-                  </span>
-                </div>
-                {rec ? (
-                  <p className="mt-3 text-sm font-medium text-zinc-900">
-                    {rec.name}
-                  </p>
-                ) : null}
-              </>
-            );
-            if (rec) {
+        {cards.length > 0 ? (
+          <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-3">
+            {cards.map(({ kind, rec }) => {
+              const still = stillForPlace(rec);
               return (
                 <Link
-                  key={card.kind}
+                  key={kind}
                   href={`/places/${rec.id}`}
                   className="group block"
                 >
-                  {inner}
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-900">
+                    {still ? (
+                      <AiStill
+                        src={still.src}
+                        alt={still.alt}
+                        sizes="(min-width: 640px) 33vw, 100vw"
+                        className="object-cover transition duration-300 group-hover:scale-[1.03]"
+                        badge={still.badge ?? null}
+                      />
+                    ) : null}
+                    <span className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/75 to-transparent px-3 pb-16 pt-4 text-center font-mono text-2xl font-semibold uppercase tracking-[0.28em] text-white sm:text-3xl">
+                      {REC_KIND_LABEL[kind]}
+                    </span>
+                  </div>
+                  <p className="mt-3 text-sm font-medium text-zinc-900">
+                    {rec.name}
+                  </p>
                 </Link>
               );
-            }
-            return <div key={card.kind}>{inner}</div>;
-          })}
-        </div>
+            })}
+          </div>
+        ) : null}
         <p className="mx-auto mt-12 max-w-6xl text-center text-xs text-zinc-400">
           <Link href="/privacy" className="underline">
             Privacy

@@ -38,7 +38,7 @@ Durable history only. Not a chat transcript.
 - Audience **A:** crew-layover primary. Word-of-mouth-only recs is the problem. Sponsor money later = labeled placement against crew density in cities.
 - Homepage pitch **rejected:** “Steal the whole layover.”
 - Homepage pitch: **Layover Intel — For Crew, By Crew.** Full-bleed blue-hour hero with search on the photo (Airbnb). Then three 4:5 Eat/Do/Buy posts (Instagram). Collage **rejected** — John hated it. Hero is editorial mood, not a city we claim.
-- **Banner job (locked 2026-08-22, John):** the first screen is a place you want to be. City: **one hero**, refresh rarely — Lumen asks John before spending (2026-08-24). Rec cards: **1 still per place** (user photo first). Not a silent Google scrape. Homepage rotation from live quality pics is later, not a per-post spend.
+- **Banner job (locked 2026-08-22, John):** the first screen is a place you want to be. City: **one hero**, refresh rarely — Lumen asks John before spending (2026-08-24). Rec cards: **1 still per place** (user photo first). Not a silent Google scrape. Homepage Eat/Do/Buy use that rec’s still — not leftover mood JPEGs (Limmat on a Geneva rec). No extra Imagine spend.
 - Eat / Do / Buy stamps on the cards are the site’s job labels. Keep them large and obvious.
 - Header stays thin overlay (no fat toolbar). Logged-in CTA is **Dashboard**, not “Open app” (that dumped John into `/admin`).
 - Site has two jobs: **look up** (search) and **share**. Without intel there is no site. **Share your intel** lives in the overlay header (Airbnb “host”), not beside the city search — search stays the lookup action. Logged-out → signup; logged-in → dashboard (forms until AI draft ships).

@@ -102,7 +102,7 @@ ModerationAction / MetricSnapshot            — Phase 6
 
 | Path | Audience | Purpose | Status |
 |------|----------|---------|--------|
-| `/` | Public | Layover Intel; Eat/Do/Buy mood cards (link a live rec when one exists) + city search | Phase 2 |
+| `/` | Public | Layover Intel; Eat/Do/Buy cards use the rec’s own still (hide a kind if none published) + city search | Phase 2 |
 | `/login` | Public | Email + Google. | Phase 1 |
 | `/privacy` | Public | What we keep from Google sign-in. Needed for Google OAuth publish. | — |
 | `/dashboard` | User (all roles land here) | **Your recommendations** — this user’s published recs and days. Cards, not a CMS. Header is the same as the rest of the site. | Phase 4 |
@@ -142,7 +142,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] Migration `006_zurich_density.sql` (extra Zurich recs — run in SQL Editor)
 - [x] Phase 2.1 Important fix pack (zone/city, stop city, admin city insert, partial writes)
 - [x] Migration `007_stop_timing.sql` (optional duration/cost on stops — run in SQL Editor)
-- [x] Homepage + city/place/plan UI (2.1). Eat/Do/Buy cards are mood stills; they link a published rec of that kind when one exists (no hardcoded seed IDs after **021**).
+- [x] Homepage + city/place/plan UI (2.1). Eat/Do/Buy cards use the rec’s still (same as city cards). No leftover Limmat/steak/mustard mood. Hide a kind if none published.
 - [x] Deployed site — Vercel Hobby, root `apps/web` (live URL; same Supabase as local)
 - [ ] Admin city form — parked (SQL)
 - [x] Phase 4 dump → draft (`/share`, `features/ai-import/`) — needs key + SQL 008

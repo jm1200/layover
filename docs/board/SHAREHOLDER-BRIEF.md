@@ -22,7 +22,7 @@ Dump a layover → she writes it up → you publish. Trust still beats revenue. 
 | Author page | Profile → their published recs/days. Edit name + pic. No bio, followers, DMs. |
 | Likes | **Count only.** Nobody sees who. |
 | Notes | Lumen reads text + pictures before they go live. Same $20 as dumps. |
-| Demo recs | **Wiped** (SQL **021**). Zurich/Delhi/Santiago/Munich cities stay empty until someone dumps. Homepage Eat/Do/Buy is mood until a live rec exists. |
+| Demo recs | **Wiped** (SQL **021**). Homepage Eat/Do/Buy use the rec’s own photo. Hide a kind if none published. |
 
 ## You
 
