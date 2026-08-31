@@ -4,9 +4,9 @@
 
 **Last updated:** 2026-08-31  
 **Company:** Layover (working name)  
-**Stage:** **Phase 3 complete.** Like, notes, byline, author page. Dump / rec edit / rec photos stay as they are. Not Stripe.
+**Stage:** Product is **done enough to show people.** Phases 1–4 + Phase 3 social are in. Site is still **localhost**. Not Stripe.
 
-Dump a layover → she writes it up → you publish. Feel pass passed. Trust still beats revenue. Zones, not hotels. City pages stay destination-first.
+Dump a layover → she writes it up → you publish. Trust still beats revenue. Zones, not hotels. City pages stay destination-first.
 
 ## Locked (do not relitigate)
 
@@ -25,8 +25,12 @@ Dump a layover → she writes it up → you publish. Feel pass passed. Trust sti
 
 ## You
 
-Phase 3 is in. Next is your call (Stripe is Phase 5). Don’t reopen dump / rec edit / rec photos unless you mean to.
+**CEO rec (you still say go-live):** Skip Phase 5. Stripe + ads with nobody on the site is selling into an empty room. Phase 6 is the reports/hide/ban dashboard — not required for a URL. **Put a public URL up.** Dump / rec edit / rec photos stay as they are.
 
-**Money:** $20/mo. 4k chars. Kill switch. Daily 3-draft cap still off.
+**Before a public URL (you, not a new phase):** Vercel (`apps/web` + same env). Supabase Site URL + redirects on that host. Google OAuth: add the live origin; publish the Google app out of Testing. Domain optional — `*.vercel.app` is a URL. Put `XAI_API_KEY` in Vercel. Hobby is $0 until you say Pro.
 
-**Parked:** follow, pings, QR, Stripe, Vercel, Facebook/IG, restore the 3-draft cap. Bio / follower count / DMs — not this product.
+**Not before a URL:** Stripe, labeled ads, Phase 6 queue, Phase 7 crew-only, admin city form, follow.
+
+**Money:** $20/mo xAI. 4k chars. Kill switch. Daily 3-draft cap still off — put it back when strangers can dump. Vercel Pro / Supabase Pro only if you leave free.
+
+**Parked:** follow, pings, QR, Stripe, Facebook/IG, Phase 6/7. Bio / follower count / DMs — not this product.

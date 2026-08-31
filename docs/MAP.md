@@ -16,8 +16,8 @@
 | **2.1 — Verify + harden** | **Complete** | Homepage + city/place/plan UI in (heroes, Eat/Do/Buy, full layover). RLS smoke: `docs/board/RLS-SMOKE.md`. **Parked (not blockers):** admin city form (SQL), Vercel deploy, photo upload (Phase 4). |
 | 3 — Social | **Complete** | Like + comment + byline + author page. SQL **018**–**020**. Follow **out**. Likes = count. Lumen reads notes. Dump / rec edit / rec photos stay as they are. |
 | 4 — AI story import | **Complete** | Dump → she writes it up → you publish. Feel pass 2026-08-27. Dump / rec edit / rec photos stay as they are. |
-| 5 — Sponsorship + Stripe | Not started | self-serve labeled ads |
-| 6 — Metrics + admin moderation | Not started | money/trust dashboard |
+| 5 — Sponsorship + Stripe | Not started | self-serve labeled ads. **Skip until people use the site** (board rec 2026-08-31). |
+| 6 — Metrics + admin moderation | Not started | reports / hide-delete / ban + metrics. Not a go-live blocker. `/admin` already has kill switch + Lumen log. |
 | 7 — Crew-only precision | Not started | optional; after verification story |
 
 **Before Phase 2 code:** read `docs/board/PRE-PHASE-2-GATE.md`. Do not invent scope beyond Board #2 locks.
@@ -179,7 +179,7 @@ Exact paths may adjust; update this table when implementing.
 ## Session checklist for agents
 
 1. Read `AGENTS.md` + this file (+ `docs/STACK.md` before infra/auth work).
-2. Confirm current phase with owner if doing implementation. Phase 2, 3, and 4 are **done**. Dump / rec edit / rec photos stay as they are. Not Phase 5 until John says.
+2. Confirm current phase with owner if doing implementation. Phase 2, 3, and 4 are **done**. Dump / rec edit / rec photos stay as they are. Next rec is a **public URL** (parked Vercel), not Phase 5. Not Stripe until John says.
 3. Touch only the feature folder + its spec + this map.
 4. End of session: MAP and feature spec reflect reality. Prefer “unknown / not built” over inventing.
 

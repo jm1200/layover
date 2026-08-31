@@ -4,6 +4,37 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-31 — Skip Stripe; go live is a URL, not Phase 5
+
+**Source:** Shareholder — team meeting. Phase 5 was Stripe and ads; feels crazy with nothing live and no data. Asked what Phase 6 was, and what’s really left before go-live.
+
+**Facts:** Phases 1–4 and Phase 3 social are **complete**. Dump / rec edit / rec photos stay as they are. Stripe not started. Site is localhost + his Supabase. Vercel, domain, admin city form parked since 2.1. Google OAuth is a local client; production needs Site URL + redirects on the real host, and the Google app is still Testing. Content is ZRH / DEL / SCL / MUC / BCN + dumps — not a dense network. $20/mo xAI, kill switch. No production $ without his yes.
+
+**Phase 6 in one sentence:** metrics + reports / hide-delete / ban — the trust dashboard; `/admin` already has kill switch + Lumen log; hide is nuclear from Phase 1; the full queue is this phase.
+
+**Phase 7:** optional crew-only precision, later.
+
+### Decision (CEO rec — John says go-live)
+
+| Item | Call |
+|------|------|
+| Primary bet | **Public URL.** Not Stripe. Not ads. |
+| Phase 5 | **Skip until people use the site.** Hands-off money is the right *later* product. Selling labeled ads with five thin cities and zero public traffic is a third product dressed as the next phase. |
+| Phase 6 | Spec stands. **Not a go-live blocker.** Hide exists. Lumen already gates dumps and notes. Build the queue when strangers can actually abuse it. |
+| Phase 7 | Still optional, still later. |
+| Stay as they are | Dump / rec edit / rec photos. Do not reopen for launch. |
+| Spend | Vercel Hobby $0 to get a URL. Same $20 xAI. Pro (~$20 Vercel / ~$25 Supabase) only if he leaves free. Stripe account = when Phase 5 actually starts. |
+
+**Before a public URL (human, not a phase):** (1) Vercel import, root `apps/web`, same env (Supabase + xAI). (2) Supabase Auth Site URL + redirect URLs on that host. (3) Google OAuth: add the live origin; **publish** the Google app so it is not only his test Gmail. (4) Domain optional — `*.vercel.app` is enough. (5) Restore the 3-draft cap when strangers can dump (ops, not a new product).
+
+**Not before a URL:** Stripe, self-serve ads, Phase 6 metrics/queue, Phase 7, admin city form, follow / pings / QR, Facebook/IG.
+
+**Shareholder ask:** Yes/no on putting a URL up **without** Phase 5. If yes: Vercel + OAuth URLs. If he wants a custom domain, that’s him, not a blocker.
+
+**Status:** Recommendation written. No `apps/` from CEO. Stripe not started.
+
+---
+
 ## 2026-08-31 — Phase 3 complete
 
 **Source:** Shareholder — he did his clicks. Asked for code review, hygiene, organization, Sofia/Lumen on the site, then commit. Hates the word “freeze.”

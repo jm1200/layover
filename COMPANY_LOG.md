@@ -26,6 +26,7 @@ Durable history only. Not a chat transcript.
 | 2026-08-31 | **Author page instead of follow.** Public twin of Your recommendations. Follow still out. Likes = count only. SQL **020**. |
 | 2026-08-31 | **Lumen reads notes.** Text + comment photos before they go live. Same Grok as dumps, $20 cap. If she is off, the note does not go up. |
 | 2026-08-31 | **Phase 3 complete.** Like, notes, byline, author page. Follow out. Dump / rec edit / rec photos stay as they are. |
+| 2026-08-31 | **Board rec: skip Phase 5 until people use the site.** Go-live = public URL (Vercel + Auth/Google URLs), not Stripe/ads. Phase 6 = metrics + reports/hide/ban (not a URL blocker). Phase 7 still later. John still says go-live. |
 | 2026-08-27 | Board rec: **hygiene then Phase 3.** Phase 3 v1 = like + comment + byline. Follow / profile / pings / QR out. |
 
 ## Product locks
@@ -55,6 +56,7 @@ Durable history only. Not a chat transcript.
 - **2026-08-24 — Lumen required fields:** Rec: **city + name + type** (type inferred). Full layover: **city + title + ≥1 named stop**. Holes (not blockers): blurb, zone, dish, hours, extra stops, photo. Thin may publish. Matches live form gates.
 - **2026-08-24 — Phase 2 + 2.1 complete.** Content + browse UI shipped. Parked: admin city form, Vercel, photo upload (Phase 4). Next is Phase 4 when John authorizes.
 - **2026-08-24 — Order locked (board; John has not said go):** **Phase 4 Lumen first.** Thin Phase 3 (like + comment + byline profile) **after** Lumen has produced real posts. Follow = content filter later, not a people-feed. Ban queue stays Phase 6.
+- **2026-08-31 — Skip Stripe; URL before ads.** Phase 5 (self-serve labeled ads + Stripe) waits until there is public traffic. Phase 6 is the metrics + reports / hide-delete / ban dashboard — not required to put a URL up. `/admin` already has kill switch + Lumen log; hide is Phase 1 nuclear. Go-live leftover is parked Vercel + production Auth/Google URLs, not another product phase. Dump / rec edit / rec photos stay as they are. John still says yes to go-live.
 - **2026-08-27 — Hygiene then Phase 3.** Phase 4 complete; dump/edit/photos stay frozen. Next is a **bounded** hygiene slice (dead spend actions, lock `lumen_set_city_hero`, hotel gate on stops, fail-closed album reads, two Playwright clicks), then Phase 3. **Phase 3 v1 = like + comment + byline only.** Follow, profile-as-product, follow-pings, completion, QR are out of this cut. City stays destination-first. Not a cleanup month. Not likes with a dirty kitchen. Build waits on John.
 - **2026-08-31 — Note delete is Remove.** Own-note action is **Remove**, not Take off (rec/day leaving the city) and not Delete (CMS). Like / Posted by / Leave a note stay. Copy in `agents/lumen.md`.
 - **2026-08-31 — Author page, not follow.** Posted by is a link. Name from Google, editable. Photo: upload / initials / silhouette. Google headshot is opt-in. Likes are a count.
