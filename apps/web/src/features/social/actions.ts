@@ -332,7 +332,7 @@ export async function saveProfile(
   return { success: "Saved." };
 }
 
-export async function useGooglePhoto(): Promise<
+export async function attachGooglePhoto(): Promise<
   SocialState & { imageUrl?: string }
 > {
   const profile = await getProfile();

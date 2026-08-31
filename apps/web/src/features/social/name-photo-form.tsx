@@ -6,7 +6,7 @@ import { compressStill } from "@/features/ai-import/compress-still";
 import { createClient } from "@/lib/supabase/client";
 import {
   saveProfile,
-  useGooglePhoto,
+  attachGooglePhoto,
   type SocialState,
 } from "@/features/social/actions";
 import { FaceCircle } from "@/features/social/face";
@@ -96,7 +96,7 @@ export function NamePhotoForm({
               onClick={() =>
                 startGoogle(async () => {
                   setMsg(null);
-                  const r = await useGooglePhoto();
+                  const r = await attachGooglePhoto();
                   if (r.error) {
                     setMsg(r.error);
                     return;
