@@ -41,7 +41,7 @@ test.describe("rec create / photos / save / delete", () => {
       await expect(page.getByRole("button", { name: "Remove photo" })).toHaveCount(
         0,
       );
-      await expect(page.getByText("Add photos").first()).toBeVisible();
+      await expect(page.getByText("Add photos (max 3)").first()).toBeVisible();
       await page.locator('input[type="file"]').first().setInputFiles(STILL);
       await expect(page.getByText("Hero")).toBeVisible({ timeout: 30_000 });
 

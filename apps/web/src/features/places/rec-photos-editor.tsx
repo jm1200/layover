@@ -94,8 +94,8 @@ export function RecPhotosEditor({
     <div className={className ?? "mt-8 max-w-lg"}>
       <p className="text-sm font-medium">Photos</p>
       <p className="mt-0.5 text-xs text-zinc-500">
-        Pick up to {MAX} at once from your camera roll. Tap one for the
-        hero — city-page tile and the top of this page. Saves as you go.
+        Tap one for the hero — city-page tile and the top of this page. Saves
+        as you go.
       </p>
       <ul className="mt-3 grid grid-cols-3 gap-2">
         {photos.map((p) => {
@@ -169,11 +169,7 @@ export function RecPhotosEditor({
         {emptySlots > 0 ? (
           <li>
             <label className="flex aspect-[4/5] cursor-pointer items-center justify-center rounded-lg bg-zinc-100 text-center text-[11px] text-zinc-500 ring-1 ring-zinc-200">
-              {uploading
-                ? "Uploading…"
-                : emptySlots === 1
-                  ? "Add a photo"
-                  : "Add photos"}
+              {uploading ? "Uploading…" : "Add photos (max 3)"}
               <input
                 type="file"
                 accept="image/*"

@@ -66,7 +66,7 @@ Lumen paste list: `agents/lumen.md` → Header dropdown, Rec/day hero, Comments,
 | Empty | None yet. |
 | Form | Leave a note / Been? Add a line. / **Post** |
 | Note date | Posted {Mon D} |
-| Note photos | View: pictures only. Edit: Add a photo / X. New note: **Add a photo** opens the slots (hidden until then). |
+| Note photos | View: pictures only. Edit: Add photos (max 3) / X. New note: **Add photos (max 3)** opens the slots (hidden until then). |
 | Own delete | **Remove** (aria **Remove note**) |
 | **Never on a note** | Take off · Delete · Remove comment |
 | Header menu | **Profile** → `/u/[id]`. **Your recs** → `/dashboard`. Never the display name in the menu. |

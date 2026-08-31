@@ -291,8 +291,8 @@ One album. Max 3. Food, room, street — their choice. Tap one **hero** for the 
 | Slot | String |
 |------|--------|
 | Section | Photos |
-| Line | Food, room, street — whatever. Tap one for the city page tile and the top of the rec. |
-| Empty | Add a photo |
+| Line | Tap one for the hero — city-page tile and the top of this page. Saves as you go. |
+| Empty | Add photos (max 3) |
 | Selected | Hero |
 | Other | Tap to use as hero |
 | Skip | Upload one, or I’ll make one when you publish (~2¢). |
@@ -343,7 +343,7 @@ Heading matches **Photos** / **Get this**. The thing they write is a **note**.
 | Empty | None yet. |
 | Note byline | Circle + {name} — not “Posted by”. Link to their page. **Crew** if no author, not a link. |
 | Note date | Posted {Mon D} |
-| Note photos | View is pictures only. Edit is when they Add / X. New note: **Add a photo** opens the slots. |
+| Note photos | View is pictures only. Edit is when they Add / X. New note: **Add photos (max 3)** opens the slots. |
 | Own | Edit · **Remove** |
 | Aria (own delete) | Remove note |
 | Form | Leave a note |
@@ -353,8 +353,8 @@ Heading matches **Photos** / **Get this**. The thing they write is a **note**.
 | Logged-out | Log in to leave a note. |
 | Login error | Log in to leave a note. |
 | Empty body | Write a note first. |
-| Photos | Up to 3. What you actually saw. |
-| Add photo | Add a photo |
+| Photos | (none — the button says the cap) |
+| Add photo | Add photos (max 3) |
 | Photo cap | Three photos is enough. |
 | **Never** | Take off · Delete · Remove comment · Be the first to comment! |
 

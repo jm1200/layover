@@ -163,7 +163,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] Sample plates on Zurich raclette rec (`plate-zurich-*.jpg`, SQL **013**). Edit rec can add/replace plates after publish.
 - [x] Raclette rec blurb stands alone (SQL **014**) — transit stays on the plan.
 - [x] Rec page shows all photos; edit rec hero + delete rec; layover stop reorder/drop + delete day (recs stay)
-- [x] Rec photos: up to **3** of the rec (anything). Gallery can pick several at once (cap 3). Tap hero = city tile + rec top. No pic → Lumen still. Get this = names only.
+- [x] Rec photos: up to **3**. Picker: **Add photos (max 3)**, gallery multi-select. Same on notes. Tap hero = city tile + rec top. No pic → Lumen still. Get this = names only.
 - [x] Edit rec: Save at the bottom (city/name/blurb) then back to the rec. Photos and Get this plates save as you go. Rename or X a plate.
 - [x] SQL **011** — global $20 RPC, city-hero column, generate-on-publish flag, city-open quota. **Live** (spend RPC probed 2026-08-26).
 - [x] SQL **016** `place_photos` — **live**. Dump/AI still now write the album too.
