@@ -86,6 +86,11 @@ export default async function HomePage() {
             </Link>
           ))}
         </div>
+        <p className="mx-auto mt-12 max-w-6xl text-center text-xs text-zinc-400">
+          <Link href="/privacy" className="underline">
+            Privacy
+          </Link>
+        </p>
       </section>
     </div>
   );

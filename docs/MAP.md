@@ -104,6 +104,7 @@ ModerationAction / MetricSnapshot            — Phase 6
 |------|----------|---------|--------|
 | `/` | Public | Layover Intel; collage + tappable Eat/Do/Buy + city search | Phase 2 |
 | `/login` | Public | Email + Google. | Phase 1 |
+| `/privacy` | Public | What we keep from Google sign-in. Needed for Google OAuth publish. | — |
 | `/dashboard` | User (all roles land here) | **Your recommendations** — this user’s published recs and days. Cards, not a CMS. Header is the same as the rest of the site. | Phase 4 |
 | `/sponsor` | Sponsor | Campaigns, billing, creatives | Phase 1 stub |
 | `/admin` | Admin | Kill switch + Lumen log (last 50, named rec/day, no dump text). Full queue is Phase 6 | Phase 4 slice |
