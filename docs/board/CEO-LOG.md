@@ -4,6 +4,26 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-08-31 — Wipe demo intel; start with real dumps
+
+**Source:** Shareholder — Google login works on the live URL. First bug (chip alignment) already shipped. Then: dump all the data, start fresh with real layover intel.
+
+**Facts:** Local and live share one Supabase. Seed recs (Zurich Limmat, Santiago steak, Munich mustard, etc.) were public. Homepage hardcoded those IDs. Playwright seed paths 404 after wipe.
+
+### Decision
+
+| Item | Call |
+|------|------|
+| Wipe | Recs, days, notes, likes, photos, dump logs. **SQL 021** — John pastes once. |
+| Keep | Accounts, cities, zones, kill switch. City heroes stay. |
+| Homepage | Eat/Do/Buy stay as mood stills. Link a live published rec of that kind when one exists. No fake captions. |
+| Seeds | Do not re-run 003 / 005 / 006 after the wipe. |
+| Spend log | Wiping `ai_import_logs` resets the monthly $ counter. Acceptable for a clean start. |
+
+**Not this cut:** Stripe, follow, dump/edit/rec-photo reopen, emptying Storage (orphans ok so city heroes don’t break).
+
+---
+
 ## 2026-08-31 — Skip Stripe; go live is a URL, not Phase 5
 
 **Source:** Shareholder — team meeting. Phase 5 was Stripe and ads; feels crazy with nothing live and no data. Asked what Phase 6 was, and what’s really left before go-live.

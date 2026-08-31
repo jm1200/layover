@@ -1,5 +1,6 @@
 -- Extra Zurich recs so the city page can show a dense Eat/Do/Buy preview.
 -- Zone-safe. Run after 003. Editorial seed (author_id null).
+-- After 021_wipe_content.sql do not re-run unless you want demo recs back.
 
 insert into public.places (id, city_id, zone_id, name, blurb, category, status, author_id) values
   (

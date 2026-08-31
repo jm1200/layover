@@ -4,7 +4,7 @@
 
 **Last updated:** 2026-08-31  
 **Company:** Layover (working name)  
-**Stage:** Product is **done enough to show people.** Phases 1–4 + Phase 3 social are in. Site is still **localhost**. Not Stripe.
+**Stage:** Product is **live** (Vercel). Phases 1–4 + Phase 3 social are in. Demo recs wiped — next dumps are the intel. Not Stripe.
 
 Dump a layover → she writes it up → you publish. Trust still beats revenue. Zones, not hotels. City pages stay destination-first.
 
@@ -22,6 +22,7 @@ Dump a layover → she writes it up → you publish. Trust still beats revenue. 
 | Author page | Profile → their published recs/days. Edit name + pic. No bio, followers, DMs. |
 | Likes | **Count only.** Nobody sees who. |
 | Notes | Lumen reads text + pictures before they go live. Same $20 as dumps. |
+| Demo recs | **Wiped** (SQL **021**). Zurich/Delhi/Santiago/Munich cities stay empty until someone dumps. Homepage Eat/Do/Buy is mood until a live rec exists. |
 
 ## You
 

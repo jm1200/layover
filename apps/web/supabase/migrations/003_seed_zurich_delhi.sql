@@ -1,6 +1,7 @@
 -- Phase 2 seed: Zurich + Delhi (zone-safe, no crew hotels)
 -- Run after 002_content.sql. Safe to re-run only if you delete these slugs first.
 -- Author_id null = "Layover" editorial seed.
+-- After 021_wipe_content.sql do not re-run unless you want demo recs back.
 
 -- Fixed IDs for stable references
 -- Zurich

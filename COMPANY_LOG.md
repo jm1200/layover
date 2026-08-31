@@ -26,6 +26,7 @@ Durable history only. Not a chat transcript.
 | 2026-08-31 | **Author page instead of follow.** Public twin of Your recommendations. Follow still out. Likes = count only. SQL **020**. |
 | 2026-08-31 | **Lumen reads notes.** Text + comment photos before they go live. Same Grok as dumps, $20 cap. If she is off, the note does not go up. |
 | 2026-08-31 | **Phase 3 complete.** Like, notes, byline, author page. Follow out. Dump / rec edit / rec photos stay as they are. |
+| 2026-08-31 | **Demo intel wiped.** SQL **021** — recs, days, notes, likes, photos, dump logs gone. Accounts, cities, zones, kill switch stay. Homepage no longer links seed IDs. Next content is real dumps. |
 | 2026-08-31 | **Board rec: skip Phase 5 until people use the site.** Go-live = public URL (Vercel + Auth/Google URLs), not Stripe/ads. Phase 6 = metrics + reports/hide/ban (not a URL blocker). Phase 7 still later. John still says go-live. |
 | 2026-08-27 | Board rec: **hygiene then Phase 3.** Phase 3 v1 = like + comment + byline. Follow / profile / pings / QR out. |
 

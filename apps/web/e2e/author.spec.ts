@@ -1,11 +1,11 @@
 import { expect, test } from "@playwright/test";
-import { login, stamp, STILL } from "./helpers";
+import { gotoSeed, login, stamp, STILL } from "./helpers";
 
 const LIMMAT = "/places/c1000000-0000-4000-8000-000000000001";
 
 test.describe("author page", () => {
   test("seed rec byline is Crew and not a link", async ({ page }) => {
-    await page.goto(LIMMAT);
+    await gotoSeed(page, LIMMAT);
     await expect(page.getByText(/^Posted by /)).toBeVisible();
     await expect(page.getByRole("link", { name: "Crew" })).toHaveCount(0);
   });

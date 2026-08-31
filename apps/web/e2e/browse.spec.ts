@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { gotoSeed } from "./helpers";
 
 const LIMMAT = "/places/c1000000-0000-4000-8000-000000000001";
 
@@ -11,6 +12,8 @@ test.describe("public browse", () => {
     await expect(page.getByText("Eat", { exact: true })).toBeVisible();
     await expect(page.getByText("Do", { exact: true })).toBeVisible();
     await expect(page.getByText("Buy", { exact: true })).toBeVisible();
+    await expect(page.getByText("Baseball steak in Santiago")).toHaveCount(0);
+    await expect(page.getByText("Float the Limmat in Zurich")).toHaveCount(0);
     await expect(page.getByText(/crew hotel/i)).toHaveCount(0);
   });
 
@@ -30,7 +33,7 @@ test.describe("public browse", () => {
   test("rec Photos includes the hero; tap blows it up; X closes", async ({
     page,
   }) => {
-    await page.goto(LIMMAT);
+    await gotoSeed(page, LIMMAT);
     await expect(
       page.getByRole("heading", { name: /Limmat/i }),
     ).toBeVisible();

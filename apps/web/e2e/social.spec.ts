@@ -1,16 +1,16 @@
 import { expect, test } from "@playwright/test";
-import { login, stamp, STILL } from "./helpers";
+import { gotoSeed, login, stamp, STILL } from "./helpers";
 
 const LIMMAT = "/places/c1000000-0000-4000-8000-000000000001";
 const ZRH_DAY = "/playbooks/e1000000-0000-4000-8000-000000000001";
 
 test.describe("like, comment, byline", () => {
   test("public rec and day show a byline and comments", async ({ page }) => {
-    await page.goto(LIMMAT);
+    await gotoSeed(page, LIMMAT);
     await expect(page.getByText(/^Posted by /)).toBeVisible();
     await expect(page.getByText(/^Posted [A-Z][a-z]{2} \d/)).toBeVisible();
     await expect(page.getByRole("heading", { name: "Comments" })).toBeVisible();
-    await page.goto(ZRH_DAY);
+    await gotoSeed(page, ZRH_DAY);
     await expect(page.getByText(/^Posted by /)).toBeVisible();
     await expect(page.getByText(/^Posted [A-Z][a-z]{2} \d/)).toBeVisible();
     await expect(page.getByRole("heading", { name: "Comments" })).toBeVisible();
@@ -23,7 +23,7 @@ test.describe("like, comment, byline", () => {
     const note = `E2E note ${stamp()}`;
     const edited = `E2E edited ${stamp()}`;
 
-    await page.goto(LIMMAT);
+    await gotoSeed(page, LIMMAT);
     await page.getByRole("button", { name: "Like" }).click();
     const unlike = page.getByRole("button", { name: "Unlike" });
     const needSql = page.getByText(/018_social|019_comments/);
@@ -84,7 +84,7 @@ test.describe("like, comment, byline", () => {
     await recComments.getByRole("button", { name: "Remove note" }).last().click();
     await expect(page.getByText(edited)).toHaveCount(0);
 
-    await page.goto(ZRH_DAY);
+    await gotoSeed(page, ZRH_DAY);
     await page.getByRole("button", { name: "Like" }).click();
     await expect(page.getByRole("button", { name: "Unlike" })).toBeVisible({
       timeout: 15_000,

@@ -1,6 +1,7 @@
 -- Thin seed so homepage Eat/Buy cards can point at real rows.
 -- Zone-safe. No crew hotels. Run after 003 (and 004 if not yet).
 -- Author_id null = editorial seed.
+-- After 021_wipe_content.sql do not re-run unless you want demo recs back.
 
 insert into public.cities (id, slug, name, country, airport_code)
 values

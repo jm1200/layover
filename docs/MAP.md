@@ -12,7 +12,7 @@
 | **0.2 — Stack lock** | **Approved** | Next.js + Supabase + Vercel + Stripe later + xAI later — `docs/STACK.md` |
 | **1 — Auth + roles** | **Complete + hardened** | Live signup/login + roles; fix pack + second review cleanups |
 | **1.1 — Pre–Phase 2 gate** | **Complete** | Docs/MAP honesty + `PRE-PHASE-2-GATE.md`; code re-reviewed |
-| **2 — Cities, zones, places, playbooks** | **Complete** | Content model + public browse + forms. Migrations 002–004 (+ seeds 003, 005, 006; stop timing 007). Gate in `PRE-PHASE-2-GATE.md` is met. |
+| **2 — Cities, zones, places, playbooks** | **Complete** | Content model + public browse + forms. Migrations 002–004 (+ seeds 003, 005, 006; stop timing 007). Gate in `PRE-PHASE-2-GATE.md` is met. Demo recs wiped by **021** (paste once) — do not re-run 003/005/006. |
 | **2.1 — Verify + harden** | **Complete** | Homepage + city/place/plan UI in (heroes, Eat/Do/Buy, full layover). RLS smoke: `docs/board/RLS-SMOKE.md`. **Parked (not blockers):** admin city form (SQL), Vercel deploy, photo upload (Phase 4). |
 | 3 — Social | **Complete** | Like + comment + byline + author page. SQL **018**–**020**. Follow **out**. Likes = count. Lumen reads notes. Dump / rec edit / rec photos stay as they are. |
 | 4 — AI story import | **Complete** | Dump → she writes it up → you publish. Feel pass 2026-08-27. Dump / rec edit / rec photos stay as they are. |
@@ -102,7 +102,7 @@ ModerationAction / MetricSnapshot            — Phase 6
 
 | Path | Audience | Purpose | Status |
 |------|----------|---------|--------|
-| `/` | Public | Layover Intel; collage + tappable Eat/Do/Buy + city search | Phase 2 |
+| `/` | Public | Layover Intel; Eat/Do/Buy mood cards (link a live rec when one exists) + city search | Phase 2 |
 | `/login` | Public | Email + Google. | Phase 1 |
 | `/privacy` | Public | What we keep from Google sign-in. Needed for Google OAuth publish. | — |
 | `/dashboard` | User (all roles land here) | **Your recommendations** — this user’s published recs and days. Cards, not a CMS. Header is the same as the rest of the site. | Phase 4 |
@@ -142,8 +142,8 @@ Exact paths may adjust; update this table when implementing.
 - [x] Migration `006_zurich_density.sql` (extra Zurich recs — run in SQL Editor)
 - [x] Phase 2.1 Important fix pack (zone/city, stop city, admin city insert, partial writes)
 - [x] Migration `007_stop_timing.sql` (optional duration/cost on stops — run in SQL Editor)
-- [x] Homepage + city/place/plan UI (2.1)
-- [ ] Deployed site — optional Vercel later
+- [x] Homepage + city/place/plan UI (2.1). Eat/Do/Buy cards are mood stills; they link a published rec of that kind when one exists (no hardcoded seed IDs after **021**).
+- [x] Deployed site — Vercel Hobby, root `apps/web` (live URL; same Supabase as local)
 - [ ] Admin city form — parked (SQL)
 - [x] Phase 4 dump → draft (`/share`, `features/ai-import/`) — needs key + SQL 008
 - [x] Lumen may open a city (SQL **009** `lumen_ensure_city`) — name + IATA, default zones
@@ -176,6 +176,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] Lumen reads notes + comment photos before they go live (`grok-4.3`, spend on the $20). Word filter first. Off/over cap → note does not go up.
 - [x] Public author page `/u/[id]`. Name + photo. Posted by links. Likes = count. SQL **020**. Follow still out.
 - [x] **Phase 3 complete** (2026-08-31). John clicked it. Theo/Milo review: ship with nits. Dump / rec edit / rec photos stay as they are.
+- [x] SQL **021** wipe demo intel (recs/days/notes/likes/photos/dump logs). Keeps accounts, cities, zones, site_settings. John pastes once. Do not re-run 003/005/006/013–015 after. Playwright seed paths skip on 404.
 
 ## Session checklist for agents
 

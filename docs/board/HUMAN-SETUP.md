@@ -71,6 +71,8 @@ If earlier files already ran, only run the ones you have not applied yet.
 
 **Phase 3:** paste `018_social.sql`, `019_comments.sql`, then `020_author.sql` — likes (count only), comments, author page (name + photo). Without 018, Like shows a paste message. Without 020, saving a name fails the same way.
 
+**Fresh intel (2026-08-31):** paste `021_wipe_content.sql` once — **after** the homepage that no longer hardcodes seed IDs is on the live URL. Drops demo recs/days/notes. Accounts and cities stay. Do **not** re-run 003 / 005 / 006 after that unless you want fake recs back. The monthly xAI spend counter in her log resets; city-open quota resets too.
+
 ### 5. Auth URL config (so login redirects work)
 
 Supabase → **Authentication** → **URL configuration**:

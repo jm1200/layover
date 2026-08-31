@@ -3,35 +3,45 @@ import { CitySearch } from "@/features/places/city-search";
 import { AiStill } from "@/features/places/ai-still";
 import { getProfile } from "@/features/auth/get-profile";
 import { SiteHeader } from "@/features/auth/site-header";
-import { listCities } from "@/features/places/queries";
+import { listCities, listPublishedPlaces } from "@/features/places/queries";
+import {
+  recKindFromCategory,
+  REC_KIND_LABEL,
+  type RecKind,
+} from "@/features/places/kind";
+import type { Place } from "@/features/places/types";
 
-/** Seed IDs from 003 (Limmat) and 005 (Santiago steak, Munich mustard). */
-const IDEAS = [
+/** Editorial mood. Not demo recs — those were wiped in 021. */
+const MOOD: { kind: RecKind; src: string; alt: string }[] = [
   {
-    kind: "Eat",
-    idea: "Baseball steak in Santiago",
-    href: "/places/c1000000-0000-4000-8000-000000000021",
+    kind: "eat",
     src: "/landing/eat-santiago.jpg",
     alt: "Thick grilled baseball-cut steak with pebre",
   },
   {
-    kind: "Do",
-    idea: "Float the Limmat in Zurich",
-    href: "/places/c1000000-0000-4000-8000-000000000001",
+    kind: "do",
     src: "/landing/do-zurich.jpg",
     alt: "People floating the Limmat on inflatable rings",
   },
   {
-    kind: "Buy",
-    idea: "Don't miss the mustard in Munich",
-    href: "/places/c1000000-0000-4000-8000-000000000031",
+    kind: "shop",
     src: "/landing/buy-munich.jpg",
     alt: "Jars of Bavarian sweet mustard at a market stall",
   },
-] as const;
+];
+
+function latestOfKind(places: Place[], kind: RecKind): Place | undefined {
+  return places
+    .filter((p) => recKindFromCategory(p.category) === kind)
+    .sort((a, b) => (b.created_at ?? "").localeCompare(a.created_at ?? ""))[0];
+}
 
 export default async function HomePage() {
-  const [profile, cities] = await Promise.all([getProfile(), listCities()]);
+  const [profile, cities, published] = await Promise.all([
+    getProfile(),
+    listCities(),
+    listPublishedPlaces(),
+  ]);
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-900">
@@ -63,28 +73,45 @@ export default async function HomePage() {
 
       <section className="bg-zinc-50 px-4 py-12 sm:py-16">
         <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-3">
-          {IDEAS.map((card) => (
-            <Link
-              key={card.kind}
-              href={card.href}
-              className="group block"
-            >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
-                <AiStill
-                  src={card.src}
-                  alt={card.alt}
-                  sizes="(min-width: 640px) 33vw, 100vw"
-                  className="object-cover transition duration-300 group-hover:scale-[1.03]"
-                />
-                <span className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/75 to-transparent px-3 pb-16 pt-4 text-center font-mono text-2xl font-semibold uppercase tracking-[0.28em] text-white sm:text-3xl">
-                  {card.kind}
-                </span>
-              </div>
-              <p className="mt-3 text-sm font-medium text-zinc-900">
-                {card.idea}
-              </p>
-            </Link>
-          ))}
+          {MOOD.map((card) => {
+            const rec = latestOfKind(published, card.kind);
+            const inner = (
+              <>
+                <div className="relative aspect-[4/5] overflow-hidden rounded-lg">
+                  <AiStill
+                    src={card.src}
+                    alt={card.alt}
+                    sizes="(min-width: 640px) 33vw, 100vw"
+                    className={
+                      rec
+                        ? "object-cover transition duration-300 group-hover:scale-[1.03]"
+                        : "object-cover"
+                    }
+                  />
+                  <span className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/75 to-transparent px-3 pb-16 pt-4 text-center font-mono text-2xl font-semibold uppercase tracking-[0.28em] text-white sm:text-3xl">
+                    {REC_KIND_LABEL[card.kind]}
+                  </span>
+                </div>
+                {rec ? (
+                  <p className="mt-3 text-sm font-medium text-zinc-900">
+                    {rec.name}
+                  </p>
+                ) : null}
+              </>
+            );
+            if (rec) {
+              return (
+                <Link
+                  key={card.kind}
+                  href={`/places/${rec.id}`}
+                  className="group block"
+                >
+                  {inner}
+                </Link>
+              );
+            }
+            return <div key={card.kind}>{inner}</div>;
+          })}
         </div>
         <p className="mx-auto mt-12 max-w-6xl text-center text-xs text-zinc-400">
           <Link href="/privacy" className="underline">

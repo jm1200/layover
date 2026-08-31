@@ -102,6 +102,17 @@ export async function login(page: Page) {
   });
 }
 
+/** Seed recs from 003/005. After 021 wipe these 404 — skip, don't fail the suite. */
+export async function gotoSeed(page: Page, url: string) {
+  const res = await page.goto(url);
+  if (res?.status() === 404) {
+    test.skip(
+      true,
+      "Demo recs were wiped (021). This test needs a published rec.",
+    );
+  }
+}
+
 export function stamp() {
   return `${Date.now()}-${Math.floor(Math.random() * 1e4)}`;
 }
