@@ -5,6 +5,8 @@ Durable history only. Not a chat transcript.
 ## Identity
 
 - **Company / product name:** Layover (working name). Unresolved whether this stays.
+- **Public domain:** `layoverintel.com` (John, 2026-08-31). Matches the homepage line. Does not rename the company. `layover.com` not bought.
+- **Domain rec (2026-08-31, not a name lock):** Register **layoverintel.com**. Matches the homepage line. Does not rename the company. **crewlayover.com** rejected (taken; hotel-logistics search).
 - **Founder:** John — owner, primary investor, final authority.
 - **Wedge:** High-trust layover intel for airline crew. Other travelers may use the same city content.
 - **Not this year:** A general “fun for everyone” travel site as the lead. Same sequenced-plan object may grow later (e.g. multi-day camping). Not a second website.
@@ -28,6 +30,7 @@ Durable history only. Not a chat transcript.
 | 2026-08-31 | **Phase 3 complete.** Like, notes, byline, author page. Follow out. Dump / rec edit / rec photos stay as they are. |
 | 2026-08-31 | **Demo intel wiped.** SQL **021** — recs, days, notes, likes, photos, dump logs gone. Accounts, cities, zones, kill switch stay. Homepage no longer links seed IDs. Next content is real dumps. |
 | 2026-08-31 | **Board rec: skip Phase 5 until people use the site.** Go-live = public URL (Vercel + Auth/Google URLs), not Stripe/ads. Phase 6 = metrics + reports/hide/ban (not a URL blocker). Phase 7 still later. John still says go-live. |
+| 2026-08-31 | **Domain rec:** register **layoverintel.com**. Not crewlayover.com. Does not lock the product name. |
 | 2026-08-27 | Board rec: **hygiene then Phase 3.** Phase 3 v1 = like + comment + byline. Follow / profile / pings / QR out. |
 
 ## Product locks
@@ -121,7 +124,7 @@ Durable history only. Not a chat transcript.
 
 ## Unresolved founder decisions
 
-- Keep the name **Layover**?
+- Keep the name **Layover**? Domain rec is layoverintel.com; that does not answer this.
 - Source of rotating hero/card photos (crew vs generated vs licensed). Not scraping Google by default.
 - How obvious the top nav should be — thin overlay is current lock; revisit if people miss Log in.
 - Apple / Facebook / Instagram OAuth — parked. Google is this cut (John’s OAuth client). Instagram linking is not a login provider.

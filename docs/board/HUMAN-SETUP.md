@@ -123,6 +123,21 @@ Log out and back in. You should reach `/dashboard` (**Your recommendations**). A
 5. Supabase Auth URL config: add your `https://your-app.vercel.app` site + redirect URLs  
 6. Deploy  
 
+### Custom domain (`layoverintel.com`)
+
+Bought on Vercel, so nameservers are already theirs. No GoDaddy DNS.
+
+1. Vercel → the **layover** project → **Settings → Domains**. If checkout already offered **Connect an existing project**, pick this project. Otherwise **Add** `layoverintel.com`. Also add `www.layoverintel.com` and **Redirect to** `layoverintel.com` (no www).
+2. Wait until the domain shows **Valid** (SSL is automatic). First hit can take a few minutes.
+3. Vercel → **Settings → Environment Variables**: set `NEXT_PUBLIC_SITE_URL` to `https://layoverintel.com` (Production). Save, then **Deployments → … → Redeploy** so the Google button uses the new host.
+4. Supabase → **Authentication → URL configuration**:
+   - **Site URL:** `https://layoverintel.com`
+   - **Redirect URLs** (keep the old ones too): `https://layoverintel.com/**`, `https://layoverintel.com/auth/callback`, plus the existing `https://layover-him7-eight.vercel.app/**` and localhost.
+5. Google Cloud → **Auth platform → Clients** → the Layover web client → **Authorized JavaScript origins** add `https://layoverintel.com` (and `https://www.layoverintel.com` if you didn’t redirect www). **Redirect URI stays** `https://ysuxlxwbaqestffskaqp.supabase.co/auth/v1/callback` — do not change that.
+6. Google **Branding**: homepage `https://layoverintel.com`, privacy `https://layoverintel.com/privacy`.
+
+Open `https://layoverintel.com`, then **Log in** with Google once. The old `*.vercel.app` URL can stay; it is just not the name you send people.  
+
 Upgrade Vercel/Supabase to **Pro** only when free limits or commercial use require it (~$45/mo combined is the usual floor).
 
 ---
