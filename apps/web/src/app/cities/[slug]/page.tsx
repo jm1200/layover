@@ -12,10 +12,12 @@ import {
   type RecKind,
 } from "@/features/places/kind";
 import {
+  CITY_FEEL,
   heroForCity,
   stillForPlace,
   PREVIEW_COUNT,
 } from "@/features/places/rec-media";
+import { shareCard, SITE_NAME } from "@/lib/share-card";
 import {
   getCityBySlug,
   listPlacesForCity,
@@ -37,10 +39,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const city = await getCityBySlug(slug);
-  if (!city) return { title: "Layover Intel" };
-  return {
-    title: `${city.name}${city.airport_code ? ` · ${city.airport_code}` : ""} · Layover Intel`,
-  };
+  if (!city) return shareCard({ title: SITE_NAME });
+  const hero = heroForCity(city);
+  return shareCard({
+    title: `${city.name}${city.airport_code ? ` · ${city.airport_code}` : ""} · ${SITE_NAME}`,
+    description: CITY_FEEL[city.slug] ?? `Eat, do, buy in ${city.name}.`,
+    image: hero?.src,
+    path: `/cities/${city.slug}`,
+  });
 }
 
 export default async function CityPage({

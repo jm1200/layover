@@ -50,4 +50,40 @@ test.describe("public browse", () => {
     await page.goto("/share");
     await expect(page).toHaveURL(/\/login/);
   });
+
+  test("homepage share card has picture and pitch", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
+      "content",
+      /Layover Intel/,
+    );
+    await expect(page.locator('meta[property="og:description"]')).toHaveAttribute(
+      "content",
+      /For Crew, By Crew/,
+    );
+    await expect(page.locator('meta[property="og:image"]')).toHaveCount(1);
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+      "content",
+      /\/landing\/hero\.jpg/,
+    );
+    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+      "content",
+      "summary_large_image",
+    );
+  });
+
+  test("city share card uses the city hero", async ({ page }) => {
+    const res = await page.goto("/cities/zurich");
+    if (res?.status() === 404) {
+      test.skip(true, "Zurich isn’t on this database.");
+    }
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+      "content",
+      /hero-zurich/,
+    );
+    await expect(page.locator('meta[property="og:description"]')).toHaveAttribute(
+      "content",
+      /River in summer/,
+    );
+  });
 });

@@ -9,6 +9,7 @@ import {
   AuthorIntel,
   loadAuthorIntel,
 } from "@/features/social/author-intel";
+import { shareCard, SITE_NAME } from "@/lib/share-card";
 
 export async function generateMetadata({
   params,
@@ -17,7 +18,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const card = await authorCard(id);
-  return { title: card ? `${card.display_name} · Layover Intel` : "Layover Intel" };
+  if (!card) return shareCard({ title: SITE_NAME });
+  return shareCard({
+    title: `${card.display_name} · ${SITE_NAME}`,
+    description: "Where they've been.",
+    path: `/u/${card.id}`,
+  });
 }
 
 export default async function AuthorPage({

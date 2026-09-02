@@ -129,7 +129,7 @@ Bought on Vercel, so nameservers are already theirs. No GoDaddy DNS.
 
 1. Vercel → the **layover** project → **Settings → Domains**. If checkout already offered **Connect an existing project**, pick this project. Otherwise **Add** `layoverintel.com`. Also add `www.layoverintel.com` and **Redirect to** `layoverintel.com` (no www).
 2. Wait until the domain shows **Valid** (SSL is automatic). First hit can take a few minutes.
-3. Vercel → **Settings → Environment Variables**: set `NEXT_PUBLIC_SITE_URL` to `https://layoverintel.com` (Production). Save, then **Deployments → … → Redeploy** so the Google button uses the new host.
+3. Vercel → **Settings → Environment Variables**: set `NEXT_PUBLIC_SITE_URL` to `https://layoverintel.com` (Production). Save, then **Deployments → … → Redeploy** so the Google button **and share-card images** use the new host. Do not leave this as `http://localhost:3000` on Production — iMessage/WhatsApp will fetch a blank picture.
 4. Supabase → **Authentication → URL configuration**:
    - **Site URL:** `https://layoverintel.com`
    - **Redirect URLs** (keep the old ones too): `https://layoverintel.com/**`, `https://layoverintel.com/auth/callback`, plus the existing `https://layover-him7-eight.vercel.app/**` and localhost.

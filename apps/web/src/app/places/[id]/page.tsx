@@ -10,6 +10,7 @@ import {
 } from "@/features/places/kind";
 import { PlaceMap } from "@/features/places/place-map";
 import { stillForPlace } from "@/features/places/rec-media";
+import { shareCard, SITE_NAME } from "@/lib/share-card";
 import { ZoomPhoto } from "@/features/places/zoom-photo";
 import {
   getPlace,
@@ -37,7 +38,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const place = await getPlace(id);
-  return { title: place ? `${place.name} · Layover Intel` : "Layover Intel" };
+  if (!place) return shareCard({ title: SITE_NAME });
+  const still = stillForPlace(place);
+  return shareCard({
+    title: `${place.name} · ${SITE_NAME}`,
+    description: place.blurb,
+    image: still?.src,
+    path: `/places/${place.id}`,
+  });
 }
 
 export default async function PlacePage({

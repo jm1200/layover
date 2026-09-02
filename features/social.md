@@ -18,6 +18,7 @@ Like, comment, and a **byline** as trust signals under content. The byline opens
 - [x] Playwright covers like + comment on day one of the build
 - [x] No public follower graph
 - [x] Public author page: name + photo, Posted by is a link, likes are a count
+- [x] Author share card: name + “Where they've been.” (site hero, not the face)
 
 ## Author page
 

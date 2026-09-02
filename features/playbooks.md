@@ -15,6 +15,7 @@ Ordered layover stories (the product quality bar).
 - [x] Stop model: optional `place_id` + free-text note
 - [x] Draft vs publish: published = public; draft = author only
 - [x] Public playbook page
+- [x] Share card uses the city hero + day narrative
 - [x] City page lists published playbooks
 - [x] Author can edit own meta; admin can hide
 - [x] Forms warn zones not hotels

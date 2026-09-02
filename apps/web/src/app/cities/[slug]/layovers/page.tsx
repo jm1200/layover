@@ -3,7 +3,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProfile } from "@/features/auth/get-profile";
 import { CityHero } from "@/features/places/city-chrome";
-import { heroForCity } from "@/features/places/rec-media";
+import { CITY_FEEL, heroForCity } from "@/features/places/rec-media";
+import { shareCard, SITE_NAME } from "@/lib/share-card";
 import { getCityBySlug, listPlacesForCity } from "@/features/places/queries";
 import { LayoverPreviewCard } from "@/features/playbooks/layover-card";
 import {
@@ -19,8 +20,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const city = await getCityBySlug(slug);
-  if (!city) return { title: "Layover Intel" };
-  return { title: `Layovers · ${city.name} · Layover Intel` };
+  if (!city) return shareCard({ title: SITE_NAME });
+  const hero = heroForCity(city);
+  return shareCard({
+    title: `Layovers · ${city.name} · ${SITE_NAME}`,
+    description: CITY_FEEL[city.slug] ?? `A day, sequenced — ${city.name}.`,
+    image: hero?.src,
+    path: `/cities/${city.slug}/layovers`,
+  });
 }
 
 export default async function CityLayoversPage({

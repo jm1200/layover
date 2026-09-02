@@ -11,7 +11,12 @@ import {
   REC_KIND_LABEL,
   type RecKind,
 } from "@/features/places/kind";
-import { heroForCity, stillForPlace } from "@/features/places/rec-media";
+import {
+  CITY_FEEL,
+  heroForCity,
+  stillForPlace,
+} from "@/features/places/rec-media";
+import { shareCard, SITE_NAME } from "@/lib/share-card";
 import {
   getCityBySlug,
   listPlacesForCity,
@@ -28,10 +33,15 @@ export async function generateMetadata({
   const { slug, kind: raw } = await params;
   const kind = parseRecKind(raw);
   const city = await getCityBySlug(slug);
-  if (!city || !kind) return { title: "Layover Intel" };
-  return {
-    title: `${REC_KIND_LABEL[kind]} · ${city.name} · Layover Intel`,
-  };
+  if (!city || !kind) return shareCard({ title: SITE_NAME });
+  const hero = heroForCity(city);
+  const label = REC_KIND_LABEL[kind];
+  return shareCard({
+    title: `${label} · ${city.name} · ${SITE_NAME}`,
+    description: CITY_FEEL[city.slug] ?? `${label} in ${city.name}.`,
+    image: hero?.src,
+    path: `/cities/${city.slug}/${recKindPath(kind)}`,
+  });
 }
 
 export default async function CityKindPage({

@@ -17,6 +17,7 @@ Cities, layover zones, places, and dishes — without crew hotel identity. Manua
 - [x] Dishes linked to places (simple child on create)
 - [x] Edit rec: Get this plates can be renamed, added, or removed (author/admin)
 - [x] Edit rec Save returns to the public rec page
+- [x] Public pages emit a share card (title, blurb, picture) for iMessage / WhatsApp / Slack / X
 - [x] No public “hotel name” field on place forms
 - [x] Zone optional but encouraged for logistics tips
 - [x] RLS: public read published; auth write own; admin all (policies in 002)

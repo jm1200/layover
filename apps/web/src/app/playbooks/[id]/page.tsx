@@ -6,6 +6,7 @@ import { AiStill } from "@/features/places/ai-still";
 import { CityPublicHeader } from "@/features/places/city-chrome";
 import { heroForCity, stillForStop } from "@/features/places/rec-media";
 import { getPlace, listCities } from "@/features/places/queries";
+import { shareCard, SITE_NAME } from "@/lib/share-card";
 import { StartItinerary } from "@/features/playbooks/start-itinerary";
 import {
   getPlaybook,
@@ -29,7 +30,16 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { id } = await params;
   const pb = await getPlaybook(id);
-  return { title: pb ? `${pb.title} · Layover Intel` : "Layover Intel" };
+  if (!pb) return shareCard({ title: SITE_NAME });
+  const cities = await listCities();
+  const city = cities.find((c) => c.id === pb.city_id) ?? null;
+  const hero = city ? heroForCity(city) : null;
+  return shareCard({
+    title: `${pb.title} · ${SITE_NAME}`,
+    description: pb.narrative,
+    image: hero?.src,
+    path: `/playbooks/${pb.id}`,
+  });
 }
 
 export default async function PlaybookPage({

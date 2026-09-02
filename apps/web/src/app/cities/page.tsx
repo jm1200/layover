@@ -1,9 +1,17 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { listCities } from "@/features/places/queries";
 import { getProfile } from "@/features/auth/get-profile";
 import { SiteHeader } from "@/features/auth/site-header";
 import { AiStill } from "@/features/places/ai-still";
 import { CITY_FEEL, heroForCity } from "@/features/places/rec-media";
+import { shareCard, SITE_NAME } from "@/lib/share-card";
+
+export const metadata: Metadata = shareCard({
+  title: `Cities · ${SITE_NAME}`,
+  description: "Eat, do, buy — plus the perfect layover.",
+  path: "/cities",
+});
 
 export default async function CitiesPage() {
   const [cities, profile] = await Promise.all([listCities(), getProfile()]);

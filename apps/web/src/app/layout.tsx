@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import {
+  DEFAULT_SHARE_IMAGE,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  shareCard,
+  siteUrl,
+} from "@/lib/share-card";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,9 +20,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Layover",
-  description:
-    "Layover Intel — For Crew, By Crew."
+  metadataBase: siteUrl(),
+  ...shareCard({
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    image: DEFAULT_SHARE_IMAGE,
+    path: "/",
+  }),
 };
 
 export default function RootLayout({
