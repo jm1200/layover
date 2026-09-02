@@ -16,6 +16,17 @@ test.describe("public browse", () => {
     await expect(page.getByText(/crew hotel/i)).toHaveCount(0);
   });
 
+  test("home rec cards name the city and country", async ({ page }) => {
+    await page.goto("/");
+    const rec = page.locator('a[href^="/places/"]').first();
+    if ((await rec.count()) === 0) {
+      test.skip(true, "No published recs on the homepage.");
+    }
+    const where = rec.locator("p").nth(1);
+    await expect(where).toBeVisible();
+    await expect(where).not.toHaveText(/^\s*$/);
+  });
+
   test("cities and Zurich use zones, not hotels", async ({ page }) => {
     await page.goto("/cities");
     await expect(page.getByRole("heading", { name: "Cities" })).toBeVisible();

@@ -64,6 +64,10 @@ export default async function HomePage() {
           <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-3">
             {cards.map(({ kind, rec }) => {
               const still = stillForPlace(rec);
+              const city = cities.find((c) => c.id === rec.city_id);
+              const where = city
+                ? [city.name, city.country].filter(Boolean).join(", ")
+                : null;
               return (
                 <Link
                   key={kind}
@@ -87,6 +91,9 @@ export default async function HomePage() {
                   <p className="mt-3 text-sm font-medium text-zinc-900">
                     {rec.name}
                   </p>
+                  {where ? (
+                    <p className="mt-0.5 text-sm text-zinc-500">{where}</p>
+                  ) : null}
                 </Link>
               );
             })}

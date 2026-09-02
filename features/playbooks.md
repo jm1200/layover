@@ -42,7 +42,7 @@ A **full layover** is a combo of places. When Lumen drafts a plan from a story, 
 
 - [x] Customer name for the object: **layover plan**. Do not say “playbook” on city, dashboard, or forms. Do not say “full package adventure.” Do not say **guide** as a product noun.
 - [x] City chip / section label: **Full layover** — **keep**. Job: complete crew layover vs one Eat/Do/Buy rec. Section heading: **Full layovers**.
-- **Homepage `/`:** **Layover Intel — For Crew, By Crew.** Collage + tappable Eat/Do/Buy cards + city search. Series line “The perfect layover does not exist…” is **not** on `/` (city / plan pages). Organic only — never an ad name.
+- **Homepage `/`:** **Layover Intel — For Crew, By Crew.** Collage + tappable Eat/Do/Buy cards (rec name + city, country under the still) + city search. Series line “The perfect layover does not exist…” is **not** on `/` (city / plan pages). Organic only — never an ad name.
 - **Not the city chip:** The perfect layover (homepage series only), Plan (object / add-flow only), Itineraries (optional later sentence copy, not the tab), Guides, Ideas / Layover ideas, Play, tour, adventure, Full (alone), Full package, crew recs / crew staples (those names are the whole organic rail).
 - Internal table/routes may stay `playbooks` this cut (no rename migration).
 - [x] Add chooser offers **Full layover** next to Eat / Do / Buy (those three are places).
