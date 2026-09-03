@@ -138,10 +138,15 @@ export async function extractWithLumen(opts: {
     } as any);
 
     const usage = response.usage as
-      | { input_tokens?: number; output_tokens?: number }
+      | {
+          input_tokens?: number;
+          output_tokens?: number;
+          prompt_tokens?: number;
+          completion_tokens?: number;
+        }
       | undefined;
-    const inputTokens = usage?.input_tokens ?? 0;
-    const outputTokens = usage?.output_tokens ?? 0;
+    const inputTokens = usage?.input_tokens ?? usage?.prompt_tokens ?? 0;
+    const outputTokens = usage?.output_tokens ?? usage?.completion_tokens ?? 0;
     const searchCalls = searchCallsFromResponse(response);
     let content = response.output_text ?? "";
     if (!content && Array.isArray(response.output)) {

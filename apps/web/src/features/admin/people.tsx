@@ -5,8 +5,8 @@ type Person = {
   id: string;
   display_name: string | null;
   email: string | null;
-  role: string;
-  status: string;
+  person_role: string;
+  person_status: string;
   last_seen_at: string | null;
   recs: number | string;
   days: number | string;
@@ -66,7 +66,7 @@ export async function People() {
                   >
                     {name}
                   </Link>
-                  {p.status === "suspended" ? (
+                  {p.person_status === "suspended" ? (
                     <span className="ml-2 text-zinc-500">Suspended</span>
                   ) : null}
                 </p>

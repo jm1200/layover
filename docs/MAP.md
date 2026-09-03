@@ -158,7 +158,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] `/cities` as hero cards (not a phone book); search hint lists live IATA codes
 - [x] Lumen live baseline (`agents/lumen.md` + `.grok/agents/lumen.md`)
 - [x] `/admin` Lumen log: one card per dump (stills + city hero grouped). Names link. Not Phase 6.
-- [x] `/admin` People + What’s new (SQL **022**). Last sign-in from `auth.users` via `is_admin()` RPC. No `service_role` in Next. John pastes 022. **People tab** at `/admin/people` so her log stays its own page.
+- [x] `/admin` People + What’s new (SQL **022**, fix **024**). Last seen on `profiles`, not a join to `auth.users`. John pastes 024 if People still can’t read. **People tab** at `/admin/people` so her log stays its own page.
 - [x] Header: **Log in** / **Log out**. Menu **Profile** → name and photo (`/u/[id]/edit`). Posted by still → `/u/[id]`.
 - [x] Dump dedup is **stop set** (incl. one-stop). Title-first gone. Public rec Photos cap 3 (no extra hero unshift). City-open line does not promise a hero.
 - [x] User photo upload: compress (no 2 MB cap as homework); 4:5 card preview; no silent AI reframe

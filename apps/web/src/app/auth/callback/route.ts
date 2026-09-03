@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { asRole, homeForRole } from "@/features/auth/get-profile";
+import { touchLastSeen } from "@/features/auth/touch-last-seen";
 import { safeNextPath } from "@/features/auth/paths";
 
 export async function GET(request: Request) {
@@ -30,6 +31,7 @@ export async function GET(request: Request) {
 
   let path = "/dashboard";
   if (user) {
+    await touchLastSeen(supabase, user.id);
     const { data } = await supabase
       .from("profiles")
       .select("role")
