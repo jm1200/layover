@@ -100,12 +100,16 @@ Open [http://localhost:3000](http://localhost:3000) → **Sign up** → check yo
 
 ### 7. Make yourself admin (once)
 
-After you have an account, in Supabase **SQL Editor**:
+After you have an account, in Supabase **SQL Editor** (role at the bottom: **postgres**). The freeze on `profiles` blocks JWT clients from changing role — and the Editor still has your login — so skip the trigger for this statement:
 
 ```sql
+alter table public.profiles disable trigger profiles_freeze_identity;
+
 update public.profiles
 set role = 'admin'
 where id = (select id from auth.users where email = 'YOUR_EMAIL_HERE');
+
+alter table public.profiles enable trigger profiles_freeze_identity;
 ```
 
 Log out and back in. You should reach `/dashboard` (**Your recommendations**). Admin is in the profile menu, not the landing.
