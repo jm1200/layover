@@ -1,7 +1,7 @@
 # Feature: Admin & metrics
 
-**Phase:** 6 for queue/metrics. **Phase 4 slice lives on `/admin` now.**  
-**Status:** Kill switch + Lumen log (last 50 + month $). Not a full dashboard. **Copy locked 2026-08-27** in `agents/lumen.md` → Admin. Pixels still show verbs with no place names — that is the miss.
+**Phase:** 6 for queue/metrics. **Phase 4 slice lives on `/admin` now.** People + what’s new is a later slice (SQL **022**), still not the queue.  
+**Status:** Kill switch + Lumen log + people (last in, recs/days) + what’s new (last 30 published). Not a full dashboard. **Copy locked** in `agents/lumen.md` → Admin.
 
 **`/dashboard` is not the admin queue** (locked 2026-08-26): it lists this user’s published recs/days only. Admin still edits from the public rec. Reports / hide / ban / Stripe stay Phase 6. **This cut is not that queue.** No likes. No Stripe.
 
@@ -42,6 +42,8 @@ Money only if > 0. `Posted {Mon D}` — not ISO, not a time. Rec gone → **Take
 
 - [x] Admin-only `/admin` (Phase 1 shell + Phase 4 kill switch)
 - [x] Lumen activity log on `/admin` (last 50 + month $). No dump text.
+- [x] People on `/admin` — name, email, last in, published recs/days (SQL **022** `admin_people`)
+- [x] What’s new — last 30 published recs/days (SQL **022** `admin_new_intel`)
 - [ ] Log rows show **place/day name + link**, city, when, $ (copy lock 2026-08-27)
 - [ ] Kill switch + page strings match `agents/lumen.md` Admin
 - [ ] No Phase 6 / SQL / dump-text copy on the page

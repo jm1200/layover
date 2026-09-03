@@ -4,6 +4,37 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-09-03 — Admin people + what’s new (not Phase 6)
+
+**Source:** Shareholder — list of users, when they logged in, if anything new landed. On `/admin`.
+
+**Call:** Thin slice on the existing Admin page. Not reports / hide / ban. SQL **022** (`admin_people`, `admin_new_intel`). Last sign-in from `auth.users` via `is_admin()` RPC. No `service_role` in Next. Email only on People so he can match a friend. Lumen log still never shows email.
+
+**Status:** Built. John pastes 022 in the SQL Editor.
+
+---
+
+## 2026-08-31 — Domain: layoverintel.com (not crewlayover)
+
+**Source:** Shareholder — cheap public domain, not layover.com. Asked crewlayover vs layoverintel (typed layoverinterl).
+
+**Facts:** Working name is still **Layover** (unresolved). Homepage lock is **Layover Intel — For Crew, By Crew.** Audience A: crew is the wedge; other travelers steal the same plans. Zones, never hotels. `crewlayover.com` is registered (NameBright park). `layoverintel.com` has no NS / no RDAP record — looks like a normal registrar buy. “Crew layover” in the wild is HOTAC / crew hotels.
+
+### Decision (CEO rec — John registers)
+
+| Item | Call |
+|------|------|
+| Register | **layoverintel.com** |
+| Do not | **crewlayover.com** — taken, and it names the hotel product we refuse |
+| Product name | **Unchanged.** Domain is the door. Company can stay Layover. |
+| Copy | Sofia already owns “Layover Intel” on `/`. No rename workshop. |
+
+**Why not crewlayover:** fences out the stealable traveler, Google thinks hotels, fights the security rule. Wedge stays on the homepage line, not in the URL.
+
+**Status:** Recommendation. No `apps/`. Name still unresolved.
+
+---
+
 ## 2026-08-31 — Wipe demo intel; start with real dumps
 
 **Source:** Shareholder — Google login works on the live URL. First bug (chip alignment) already shipped. Then: dump all the data, start fresh with real layover intel.

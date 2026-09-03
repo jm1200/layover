@@ -4,6 +4,8 @@ import { requireRole, homeForRole } from "@/features/auth/get-profile";
 import { SuspendedPanel } from "@/features/auth/suspended-panel";
 import { KillSwitch } from "@/features/ai-import/kill-switch";
 import { LumenLog } from "@/features/ai-import/lumen-log";
+import { People } from "@/features/admin/people";
+import { WhatsNew } from "@/features/admin/whats-new";
 import { monthSpentUsd } from "@/features/ai-import/spend";
 import { createClient } from "@/lib/supabase/server";
 import { getXaiKey, monthlyCapUsd } from "@/lib/ai/xai";
@@ -41,6 +43,8 @@ export default async function AdminPage() {
         </span>
       </p>
       <KillSwitch killed={killed} />
+      <People />
+      <WhatsNew />
       <LumenLog />
     </AppShell>
   );

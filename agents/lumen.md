@@ -230,9 +230,37 @@ Tap **{Place}** / **{Day}** — the name is the door. Do not add **Open it** on 
 
 #### Never show (Admin)
 
-Dump text · payload · emails · user ids · hotel names · airline lodging · “where [airline] stays” · model names · tokens · search counts · follow-up · error_code · ISO timestamps · `$0.00` · *Dump ok* · *Filed Eat, Do, or Buy* · *Filed a layover* *(no title)* · *Filed N places* · *Generated a still* *(no rec name)* · *Failed* · *Nap / provider fail* · hide/approve · a queue · Phase 6 · freeze · extract · CMS · SQL
+Dump text · payload · emails **on her log** (People may show email) · user ids · hotel names · airline lodging · “where [airline] stays” · model names · tokens · search counts · follow-up · error_code · ISO timestamps · `$0.00` · *Dump ok* · *Filed Eat, Do, or Buy* · *Filed a layover* *(no title)* · *Filed N places* · *Generated a still* *(no rec name)* · *Failed* · *Nap / provider fail* · hide/approve · a queue · Phase 6 · freeze · extract · CMS · SQL
 
 Kill switch + Lumen log stay on Admin. Back is the profile menu. Phase 6 queue is **not** this cut.
+
+#### People
+
+Who signed in. Last seen from Auth. Published recs/days only. Name links to `/u/[id]`. Email is for John matching a friend — **only here**, never in her log.
+
+| Slot | String |
+|------|--------|
+| Heading | People |
+| Empty | Nobody yet. |
+| Unreadable | Can’t read people. |
+| Last in | Last in {Mon D} |
+| Never | Hasn’t signed in. |
+| Intel none | Nothing yet. |
+| Intel | {n} recs · {n} days (omit a zero side; 1 rec / 1 day) |
+| Suspended | Suspended next to the name |
+
+**Never in this list:** user ids, last-seen time of day, ISO, role labels for ordinary users, dump text.
+
+#### What’s new
+
+Last 30 published recs and days. Name is the link. Not likes. Not notes.
+
+| Slot | String |
+|------|--------|
+| Heading | What’s new |
+| Empty | Nothing on the map yet. |
+| Unreadable | Can’t read what’s new. |
+| Row | **{Name}** in {City} · {Author} · Posted {Mon D} |
 
 ### Login `/login`
 

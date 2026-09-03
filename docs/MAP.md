@@ -107,7 +107,7 @@ ModerationAction / MetricSnapshot            — Phase 6
 | `/privacy` | Public | What we keep from Google sign-in. Needed for Google OAuth publish. | — |
 | `/dashboard` | User (all roles land here) | **Your recommendations** — this user’s published recs and days. Cards, not a CMS. Header is the same as the rest of the site. | Phase 4 |
 | `/sponsor` | Sponsor | Campaigns, billing, creatives | Phase 1 stub |
-| `/admin` | Admin | Kill switch + Lumen log (last 50, named rec/day, no dump text). Full queue is Phase 6 | Phase 4 slice |
+| `/admin` | Admin | Kill switch + Lumen log + people (last in, what they posted) + what’s new. Full queue is Phase 6 | Phase 4 slice + 022 |
 | `/cities` | Public | City list. Share card: site hero | Phase 2 |
 | `/cities/[slug]` | Public | Dark hero · Eat/Do/Buy preview (top 3) · full layover below. Share card: city hero + feel line | Phase 2 |
 | `/cities/[slug]/eat` `/do` `/buy` | Public | Full list for one verb. Share card: city hero | Phase 2 |
@@ -157,6 +157,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] `/cities` as hero cards (not a phone book); search hint lists live IATA codes
 - [x] Lumen live baseline (`agents/lumen.md` + `.grok/agents/lumen.md`)
 - [x] `/admin` Lumen log: one card per dump (stills + city hero grouped). Names link. Not Phase 6.
+- [x] `/admin` People + What’s new (SQL **022**). Last sign-in from `auth.users` via `is_admin()` RPC. No `service_role` in Next. John pastes 022.
 - [x] Dump dedup is **stop set** (incl. one-stop). Title-first gone. Public rec Photos cap 3 (no extra hero unshift). City-open line does not promise a hero.
 - [x] User photo upload: compress (no 2 MB cap as homework); 4:5 card preview; no silent AI reframe
 - [x] Up to 3 plate photos per Eat/Buy rec (SQL **012**). City cards stay one still.

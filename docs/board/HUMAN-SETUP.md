@@ -110,6 +110,8 @@ where id = (select id from auth.users where email = 'YOUR_EMAIL_HERE');
 
 Log out and back in. You should reach `/dashboard` (**Your recommendations**). Admin is in the profile menu, not the landing.
 
+Paste **022** (`apps/web/supabase/migrations/022_admin_people.sql`) so `/admin` can list people (last sign-in) and what’s new. Without it: **Can’t read people.**
+
 ---
 
 ## Soon (not required for Phase 1 local)

@@ -16,7 +16,7 @@ Dump a layover → she writes it up → you publish. Trust still beats revenue. 
 | Rec photos | Up to **3**. Tap hero. No pic → Lumen still. **Get this** = names only. |
 | Dashboard | Grouped by city. Date on the card, then pics, then blurb. Private “mine.” |
 | Dedup | Same **stop set** = same day. Title drift does not ship a twin. |
-| Admin | Kill switch + her log, one card per dump. Not a Phase 6 queue. |
+| Admin | Kill switch + her log + people (last in, what they posted) + what’s new. Not a Phase 6 queue. |
 | Phase 3 | **Done.** Like + notes + byline + author page. Follow out. |
 | Note delete | **Remove.** Recs still come off the city. |
 | Author page | Profile → their published recs/days. Edit name + pic. No bio, followers, DMs. |

@@ -27,7 +27,17 @@ test.describe("email login", () => {
     ).toHaveCount(0);
     await page.getByLabel("Account").click();
     await expect(page.getByRole("link", { name: "Your recs" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Admin" })).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Sign out" })).toBeVisible();
+  });
+
+  test("plain user is kept off /admin", async ({ page }) => {
+    await login(page);
+    await page.goto("/admin");
+    await expect(page).not.toHaveURL(/\/admin/);
+    await expect(
+      page.getByRole("heading", { name: "Your recommendations" }),
+    ).toBeVisible();
   });
 
   test("share page is the dump box, not a CMS", async ({ page }) => {

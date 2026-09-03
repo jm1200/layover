@@ -31,6 +31,7 @@ Durable history only. Not a chat transcript.
 | 2026-08-31 | **Demo intel wiped.** SQL **021** — recs, days, notes, likes, photos, dump logs gone. Accounts, cities, zones, kill switch stay. Homepage no longer links seed IDs. Next content is real dumps. |
 | 2026-08-31 | **Board rec: skip Phase 5 until people use the site.** Go-live = public URL (Vercel + Auth/Google URLs), not Stripe/ads. Phase 6 = metrics + reports/hide/ban (not a URL blocker). Phase 7 still later. John still says go-live. |
 | 2026-08-31 | **Domain rec:** register **layoverintel.com**. Not crewlayover.com. Does not lock the product name. |
+| 2026-09-03 | **Admin people + what’s new.** `/admin` lists who signed in and last published recs/days. SQL **022**. Not Phase 6. |
 | 2026-08-27 | Board rec: **hygiene then Phase 3.** Phase 3 v1 = like + comment + byline. Follow / profile / pings / QR out. |
 
 ## Product locks
