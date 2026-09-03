@@ -22,6 +22,7 @@ export async function WhatsNew() {
   const { data, error } = await supabase.rpc("admin_new_intel");
 
   if (error) {
+    console.warn("[admin_new_intel]", error.message);
     return (
       <section className="mt-10">
         <h2 className="font-semibold">What’s new</h2>

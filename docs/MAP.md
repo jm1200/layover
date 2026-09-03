@@ -107,7 +107,8 @@ ModerationAction / MetricSnapshot            — Phase 6
 | `/privacy` | Public | What we keep from Google sign-in. Needed for Google OAuth publish. | — |
 | `/dashboard` | User (all roles land here) | **Your recommendations** — this user’s published recs and days. Cards, not a CMS. Header is the same as the rest of the site. | Phase 4 |
 | `/sponsor` | Sponsor | Campaigns, billing, creatives | Phase 1 stub |
-| `/admin` | Admin | Kill switch + Lumen log + people (last in, what they posted) + what’s new. Full queue is Phase 6 | Phase 4 slice + 022 |
+| `/admin` | Admin | Kill switch + Lumen log. Tab: Lumen. Full queue is Phase 6 | Phase 4 slice |
+| `/admin/people` | Admin | People (last in, what they posted) + what’s new. SQL **022** | 022 |
 | `/cities` | Public | City list. Share card: site hero | Phase 2 |
 | `/cities/[slug]` | Public | Dark hero · Eat/Do/Buy preview (top 3) · full layover below. Share card: city hero + feel line | Phase 2 |
 | `/cities/[slug]/eat` `/do` `/buy` | Public | Full list for one verb. Share card: city hero | Phase 2 |
@@ -157,7 +158,8 @@ Exact paths may adjust; update this table when implementing.
 - [x] `/cities` as hero cards (not a phone book); search hint lists live IATA codes
 - [x] Lumen live baseline (`agents/lumen.md` + `.grok/agents/lumen.md`)
 - [x] `/admin` Lumen log: one card per dump (stills + city hero grouped). Names link. Not Phase 6.
-- [x] `/admin` People + What’s new (SQL **022**). Last sign-in from `auth.users` via `is_admin()` RPC. No `service_role` in Next. John pastes 022.
+- [x] `/admin` People + What’s new (SQL **022**). Last sign-in from `auth.users` via `is_admin()` RPC. No `service_role` in Next. John pastes 022. **People tab** at `/admin/people` so her log stays its own page.
+- [x] Header: **Log in** / **Log out**. Menu **Profile** → name and photo (`/u/[id]/edit`). Posted by still → `/u/[id]`.
 - [x] Dump dedup is **stop set** (incl. one-stop). Title-first gone. Public rec Photos cap 3 (no extra hero unshift). City-open line does not promise a hero.
 - [x] User photo upload: compress (no 2 MB cap as homework); 4:5 card preview; no silent AI reframe
 - [x] Up to 3 plate photos per Eat/Buy rec (SQL **012**). City cards stay one still.
@@ -169,7 +171,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] SQL **011** — global $20 RPC, city-hero column, generate-on-publish flag, city-open quota. **Live** (spend RPC probed 2026-08-26).
 - [x] SQL **016** `place_photos` — **live**. Dump/AI still now write the album too.
 - [x] Founder-test pack (2026-08-26): labeled place vs dish; no drafts on dashboard; mine-only Edit; stop-set + place-id dedup; day blurb from dump; city-open copy only when new; one Save on edit day + redirect; Google button (needs John’s OAuth client). Retest `FOUNDER-TEST.md`.
-- [x] Chrome + dashboard (Lumen/Sofia 2026-08-27): sign-in → `/dashboard` (not `/admin`). Header: Layover · Share your intel · Cities · **profile icon**. Dropdown: **Your recs**, Admin if admin, Sign out. Title **Your recommendations**. Cards: still, posted date, **city** bold. Full days vs Recs.
+- [x] Chrome + dashboard (Lumen/Sofia 2026-08-27): sign-in → `/dashboard` (not `/admin`). Header: Layover · Share your intel · Cities · **profile icon**. Dropdown: **Profile** (name/photo), **Your recs**, Admin if admin, Log out. Title **Your recommendations**. Cards: still, posted date, **city** bold. Full days vs Recs.
 - [x] Playwright E2E (`apps/web/e2e`, `npm run test:e2e`) — **Milo owns.** Fake user clicks browse, login, rec photos/zoom, Save, delete rec, layover day. Does **not** call xAI. Google OAuth still human. Theo reviews.
 - [x] Hygiene (2026-08-27): deleted `sellPlaceBlurb` + dead twins; album errors no longer swallowed; hotel gate on stop text; Playwright reorder Save + X photo. **SQL 017** locks `lumen_set_city_hero` (John pastes in SQL Editor).
 - [x] Phase 3 start: like recs + days, comments on days, byline. Playwright `e2e/social.spec.ts`. **SQL 018** (John pastes).

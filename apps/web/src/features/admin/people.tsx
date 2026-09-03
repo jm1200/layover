@@ -36,8 +36,9 @@ export async function People() {
   const { data, error } = await supabase.rpc("admin_people");
 
   if (error) {
+    console.warn("[admin_people]", error.message);
     return (
-      <section className="mt-10">
+      <section>
         <h2 className="font-semibold">People</h2>
         <p className="mt-2 text-sm text-zinc-500">Can’t read people.</p>
       </section>
@@ -47,7 +48,7 @@ export async function People() {
   const rows = (data ?? []) as Person[];
 
   return (
-    <section className="mt-10">
+    <section>
       <h2 className="font-semibold">People</h2>
       {rows.length === 0 ? (
         <p className="mt-3 text-sm text-zinc-500">Nobody yet.</p>

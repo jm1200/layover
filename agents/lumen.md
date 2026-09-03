@@ -82,19 +82,19 @@ Logged-in, left → right:
 | Cities | Cities | `/cities` |
 | Profile | *(icon only — no word)* | dropdown |
 
-Trigger is a **circle**: their upload, else initials of the display name, else a silhouette. Same circle as the person page. Never auto-publish the Google headshot here. Never the word **You**. Never **Sign out** in the bar. Everyone gets the menu — Sign out lives there. Aria on the trigger stays **Account**.
+Trigger is a **circle**: their upload, else initials of the display name, else a silhouette. Same circle as the person page. Never auto-publish the Google headshot here. Never the word **You**. Never **Log out** in the bar. Everyone gets the menu — Log out lives there. Aria on the trigger stays **Account**.
 
 **Profile** dropdown (quiet; not a second bar, not a body button):
 
 | Who | String | Goes |
 |-----|--------|------|
-| Everyone | Profile | their person page (`/u/[id]`) |
+| Everyone | Profile | name and photo (`/u/[id]/edit`) |
 | Everyone | Your recs | `/dashboard` |
-| Admin only | Admin | `/admin` |
+| Admin only | Admin | `/admin` (Lumen tab; People is `/admin/people`) |
 | Sponsor or admin | Sponsor | `/sponsor` |
-| Everyone | Sign out | sign out |
+| Everyone | Log out | log out |
 
-**Profile** is the public page (`/u/[id]`). **Your recs** is the private scrapbook. Never put the display name in the menu.
+**Profile** is name and photo. **Your recs** is the private scrapbook. Posted by still goes to the public person page (`/u/[id]`). Never put the display name in the menu.
 
 Admin is **never** a card, a mid-page button, a footer underline, or the page they land on after Google. **Never** the words User dashboard or Sponsor dashboard.
 
@@ -107,7 +107,7 @@ Logged-out:
 | Cities | Cities | `/cities` |
 | Log in | Log in | `/login` |
 
-| **Never** in any header | `{email} · {role}` · You · Sign out in the bar · Dashboard · Browse cities · Admin as a primary item |
+| **Never** in any header | `{email} · {role}` · You · Log out in the bar · Dashboard · Browse cities · Admin as a primary item |
 
 Share is the pill. Once. Do not reprint it as a hero card on Your recommendations.
 
@@ -147,11 +147,12 @@ Grouped **by city** (A–Z). City name is the section, big bold — not repeated
 
 ### Admin `/admin` · Sponsor `/sponsor`
 
-This page is **her switch + her scrapbook.** Not a CMS, not Phase 6 (no reports, likes, Stripe, ban queue). John should see: is she on, what she spent, **the named things she put on the map.**
+This page is **her switch + her scrapbook.** People is a **tab**, not the same pile as her log. Not a CMS, not Phase 6 (no reports, likes, Stripe, ban queue). John should see: is she on, what she spent, **the named things she put on the map.**
 
 | Slot | String |
 |------|--------|
 | Admin title | Admin |
+| Tab | Lumen · People |
 | Spend | This month ${spent} of ${cap}. |
 | Key (quiet) | Key is set. **or** Key is missing — she can’t file. |
 | Sponsor title | Sponsor |
@@ -459,7 +460,7 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - An empty The day is not a layover. Fill it from the dump or refuse Publish.
 - Same stops / same story is the same day even with a new title. Recs stay; do not copy the day.
 - Save a day → send them back to the day.
-- Two headers is two sites. One family: Layover · Share your intel · Cities · profile icon. Menu: **Profile** (their page), **Your recs** (the desk), Sign out. Never the display name in the menu. Never You. Never `{email} · {role}`.
+- Two headers is two sites. One family: Layover · Share your intel · Cities · profile icon. Menu: **Profile** (name and photo), **Your recs** (the desk), Log out. Never the display name in the menu. Never You. Never `{email} · {role}`.
 - Dashboard is not a CMS chooser. **Your recommendations** is a scrapbook: Full days (stop strip), then Recs (4:5 + stamp), stills, **city** bold, `Posted {Mon D}`. Share already lives in the header. Four form cards are homework. Quiet *or type it yourself* stays after the cards.
 - Admin is a quiet word in the profile menu. Never the page they land on after Google. Never a button in the body. Never “User dashboard” at the bottom like a 2009 CMS.
 - Admin log is a caption: **Filed Jamon Jamon in Barcelona · Posted Aug 27 · $0.02.** He taps the name. A verb with no place is a miss. Never dump text. Never hotels. Not a queue.

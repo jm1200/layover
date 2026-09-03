@@ -19,7 +19,7 @@ Dump a layover → she writes it up → you publish. Trust still beats revenue. 
 | Admin | Kill switch + her log + people (last in, what they posted) + what’s new. Not a Phase 6 queue. |
 | Phase 3 | **Done.** Like + notes + byline + author page. Follow out. |
 | Note delete | **Remove.** Recs still come off the city. |
-| Author page | Profile → their published recs/days. Edit name + pic. No bio, followers, DMs. |
+| Author page | Profile → name and photo. Posted by → their published recs/days. No bio, followers, DMs. |
 | Likes | **Count only.** Nobody sees who. |
 | Notes | Lumen reads text + pictures before they go live. Same $20 as dumps. |
 | Demo recs | **Wiped** (SQL **021**). Homepage Eat/Do/Buy use the rec’s own photo. Hide a kind if none published. |

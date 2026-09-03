@@ -114,7 +114,7 @@ alter table public.profiles enable trigger profiles_freeze_identity;
 
 Log out and back in. You should reach `/dashboard` (**Your recommendations**). Admin is in the profile menu, not the landing.
 
-Paste **022** (`apps/web/supabase/migrations/022_admin_people.sql`) so `/admin` can list people (last sign-in) and what’s new. Without it: **Can’t read people.**
+Paste **022** (`apps/web/supabase/migrations/022_admin_people.sql`) so **Admin → People** can list who signed in. Without it: **Can’t read people.** If you opened Admin in the same second you pasted, wait a few seconds and refresh — PostgREST caches the function list; it is not a Next cache. Re-run 022 if a refresh still fails.
 
 ---
 

@@ -21,7 +21,7 @@ export function SignOutButton({
             : "text-sm text-zinc-600 hover:text-zinc-900")
         }
       >
-        Sign out
+        Log out
       </button>
     </form>
   );

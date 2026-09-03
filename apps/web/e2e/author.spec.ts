@@ -18,10 +18,7 @@ test.describe("author page", () => {
 
     await page.getByLabel("Account").click();
     await page.getByRole("link", { name: "Profile" }).click();
-    await page.waitForURL(/\/u\/[0-9a-f-]{36}/, { timeout: 15_000 });
-    await expect(page.getByText("Where they've been.")).toBeVisible();
-
-    await page.getByRole("link", { name: "Edit" }).click();
+    await page.waitForURL(/\/u\/[0-9a-f-]{36}\/edit/, { timeout: 15_000 });
     await expect(
       page.getByRole("heading", { name: "Name and photo" }),
     ).toBeVisible();

@@ -43,7 +43,7 @@ export function SiteHeader({
               tone={tone}
               signOut={signOut}
               name={profile.display_name?.trim() || "Crew"}
-              href={`/u/${profile.id}`}
+              href={`/u/${profile.id}/edit`}
               avatarUrl={profile.avatar_url}
             />
           ) : (

@@ -42,7 +42,7 @@ Money only if > 0. `Posted {Mon D}` — not ISO, not a time. Rec gone → **Take
 
 - [x] Admin-only `/admin` (Phase 1 shell + Phase 4 kill switch)
 - [x] Lumen activity log on `/admin` (last 50 + month $). No dump text.
-- [x] People on `/admin` — name, email, last in, published recs/days (SQL **022** `admin_people`)
+- [x] People on `/admin/people` — name, email, last in, published recs/days (SQL **022** `admin_people`). Tab, not mixed into her log.
 - [x] What’s new — last 30 published recs/days (SQL **022** `admin_new_intel`)
 - [ ] Log rows show **place/day name + link**, city, when, $ (copy lock 2026-08-27)
 - [ ] Kill switch + page strings match `agents/lumen.md` Admin
