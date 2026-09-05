@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 
 export const SITE_NAME = "Layover Intel";
 export const SITE_DESCRIPTION = "Layover Intel — For Crew, By Crew.";
 export const DEFAULT_SHARE_IMAGE = "/landing/hero.jpg";
+const DEFAULT_SHARE_SIZE = { width: 1280, height: 720 };
 
 const DESC_MAX = 200;
 
@@ -13,6 +15,24 @@ export function siteUrl(): URL {
   } catch {
     return new URL("http://localhost:3000");
   }
+}
+
+/** Host the crawler actually hit. Apex currently 308s to www; Facebook drops redirected og:image. */
+export async function publicSiteUrl(): Promise<URL> {
+  try {
+    const h = await headers();
+    const raw = h.get("x-forwarded-host") || h.get("host");
+    const host = raw?.split(",")[0]?.trim();
+    if (host && !/^localhost(:\d+)?$/i.test(host) && !host.startsWith("127.0.0.1")) {
+      const proto =
+        h.get("x-forwarded-proto") ||
+        (host.includes("localhost") ? "http" : "https");
+      return new URL(`${proto}://${host}`);
+    }
+  } catch {
+    /* build / static */
+  }
+  return siteUrl();
 }
 
 function withHttps(raw: string): string {
@@ -69,7 +89,11 @@ export function shareCard(input: {
   const title = input.title.trim() || SITE_NAME;
   const description = clipShareText(input.description) ?? SITE_DESCRIPTION;
   const image = input.image?.trim() || DEFAULT_SHARE_IMAGE;
-  const images = [{ url: image, alt: title }];
+  const sized =
+    image === DEFAULT_SHARE_IMAGE || image.endsWith("/landing/hero.jpg");
+  const images = sized
+    ? [{ url: image, alt: title, ...DEFAULT_SHARE_SIZE }]
+    : [{ url: image, alt: title }];
   return {
     title,
     description,

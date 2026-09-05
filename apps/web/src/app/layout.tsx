@@ -4,8 +4,8 @@ import {
   DEFAULT_SHARE_IMAGE,
   SITE_DESCRIPTION,
   SITE_NAME,
+  publicSiteUrl,
   shareCard,
-  siteUrl,
 } from "@/lib/share-card";
 import "./globals.css";
 
@@ -19,15 +19,17 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: siteUrl(),
-  ...shareCard({
-    title: SITE_NAME,
-    description: SITE_DESCRIPTION,
-    image: DEFAULT_SHARE_IMAGE,
-    path: "/",
-  }),
-};
+export async function generateMetadata(): Promise<Metadata> {
+  return {
+    metadataBase: await publicSiteUrl(),
+    ...shareCard({
+      title: SITE_NAME,
+      description: SITE_DESCRIPTION,
+      image: DEFAULT_SHARE_IMAGE,
+      path: "/",
+    }),
+  };
+}
 
 export default function RootLayout({
   children,
