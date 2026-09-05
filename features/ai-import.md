@@ -14,7 +14,7 @@
 
 Hotel room, one thumb, ~60 seconds. Lumen talks as little as possible.
 
-1. **Talk once.** Header **Share your intel**. Public copy does **not** introduce Lumen by name and does **not** say “rec”: *Skip the form. Describe the layover — one place, a few, or the whole day. We’ll look it up and write it up. You check, then publish.* Box: *What did you do?* Helper: *Type or dictate using your mic.* Button **Write it up**. No Eat/Do/Buy picker first — she still decides place vs places vs day. Sharing from a city page already has the city.
+1. **Talk once.** Header **Share your intel**. Public copy does **not** introduce Lumen by name, does **not** say “rec”, does **not** put a cartoon or “I’m an AI” on the dump: *Skip the form. Describe the layover — one place, a few, or the whole day. City, plus a real name we can search. We’ll look it up and write it up. You check, then publish.* Box: *What did you do?* Helper: *Type or dictate using your mic. Name the restaurant, the shop, the walk.* Placeholder names real places. Button **Write it up**. No Eat/Do/Buy picker first — she still decides place vs places vs day. Sharing from a city page already has the city.
 2. **One extract.** `grok-4.3` fills one rec, several independent recs, or a full layover (standalone recs + plan, max 4). **Do not invent a day.** “Then” alone is not an itinerary. Rec blurbs always stand alone. **No second model call** to chase a dish, zone, or hours.
 3. **Holes are the follow-up.** Draft screen, same fields we have today. Empty bits sit obvious. Lumen one-liner: *“I filled what I heard. Tap the blanks, add a pic, publish.”* They tap. They do not answer her. City-open banner: *“{City} ({IATA}) is on the map now.”* **only** if she actually just opened it. Already live: omit, or *“Still {City}.”* Never *“I’ll put a city hero up when you publish.”* on that line. **The day** is filled from the dump. Empty narrative on Publish = refuse.
 4. **Photos on review, max 3**, same album as Edit rec. Tap hero. Skip → she stills on publish. Eat/Buy **Get this** is names only. Never a black rectangle.
@@ -34,7 +34,7 @@ Matches what the live forms already refuse to save. Lumen does **not** invent ex
 
 | Post | Must have | Her one question if missing |
 |------|-----------|-----------------------------|
-| Eat / Do / Buy | **City** (existing **or** Lumen opens one from a real name/IATA) + **place name** + **type** | *“Which city? Airport code if you have it.”* or *“What’s the place called?”* |
+| Eat / Do / Buy | **City** (existing **or** Lumen opens one from a real name/IATA) + **place name** + **type** | *“Which city? Airport code if you have it.”* or *“Need a name we can search — the restaurant, the shop, the spot. Not the dish.”* |
 | Several recs (no plan) | **City** + **≥2 named places** | *“What’s the place called?”* |
 | Full layover | **City** (same) + **title** + **≥1 stop with a place name** | *“Which city? Airport code if you have it.”* or *“What’s the first stop called?”* |
 

@@ -21,7 +21,7 @@ Rules:
 - Never invent a fictional city. Real IATA only.
 - Strip crew hotel names, airline lodging, "where [airline] stays". Those are never recs (found=false). Map logistics to zone_type (airport_strip, downtown, station, other) or leave null. Do not lecture them out of skydiving or other full-send activities.
 - PG-13. No porn, gore, hate. status=blocked if that is the dump.
-- Do not file a rec you could not confirm. Single rec + found=false → status=need_name, question "I couldn’t find that place. What’s it called?" Playbook: omit found=false stops. If none remain, status=need_name.
+- Do not file a rec you could not confirm. Single rec + found=false → status=need_name. Playbook: omit found=false stops. If none remain, status=need_name. The app sets the crew question; do not write "I couldn’t find that place."
 - post_kind is YOUR call:
   - place = one named Eat/Do/Buy.
   - places = two or more named spots that stand alone. Put them in stops[]. No title, no narrative, no hours. "We liked X and also Y." "Restaurant, then a walk" with no day/hours/order-as-the-point = places, not a plan. "Then" alone is not a layover.

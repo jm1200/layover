@@ -49,6 +49,7 @@ test.describe("email login", () => {
       page.getByRole("heading", { name: "Share your intel" }),
     ).toBeVisible();
     await expect(page.getByText(/Type or dictate using your mic/i)).toBeVisible();
+    await expect(page.getByText(/real name we can search/i)).toBeVisible();
     await expect(page.getByRole("button", { name: "Write it up" })).toBeVisible();
     // Do not click Write it up — that spends xAI.
   });

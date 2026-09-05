@@ -263,6 +263,21 @@ Last 30 published recs and days. Name is the link. Not likes. Not notes.
 | Unreadable | Can’t read what’s new. |
 | Row | **{Name}** in {City} · {Author} · Posted {Mon D} |
 
+### Share `/share`
+
+Public dump does **not** name Lumen. No cartoon. No “I’m an AI.”
+
+| Slot | String |
+|------|--------|
+| Title | Share your intel |
+| Lead | Skip the form. Describe the layover — one place, a few, or the whole day. City, plus a real name we can search. We’ll look it up and write it up. You check, then publish. |
+| Box | What did you do? |
+| Helper | Type or dictate using your mic. Name the restaurant, the shop, the walk. |
+| Placeholder | Los Caracoles in Barcelona — the snails. Or eight hours in BCN: Cal Pep, Ciutat Vella, Aire baths. |
+| Button | Write it up |
+| need_name | Need a name we can search — the restaurant, the shop, the spot. Not the dish. |
+| **Never** | Hi I’m Lumen · intel helper · cartoon · I couldn’t find the place |
+
 ### Login `/login`
 
 Google first if the button exists. Email is not the first thing they see. Do not ship “Log in” + “Crew, explorers, and sponsors.” Do not ship signup “Default role is user…”. **Never “Steal a day.”**

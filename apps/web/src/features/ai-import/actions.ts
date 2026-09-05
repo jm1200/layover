@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/features/auth/get-profile";
 import { EXTRACT_MODEL } from "@/lib/ai/xai";
 import { MAX_STORY_CHARS, type LumenExtract } from "@/features/ai-import/schema";
+import { NEED_NAME_QUESTION } from "@/features/ai-import/copy";
 import {
   extractWithLumen,
   matchCity,
@@ -132,10 +133,9 @@ export async function fillDraft(
       payload: extract as unknown as Record<string, unknown>,
     });
     const question =
-      extract.question ||
-      (extract.status === "need_city"
-        ? "Which city? Airport code if you have it."
-        : "What’s the place called?");
+      extract.status === "need_name"
+        ? NEED_NAME_QUESTION
+        : extract.question || "Which city? Airport code if you have it.";
     return {
       question,
       story,
@@ -420,7 +420,7 @@ export async function fillDraft(
         payload: extract as unknown as Record<string, unknown>,
       });
       return {
-        question: "What’s the place called?",
+        question: NEED_NAME_QUESTION,
         story,
         hintSlug: city.slug,
       };
@@ -460,7 +460,7 @@ export async function fillDraft(
         payload: extract as unknown as Record<string, unknown>,
       });
       return {
-        question: "I couldn’t find that place. What’s it called?",
+        question: NEED_NAME_QUESTION,
         story,
         hintSlug: city.slug,
       };
@@ -474,7 +474,7 @@ export async function fillDraft(
         payload: extract as unknown as Record<string, unknown>,
       });
       return {
-        question: "What’s the place called?",
+        question: NEED_NAME_QUESTION,
         story,
         hintSlug: city.slug,
       };

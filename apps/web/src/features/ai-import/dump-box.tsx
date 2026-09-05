@@ -36,11 +36,12 @@ export function DumpBox({
           maxLength={MAX_STORY_CHARS}
           defaultValue={story}
           readOnly={Boolean(state.question)}
-          placeholder="Snails at Los Caracoles. Or: eight hours in BCN — tapas, a walk, the baths…"
+          placeholder="Los Caracoles in Barcelona — the snails. Or eight hours in BCN: Cal Pep, Ciutat Vella, Aire baths."
           className="rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-base leading-relaxed outline-none focus:border-zinc-900"
         />
         <span className="text-xs text-zinc-500">
-          Type or dictate using your mic.
+          Type or dictate using your mic. Name the restaurant, the shop,
+          the walk.
         </span>
       </label>
 
@@ -51,6 +52,7 @@ export function DumpBox({
             name="answer"
             required
             autoFocus
+            placeholder="Los Caracoles"
             className="rounded-xl border border-amber-300 bg-white px-3 py-2"
           />
         </label>

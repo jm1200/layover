@@ -4,6 +4,16 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-09-05 — Share page: talk, not a mascot
+
+**Source:** Shareholder — Share your intel doesn’t say what she needs. “Couldn’t find the place” was confusing. Wants the bare minimum on the page. Tempted by cartoon Lumen; worried that’s off-putting / AI-fear.
+
+**Call:** No cartoon. Do not name her on `/share`. Lead adds *City, plus a real name we can search.* Helper names restaurant/shop/walk. `need_name` crew line: *Need a name we can search — the restaurant, the shop, the spot. Not the dish.* Admin log caption stays *What’s the place called?*
+
+**Status:** Copy in. No mascot.
+
+---
+
 ## 2026-09-05 — Buy stays a shop (mayo dump)
 
 **Source:** Shareholder — Frankfurt mayo, no store. Lumen: couldn’t find the place. Two minds: need a door vs “any grocery.” Then: most people who dump Buy will know the shop; empty Buy may just be him not shopping.
