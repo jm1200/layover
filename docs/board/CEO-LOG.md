@@ -4,6 +4,16 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-09-05 — Buy stays a shop (mayo dump)
+
+**Source:** Shareholder — Frankfurt mayo, no store. Lumen: couldn’t find the place. Two minds: need a door vs “any grocery.” Then: most people who dump Buy will know the shop; empty Buy may just be him not shopping.
+
+**Call:** **Buy is a venue.** The thing is **Get this**. Do not file a city-level SKU. Do not invent “any Rewe.” Do not un-park the shopping-tips surface to fill a thin rail. Missing store = one question (*Where’d you grab it?*), then don’t file if they still don’t know. Empty Buy is density, not a new object.
+
+**Status:** Locked. No `apps/` this cut.
+
+---
+
 ## 2026-09-03 — Admin people + what’s new (not Phase 6)
 
 **Source:** Shareholder — list of users, when they logged in, if anything new landed. On `/admin`.

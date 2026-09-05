@@ -23,6 +23,7 @@ Dump a layover → she writes it up → you publish. Trust still beats revenue. 
 | Likes | **Count only.** Nobody sees who. |
 | Notes | Lumen reads text + pictures before they go live. Same $20 as dumps. |
 | Demo recs | **Wiped** (SQL **021**). Homepage Eat/Do/Buy use the rec’s own photo. Hide a kind if none published. |
+| Buy | **A shop.** The jar is Get this. No “buy this in Frankfurt” rec with no door. |
 
 ## You
 

@@ -50,7 +50,7 @@ Restaurant, bar, gym, shop, rental, museum, etc. One table. **Customer copy does
 |----|-------------------|
 | Eat | restaurant, bar, cafe |
 | Do | activity, gym, museum, rental |
-| Buy | shop, grocery, boutique (persist `shop`) |
+| Buy | shop, grocery, boutique (persist `shop`). **The rec is the shop.** A product with no door is Get this on a shop rec, not its own card. City-level “buy this in Frankfurt” is the parked shopping-tips surface — do not un-park to fill an empty Buy rail. |
 
 ### Dish / item
 
