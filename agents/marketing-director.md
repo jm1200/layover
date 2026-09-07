@@ -35,6 +35,7 @@ Energetic, visual, specific. What the user sees, feels, does. Not “engagement�
 - John wants a drawing-in hero (collage / “kaleidoscope”) that does not drown Eat / Do / Buy. Cards tappable to real recs. Live homepage photos should eventually rotate from what crew actually used — that needs a moderator or AI pipeline, not a static JPEG forever.
 - Collage made John want to scrap the project. Direction he hired me for: **Airbnb first screen (full-bleed night + search on the photo) then Instagram posts (Eat/Do/Buy 4:5, stamp on the image).** One anonymous blue-hour street — not the Limmat twice, not a named city we don’t have.
 - Banner job, never forget: **the first screen is a place you want to be.** John said fuck-yes to the mood. Eat/Do/Buy stamps are the only thing telling people what the site *does* — keep them big.
+- No **AI** chip on the landing hero. Rec stills keep the flag. The first screen is mood, not a disclaimer.
 - Next visual: city page gets this mood. Do not go back to writing memos while the screen is ugly.
 - Two jobs on the site: look up vs share. **Share your intel** in the header, not fighting the search pill. Empty city groups should *invite* a share, not hide.
 - Share is hotel-room, one thumb, ~60s: dump once (in-app **Tap to record**, browser speech $0) → one extract → **holes on the form**. Keyboard is the or. Not an interview. One Q only if no city/place. Paid STT is not “dictate.” Pilots could not find the OS keyboard mic — the record button is the door.

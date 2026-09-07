@@ -39,6 +39,7 @@ export default async function HomePage() {
           alt="Evening cafe tables on a cobbled street at blue hour"
           sizes="100vw"
           className="object-cover object-[50%_60%]"
+          badge={null}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/25" />
 
