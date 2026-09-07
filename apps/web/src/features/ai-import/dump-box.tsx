@@ -3,7 +3,11 @@
 import { useActionState, useEffect, useRef, useState } from "react";
 import { fillDraft, type ShareState } from "@/features/ai-import/actions";
 import { MAX_STORY_CHARS } from "@/features/ai-import/schema";
-import { speechCtor, type SpeechEngine } from "@/features/ai-import/speech";
+import {
+  foldTranscript,
+  speechCtor,
+  type SpeechEngine,
+} from "@/features/ai-import/speech";
 
 const initial: ShareState = {};
 
@@ -23,6 +27,8 @@ export function DumpBox({
   const engine = useRef<SpeechEngine | null>(null);
   const wantListen = useRef(false);
   const committed = useRef("");
+  /** Text already in the box when this recognition pass started. */
+  const prior = useRef("");
 
   useEffect(() => {
     if (state.story) setDraft(state.story);
@@ -57,27 +63,16 @@ export function DumpBox({
       setMicError("This browser won’t record. Type it, or try Safari or Chrome.");
       return;
     }
-    committed.current = draft.trim();
+    prior.current = draft.trim();
+    committed.current = prior.current;
     const rec = new Ctor();
     rec.continuous = true;
     rec.interimResults = true;
     rec.lang = typeof navigator !== "undefined" ? navigator.language : "en-US";
     rec.onresult = (ev) => {
-      let finals = "";
-      let interim = "";
-      for (let i = ev.resultIndex; i < ev.results.length; i++) {
-        const piece = ev.results[i][0].transcript;
-        if (ev.results[i].isFinal) finals += piece;
-        else interim += piece;
-      }
-      if (finals) {
-        committed.current = [committed.current, finals.trim()]
-          .filter(Boolean)
-          .join(" ")
-          .slice(0, MAX_STORY_CHARS);
-      }
-      const next = [committed.current, interim.trim()].filter(Boolean).join(" ");
-      setLive(next.slice(0, MAX_STORY_CHARS));
+      const folded = foldTranscript(prior.current, ev.results);
+      committed.current = folded.committed.slice(0, MAX_STORY_CHARS);
+      setLive(folded.live.slice(0, MAX_STORY_CHARS));
     };
     rec.onerror = (ev) => {
       if (ev.error === "not-allowed" || ev.error === "service-not-allowed") {
@@ -90,6 +85,7 @@ export function DumpBox({
       setMicError("Couldn’t hear that. Try again, or type it.");
     };
     rec.onend = () => {
+      prior.current = committed.current;
       if (!wantListen.current) {
         setListening(false);
         const next = (committed.current || draft).trim();
