@@ -50,8 +50,24 @@ export type Dish = {
 };
 
 export const ZONE_LABELS: Record<ZoneType, string> = {
-  airport_strip: "Airport area",
-  downtown: "Downtown / centre",
+  airport_strip: "Airport layover",
+  downtown: "Downtown",
   station: "Station area",
   other: "Other area",
 };
+
+/** Public word. Downtown / airport layover, never a hotel name. */
+export function zonePublicLabel(z: {
+  type: string;
+  name?: string | null;
+}): string {
+  if (z.type === "airport_strip") return ZONE_LABELS.airport_strip;
+  if (z.type === "downtown") return ZONE_LABELS.downtown;
+  if (z.type === "station") {
+    return z.name?.trim() || ZONE_LABELS.station;
+  }
+  if (z.type === "other") {
+    return z.name?.trim() || ZONE_LABELS.other;
+  }
+  return z.name?.trim() || z.type;
+}

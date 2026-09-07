@@ -20,7 +20,7 @@ import {
   listPlacesForCity,
   listZonesForCity,
 } from "@/features/places/queries";
-import { ZONE_LABELS, type ZoneType } from "@/features/places/types";
+import { zonePublicLabel } from "@/features/places/types";
 import { LayoverPreviewCard } from "@/features/playbooks/layover-card";
 import {
   listPlaybooksForCity,
@@ -75,9 +75,7 @@ export default async function CityPage({
     byKind[recKindFromCategory(p.category)].push({
       id: p.id,
       name: p.name,
-      zone: z
-        ? z.name || ZONE_LABELS[z.type as ZoneType] || z.type
-        : null,
+      zone: z ? zonePublicLabel(z) : null,
       still: stillForPlace(p),
     });
   }

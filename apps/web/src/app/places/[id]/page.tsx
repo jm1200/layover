@@ -19,7 +19,7 @@ import {
   listPlacePhotos,
   listZonesForCity,
 } from "@/features/places/queries";
-import { ZONE_LABELS, type ZoneType } from "@/features/places/types";
+import { zonePublicLabel } from "@/features/places/types";
 import { postedOn } from "@/features/auth/your-cards";
 import { AlreadyBanner } from "@/features/social/already-banner";
 import { Byline } from "@/features/social/byline";
@@ -143,9 +143,7 @@ export default async function PlacePage({
                   {city.name}
                 </Link>
               ) : null}
-              {zone
-                ? ` · ${zone.name || ZONE_LABELS[zone.type as ZoneType] || zone.type}`
-                : null}
+              {zone ? ` · ${zonePublicLabel(zone)}` : null}
             </p>
             <Byline
               name={byline}

@@ -10,7 +10,7 @@ import {
   type RecKind,
 } from "@/features/places/kind";
 import type { City, Zone } from "@/features/places/types";
-import { ZONE_LABELS, type ZoneType } from "@/features/places/types";
+import { zonePublicLabel } from "@/features/places/types";
 
 type Props = {
   action: (
@@ -67,8 +67,8 @@ export function PlaceForm({
   return (
     <form action={formAction} className="flex max-w-lg flex-col gap-4">
       <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950">
-        Use <strong>zones</strong> (airport strip, downtown, station) for
-        logistics. Do not name crew hotels or airline lodging.
+        No hotel names — airline security. Downtown or airport layover is
+        fine.
       </p>
 
       <label className="flex flex-col gap-1 text-sm">
@@ -96,7 +96,7 @@ export function PlaceForm({
 
       <label className="flex flex-col gap-1 text-sm">
         <span className="font-medium">
-          Cluster this sits in (downtown, airport, station)
+          Downtown or airport layover
         </span>
         <select
           name="zone_id"
@@ -109,7 +109,7 @@ export function PlaceForm({
           {cityZones.map((z) => (
             <option key={z.id} value={z.id}>
               {cityName(z.city_id)}:{" "}
-              {z.name || ZONE_LABELS[z.type as ZoneType] || z.type}
+              {zonePublicLabel(z)}
             </option>
           ))}
         </select>

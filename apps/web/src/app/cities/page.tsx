@@ -22,8 +22,8 @@ export default async function CitiesPage() {
       <main className="mx-auto max-w-6xl px-4 py-10">
         <h1 className="text-2xl font-semibold tracking-tight">Cities</h1>
         <p className="mt-2 text-zinc-600">
-          Eat, do, buy — plus the perfect layover. Organics first, zones not
-          hotels.
+          Eat, do, buy — plus the perfect layover. Downtown or airport
+          layover, never a hotel name.
         </p>
         {cities.length === 0 ? (
           <p className="mt-8 text-sm text-zinc-500">

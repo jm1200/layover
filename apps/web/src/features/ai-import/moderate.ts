@@ -1,9 +1,12 @@
+import { NO_HOTELS } from "@/features/ai-import/copy";
+
 /** Cheap lodging leak check. Lumen’s extract does the real-place lookup. */
 
 const LODGING =
   /\b(crew hotel|layover hotel|airline hotel|our hotel|the hotel|crew house|crash pad|where \w+ stays)\b/i;
 
 export function lodgingLeak(text: string): boolean {
+  // "airport layover" / "downtown" are zones, not lodging.
   return LODGING.test(text);
 }
 
@@ -12,7 +15,7 @@ export function refusePublicCopy(
   blurb?: string | null,
 ): string | null {
   if (lodgingLeak(`${name}\n${blurb ?? ""}`)) {
-    return "Zones, not hotels.";
+    return NO_HOTELS;
   }
   return null;
 }

@@ -36,7 +36,8 @@ export function StartItinerary({ stops }: { stops: Stop[] }) {
       <p className="mt-2 text-sm text-white/70">
         When do you want to start? We line up the stops from that clock. Exact
         buses, tickets, and walking directions are the AI step — not live yet.
-        We never ask for a hotel name.
+        No hotel names — airline security. Downtown or airport layover is
+        fine.
       </p>
       <div className="mt-4 flex flex-wrap items-end gap-3">
         <label className="flex flex-col gap-1 text-sm">

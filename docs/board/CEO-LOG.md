@@ -4,6 +4,16 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-09-08 — No hotel names; downtown / airport layover
+
+**Source:** Shareholder.
+
+**Call:** Public rule: **No hotel names — airline security.** Accept zone only: **downtown** or **airport layover**. Lumen maps stay-location to those. Hotels are never recs. Do not block a real restaurant dump because they also mentioned a hotel — strip it.
+
+**Status:** Built.
+
+---
+
 ## 2026-09-08 — Talk is the dump door
 
 **Source:** Shareholder — pilots did not know they could rant into a mic, did not find the keyboard mic, thought it had to be pretty.

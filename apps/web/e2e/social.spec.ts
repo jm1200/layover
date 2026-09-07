@@ -43,7 +43,9 @@ test.describe("like, comment, byline", () => {
       "Stay at the crew hotel.",
     );
     await recComments.getByRole("button", { name: "Post" }).click();
-    await expect(page.getByText("Zones, not hotels.")).toBeVisible({
+    await expect(
+      page.getByText("No hotel names — airline security."),
+    ).toBeVisible({
       timeout: 15_000,
     });
 

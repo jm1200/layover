@@ -19,7 +19,7 @@ Publishing that on the open web can expose lodging patterns, safety risk, and op
 
 ### Allowed (public content)
 
-- **Layover zones:** airport strip, downtown, station, waterfront, etc.
+- **Layover zones:** **downtown** or **airport layover** (station / other when needed). Public words. Not hotel names.
 - Landmarks, transit hubs, street names not tied to crew housing
 - “Grocery for **airport hotel cluster** — ~5 min walk for most airport-area hotels”
 - Playbooks starting from **airport / station / downtown**, not from a named crew property
@@ -31,8 +31,8 @@ Each city has zones. Content that needs “near me” semantics uses zone tags.
 
 | Zone type | Intent |
 |-----------|--------|
-| `airport_strip` | Airport hotels + terminal area logistics |
-| `downtown` | City center / old town |
+| `airport_strip` | **Airport layover** — terminal / airport-area logistics, no property name |
+| `downtown` | **Downtown** |
 | `station` | Main rail / bus station cluster |
 | `other` | Named clusters (e.g. waterfront) without hotel lists |
 
@@ -86,6 +86,7 @@ Optional later precision for verified crew only:
 
 | Date | Decision |
 |------|----------|
+| 2026-09-08 | Public rule: **No hotel names — airline security.** Accept **downtown** or **airport layover**. |
 | 2026-08-03 | Public product uses zones, not crew hotels. Hotel-level public tips are out of scope. |
 | 2026-08-03 | Crew-only higher precision deferred to Phase 7 with light verification, not biometrics. |
 | 2026-08-21 | Rx / pharma shopping (Viagra, Party Smart, etc.) **parked** — not decided. Options later: ban Rx/controlled; OTC/convenience pharmacy only; allow with “not medical advice / check local law.” Never attach to crew hotels. Do not publish how-to-buy medical advice. Party Smart vs sildenafil are different legal classes. |

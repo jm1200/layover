@@ -6,7 +6,7 @@
 **Company:** Layover (working name)  
 **Stage:** Product is **live**. Two real pilots sat it. Four locks below — build these, do not restyle the homepage, do not add Facebook.
 
-Dump a layover → she writes it up → you publish. Trust still beats revenue. Zones, not hotels.
+Dump a layover → she writes it up → you publish. Trust still beats revenue. No hotel names — airline security. Downtown or airport layover is fine.
 
 ## Locked (do not relitigate)
 

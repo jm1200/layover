@@ -185,6 +185,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] Share cards (Open Graph + Twitter) on public pages — `lib/share-card.ts`. Homepage hero; city hero; rec still + blurb; layover narrative. Absolute image URLs via `NEXT_PUBLIC_SITE_URL`. Not a sitemap / Search Console.
 - [x] **Pilot cut 2026-09-07.** Login: Google first, email hidden. Signup submit **Sign up**. New rec/day forms redirect to `/share`. *or type it yourself* gone. Duplicate dump lands on the rec/day (`?already=1`). City catalog: Eat/Do/Buy/A day stamps, small still + title. Homepage share band after the 4:5 cards.
 - [x] **Talk-first dump (2026-09-08).** `/share` default is a highlighted **Tap to record** (browser speech, $0). Keyboard is the or. No paid STT.
+- [x] **No hotel names (2026-09-08).** Airline security. Public zones: **downtown** or **airport layover**. Hotels are never recs. Lumen maps stay-location to those zones.
 
 ## Session checklist for agents
 

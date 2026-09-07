@@ -46,8 +46,8 @@ export function PlaybookForm({
   return (
     <form action={formAction} className="flex max-w-xl flex-col gap-4">
       <p className="rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-950">
-        Start from airport / station / downtown zones — never “out the door of
-        [crew hotel].”
+        No hotel names — airline security. Downtown or airport layover is
+        fine.
       </p>
 
       {metaOnly && defaults?.city_id ? (

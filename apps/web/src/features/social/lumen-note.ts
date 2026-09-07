@@ -1,5 +1,6 @@
 import "server-only";
 
+import { NO_HOTELS } from "@/features/ai-import/copy";
 import { refuseComment } from "@/features/ai-import/moderate";
 import { aiBlocked } from "@/features/ai-import/spend";
 import {
@@ -16,6 +17,7 @@ const NOTE_RESERVE_USD = 0.01;
 const NOTE_PROMPT = `You check a layover note before it goes public.
 PG-13. No porn, gore, hate.
 No crew hotels, airline lodging, "where [airline] stays."
+Downtown or airport layover as a zone is fine. Do not refuse those.
 Photos of food, streets, public places, and real activities are fine.
 Hotel rooms, crew housing, porn, gore, or hate: refuse.
 ok=true if it can go on the site.
@@ -38,7 +40,7 @@ const NOTE_SCHEMA = {
 };
 
 function publicRefuse(kind: string | null): string {
-  if (kind === "hotel") return "Zones, not hotels.";
+  if (kind === "hotel") return NO_HOTELS;
   return "Keep it PG-13.";
 }
 

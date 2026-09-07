@@ -133,6 +133,10 @@ export function DumpBox({
           Rant. Gab. Messy is fine — we’ll tidy it. Name the restaurant, the
           shop, the walk.
         </p>
+        <p className="text-sm text-zinc-500">
+          No hotel names — airline security. Downtown or airport layover is
+          fine.
+        </p>
       </div>
 
       {followUp ? null : (
