@@ -13,6 +13,7 @@ import {
   listStopsForPlaybook,
 } from "@/features/playbooks/queries";
 import { postedOn } from "@/features/auth/your-cards";
+import { AlreadyBanner } from "@/features/social/already-banner";
 import { Byline } from "@/features/social/byline";
 import { CommentThread } from "@/features/social/comment-thread";
 import { LikeButton } from "@/features/social/like-button";
@@ -44,10 +45,14 @@ export async function generateMetadata({
 
 export default async function PlaybookPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ already?: string }>;
 }) {
   const { id } = await params;
+  const { already } = await searchParams;
+  const alreadyHere = already === "1";
   const playbook = await getPlaybook(id);
   if (!playbook) notFound();
 
@@ -156,6 +161,11 @@ export default async function PlaybookPage({
       </section>
 
       <main className="mx-auto max-w-6xl px-4 py-12">
+        {alreadyHere ? (
+          <div className="mb-10">
+            <AlreadyBanner kind="day" />
+          </div>
+        ) : null}
         <ol className="space-y-10">
           {stops.map((s) => {
             const pl = s.place_id ? placesById[s.place_id] : null;
@@ -221,6 +231,7 @@ export default async function PlaybookPage({
           loggedIn={Boolean(profile)}
           userId={profile?.id ?? null}
           nextPath={`/playbooks/${playbook.id}`}
+          invite={alreadyHere ? "Tell us how it went." : undefined}
         />
       </main>
     </div>

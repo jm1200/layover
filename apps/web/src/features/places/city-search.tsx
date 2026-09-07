@@ -97,8 +97,11 @@ export function CitySearch({
       {open ? (
         <ul className="absolute z-30 mt-1 max-h-56 w-full overflow-y-auto rounded-xl border border-zinc-200 bg-white text-left text-zinc-900 shadow-lg">
           {matches.length === 0 ? (
-            <li className="px-4 py-3 text-sm text-zinc-500">
-              We don’t have that city yet.
+            <li className="px-4 py-3 text-sm text-zinc-600">
+              Not on the map yet.{" "}
+              <a href="/share" className="font-medium underline">
+                Dump the layover — we’ll open the city.
+              </a>
             </li>
           ) : (
             matches.map((c) => (

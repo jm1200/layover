@@ -45,7 +45,7 @@ export function ReviewQueue({
           <RecPublish logId={logId} />
         ) : (
           <p className="mt-8 text-sm text-zinc-500">
-            Nothing new to file — that’s already on the city.
+            That’s already in. Open the rec and tell us your experience.
           </p>
         )}
       </div>

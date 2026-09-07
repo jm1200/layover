@@ -43,7 +43,8 @@ export async function signUp(
   if (data.session) {
     const profile = await getProfile();
     revalidatePath("/", "layout");
-    redirect(homeForRole(profile?.role ?? "user"));
+    const next = safeNextPath(String(formData.get("next") ?? ""));
+    redirect(next ?? homeForRole(profile?.role ?? "user"));
   }
 
   // Email confirmation ON → must confirm via link, then password login works

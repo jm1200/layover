@@ -4,6 +4,33 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-09-07 — Four pilot locks (login, dump-only, duplicate rec, city scan)
+
+**Source:** Shareholder sat two real pilots on the live site. Implementation authorized. Not a debate meeting.
+
+**Facts:** Google-first is already locked on paper (`features/auth.md`). Live `/login` still shows a white email card under a modest Google button — headline drifted to **Come in.** Signup submit is **Create account**. Older pilot could not tell sign-in from sign-up and could not see Google. Dashboard still has *or type it yourself* Eat · Do · Buy · Full layover (`/dashboard/places/new`, `/dashboard/playbooks/new`) — a pilot found that form before Share your intel. Dump of an existing place returns a red error (*That’s already on the city*) with an Open-it link — second Burgermeister dumper was blocked and upset. Matcher already exists (same city + normalized name). City page stacks three 4:5 Eat cards (`PREVIEW_COUNT = 3`) before Do/Buy. Homepage 4:5 cards are a different surface.
+
+### Decision (locked)
+
+| # | Item | Will do | Will not |
+|---|------|---------|----------|
+| 1 | Login | Google is the **only** first-screen control. Official G, cannot miss it. Email **hidden** until **Use email instead**. Headlines stay **In from a trip?** / **First time?** Email submit **Log in** / **Sign up** (not Create account). | Apple, Facebook, Instagram. A third OAuth. Merging `/login` and `/signup` into a wizard. Killing email forever. |
+| 2 | New intel | **Dump is the only way to add a rec or a day.** `/dashboard/places/new` and `/dashboard/playbooks/new` redirect to `/share`. Kill *or type it yourself*. Share your intel stays the name; make the pill louder; city page with recs still invites Share (not only empty groups). | Literal zero forms. Login, search, comments, edit existing rec/day, profile name/photo, dump box, review holes — those stay. Renaming Share. A mascot. A homepage dump product. |
+| 3 | Duplicate rec | Same city + same place name → **do not mint a second rec.** Land them on the existing rec. Banner + like + comment ready. Human line: *That’s already in. Tell us your experience.* Same pattern for a twin day (stop set). | A slap / red error. Auto-like. Auto-post the dump as a comment (hotels). Fuzzy chain-matching this cut — `normName` is enough. A second rec because they “wanted their own.” |
+| 4 | City page | First look must show **Eat and Do and Buy** as equal doors — no scrolling past three huge Eat cards to discover Do. Cards on city + kind lists: **small still + title**, not Instagram 4:5. Sofia picks accordion / chips / tabs. | Homepage restyle. Native `<select>` as the product. Shrinking the rec **detail** page. Killing Buy because it is thin. Reopening the 4-chip naming fight. |
+
+### Why not more
+
+Google is already the “other sign-in.” They could not see it. Adding Meta/Apple is two products we already killed. “Zero forms” as a slogan would kill login and comments — he meant **contribution CMS**. First-poster-wins is the opposite of crew intel. City scan is a city-page job; do not let it become a brand pass on `/`.
+
+**Engineering order:** (1) login visual truth (2) duplicate → existing rec (3) kill new-intel forms + Share louder (4) city scan. Sofia owns (1) feel and (4) layout. Theo/Milo code. Lumen owns the duplicate sentence. Playwright today hits `/dashboard/places/new` — Milo updates tests when forms die.
+
+**Shareholder ask:** None. Locked. Build.
+
+**Status:** Specs + brief + COMPANY_LOG aligned. No `apps/` from CEO.
+
+---
+
 ## 2026-09-05 — Share page: talk, not a mascot
 
 **Source:** Shareholder — Share your intel doesn’t say what she needs. “Couldn’t find the place” was confusing. Wants the bare minimum on the page. Tempted by cartoon Lumen; worried that’s off-putting / AI-fear.

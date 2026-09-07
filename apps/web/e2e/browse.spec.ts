@@ -10,6 +10,9 @@ test.describe("public browse", () => {
       page.getByRole("heading", { name: "Layover Intel" }),
     ).toBeVisible();
     await expect(page.getByText("For Crew, By Crew.")).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: "Been on a layover?" }),
+    ).toBeVisible();
     await expect(page.getByText("Baseball steak in Santiago")).toHaveCount(0);
     await expect(page.getByText("Float the Limmat in Zurich")).toHaveCount(0);
     await expect(page.getByAltText(/floating the Limmat/i)).toHaveCount(0);
@@ -33,9 +36,11 @@ test.describe("public browse", () => {
     await page.getByRole("link", { name: /Zurich/i }).first().click();
     await expect(page).toHaveURL(/\/cities\/zurich/);
     await expect(page.getByText("Full layover")).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Eat" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Do" })).toBeVisible();
-    await expect(page.getByRole("heading", { name: "Buy" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Eat" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Do" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Buy" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "A day" })).toBeVisible();
+    await expect(page.getByText(/Got something that isn’t here/i)).toBeVisible();
     await expect(page.getByText(/crew hotel/i)).toHaveCount(0);
     await expect(page.getByText(/airline hotel/i)).toHaveCount(0);
   });
@@ -60,6 +65,13 @@ test.describe("public browse", () => {
   test("share while logged out sends you to login", async ({ page }) => {
     await page.goto("/share");
     await expect(page).toHaveURL(/\/login/);
+  });
+
+  test("already-in banner on a rec", async ({ page }) => {
+    await gotoSeed(page, `${LIMMAT}?already=1`);
+    await expect(
+      page.getByText("That’s already in. Tell us your experience."),
+    ).toBeVisible();
   });
 
   test("homepage share card has picture and pitch", async ({ page }) => {

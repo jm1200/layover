@@ -21,8 +21,8 @@ export function SiteHeader({
       : "text-sm text-zinc-700 hover:text-zinc-900";
   const pill =
     tone === "dark"
-      ? "rounded-full bg-white px-4 py-2 text-xs font-bold uppercase tracking-wider text-zinc-950 hover:bg-white/90"
-      : "rounded-full bg-zinc-950 px-4 py-2 text-xs font-bold uppercase tracking-wider text-white hover:bg-zinc-800";
+      ? "rounded-full bg-white px-5 py-2.5 text-sm font-bold uppercase tracking-wider text-zinc-950 shadow-lg hover:bg-white/90"
+      : "rounded-full bg-zinc-950 px-5 py-2.5 text-sm font-bold uppercase tracking-wider text-white shadow-sm hover:bg-zinc-800";
 
   return (
     <div className={bar}>
@@ -31,7 +31,10 @@ export function SiteHeader({
           Layover
         </Link>
         <nav className="flex items-center gap-4">
-          <Link href={loggedIn ? "/share" : "/signup"} className={pill}>
+          <Link
+            href={loggedIn ? "/share" : "/signup?next=/share"}
+            className={pill}
+          >
             Share your intel
           </Link>
           <Link href="/cities" className={citiesCls}>

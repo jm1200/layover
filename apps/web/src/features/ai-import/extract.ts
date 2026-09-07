@@ -235,9 +235,10 @@ export function matchPlace(
 ): Place | undefined {
   const n = normName(name);
   if (!n) return undefined;
-  return places.find(
+  const hits = places.filter(
     (p) => p.city_id === cityId && normName(p.name) === n,
   );
+  return hits.find((p) => p.status === "published") ?? hits[0];
 }
 
 export function normName(s: string): string {

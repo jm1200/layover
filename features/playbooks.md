@@ -45,11 +45,11 @@ A **full layover** is a combo of places. When Lumen drafts a plan from a story, 
 - **Homepage `/`:** **Layover Intel — For Crew, By Crew.** Collage + tappable Eat/Do/Buy cards (rec name + city, country under the still) + city search. Series line “The perfect layover does not exist…” is **not** on `/` (city / plan pages). Organic only — never an ad name.
 - **Not the city chip:** The perfect layover (homepage series only), Plan (object / add-flow only), Itineraries (optional later sentence copy, not the tab), Guides, Ideas / Layover ideas, Play, tour, adventure, Full (alone), Full package, crew recs / crew staples (those names are the whole organic rail).
 - Internal table/routes may stay `playbooks` this cut (no rename migration).
-- [x] Add chooser offers **Full layover** next to Eat / Do / Buy (those three are places).
-- [x] City page: layover-plan list stays first, then Eat/Do/Buy groups. Jump chip **Full layover** with count. No separate `/plans` IA this cut. No photo grid this cut.
+- **Add flow (pilot lock 2026-09-07):** no dashboard create form. New day = `/share`. `/dashboard/playbooks/new` **redirects to `/share`**. Edit existing day stays. Twin day lands on the existing day (see `features/ai-import.md`).
+- **City page (pilot lock 2026-09-07):** Eat / Do / Buy must be visible as equal doors on the first look (places spec). Full layover stays on the same page — after or beside those doors, not a fourth Instagram row of huge cards. No separate `/plans` IA. Homepage `/` is not this cut.
 
 ## UI copy (locked 2026-08-26 — Sofia; dashboard 2026-08-27 — Lumen)
 
-**Dashboard** (`/dashboard`): title **Your recommendations**. Grouped **by city**. Under each: **Full days** then **Recs**. Card: posted date → pics → name + blurb. This user’s **published** rows only — seed and other people are not yours. **No** `(draft)` / `(published)`. Public pages never say **rec**. Dashboard and the profile menu (**Your recs**) may. Quiet *or type it yourself* stays after the cards.
+**Dashboard** (`/dashboard`): title **Your recommendations**. Grouped **by city**. Under each: **Full days** then **Recs**. Card: posted date → pics → name + blurb. This user’s **published** rows only — seed and other people are not yours. **No** `(draft)` / `(published)`. Public pages never say **rec**. Dashboard and the profile menu (**Your recs**) may. **No** *or type it yourself* — new day is Share your intel.
 
-**Edit layover** (`/dashboard/playbooks/[id]/edit`): **one button.** Label **Save**. Persists title + story + stop drop/reorder, keeps the day live, then **lands on the layover** (`/playbooks/[id]`). Kill **Publish — live on the city** here. Kill **Save stop order**. New layover create still uses **Publish**.  
+**Edit layover** (`/dashboard/playbooks/[id]/edit`): **one button.** Label **Save**. Persists title + story + stop drop/reorder, keeps the day live, then **lands on the layover** (`/playbooks/[id]`). Kill **Publish — live on the city** here. Kill **Save stop order**. New layover create is the dump (`/share`), not this form.  

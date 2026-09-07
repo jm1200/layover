@@ -29,7 +29,7 @@ A destination hub (Zurich, Delhi, Vienna). Browse starts here, often with **hour
 
 **Homepage IA (2026-08-22):** **Layover Intel — For Crew, By Crew.** Visual scene, then tappable **Eat / Do / Buy** cards to real place rows, then **Where are you headed?** No city chips on `/`. **The perfect layover** series is not on the landing. **Rejected on `/`:** “Steal the whole layover.” Do not put camping/Ontario here.
 
-**City browse IA (4-chip structure + first chip locked 2026-08-21; Buy locked 2026-08-22):** Hybrid on the **same** city page — not four category sites. Jump chips **Full layover · Eat · Do · Buy**, then grouped **text** lists. Chip 1 stays **Full layover** (shareholder reordered the *landing*, not this page). Object name: **layover plan**. Public third verb is **Buy** (not Shop) — one word with the homepage. Internal category may stay `shop`. **Rejected for chip 1:** Ideas / Layover ideas (Eat·Do·Buy are already ideas; Phase 5 ads already use “New idea…”); Guides; Itineraries (OK later in a sentence, not the tab); Plan as the chip; Play / tour / adventure / Full package; **The perfect layover** as a city chip (that name is the homepage *series* only). **Buy stays first-class** (Delhi shopping is real; density from content, not extra pages). Zones stay. Users do not create cities. Rx / pharma shopping policy is **parked**, not this cut. Photo grid on city = **parked**.
+**City browse IA (pilot lock 2026-09-07):** Same city page — not four category sites. First look must show **Eat and Do and Buy** as equal doors (accordion / chips / tabs — Sofia). Cards on that scan: **small still + title**, not Instagram 4:5. Rec detail stays photo-first. Homepage `/` cards are a different surface — do not restyle `/` in this cut. Full layover stays on the city page, not a fourth huge-card row. Object name: **layover plan**. Public third verb is **Buy**. **Buy stays first-class**. Zones stay. Users do not create cities. Rx / pharma parked. Do not reopen chip naming.
 
 ### Layover zone
 
@@ -89,7 +89,7 @@ Caps so the page does not become a billboard (product detail in sponsorship feat
 
 ## AI contribution
 
-Users **dump a story** (dictate on the phone keyboard, or type). **Lumen** extracts **once** into Eat/Do/Buy and, for a full layover, **each stop as a place** plus the linked plan → **holes on the draft they tap → publish**. One question only if she cannot draft (no city / no place). Photo-first, **1 still per place**. No auto-publish. Not a travel-agent chatbot. Cheap xAI SKUs + tight quotas; **no production spend without John’s yes** (see OPS). Phase 4 — **not built**; waits on shareholder yes + API key + $ cap.
+Users **dump a story** (dictate on the phone keyboard, or type). **Lumen** extracts **once** into Eat/Do/Buy and, for a full layover, **each stop as a place** plus the linked plan → **holes on the draft they tap → publish**. One question only if she cannot draft (no city / no place). Photo-first, **1 still per place**. No auto-publish. Not a travel-agent chatbot. Cheap xAI SKUs + tight quotas; **no production spend without John’s yes** (see OPS). **New intel is the dump only** (2026-09-07) — dashboard create forms die. Same place already on the city → land on it (like + comment), do not mint a twin. Phase 4 is **built**.
 
 ## Monetization
 

@@ -8,7 +8,7 @@
 
 **Lumen fills the existing form.** Crew dump a layover (they will dictate); one extract; they tap blanks and publish. Not a chatbot interview. Not a second product.
 
-**Share your intel** is `/share` (this flow). Dashboard forms remain as a fallback.
+**Share your intel** is `/share` (this flow). **Pilot lock 2026-09-07:** this is the **only** way to add a rec or a day. Dashboard create forms are not a fallback — they redirect here.
 
 ## Share flow (UX locked 2026-08-24 — Sofia)
 
@@ -63,6 +63,7 @@ Auth required to run extract. Anonymous: no post.
 - Missing dish / zone / hours → **empty fields.** She writes the blurb. Missing **required** city / name / (layover) title+one stop → one question, then extract.
 - **Share a rec (Eat / Do / Buy):** one place draft.
 - **Share a full layover:** Lumen drafts the **plan and each stop as a place**, then links the stops. Match an existing place in that city by name. Match an existing plan by **stop set** (same city, same places) — title wording is hers, not a new day. Do not copy the day. Cap: **4 stops**. **Narrative comes from the dump** onto the review card. User hits Publish.
+- **Duplicate rec (pilot lock 2026-09-07):** same city + same place name (`normName`) → **do not mint a second rec.** Do not return a red error. **Land them on the existing rec** (`/places/[id]`). Banner + like + comment ready. Human line: *That’s already in. Tell us your experience.* They like and comment themselves. **Do not** auto-like. **Do not** paste the dump into the comment (hotels). Twin day (same stop set): land on the existing day, same pattern (*This day’s already in. Tell us how it went.*). Mixed dump (some new, some existing): file the new; do not present the existing as a new card. Matcher stays city + normalized name — no fuzzy chain-matching this cut.
 - **Pictures (photo-first) — 2026-08-26:**
   - **Place (1):** exterior / walk-up. City card. Upload, or she stills **after Publish** if they skip it. One generation. AI flag. No checkbox homework. No black rectangle.
   - **Dishes (0–3, Eat/Buy):** named photos on **Get this**. User upload only. No AI per plate.
@@ -110,6 +111,8 @@ Auth required to run extract. Anonymous: no post.
 - [x] `AiImportLog` for cost and abuse
 - [x] Admin kill switch respected
 - [x] Failures show safe error; no key leakage
+- [x] **Pilot lock 2026-09-07:** duplicate rec dump lands on the existing rec (banner + like + comment). Twin day lands on the existing day. No red slap. No second rec.
+- [x] **Pilot lock 2026-09-07:** `/dashboard/places/new` and `/dashboard/playbooks/new` redirect to `/share`. Dashboard *or type it yourself* gone. Empty “Share one.” → `/share`.
 
 ## Cost
 
@@ -172,7 +175,14 @@ Do not invent a CMS voice. Login strings also live in `features/auth.md`. Photo 
 
 **Twin day**
 
-- `Same day. Recs stay — I didn’t copy the layover.` + `Open it`
+- Land on the existing day. Banner: `This day’s already in. Tell us how it went.`
+- Kill: red error `That’s already on the city` / `Those are already on the city` + a consolation Open-it link.
+
+**Duplicate rec (pilot lock 2026-09-07)**
+
+- Land on the existing rec. Banner: `That’s already in. Tell us your experience.`
+- Comment box ready (Leave a note). Like is there. They do the rest.
+- Kill: red error that blocks them. Kill minting a twin.
 
 **Rec photos (locked 2026-08-27)**
 

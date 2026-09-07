@@ -27,6 +27,7 @@ export function CommentThread({
   loggedIn,
   userId,
   nextPath,
+  invite,
 }: {
   kind: SocialKind;
   id: string;
@@ -34,6 +35,7 @@ export function CommentThread({
   loggedIn: boolean;
   userId: string | null;
   nextPath: string;
+  invite?: string;
 }) {
   const bound = addComment.bind(null, kind, id);
   const [state, action, pending] = useActionState(bound, initial);
@@ -53,7 +55,10 @@ export function CommentThread({
   }, [state.success, pending]);
 
   return (
-    <section className="mt-14 border-t border-zinc-200 pt-10">
+    <section
+      id="comments"
+      className="mt-14 scroll-mt-6 border-t border-zinc-200 pt-10"
+    >
       <h2 className="font-mono text-sm uppercase tracking-[0.28em] text-zinc-400">
         Comments
       </h2>
@@ -201,7 +206,7 @@ export function CommentThread({
               required
               maxLength={500}
               rows={3}
-              placeholder="Been? Add a line."
+              placeholder={invite ?? "Been? Add a line."}
               className="rounded-lg border border-zinc-300 px-3 py-2 text-base"
             />
           </label>

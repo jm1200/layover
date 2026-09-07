@@ -128,8 +128,7 @@ This page is **Your recommendations** — published recs and days. It is not a f
 | Recs heading | Recs |
 | Recs empty | Nothing here yet. Share one. |
 | Posted | Posted {Mon D} |
-| Manual (quiet, after the cards) | or type it yourself |
-| Manual links | Eat · Do · Buy · Full layover |
+| Manual | *(gone — new intel is Share your intel)* |
 
 Grouped **by city** (A–Z). City name is the section, big bold — not repeated on every card. Under each city: **Full days** then **Recs**. A rec that also sits in a day still belongs in Recs.
 
@@ -143,7 +142,7 @@ Grouped **by city** (A–Z). City name is the section, big bold — not repeated
 
 | **Never** on this page | Your dashboard · Yours · You · a **Share your intel** card · four equal form cards · Browse cities · Admin · `{email} · {role}` · role chips · “Dump a layover. She fills the form…” · `(draft)` · `(published)` · Status · other people’s recs · seed · ISO dates · “updated” · hotels |
 
-*or type it yourself* **stays** after the cards. Dump is the door. These links are the back stairs. Do not move them to the header. Do not kill them. Do not promote them to four CMS tiles.
+*or type it yourself* **dies** (2026-09-07). Dump is the door. Empty **Share one.** goes to `/share`. Do not put the create forms back. Edit existing recs/days still lives on the public page.
 
 ### Admin `/admin` · Sponsor `/sponsor`
 
@@ -280,7 +279,7 @@ Public dump does **not** name Lumen. No cartoon. No “I’m an AI.”
 
 ### Login `/login`
 
-Google first if the button exists. Email is not the first thing they see. Do not ship “Log in” + “Crew, explorers, and sponsors.” Do not ship signup “Default role is user…”. **Never “Steal a day.”**
+Google is the **only** first-screen control (pilot lock 2026-09-07). Email is hidden until **Use email instead** — not a white form sitting under a modest Google button. Do not ship “Log in” + “Crew, explorers, and sponsors.” Do not ship signup “Default role is user…”. Signup email submit is **Sign up**, never **Create account**. Live headline **Come in.** is a miss — stay **In from a trip?** **Never “Steal a day.”** Not Apple / Facebook.
 
 | Slot | String |
 |------|--------|
@@ -317,16 +316,19 @@ Hero spend stays silent. If the city has no banner, she still generates one on f
 
 She **must** fill this from the paragraph they pasted. Rec blurbs are not a substitute. Empty on the form after extract = copy the dump in. Empty on Publish = refuse.
 
-### Twin days
+### Twin days / duplicate rec (pilot lock 2026-09-07)
 
-Same named stops in that city = the same day, even if she titled it differently this time. Title is hers. Stop set is the match.
+Same named stops in that city = the same day, even if she titled it differently this time. Title is hers. Stop set is the match. Same city + same place name = the same rec.
+
+Do **not** mint a twin. Do **not** slap them with a red error. **Land them on the existing rec or day.** Like + comment are there. They tell us their experience.
 
 | Slot | String |
 |------|--------|
-| Refuse | Same day. Recs stay — I didn’t copy the layover. |
-| Link | Open it |
+| Duplicate rec banner | That’s already in. Tell us your experience. |
+| Twin day banner | This day’s already in. Tell us how it went. |
+| **Never** | That’s already on the city. · Those are already on the city. · Open it as a consolation on a red error |
 
-Rec dump of an existing place still: `That rec is already on the city.` Recs they already filed stay. Do not mint a second sequenced day.
+Do not auto-like. Do not paste the dump into the comment.
 
 ### Photos
 
@@ -476,7 +478,8 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - Same stops / same story is the same day even with a new title. Recs stay; do not copy the day.
 - Save a day → send them back to the day.
 - Two headers is two sites. One family: Layover · Share your intel · Cities · profile icon. Menu: **Profile** (name and photo), **Your recs** (the desk), Log out. Never the display name in the menu. Never You. Never `{email} · {role}`.
-- Dashboard is not a CMS chooser. **Your recommendations** is a scrapbook: Full days (stop strip), then Recs (4:5 + stamp), stills, **city** bold, `Posted {Mon D}`. Share already lives in the header. Four form cards are homework. Quiet *or type it yourself* stays after the cards.
+- Dashboard is not a CMS chooser. **Your recommendations** is a scrapbook: Full days (stop strip), then Recs (4:5 + stamp), stills, **city** bold, `Posted {Mon D}`. Share already lives in the header. Four form cards are homework. *or type it yourself* **dies** — new intel is the dump.
+- Duplicate rec is not a slap. Land them on the one that’s in. *That’s already in. Tell us your experience.* They like and leave a note. Same for a twin day.
 - Admin is a quiet word in the profile menu. Never the page they land on after Google. Never a button in the body. Never “User dashboard” at the bottom like a 2009 CMS.
 - Admin log is a caption: **Filed Jamon Jamon in Barcelona · Posted Aug 27 · $0.02.** He taps the name. A verb with no place is a miss. Never dump text. Never hotels. Not a queue.
 - Public pages do not say rec. The dashboard and **Your recs** in the menu may.

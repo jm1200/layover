@@ -100,7 +100,10 @@ export default async function DashboardPage() {
 
       {cityIds.length === 0 ? (
         <p className="mt-10 text-sm text-zinc-500">
-          Nothing here yet. Share one.
+          Nothing here yet.{" "}
+          <Link href="/share" className="underline">
+            Share one.
+          </Link>
         </p>
       ) : (
         cityIds.map((cityId) => {
@@ -176,24 +179,6 @@ export default async function DashboardPage() {
         })
       )}
 
-      <p className="mt-12 text-sm text-zinc-500">
-        or type it yourself{" "}
-        <Link href="/dashboard/places/new?kind=eat" className="underline">
-          Eat
-        </Link>
-        {" · "}
-        <Link href="/dashboard/places/new?kind=do" className="underline">
-          Do
-        </Link>
-        {" · "}
-        <Link href="/dashboard/places/new?kind=shop" className="underline">
-          Buy
-        </Link>
-        {" · "}
-        <Link href="/dashboard/playbooks/new" className="underline">
-          Full layover
-        </Link>
-      </p>
     </AppShell>
   );
 }

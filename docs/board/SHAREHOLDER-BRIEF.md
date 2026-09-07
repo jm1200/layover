@@ -2,39 +2,36 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-08-31  
+**Last updated:** 2026-09-07  
 **Company:** Layover (working name)  
-**Stage:** Product is **live** (Vercel). Phases 1–4 + Phase 3 social are in. Demo recs wiped — next dumps are the intel. Not Stripe.
+**Stage:** Product is **live**. Two real pilots sat it. Four locks below — build these, do not restyle the homepage, do not add Facebook.
 
-Dump a layover → she writes it up → you publish. Trust still beats revenue. Zones, not hotels. City pages stay destination-first.
+Dump a layover → she writes it up → you publish. Trust still beats revenue. Zones, not hotels.
 
 ## Locked (do not relitigate)
 
 | Item | Call |
 |------|------|
-| Login | **Google** + email. Lands on **Your recommendations**, even for admin. Not Apple / Facebook / Instagram. |
+| Login | **Google is the only first-screen control.** Email behind a tap (**Use email instead**). Not Apple / Facebook / Instagram. |
+| New intel | **Dump only** (`/share`). New rec / new day forms die. Edit, comments, login, search stay. |
+| Duplicate rec | Same city + same place → **land on the existing rec.** Like + comment. Human line, not a slap. |
+| City page | Eat **and** Do **and** Buy visible without scrolling past three huge Eat cards. **Small still + title.** Not a homepage restyle. |
 | Rec photos | Up to **3**. Tap hero. No pic → Lumen still. **Get this** = names only. |
 | Dashboard | Grouped by city. Date on the card, then pics, then blurb. Private “mine.” |
-| Dedup | Same **stop set** = same day. Title drift does not ship a twin. |
-| Admin | Kill switch + her log + people (last in, what they posted) + what’s new. Not a Phase 6 queue. |
+| Dedup (days) | Same **stop set** = same day. Title drift does not ship a twin. Land on the existing day. |
+| Admin | Kill switch + her log + people + what’s new. Not a Phase 6 queue. |
 | Phase 3 | **Done.** Like + notes + byline + author page. Follow out. |
-| Note delete | **Remove.** Recs still come off the city. |
-| Author page | Profile → name and photo. Posted by → their published recs/days. No bio, followers, DMs. |
 | Likes | **Count only.** Nobody sees who. |
 | Notes | Lumen reads text + pictures before they go live. Same $20 as dumps. |
-| Demo recs | **Wiped** (SQL **021**). Homepage Eat/Do/Buy use the rec’s own photo. Hide a kind if none published. |
-| Buy | **A shop.** The jar is Get this. No “buy this in Frankfurt” rec with no door. |
+| Buy | **A shop.** The jar is Get this. |
+| Share name | **Share your intel** stays. Louder. Do not rename it in the room. |
 
 ## You
 
-**CEO rec (you still say go-live):** Skip Phase 5. Stripe + ads with nobody on the site is selling into an empty room. Phase 6 is the reports/hide/ban dashboard — not required for a URL. **Put a public URL up.** Dump / rec edit / rec photos stay as they are.
+Nothing to buy. Nothing to decide unless you hate a lock.
 
-**Domain:** **layoverintel.com** (bought on Vercel). Does not rename the company. Attach it to the project, then Auth + Google origins — steps in HUMAN-SETUP.
+**Next (eng, this order):** (1) Login — Google cannot be missed. (2) Duplicate dump → existing rec + like + comment. (3) Kill new-intel forms; Share is the only door. (4) City page scan — Sofia owns the layout.
 
-**Before a public URL (you, not a new phase):** Vercel (`apps/web` + same env). Supabase Site URL + redirects on that host. Google OAuth: add the live origin; publish the Google app out of Testing. Domain optional — `*.vercel.app` is a URL. Put `XAI_API_KEY` in Vercel. Hobby is $0 until you say Pro.
+**Not this cut:** Apple/Facebook, homepage restyle, Stripe, follow, a new name for Share your intel.
 
-**Not before a URL:** Stripe, labeled ads, Phase 6 queue, Phase 7 crew-only, admin city form, follow.
-
-**Money:** $20/mo xAI. 4k chars. Kill switch. Daily 3-draft cap still off — put it back when strangers can dump. Vercel Pro / Supabase Pro only if you leave free.
-
-**Parked:** follow, pings, QR, Stripe, Facebook/IG, Phase 6/7. Bio / follower count / DMs — not this product.
+**Money:** $20/mo xAI. Kill switch. Daily 3-draft cap still off.

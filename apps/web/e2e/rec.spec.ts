@@ -1,27 +1,19 @@
 import { expect, test } from "@playwright/test";
-import { login, stamp, STILL } from "./helpers";
+import { insertPublishedPlace, login, stamp, STILL } from "./helpers";
 
-test.describe("rec create / photos / save / delete", () => {
+test.describe("rec photos / save / delete", () => {
   test("author can post, zoom, edit Get this, and take it off", async ({
     page,
   }) => {
     await login(page);
     const name = `E2E · ham ${stamp()}`;
-    let placeId = "";
+    const rec = await insertPublishedPlace(name);
+    test.skip(!rec, "Need an email user and Zurich to file a test rec.");
+    if (!rec) return;
+    let placeId = rec.id;
 
     try {
-      await page.goto("/dashboard/places/new?kind=eat");
-      await page.locator('select[name="city_id"]').selectOption({
-        label: "Zurich",
-      });
-      await page.getByRole("textbox", { name: "Name", exact: true }).fill(name);
-      await page.getByLabel("Blurb").fill("Counter ham. E2E. Not a hotel.");
-      await page.getByRole("button", { name: "Create" }).click();
-      await page.waitForURL(/\/places\/[0-9a-f-]{36}/, { timeout: 20_000 });
-      placeId = page.url().match(/\/places\/([0-9a-f-]{36})/)?.[1] ?? "";
-      await expect(page.getByRole("heading", { name })).toBeVisible();
-
-      await page.getByRole("link", { name: "Edit" }).click();
+      await page.goto(`/dashboard/places/${placeId}/edit`);
       await expect(page.getByRole("heading", { name: "Edit" })).toBeVisible();
       await expect(page.locator('input[type="file"]').first()).toHaveAttribute(
         "multiple",
@@ -58,6 +50,14 @@ test.describe("rec create / photos / save / delete", () => {
       });
       await expect(page.getByText("Saved blurb from E2E.")).toBeVisible();
       await expect(page.getByText("Ibérico")).toBeVisible();
+
+      await page.goto(`/places/${placeId}?already=1`);
+      await expect(
+        page.getByText("That’s already in. Tell us your experience."),
+      ).toBeVisible();
+      await expect(
+        page.getByPlaceholder("Tell us your experience."),
+      ).toBeVisible();
 
       await expect(page.getByRole("heading", { name: "Photos" })).toBeVisible();
       const thumbs = page.locator("main").getByRole("button", { name: /View / });

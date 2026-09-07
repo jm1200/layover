@@ -99,6 +99,20 @@ export default async function HomePage() {
             })}
           </div>
         ) : null}
+        <div className="mx-auto mt-16 max-w-6xl rounded-2xl bg-zinc-950 px-6 py-12 text-center text-white sm:px-10">
+          <h2 className="text-3xl font-semibold tracking-tight">
+            Been on a layover?
+          </h2>
+          <p className="mx-auto mt-3 max-w-lg text-white/70">
+            Dump it. We write it up. You check, then it hits the city.
+          </p>
+          <Link
+            href={profile ? "/share" : "/signup?next=/share"}
+            className="mt-8 inline-block rounded-full bg-white px-6 py-3 text-sm font-bold uppercase tracking-wider text-zinc-950 hover:bg-white/90"
+          >
+            Share your intel
+          </Link>
+        </div>
         <p className="mx-auto mt-12 max-w-6xl text-center text-xs text-zinc-400">
           <Link href="/privacy" className="underline">
             Privacy

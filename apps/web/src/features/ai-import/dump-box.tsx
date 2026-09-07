@@ -66,14 +66,6 @@ export function DumpBox({
       {state.error && !state.nap ? (
         <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-800">
           {state.error}
-          {state.alreadyHref ? (
-            <>
-              {" "}
-              <a href={state.alreadyHref} className="underline">
-                Open it
-              </a>
-            </>
-          ) : null}
         </p>
       ) : null}
 

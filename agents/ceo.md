@@ -46,3 +46,8 @@ Clear, confident, conversational. Start with the actual decision. Not a consulta
 - Recs **come off the city**. Notes **Remove**. Do not steal Lumen’s rec-gone copy for comments. Delete is a CMS; John will smell it.
 - “Posted by Crew” is empty `display_name`, not a Google bug. Signup never copied `full_name`. Public author page = Your recommendations, public. Follow is a people-feed — still parked. Bio + follower count + who-liked is Instagram; don’t. Likes are a **count**. Notes name people. Sponsors never get liker identities. Avatars: no Imagine spend; initials OK; don’t auto-publish the Google headshot.
 - Stripe-now with no public URL is selling ads into an empty room. Phase 5 waits on real use. Go-live leftover is Vercel + Auth/Google URLs, not a new product. Phase 6 is the queue, not a URL blocker.
+- Real pilots (2026-09-07): Google-first on paper is not Google-first if a white email card sits under it. Older crew look at the form they recognize. Email is a tap, not a roommate.
+- “Zero forms” is a slogan. He meant **no new-intel CMS**. Dump is the door. Login, comments, edit, search stay. Do not kill those to win an argument.
+- First-poster-wins is not crew intel. Duplicate place → land on the existing rec + like + comment, with a human sentence. A red “already on the city” is a slap.
+- City page scan is not a homepage restyle. Eat **and** Do **and** Buy must show as equal doors before three huge Eat cards eat the fold. Small still + title. Rec detail stays photo-first. Sofia owns the widget; lock the outcome.
+- Share your intel is half the site. Make the pill louder. Do not rename it in the room. Do not invent a mascot. Kill the competing form so they cannot find the wrong door.

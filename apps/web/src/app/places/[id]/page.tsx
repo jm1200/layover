@@ -21,6 +21,7 @@ import {
 } from "@/features/places/queries";
 import { ZONE_LABELS, type ZoneType } from "@/features/places/types";
 import { postedOn } from "@/features/auth/your-cards";
+import { AlreadyBanner } from "@/features/social/already-banner";
 import { Byline } from "@/features/social/byline";
 import { CommentThread } from "@/features/social/comment-thread";
 import { LikeButton } from "@/features/social/like-button";
@@ -50,10 +51,14 @@ export async function generateMetadata({
 
 export default async function PlacePage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ already?: string }>;
 }) {
   const { id } = await params;
+  const { already } = await searchParams;
+  const alreadyHere = already === "1";
   const place = await getPlace(id);
   if (!place) notFound();
 
@@ -175,6 +180,11 @@ export default async function PlacePage({
 
       <main className="mx-auto grid max-w-6xl gap-10 px-4 py-12 lg:grid-cols-2">
         <div>
+          {alreadyHere ? (
+            <div className="mb-8">
+              <AlreadyBanner kind="place" />
+            </div>
+          ) : null}
           {place.blurb ? (
             <p className="whitespace-pre-wrap text-lg leading-relaxed text-zinc-700">
               {place.blurb}
@@ -235,6 +245,9 @@ export default async function PlacePage({
             loggedIn={Boolean(profile)}
             userId={profile?.id ?? null}
             nextPath={`/places/${place.id}`}
+            invite={
+              alreadyHere ? "Tell us your experience." : undefined
+            }
           />
         </div>
       </main>

@@ -29,7 +29,6 @@ export type ShareState = {
   question?: string;
   story?: string;
   hintSlug?: string;
-  alreadyHref?: string;
 };
 
 function nap(): ShareState {
@@ -337,21 +336,17 @@ export async function fillDraft(
         if (!createdPlaceIds.length) {
           await supabase.from("ai_import_logs").insert({
             ...logBase,
-            success: false,
+            success: true,
             error_code: "duplicate_plan",
             city_id: city.id,
             created_playbook_id: existingPlan.id,
             payload: extract as unknown as Record<string, unknown>,
           });
+          if (existingPlan.status === "published") {
+            redirect(`/playbooks/${existingPlan.id}?already=1`);
+          }
           return {
-            error:
-              existingPlan.status === "published"
-                ? "This day’s already on the city. I didn’t copy it."
-                : "This day’s already being filed. I didn’t copy it.",
-            alreadyHref:
-              existingPlan.status === "published"
-                ? `/playbooks/${existingPlan.id}`
-                : undefined,
+            error: "This day’s already being filed.",
             story,
             hintSlug: city.slug,
           };
@@ -425,14 +420,18 @@ export async function fillDraft(
         hintSlug: city.slug,
       };
     }
+    let linkedId: string | null = null;
     for (const s of recs) {
-      await ensurePlace({
+      const pid = await ensurePlace({
         name: s.name.trim(),
         category: s.category ?? "do",
         blurb: s.blurb,
         zoneType: s.zone_type,
         dishName: s.dish_name,
       });
+      if (pid && !createdPlaceIds.includes(pid)) {
+        linkedId = linkedId ?? pid;
+      }
     }
     if (!createdPlaceIds.length) {
       await supabase.from("ai_import_logs").insert({
@@ -442,10 +441,12 @@ export async function fillDraft(
         city_id: city.id,
         payload: extract as unknown as Record<string, unknown>,
       });
+      if (linkedId) {
+        redirect(`/places/${linkedId}?already=1`);
+      }
       return {
-        error: "Those are already on the city.",
+        error: "Couldn’t save that. Try again.",
         story,
-        hintSlug: city.slug,
       };
     }
   } else {
@@ -498,12 +499,7 @@ export async function fillDraft(
         city_id: city.id,
         payload: extract as unknown as Record<string, unknown>,
       });
-      return {
-        error: "That’s already on the city.",
-        alreadyHref: `/places/${pid}`,
-        story,
-        hintSlug: city.slug,
-      };
+      redirect(`/places/${pid}?already=1`);
     }
   }
 

@@ -36,7 +36,7 @@ export function GoogleButton({ next }: { next?: string | null }) {
         type="button"
         onClick={() => void go()}
         disabled={pending}
-        className="flex h-10 w-full items-center justify-center gap-3 rounded border border-[#747775] bg-white px-3 text-[14px] font-medium text-[#1f1f1f] hover:bg-[#f8faff] disabled:opacity-60"
+        className="flex min-h-14 w-full items-center justify-center gap-3 rounded-lg border-2 border-[#747775] bg-white px-4 text-base font-medium text-[#1f1f1f] shadow-sm hover:bg-[#f8faff] disabled:opacity-60"
       >
         <GoogleMark />
         {pending ? "Opening Google…" : "Continue with Google"}
@@ -56,8 +56,8 @@ function GoogleMark() {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 48 48"
-      width="18"
-      height="18"
+      width="24"
+      height="24"
       aria-hidden
     >
       <path

@@ -32,6 +32,7 @@ Single login for `user`, `sponsor`, and `admin`. Server-enforced roles.
 - [x] Migration SQL: `apps/web/supabase/migrations/001_profiles.sql`
 - [x] Live verification with shareholder Supabase project (admin working)
 - [x] Playwright E2E logs in with email/password (`apps/web/e2e`). Google OAuth is not in the suite.
+- [x] **Pilot lock 2026-09-07:** `/login` and `/signup` first screen is Google only. Email form is hidden until **Use email instead**. Headline **In from a trip?** / **First time?** Signup submit **Sign up**, never Create account. Not Apple / Facebook.
 
 ## Env vars (intent)
 
@@ -53,7 +54,7 @@ Logged-in: **Layover** · **Share your intel** · **Cities** · **profile icon**
 Profile dropdown: **Profile** → `/u/[id]/edit`. **Your recs** → `/dashboard`. Admin (admin only) · Sponsor (sponsor/admin) · **Log out**.  
 Logged-out: Layover · Share your intel · Cities · Log in.
 
-`/dashboard` title **Your recommendations**. Line: *What you put on the map.* Grouped **by city** (A–Z). Under each city: **Full days** then **Recs**. Card: `Posted {Mon D}` → pics → name + blurb. Recs may say rec here; public pages do not. Quiet line after the cards: *or type it yourself* Eat · Do · Buy · Full layover — stays, does not move, does not die, is not four tiles. No Share card, no Browse cities / Admin in the body.
+`/dashboard` title **Your recommendations**. Line: *What you put on the map.* Grouped **by city** (A–Z). Under each city: **Full days** then **Recs**. Card: `Posted {Mon D}` → pics → name + blurb. Recs may say rec here; public pages do not. **No** *or type it yourself*. New intel is **Share your intel** (`/share`) only. Empty “Share one.” goes to `/share`. No Share card, no Browse cities / Admin in the body.
 
 Strings: `agents/lumen.md` **Copy (locked)**.
 
@@ -75,7 +76,9 @@ Strings: `agents/lumen.md` **Copy (locked)**.
 
 `/login` is Lumen’s door, not a CMS. Current page is a zinc void: **Log in** / *Crew, explorers, and sponsors*. Dead.
 
-**Layout:** Google first. Email behind **Use email instead**. Full-bleed still behind the form if we ship one (a place you want to be — not a named city we don’t have). Never a black rectangle. Button ships after John pastes the Google OAuth client (`HUMAN-SETUP.md`). Restyle does not wait. No Apple this cut.
+**Layout (pilot lock 2026-09-07, built):** Google is the **only first-screen control**. Official four-color G, white button, large enough that an older crew member cannot miss it. Email/password is **hidden** until they tap **Use email instead** — not a label sitting above a white form. Full-bleed still behind if we ship one (a place you want to be — not a named city we don’t have). Never a black rectangle. No Apple / Facebook / Instagram this cut. Login **is** a form; that form stays, folded.
+
+`/login` and `/signup` stay two routes for email (password create vs sign-in is real). Google is the same door on both — they do not need to pick correctly. Do not add a third OAuth to “solve” the older-pilot miss.
 
 | Slot | Copy |
 |------|------|
@@ -93,7 +96,7 @@ Strings: `agents/lumen.md` **Copy (locked)**.
 | Headline | **First time?** |
 | Sub | **Describe the layover. We’ll fill it in.** |
 | Google | **Continue with Google** |
-| Email submit | **Sign up** |
+| Email submit | **Sign up** (never **Create account**) |
 | Footer | **Already in? Log in** |
 
 **Never say on these pages:** Crew, explorers, and sponsors. Default role is user. Sponsors and admin are set separately. Welcome back. Join the community. Playbook. **Steal a day** / steal the layover. Hotel. Create account (as the headline). Google is the door.
@@ -110,6 +113,6 @@ Paste strings from `agents/lumen.md` **Copy (locked) → Dashboard**. Do not inv
 | Recs | **Recs** / empty **Nothing here yet. Share one.** |
 | Menu | **Profile** · **Your recs** |
 | Posted | **Posted {Mon D}** |
-| Manual | **or type it yourself** Eat · Do · Buy · Full layover — stays after the cards |
+| Manual | **Gone.** New intel is Share your intel. Empty “Share one.” → `/share` |
 
 **Feel:** city page is a magazine; this page is your camera roll of what you filed. Day cards are a strip of stops. Rec cards are a 4:5 still with Eat/Do/Buy stamped on the photo. Not a zinc list of underlines. Not `/admin`.

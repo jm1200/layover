@@ -38,15 +38,17 @@ Follow `docs/SECURITY.md`. Public copy uses zones and landmarks only.
 Not a schema change. Not Phase 3. Not four new routes. Not a photo grid.
 
 - [x] Do **not** headline the city page **Places**. Group published places as **Eat · Do · Buy**.
-- [x] Four jump chips on the **same** city page, with counts: **Full layover · Eat · Do · Buy**. Chip 1 stays **Full layover** (playbooks); this spec owns the three rec groups. Public third verb is **Buy** (not Shop) — same word as homepage cards. **Buy stays first-class** even if a seed city looks thin — Delhi shopping is real; density is content, not extra routes.
+- [x] City page groups **Eat · Do · Buy** on the **same** page. Public third verb is **Buy** (not Shop) — same word as homepage cards. **Buy stays first-class** even if a seed city looks thin — Delhi shopping is real; density is content, not extra routes.
+- **Pilot lock 2026-09-07 — city scan:** First look must show **Eat and Do and Buy** as equal doors. Do not stack three huge 4:5 Eat cards so Do/Buy disappear. Cards on `/cities/[slug]` **and** `/cities/[slug]/eat|do|buy`: **small still + title**, not Instagram 4:5. Sofia picks accordion / chips / tabs — not a native `<select>`. Rec **detail** stays photo-first. Homepage `/` cards stay. Full layover stays on the city page; do not bury it worse. Share invite on a city that already has recs, not only empty groups.
 - Homepage `/`: three cards **Eat / Do / Buy** first; layover plans are the **The perfect layover** subsection (playbooks spec). No “Steal the whole layover.”
-- [x] Add flow: no generic “Add place.” Chooser → food / activity / buy (all insert `places` with a required category).
+- **Add flow (pilot lock 2026-09-07):** no dashboard create form. New rec = `/share`. `/dashboard/places/new` **redirects to `/share`**. Edit existing rec stays (`/dashboard/places/[id]/edit`).
 - [x] Category field: required select, not free-text. Persist `eat`/`do`/`shop`. Customer label for `shop` = **Buy**. Map legacy seed: restaurant/bar/cafe → Eat; activity → Do; grocery/shop → Buy; unknown → Do (do not hide rows).
 - [x] Optional child item: Eat = “signature dish”; Buy = “what to get”; Do = hide the dish fields.
 - [x] Empty group: one line “None yet.” Do not build `/cities/[slug]/eat` style landings this cut.
 - **Cities/zones:** users cannot insert via a form (004). **Lumen may open a city** from a dump (name + 3-letter IATA) via `lumen_ensure_city` (009, quota in **011**). No public city form. One city hero per city — Lumen spends without asking (within $20), on first publish if missing.
 - **Photos (locked 2026-08-27 — founder):** one album, max **3**, any shots of the rec (food, room, street). Gallery can pick several at once (still cap 3). Tap one **hero** = city-page tile + rec top. Public rec **Photos** includes the hero first; tap a photo to enlarge, **X** to close. No pic → Lumen still on publish. **Get this** = names only (Eat/Buy). No dish camera. Dump/AI write `place_photos` and set hero. Edit rec: add / X / tap hero. Save is for city/name/blurb. Crew extra pics + reviews = Phase 3.
-- [x] Playwright E2E: create rec, upload still, hero in Photos, zoom + X, Get this add, Save, delete (`apps/web/e2e/rec.spec.ts`).
+- [x] Playwright E2E: create rec, upload still, hero in Photos, zoom + X, Get this add, Save, delete (`apps/web/e2e/rec.spec.ts`). **2026-09-07:** create-rec e2e must go through `/share` (or a test helper) once the form dies — Milo owns.
+- [x] **Pilot lock 2026-09-07:** city page first look shows Eat and Do and Buy as equal doors. Cards on city + kind lists = small still + title, not 4:5. Share invite when the city already has recs. `/dashboard/places/new` redirects to `/share`.
 
 - **Delete rec confirm (Sofia, locked 2026-08-26):** button **Take this rec off**. Confirm: **This rec leaves the city. Plates go too. Days keep their other stops.** (strings in `agents/lumen.md`)
 

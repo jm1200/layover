@@ -22,6 +22,8 @@
 
 **Before Phase 2 code:** read `docs/board/PRE-PHASE-2-GATE.md`. Do not invent scope beyond Board #2 locks.
 
+**Pilot cut (built 2026-09-07):** Google-only first screen on `/login` (email behind **Use email instead**). New intel = `/share` only (`/dashboard/places/new` and `/dashboard/playbooks/new` redirect). Duplicate place → land on existing rec + like + comment. City page: Eat / Do / Buy / A day stamps; small still + title. Homepage 4:5 cards stay; **Been on a layover?** band under them. Specs: `features/auth.md`, `features/ai-import.md`, `features/places-and-zones.md`.
+
 ## Target repository layout
 
 ```text
@@ -102,24 +104,24 @@ ModerationAction / MetricSnapshot            — Phase 6
 
 | Path | Audience | Purpose | Status |
 |------|----------|---------|--------|
-| `/` | Public | Layover Intel; Eat/Do/Buy cards use the rec’s own still (hide a kind if none published), name, city + country, + city search. Share card: hero + “For Crew, By Crew.” | Phase 2 |
-| `/login` | Public | Email + Google. | Phase 1 |
+| `/` | Public | Layover Intel; Eat/Do/Buy 4:5 cards; then **Been on a layover?** → Share your intel. Search stays lookup. Share card: hero + “For Crew, By Crew.” | Phase 2 |
+| `/login` | Public | **Google first.** Email hidden until **Use email instead**. | Phase 1 |
 | `/privacy` | Public | What we keep from Google sign-in. Needed for Google OAuth publish. | — |
 | `/dashboard` | User (all roles land here) | **Your recommendations** — this user’s published recs and days. Cards, not a CMS. Header is the same as the rest of the site. | Phase 4 |
 | `/sponsor` | Sponsor | Campaigns, billing, creatives | Phase 1 stub |
 | `/admin` | Admin | Kill switch + Lumen log. Tab: Lumen. Full queue is Phase 6 | Phase 4 slice |
 | `/admin/people` | Admin | People (last in, what they posted) + what’s new. SQL **022** | 022 |
 | `/cities` | Public | City list. Share card: site hero | Phase 2 |
-| `/cities/[slug]` | Public | Dark hero · Eat/Do/Buy preview (top 3) · full layover below. Share card: city hero + feel line | Phase 2 |
+| `/cities/[slug]` | Public | Dark hero · Eat/Do/Buy/A day stamps · small still + title · share invite. Share card: city hero + feel line | Phase 2 |
 | `/cities/[slug]/eat` `/do` `/buy` | Public | Full list for one verb. Share card: city hero | Phase 2 |
 | `/cities/[slug]/layovers` | Public | All sequenced days. Share card: city hero | Phase 2 |
 | `/playbooks/[id]` | Public | Playbook detail. Share card: city hero + narrative | Phase 2 |
 | `/places/[id]` | Public | Place + dishes. Share card: rec still + blurb | Phase 2 |
 | `/u/[id]` | Public | Author page — their published recs and days. Share card: name, not the face | Phase 3 |
 | `/u/[id]/edit` | Owner | Name and photo | Phase 3 |
-| `/dashboard/places/new` | Auth | Create place | Phase 2 |
+| `/dashboard/places/new` | Auth | Redirects to `/share` | Phase 2 |
 | `/dashboard/places/[id]/edit` | Author / admin | Edit rec (Save → rec page; photos/plates persist immediately) | Phase 4 |
-| `/dashboard/playbooks/new` | Auth | Create playbook | Phase 2 |
+| `/dashboard/playbooks/new` | Auth | Redirects to `/share` | Phase 2 |
 | `/api/...` | Server | Mutations, AI extract, Stripe webhooks | as needed |
 
 Exact paths may adjust; update this table when implementing.
@@ -181,11 +183,12 @@ Exact paths may adjust; update this table when implementing.
 - [x] **Phase 3 complete** (2026-08-31). John clicked it. Theo/Milo review: ship with nits. Dump / rec edit / rec photos stay as they are.
 - [x] SQL **021** wipe demo intel (recs/days/notes/likes/photos/dump logs). Keeps accounts, cities, zones, site_settings. John pastes once. Do not re-run 003/005/006/013–015 after. Playwright seed paths skip on 404.
 - [x] Share cards (Open Graph + Twitter) on public pages — `lib/share-card.ts`. Homepage hero; city hero; rec still + blurb; layover narrative. Absolute image URLs via `NEXT_PUBLIC_SITE_URL`. Not a sitemap / Search Console.
+- [x] **Pilot cut 2026-09-07.** Login: Google first, email hidden. Signup submit **Sign up**. New rec/day forms redirect to `/share`. *or type it yourself* gone. Duplicate dump lands on the rec/day (`?already=1#comments`). City catalog: Eat/Do/Buy/A day stamps, small still + title. Homepage share band after the 4:5 cards.
 
 ## Session checklist for agents
 
 1. Read `AGENTS.md` + this file (+ `docs/STACK.md` before infra/auth work).
-2. Confirm current phase with owner if doing implementation. Phase 2, 3, and 4 are **done**. Dump / rec edit / rec photos stay as they are. Next rec is a **public URL** (parked Vercel), not Phase 5. Not Stripe until John says.
+2. Confirm current phase with owner if doing implementation. Phase 2, 3, and 4 are **done**. **Pilot cut 2026-09-07 is built.** Rec **edit** and rec **photos** stay. New intel is `/share` only. Not Stripe until John says.
 3. Touch only the feature folder + its spec + this map.
 4. End of session: MAP and feature spec reflect reality. Prefer “unknown / not built” over inventing.
 

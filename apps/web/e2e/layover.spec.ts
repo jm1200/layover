@@ -1,32 +1,17 @@
 import { expect, test } from "@playwright/test";
-import { login, stamp } from "./helpers";
+import { insertPublishedDay, login, stamp } from "./helpers";
 
 test.describe("layover day", () => {
   test("publish a day, then delete the day (recs stay)", async ({ page }) => {
     await login(page);
     const title = `E2E · day ${stamp()}`;
-    let playbookId = "";
+    const day = await insertPublishedDay(title);
+    test.skip(!day, "Need an email user and Zurich to file a test day.");
+    if (!day) return;
+    let playbookId = day.id;
 
     try {
-      await page.goto("/dashboard/playbooks/new");
-      await page.locator('select[name="city_id"]').selectOption({
-        label: "Zurich",
-      });
-      await page.locator('input[name="title"]').fill(title);
-      await page.getByLabel("The day — story").fill("Walk, eat, go. E2E.");
-      await page
-        .getByRole("group", { name: "Stop 1" })
-        .getByLabel("Title")
-        .fill("First walk");
-      await page
-        .getByRole("group", { name: "Stop 2" })
-        .getByLabel("Title")
-        .fill("Second coffee");
-      await page
-        .getByRole("button", { name: "Publish — live on the city" })
-        .click();
-      await page.waitForURL(/\/playbooks\/[0-9a-f-]{36}/, { timeout: 20_000 });
-      playbookId = page.url().match(/\/playbooks\/([0-9a-f-]{36})/)?.[1] ?? "";
+      await page.goto(`/playbooks/${playbookId}`);
       await expect(page.getByRole("heading", { name: title })).toBeVisible();
       await expect(page.getByText("First walk")).toBeVisible();
 

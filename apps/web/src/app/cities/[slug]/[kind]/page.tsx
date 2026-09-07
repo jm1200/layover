@@ -2,14 +2,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProfile } from "@/features/auth/get-profile";
-import { AiStill } from "@/features/places/ai-still";
 import { CityHero } from "@/features/places/city-chrome";
+import { RecThumb } from "@/features/places/rec-thumb";
 import {
   parseRecKind,
   recKindFromCategory,
   recKindPath,
   REC_KIND_LABEL,
-  type RecKind,
 } from "@/features/places/kind";
 import {
   CITY_FEEL,
@@ -22,7 +21,6 @@ import {
   listPlacesForCity,
   listZonesForCity,
 } from "@/features/places/queries";
-import type { Place, Zone } from "@/features/places/types";
 import { ZONE_LABELS, type ZoneType } from "@/features/places/types";
 
 export async function generateMetadata({
@@ -66,6 +64,9 @@ export default async function CityKindPage({
     (p) => p.status === "published" && recKindFromCategory(p.category) === kind,
   );
   const label = REC_KIND_LABEL[kind];
+  const shareHref = profile
+    ? `/share?city=${encodeURIComponent(city.slug)}`
+    : `/signup?next=${encodeURIComponent(`/share?city=${city.slug}`)}`;
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
@@ -85,9 +86,9 @@ export default async function CityKindPage({
         </h2>
         {list.length === 0 ? (
           <p className="mt-6 text-zinc-600">
-            No {label} in {city.name} yet.{" "}
+            Nobody’s filed {label} in {city.name} yet.{" "}
             <Link
-              href={profile ? `/share?city=${encodeURIComponent(city.slug)}` : "/signup"}
+              href={shareHref}
               className="font-medium text-zinc-900 underline"
             >
               Share your intel
@@ -95,60 +96,27 @@ export default async function CityKindPage({
             .
           </p>
         ) : (
-          <ul className="mt-8 grid gap-6 sm:grid-cols-3">
-            {list.map((p) => (
-              <li key={p.id}>
-                <KindPlaceCard
-                  place={p}
-                  kind={kind}
-                  zone={p.zone_id ? zoneById[p.zone_id] : null}
-                  still={stillForPlace(p)}
-                />
-              </li>
-            ))}
+          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+            {list.map((p) => {
+              const z = p.zone_id ? zoneById[p.zone_id] : null;
+              return (
+                <li key={p.id}>
+                  <RecThumb
+                    href={`/places/${p.id}`}
+                    name={p.name}
+                    zone={
+                      z
+                        ? z.name || ZONE_LABELS[z.type as ZoneType] || z.type
+                        : null
+                    }
+                    still={stillForPlace(p)}
+                  />
+                </li>
+              );
+            })}
           </ul>
         )}
       </main>
     </div>
-  );
-}
-
-function KindPlaceCard({
-  place: p,
-  kind,
-  zone: z,
-  still,
-}: {
-  place: Place;
-  kind: RecKind;
-  zone: Zone | null | undefined;
-  still?: { src: string; alt: string; badge?: "ai" | null };
-}) {
-  return (
-    <Link href={`/places/${p.id}`} className="group block">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-900">
-        {still ? (
-          <AiStill
-            src={still.src}
-            alt={still.alt}
-            sizes="(min-width: 640px) 33vw, 100vw"
-            className="object-cover transition duration-300 group-hover:scale-[1.03]"
-            badge={still.badge ?? null}
-          />
-        ) : null}
-        <span className="absolute inset-x-0 top-0 bg-gradient-to-b from-black/70 to-transparent px-3 pb-12 pt-4 text-center font-mono text-xl font-semibold uppercase tracking-[0.28em] text-white">
-          {REC_KIND_LABEL[kind]}
-        </span>
-      </div>
-      <p className="mt-3 text-sm font-medium">{p.name}</p>
-      {z ? (
-        <p className="text-xs text-zinc-500">
-          {z.name || ZONE_LABELS[z.type as ZoneType] || z.type}
-        </p>
-      ) : null}
-      {p.blurb ? (
-        <p className="mt-1 line-clamp-2 text-sm text-zinc-600">{p.blurb}</p>
-      ) : null}
-    </Link>
   );
 }

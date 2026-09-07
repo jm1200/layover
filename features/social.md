@@ -45,7 +45,9 @@ Public twin of **Your recommendations**. Tap Posted by {name} (or a note byline)
 
 **RLS (intent):** public may read `display_name` + avatar, never email/role/status. Owner may update own name + avatar, never role/status.
 
-**Leave alone:** dump / edit rec / rec photos. Don’t reopen unless John says.
+**Leave alone:** dump review holes / edit rec / rec photos. Don’t reopen unless John says.
+
+**Duplicate rec (pilot lock 2026-09-07):** if a dump matches an existing place, they **land on that rec** with like + the comment form ready. Banner copy lives in `features/ai-import.md`. This is the job of like + notes — a second rec is not. Do not auto-like. Do not auto-post. Notes still go through Lumen before they go live.
 
 ## Copy (locked 2026-08-31)
 
