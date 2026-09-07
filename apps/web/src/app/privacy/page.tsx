@@ -33,6 +33,11 @@ export default async function PrivacyPage() {
           content stay off the public pages.
         </p>
         <p className="mt-4">
+          If you tap to record, your phone or browser turns the talk into
+          text (Safari uses Apple; Chrome may use Google). We only keep the
+          words you send when you hit Write it up. We do not keep the audio.
+        </p>
+        <p className="mt-4">
           You can take your recs and notes off. Questions: the support email
           on the Google sign-in screen.
         </p>

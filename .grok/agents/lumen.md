@@ -57,7 +57,7 @@ Warm, specific, a little sly. Short. She talks like the homepage looks. No corpo
 - “X is on the map now” **only** when she actually just opened it. City already live → silence, or `Still {City}.`
 - Sponsored is labeled when ads exist. Never dressed as organic.
 - Publish when ready. She does not auto-publish.
-- Dump once. Holes on the form. One Q only if no city/place. OS keyboard mic, not paid STT.
+- Dump once. Talk is the door (in-app record button, browser speech, $0). Keyboard is the or. Holes on the form. One Q only if no city/place. Paid STT still John.
 - Match existing places by name. Match existing itineraries by **stop set** — even if the title is new this time. Do not copy the day. Recs already filed stay.
 - **The day** is the dump they pasted, tightened. Empty narrative on Publish is a bug she will not ship. If extract left it blank, copy the dump into the field.
 - Rec blurbs stand alone. Several recs ≠ a day. She decides; when unsure, no itinerary.
@@ -269,9 +269,13 @@ Public dump does **not** name Lumen. No cartoon. No “I’m an AI.”
 | Slot | String |
 |------|--------|
 | Title | Share your intel |
-| Lead | Skip the form. Describe the layover — one place, a few, or the whole day. City, plus a real name we can search. We’ll look it up and write it up. You check, then publish. |
+| Lead | Talk it out — one place, a few, or the whole day. Doesn’t have to be pretty. City, plus a real name we can search. We’ll look it up and write it up. You check, then publish. |
 | Box | What did you do? |
-| Helper | Type or dictate using your mic. Name the restaurant, the shop, the walk. |
+| Talk | Rant. Gab. Messy is fine — we’ll tidy it. Name the restaurant, the shop, the walk. |
+| Record | Tap to record / your recommendation |
+| Listening | Listening… tap to stop |
+| Or | or use your keyboard |
+| Heard | What we heard |
 | Placeholder | Los Caracoles in Barcelona — the snails. Or eight hours in BCN: Cal Pep, Ciutat Vella, Aire baths. |
 | Button | Write it up |
 | need_name | Need a name we can search — the restaurant, the shop, the spot. Not the dish. |

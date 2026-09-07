@@ -183,7 +183,8 @@ Exact paths may adjust; update this table when implementing.
 - [x] **Phase 3 complete** (2026-08-31). John clicked it. Theo/Milo review: ship with nits. Dump / rec edit / rec photos stay as they are.
 - [x] SQL **021** wipe demo intel (recs/days/notes/likes/photos/dump logs). Keeps accounts, cities, zones, site_settings. John pastes once. Do not re-run 003/005/006/013–015 after. Playwright seed paths skip on 404.
 - [x] Share cards (Open Graph + Twitter) on public pages — `lib/share-card.ts`. Homepage hero; city hero; rec still + blurb; layover narrative. Absolute image URLs via `NEXT_PUBLIC_SITE_URL`. Not a sitemap / Search Console.
-- [x] **Pilot cut 2026-09-07.** Login: Google first, email hidden. Signup submit **Sign up**. New rec/day forms redirect to `/share`. *or type it yourself* gone. Duplicate dump lands on the rec/day (`?already=1#comments`). City catalog: Eat/Do/Buy/A day stamps, small still + title. Homepage share band after the 4:5 cards.
+- [x] **Pilot cut 2026-09-07.** Login: Google first, email hidden. Signup submit **Sign up**. New rec/day forms redirect to `/share`. *or type it yourself* gone. Duplicate dump lands on the rec/day (`?already=1`). City catalog: Eat/Do/Buy/A day stamps, small still + title. Homepage share band after the 4:5 cards.
+- [x] **Talk-first dump (2026-09-08).** `/share` default is a highlighted **Tap to record** (browser speech, $0). Keyboard is the or. No paid STT.
 
 ## Session checklist for agents
 

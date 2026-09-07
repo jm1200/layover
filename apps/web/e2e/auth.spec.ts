@@ -83,8 +83,15 @@ test.describe("email login", () => {
     await expect(
       page.getByRole("heading", { name: "Share your intel" }),
     ).toBeVisible();
-    await expect(page.getByText(/Type or dictate using your mic/i)).toBeVisible();
     await expect(page.getByText(/real name we can search/i)).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Tap to record your recommendation" }),
+    ).toBeVisible();
+    await expect(page.getByText(/your recommendation/i)).toBeVisible();
+    await expect(page.getByText(/Messy is fine/i)).toBeVisible();
+    await expect(page.getByRole("button", { name: "Write it up" })).toHaveCount(0);
+    await page.getByRole("button", { name: "use your keyboard" }).click();
+    await expect(page.getByRole("textbox")).toBeVisible();
     await expect(page.getByRole("button", { name: "Write it up" })).toBeVisible();
     // Do not click Write it up — that spends xAI.
   });

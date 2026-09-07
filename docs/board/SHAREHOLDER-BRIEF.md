@@ -2,7 +2,7 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-09-07  
+**Last updated:** 2026-09-08  
 **Company:** Layover (working name)  
 **Stage:** Product is **live**. Two real pilots sat it. Four locks below — build these, do not restyle the homepage, do not add Facebook.
 
@@ -25,6 +25,7 @@ Dump a layover → she writes it up → you publish. Trust still beats revenue. 
 | Notes | Lumen reads text + pictures before they go live. Same $20 as dumps. |
 | Buy | **A shop.** The jar is Get this. |
 | Share name | **Share your intel** stays. Louder. Do not rename it in the room. |
+| Dictate | **Tap to record** is the door. Browser speech, $0. Keyboard is the or. Paid STT still off. |
 
 ## You
 

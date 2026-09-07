@@ -89,7 +89,7 @@ Caps so the page does not become a billboard (product detail in sponsorship feat
 
 ## AI contribution
 
-Users **dump a story** (dictate on the phone keyboard, or type). **Lumen** extracts **once** into Eat/Do/Buy and, for a full layover, **each stop as a place** plus the linked plan → **holes on the draft they tap → publish**. One question only if she cannot draft (no city / no place). Photo-first, **1 still per place**. No auto-publish. Not a travel-agent chatbot. Cheap xAI SKUs + tight quotas; **no production spend without John’s yes** (see OPS). **New intel is the dump only** (2026-09-07) — dashboard create forms die. Same place already on the city → land on it (like + comment), do not mint a twin. Phase 4 is **built**.
+Users **dump a story** (tap to record, or type). **Lumen** extracts **once** into Eat/Do/Buy and, for a full layover, **each stop as a place** plus the linked plan → **holes on the draft they tap → publish**. One question only if she cannot draft (no city / no place). Photo-first, **1 still per place**. No auto-publish. Not a travel-agent chatbot. Cheap xAI SKUs + tight quotas; **no production spend without John’s yes** (see OPS). **New intel is the dump only** (2026-09-07) — dashboard create forms die. Same place already on the city → land on it (like + comment), do not mint a twin. Phase 4 is **built**.
 
 ## Monetization
 

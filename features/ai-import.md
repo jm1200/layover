@@ -14,7 +14,7 @@
 
 Hotel room, one thumb, ~60 seconds. Lumen talks as little as possible.
 
-1. **Talk once.** Header **Share your intel**. Public copy does **not** introduce Lumen by name, does **not** say “rec”, does **not** put a cartoon or “I’m an AI” on the dump: *Skip the form. Describe the layover — one place, a few, or the whole day. City, plus a real name we can search. We’ll look it up and write it up. You check, then publish.* Box: *What did you do?* Helper: *Type or dictate using your mic. Name the restaurant, the shop, the walk.* Placeholder names real places. Button **Write it up**. No Eat/Do/Buy picker first — she still decides place vs places vs day. Sharing from a city page already has the city.
+1. **Talk once.** Header **Share your intel**. Public copy does **not** introduce Lumen by name, does **not** put a cartoon or “I’m an AI” on the dump. Lead: *Talk it out — one place, a few, or the whole day. Doesn’t have to be pretty. City, plus a real name we can search. We’ll look it up and write it up. You check, then publish.* Default is a highlighted **Tap to record** button (*your recommendation*). Helper: *Rant. Gab. Messy is fine — we’ll tidy it. Name the restaurant, the shop, the walk.* Soft *or use your keyboard*. After talk, they see **What we heard** and can edit. Button **Write it up**. No Eat/Do/Buy picker first — she still decides place vs places vs day. Sharing from a city page already has the city.
 2. **One extract.** `grok-4.3` fills one rec, several independent recs, or a full layover (standalone recs + plan, max 4). **Do not invent a day.** “Then” alone is not an itinerary. Rec blurbs always stand alone. **No second model call** to chase a dish, zone, or hours.
 3. **Holes are the follow-up.** Draft screen, same fields we have today. Empty bits sit obvious. Lumen one-liner: *“I filled what I heard. Tap the blanks, add a pic, publish.”* They tap. They do not answer her. City-open banner: *“{City} ({IATA}) is on the map now.”* **only** if she actually just opened it. Already live: omit, or *“Still {City}.”* Never *“I’ll put a city hero up when you publish.”* on that line. **The day** is filled from the dump. Empty narrative on Publish = refuse.
 4. **Photos on review, max 3**, same album as Edit rec. Tap hero. Skip → she stills on publish. Eat/Buy **Get this** is names only. Never a black rectangle.
@@ -22,7 +22,7 @@ Hotel room, one thumb, ~60 seconds. Lumen talks as little as possible.
 
 **Quotas they see (do not hide as a crash):** Over ~4k chars → *“Keep it to one layover.”* Monthly cap / kill switch → *“Lumen’s taking a nap.”* Daily 3-draft cap **parked** (John 2026-08-25) — put back in a later phase.
 
-**Dictate ≠ paid STT.** Keyboard/OS mic is v1. Token cost = the text, same as typing. xAI speech-to-text / in-app waveform mic = **John**, not this cut.
+**Dictate is the default (2026-09-08).** In-app **Tap to record** uses the **browser** speech recognizer ($0 — Safari/Apple, Chrome may use Google). Token cost = the text, same as typing. We do not keep the audio. Keyboard is the *or*. **Paid** xAI STT still = **John**.
 
 John’s “one follow-up Q then extract” is the **emergency brake** (step 5), not the default. Default is cheaper and less chatty: dump → form holes.
 
@@ -83,7 +83,7 @@ Auth required to run extract. Anonymous: no post.
 - Auto-publish
 - Unbounded multi-turn “plan my layover” chat billed to the owner
 - Interview Lumen (dish / zone / hours as spoken Qs)
-- Paid speech-to-text / custom in-app STT
+- Paid speech-to-text (xAI or other). In-app record uses the **browser** recognizer.
 - Client-side API keys
 - City concierge / browse companion
 - Per-stop extra stills, galleries, or city-hero generation on a user post
@@ -107,7 +107,7 @@ Auth required to run extract. Anonymous: no post.
 - [ ] Two labeled photo jobs (place vs dishes); never copy place onto plate
 - [ ] No **Status: draft** badge; dashboard = this user’s published only
 - [ ] Edit day: one Save → public layover; delete day works
-- [x] Dictate via OS keyboard mic (text in the box). No paid STT
+- [x] Dictate via in-app record button (browser speech, $0). Keyboard is the or. No paid STT
 - [x] `AiImportLog` for cost and abuse
 - [x] Admin kill switch respected
 - [x] Failures show safe error; no key leakage

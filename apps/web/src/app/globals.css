@@ -24,3 +24,49 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
 }
+
+@keyframes mic-halo {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 8px rgba(251, 191, 36, 0.5),
+      0 0 0 18px rgba(251, 191, 36, 0.22);
+  }
+  50% {
+    box-shadow:
+      0 0 0 12px rgba(251, 191, 36, 0.7),
+      0 0 0 28px rgba(251, 191, 36, 0.14);
+  }
+}
+
+@keyframes mic-halo-live {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 10px rgba(251, 191, 36, 0.7),
+      0 0 0 22px rgba(239, 68, 68, 0.28);
+  }
+  50% {
+    box-shadow:
+      0 0 0 16px rgba(251, 191, 36, 0.85),
+      0 0 0 36px rgba(239, 68, 68, 0.16);
+  }
+}
+
+.mic-halo {
+  animation: mic-halo 1.8s ease-in-out infinite;
+}
+
+.mic-halo-live {
+  animation: mic-halo-live 1s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mic-halo,
+  .mic-halo-live {
+    animation: none;
+    box-shadow:
+      0 0 0 8px rgba(251, 191, 36, 0.55),
+      0 0 0 18px rgba(251, 191, 36, 0.22);
+  }
+}

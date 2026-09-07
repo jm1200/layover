@@ -4,6 +4,16 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-09-08 — Talk is the dump door
+
+**Source:** Shareholder — pilots did not know they could rant into a mic, did not find the keyboard mic, thought it had to be pretty.
+
+**Call:** In-app **Tap to record your recommendation** is the default on `/share`. Highlighted so they cannot miss it. Soft **or use your keyboard**. Copy: rant, gab, messy is fine. Browser speech, $0. No xAI STT. We keep the text they submit, not the audio.
+
+**Status:** Built.
+
+---
+
 ## 2026-09-07 — Four pilot locks (login, dump-only, duplicate rec, city scan)
 
 **Source:** Shareholder sat two real pilots on the live site. Implementation authorized. Not a debate meeting.
