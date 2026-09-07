@@ -1,9 +1,12 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProfile } from "@/features/auth/get-profile";
 import { CityHero } from "@/features/places/city-chrome";
-import { CityCatalog, type CatalogPlace } from "@/features/places/city-catalog";
+import {
+  CityCatalog,
+  type CatalogDay,
+  type CatalogPlace,
+} from "@/features/places/city-catalog";
 import {
   recKindFromCategory,
   type RecKind,
@@ -21,7 +24,6 @@ import {
   listZonesForCity,
 } from "@/features/places/queries";
 import { zonePublicLabel } from "@/features/places/types";
-import { LayoverPreviewCard } from "@/features/playbooks/layover-card";
 import {
   listPlaybooksForCity,
   listStopsForPlaybook,
@@ -93,6 +95,11 @@ export default async function CityPage({
     ? `/share?city=${encodeURIComponent(city.slug)}`
     : `/signup?next=${encodeURIComponent(`/share?city=${city.slug}`)}`;
 
+  const days: CatalogDay[] = previewPlans.map((pb) => ({
+    playbook: pb,
+    stops: planStops[pb.id] ?? [],
+  }));
+
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
       <CityHero city={city} hero={hero} profile={profile} />
@@ -101,55 +108,11 @@ export default async function CityPage({
         <CityCatalog
           citySlug={city.slug}
           cityName={city.name}
-          loggedIn={Boolean(profile)}
+          shareHref={shareHref}
           byKind={byKind}
-          dayCount={publishedPlaybooks.length}
+          days={days}
+          places={publishedPlaces}
         />
-
-        <section id="full-layover" className="mt-16 scroll-mt-24">
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <p className="font-mono text-xs uppercase tracking-[0.28em] text-zinc-400">
-                Full layover
-              </p>
-              <h2 className="mt-2 text-2xl font-semibold tracking-tight">
-                A day, sequenced
-              </h2>
-            </div>
-            {publishedPlaybooks.length > 0 ? (
-              <Link
-                href={`/cities/${city.slug}/layovers`}
-                className="text-sm text-zinc-600 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900"
-              >
-                All layovers
-              </Link>
-            ) : null}
-          </div>
-          {publishedPlaybooks.length === 0 ? (
-            <p className="mt-6 max-w-xl text-zinc-600">
-              No full layover in {city.name} yet.{" "}
-              <Link
-                href={shareHref}
-                className="font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4"
-              >
-                Share your intel
-              </Link>
-              .
-            </p>
-          ) : (
-            <ul className="mt-6 grid gap-6 lg:grid-cols-3">
-              {previewPlans.map((pb) => (
-                <li key={pb.id}>
-                  <LayoverPreviewCard
-                    playbook={pb}
-                    stops={planStops[pb.id] ?? []}
-                    places={publishedPlaces}
-                  />
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
       </main>
     </div>
   );

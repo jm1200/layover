@@ -35,12 +35,19 @@ test.describe("public browse", () => {
     await expect(page.getByRole("heading", { name: "Cities" })).toBeVisible();
     await page.getByRole("link", { name: /Zurich/i }).first().click();
     await expect(page).toHaveURL(/\/cities\/zurich/);
-    await expect(page.getByText("Full layover")).toBeVisible();
-    await expect(page.getByRole("button", { name: "Eat" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Do" })).toBeVisible();
-    await expect(page.getByRole("button", { name: "Buy" })).toBeVisible();
-    await expect(page.getByRole("link", { name: "A day" })).toBeVisible();
-    await expect(page.getByText(/Got something that isn’t here/i)).toBeVisible();
+    await expect(page.getByRole("tab", { name: "Eat" })).toBeVisible();
+    await expect(page.getByRole("tab", { name: "Do" })).toBeVisible();
+    await expect(page.getByRole("tab", { name: "Buy" })).toBeVisible();
+    await expect(page.getByRole("tab", { name: "A day" })).toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Tap to record your recommendation" }),
+    ).toHaveCount(0);
+    await expect(page.getByText("A day, sequenced")).toHaveCount(0);
+    await page.getByRole("tab", { name: "A day" }).click();
+    await expect(page.getByRole("tab", { name: "A day" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
     await expect(page.getByText(/crew hotel/i)).toHaveCount(0);
     await expect(page.getByText(/airline hotel/i)).toHaveCount(0);
   });

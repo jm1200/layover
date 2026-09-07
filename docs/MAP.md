@@ -112,7 +112,7 @@ ModerationAction / MetricSnapshot            — Phase 6
 | `/admin` | Admin | Kill switch + Lumen log. Tab: Lumen. Full queue is Phase 6 | Phase 4 slice |
 | `/admin/people` | Admin | People (last in, what they posted) + what’s new. SQL **022** | 022 |
 | `/cities` | Public | City list. Share card: site hero | Phase 2 |
-| `/cities/[slug]` | Public | Dark hero · Eat/Do/Buy/A day stamps · small still + title · share invite. Share card: city hero + feel line | Phase 2 |
+| `/cities/[slug]` | Public | Dark hero · tabs Eat / Do / Buy / A day · small still + title. Empty: point at header Share. Full day only on A day. Share card: city hero + feel line | Phase 2 |
 | `/cities/[slug]/eat` `/do` `/buy` | Public | Full list for one verb. Share card: city hero | Phase 2 |
 | `/cities/[slug]/layovers` | Public | All sequenced days. Share card: city hero | Phase 2 |
 | `/playbooks/[id]` | Public | Playbook detail. Share card: city hero + narrative | Phase 2 |
@@ -186,6 +186,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] **Pilot cut 2026-09-07.** Login: Google first, email hidden. Signup submit **Sign up**. New rec/day forms redirect to `/share`. *or type it yourself* gone. Duplicate dump lands on the rec/day (`?already=1`). City catalog: Eat/Do/Buy/A day stamps, small still + title. Homepage share band after the 4:5 cards.
 - [x] **Talk-first dump (2026-09-08).** `/share` default is a highlighted **Tap to record** (browser speech, $0). Keyboard is the or. No paid STT.
 - [x] **No hotel names (2026-09-08).** Airline security. Public zones: **downtown** or **airport layover**. Hotels are never recs. Dump is not refused for a hotel mention — she strips it and tells them on check/publish.
+- [x] **City tabs (2026-09-08).** Eat / Do / Buy / A day, one panel. No dump box in empty kinds. Full layover only on A day.
 
 ## Session checklist for agents
 

@@ -86,14 +86,14 @@ export default async function CityKindPage({
         </h2>
         {list.length === 0 ? (
           <p className="mt-6 text-zinc-600">
-            Nobody’s filed {label} in {city.name} yet.{" "}
+            Nobody’s filed {label} in {city.name} yet. Click{" "}
             <Link
               href={shareHref}
               className="font-medium text-zinc-900 underline"
             >
               Share your intel
-            </Link>
-            .
+            </Link>{" "}
+            above to add a {label} recommendation.
           </p>
         ) : (
           <ul className="mt-8 grid gap-3 sm:grid-cols-2">
