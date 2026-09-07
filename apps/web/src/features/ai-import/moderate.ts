@@ -20,6 +20,21 @@ export function refusePublicCopy(
   return null;
 }
 
+/** Take lodging phrases out of Lumen’s write-up. Do not refuse the dump. */
+export function scrubLodging(text: string | null | undefined): string | null {
+  if (text == null) return null;
+  const next = text
+    .replace(LODGING, "")
+    .replace(/[ \t]{2,}/g, " ")
+    .replace(/\s+([.,;:!?])/g, "$1")
+    .trim();
+  return next || null;
+}
+
+export function nameIsOnlyLodging(name: string): boolean {
+  return lodgingLeak(name) && !scrubLodging(name);
+}
+
 /** Cheap PG-13 / hate check. Lumen’s extract does the real-place lookup for dumps. */
 const PG13 =
   /\b(porn|porno|xxx|onlyfans|gore|behead(?:ing)?|rape|nigger|nigga|faggot|kike|spic|tranny)\b/i;

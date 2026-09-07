@@ -24,6 +24,8 @@ Hotel room, one thumb, ~60 seconds. Lumen talks as little as possible.
 
 **Dictate is the default (2026-09-08).** In-app **Tap to record** uses the **browser** speech recognizer ($0 — Safari/Apple, Chrome may use Google). Token cost = the text, same as typing. We do not keep the audio. Keyboard is the *or*. **Paid** xAI STT still = **John**.
 
+**Hotels (2026-09-08):** Do not refuse the dump. Strip the name, map to downtown / airport layover, tell them on check/publish: *I took the hotel name out — airline security. Downtown or airport layover is what we keep.*
+
 John’s “one follow-up Q then extract” is the **emergency brake** (step 5), not the default. Default is cheaper and less chatty: dump → form holes.
 
 ## Required fields (bare minimum — locked 2026-08-24)

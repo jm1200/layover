@@ -57,6 +57,7 @@ function asExtract(raw: unknown): LumenExtract | null {
     dish_name: typeof o.dish_name === "string" ? o.dish_name : null,
     dish_note: typeof o.dish_note === "string" ? o.dish_note : null,
     found: o.found === true,
+    took_out_hotel: o.took_out_hotel === true,
     stops: stopsIn.slice(0, 4).map((s) => {
       const st = (s ?? {}) as Record<string, unknown>;
       const sc = st.category;

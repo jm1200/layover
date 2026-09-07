@@ -17,7 +17,11 @@ import {
   zoneIdFor,
 } from "@/features/ai-import/extract";
 import { aiBlocked } from "@/features/ai-import/spend";
-import { refusePublicCopy } from "@/features/ai-import/moderate";
+import {
+  lodgingLeak,
+  nameIsOnlyLodging,
+  scrubLodging,
+} from "@/features/ai-import/moderate";
 import { listAllZones, listCities } from "@/features/places/queries";
 import { listStopsForPlaybook } from "@/features/playbooks/queries";
 import type { City, Place } from "@/features/places/types";
@@ -109,6 +113,8 @@ export async function fillDraft(
       hintSlug: hintSlug ?? undefined,
     };
   }
+
+  const tookOutHotel = extract.took_out_hotel || lodgingLeak(combined);
 
   if (extract.status === "blocked") {
     await supabase.from("ai_import_logs").insert({
@@ -271,7 +277,9 @@ export async function fillDraft(
   }
 
   if (extract.post_kind === "playbook") {
-    const stops = extract.stops.filter((s) => s.name.trim() && s.found);
+    const stops = extract.stops.filter(
+      (s) => s.name.trim() && s.found && !nameIsOnlyLodging(s.name),
+    );
     if (!extract.title?.trim() || stops.length === 0) {
       await supabase.from("ai_import_logs").insert({
         ...logBase,
@@ -289,34 +297,22 @@ export async function fillDraft(
 
     const stopNames = stops.map((s) => s.name.trim());
     const dayCopy =
-      (extract.narrative ?? "").trim() || story.trim() || null;
+      scrubLodging((extract.narrative ?? "").trim() || story.trim()) ||
+      null;
 
     const stopIds: { title: string; body: string | null; place_id: string | null }[] =
       [];
     for (const s of stops) {
-      const stopLodging = refusePublicCopy(s.name.trim(), s.body);
-      if (stopLodging) {
-        await supabase.from("ai_import_logs").insert({
-          ...logBase,
-          success: false,
-          error_code: "blocked",
-          city_id: city.id,
-          payload: extract as unknown as Record<string, unknown>,
-        });
-        return { error: stopLodging, story, hintSlug: city.slug };
-      }
-    }
-    for (const s of stops) {
       const pid = await ensurePlace({
-        name: s.name.trim(),
+        name: scrubLodging(s.name.trim()) ?? s.name.trim(),
         category: s.category ?? "do",
-        blurb: s.blurb,
+        blurb: scrubLodging(s.blurb),
         zoneType: s.zone_type,
         dishName: s.dish_name,
       });
       stopIds.push({
-        title: s.name.trim(),
-        body: s.body,
+        title: scrubLodging(s.name.trim()) ?? s.name.trim(),
+        body: scrubLodging(s.body),
         place_id: pid,
       });
     }
@@ -405,7 +401,9 @@ export async function fillDraft(
       }
     }
   } else if (extract.post_kind === "places") {
-    const recs = extract.stops.filter((s) => s.name.trim() && s.found);
+    const recs = extract.stops.filter(
+      (s) => s.name.trim() && s.found && !nameIsOnlyLodging(s.name),
+    );
     if (recs.length === 0) {
       await supabase.from("ai_import_logs").insert({
         ...logBase,
@@ -423,9 +421,9 @@ export async function fillDraft(
     let linkedId: string | null = null;
     for (const s of recs) {
       const pid = await ensurePlace({
-        name: s.name.trim(),
+        name: scrubLodging(s.name.trim()) ?? s.name.trim(),
         category: s.category ?? "do",
-        blurb: s.blurb,
+        blurb: scrubLodging(s.blurb),
         zoneType: s.zone_type,
         dishName: s.dish_name,
       });
@@ -452,7 +450,7 @@ export async function fillDraft(
   } else {
     const name = extract.name?.trim();
     const category = extract.category;
-    if (name && extract.found === false) {
+    if (name && (extract.found === false || nameIsOnlyLodging(name))) {
       await supabase.from("ai_import_logs").insert({
         ...logBase,
         success: false,
@@ -481,9 +479,9 @@ export async function fillDraft(
       };
     }
     const pid = await ensurePlace({
-      name,
+      name: scrubLodging(name) ?? name,
       category,
-      blurb: extract.blurb,
+      blurb: scrubLodging(extract.blurb),
       zoneType: extract.zone_type,
       dishName: extract.dish_name,
       dishNote: extract.dish_note,
@@ -523,6 +521,7 @@ export async function fillDraft(
       payload: {
         ...(extract as unknown as Record<string, unknown>),
         opened_city: openedCity,
+        took_out_hotel: tookOutHotel,
       },
       created_place_ids: createdPlaceIds,
       created_playbook_id: playbookId,

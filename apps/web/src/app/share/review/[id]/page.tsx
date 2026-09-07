@@ -3,6 +3,7 @@ import { AppShell } from "@/features/auth/shell";
 import { requireUser } from "@/features/auth/get-profile";
 import { createClient } from "@/lib/supabase/server";
 import { ReviewQueue } from "@/features/ai-import/review-place";
+import { TOOK_OUT_HOTEL } from "@/features/ai-import/copy";
 import {
   getPlace,
   listDishesForPlace,
@@ -61,6 +62,7 @@ export default async function ShareReviewPage({
     city_name?: string | null;
     city_airport?: string | null;
     opened_city?: boolean;
+    took_out_hotel?: boolean;
   };
   const newCityLabel =
     payload.opened_city && payload.city_name && payload.city_airport
@@ -83,6 +85,14 @@ export default async function ShareReviewPage({
       {newCityLabel ? (
         <p className="mt-2 text-sm text-zinc-600">
           {newCityLabel} is on the map now.
+        </p>
+      ) : null}
+      {payload.took_out_hotel ? (
+        <p
+          className="mt-4 max-w-lg rounded-xl bg-amber-50 px-4 py-3 text-sm font-medium text-amber-950"
+          role="status"
+        >
+          {TOOK_OUT_HOTEL}
         </p>
       ) : null}
       <p className="mt-2 text-sm text-zinc-500">

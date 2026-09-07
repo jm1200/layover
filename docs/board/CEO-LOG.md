@@ -8,7 +8,7 @@ Append-only decisions and board outcomes. Newest first.
 
 **Source:** Shareholder.
 
-**Call:** Public rule: **No hotel names — airline security.** Accept zone only: **downtown** or **airport layover**. Lumen maps stay-location to those. Hotels are never recs. Do not block a real restaurant dump because they also mentioned a hotel — strip it.
+**Call:** Public rule: **No hotel names — airline security.** Accept zone only: **downtown** or **airport layover**. Lumen maps stay-location to those. Hotels are never recs. **Do not refuse the dump** if they mentioned a hotel — strip it, file the real place, tell them on check/publish: *I took the hotel name out — airline security. Downtown or airport layover is what we keep.* Not a lecture on the dump screen.
 
 **Status:** Built.
 

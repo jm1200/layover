@@ -57,7 +57,7 @@ Optional later precision for verified crew only:
 
 - Forms and AI extract should **not** have a “hotel name” field for public playbooks
 - AI system prompt / schema: extract zones and public landmarks; **do not** output crew hotel names into public fields
-- If story mentions a hotel, draft UI should rewrite toward zone (“airport area”) and warn the user
+- If story mentions a hotel, **do not refuse the dump.** Strip the name, map to downtown or airport layover, tell them on the check/publish screen.
 
 ## Moderation
 

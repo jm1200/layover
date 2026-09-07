@@ -38,7 +38,7 @@ Durable history only. Not a chat transcript.
 
 ## Product locks
 
-- Trust > disguised ads. **No hotel names — airline security.** Downtown or airport layover is fine. Never crew hotels.
+- Trust > disguised ads. **No hotel names — airline security.** Downtown or airport layover is fine. Never crew hotels. Dump is not refused for a hotel mention — she strips it and tells them on check/publish.
 - Destination-first city pages. Not a person-as-brand social network.
 - City browse: **Full layover · Eat · Do · Buy** (public word is Buy, not Shop). Object: **layover plan**.
 - Audience **A:** crew-layover primary. Word-of-mouth-only recs is the problem. Sponsor money later = labeled placement against crew density in cities.

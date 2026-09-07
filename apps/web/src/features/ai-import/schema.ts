@@ -6,7 +6,7 @@ export const LUMEN_JSON_SCHEMA = {
       type: "string",
       enum: ["draft", "need_city", "need_name", "blocked"],
       description:
-        "draft if required fields are present. need_city if city unknown. need_name if place/stop name missing. blocked if PG-13 / hotel / not a real place.",
+        "draft if required fields are present. need_city if city unknown. need_name if place/stop name missing. blocked only for PG-13 / hate. Do not block because they named a hotel.",
     },
     question: {
       type: ["string", "null"],
@@ -66,6 +66,11 @@ export const LUMEN_JSON_SCHEMA = {
     },
     dish_name: { type: ["string", "null"] },
     dish_note: { type: ["string", "null"] },
+    took_out_hotel: {
+      type: "boolean",
+      description:
+        "true if the dump named a hotel / crew lodging and you stripped it. Still draft the real places. Never block for this.",
+    },
     stops: {
       type: "array",
       maxItems: 4,
@@ -128,6 +133,7 @@ export const LUMEN_JSON_SCHEMA = {
     "dish_name",
     "dish_note",
     "found",
+    "took_out_hotel",
     "stops",
   ],
 } as const;
@@ -160,6 +166,7 @@ export type LumenExtract = {
   dish_name: string | null;
   dish_note: string | null;
   found: boolean;
+  took_out_hotel: boolean;
   stops: LumenStop[];
 };
 
