@@ -22,6 +22,8 @@ export function DumpBox({
   const [draft, setDraft] = useState(state.story ?? "");
   const [keyboard, setKeyboard] = useState(false);
   const [listening, setListening] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [elapsed, setElapsed] = useState(0);
   const [live, setLive] = useState("");
   const [micError, setMicError] = useState<string | null>(null);
   const engine = useRef<SpeechEngine | null>(null);
@@ -41,21 +43,41 @@ export function DumpBox({
     };
   }, []);
 
+  useEffect(() => {
+    if (!listening) {
+      setElapsed(0);
+      return;
+    }
+    const t0 = Date.now();
+    const id = window.setInterval(() => {
+      setElapsed(Math.floor((Date.now() - t0) / 1000));
+    }, 250);
+    return () => window.clearInterval(id);
+  }, [listening]);
+
   const followUp = Boolean(state.question);
   const showBox = keyboard || Boolean(draft.trim()) || followUp;
   const shown = listening ? live || draft : draft;
 
-  function stopTalk() {
+  function finishTalk(opts?: { paused?: boolean }) {
     wantListen.current = false;
     setListening(false);
-    engine.current?.stop();
     const next = (committed.current || draft).trim();
     if (next) setDraft(next.slice(0, MAX_STORY_CHARS));
     setLive("");
+    setPaused(Boolean(opts?.paused && next));
+  }
+
+  function stopTalk() {
+    wantListen.current = false;
+    setPaused(false);
+    engine.current?.stop();
+    finishTalk();
   }
 
   function startTalk() {
     setMicError(null);
+    setPaused(false);
     engine.current?.abort();
     const Ctor = speechCtor();
     if (!Ctor) {
@@ -85,20 +107,10 @@ export function DumpBox({
       setMicError("Couldn’t hear that. Try again, or type it.");
     };
     rec.onend = () => {
-      prior.current = committed.current;
-      if (!wantListen.current) {
-        setListening(false);
-        const next = (committed.current || draft).trim();
-        if (next) setDraft(next.slice(0, MAX_STORY_CHARS));
-        setLive("");
-        return;
-      }
-      try {
-        rec.start();
-      } catch {
-        wantListen.current = false;
-        setListening(false);
-      }
+      // Do not restart. Each rec.start() dings on the phone.
+      if (engine.current !== rec) return;
+      const stillWanted = wantListen.current;
+      finishTalk({ paused: stillWanted });
     };
     engine.current = rec;
     wantListen.current = true;
@@ -138,22 +150,44 @@ export function DumpBox({
             aria-pressed={listening}
             aria-label={
               listening
-                ? "Stop recording"
-                : "Tap to record your recommendation"
+                ? "Tap to stop listening"
+                : draft.trim()
+                  ? "Tap to add more"
+                  : "Tap to talk. Don’t hold."
             }
             onClick={() => (listening ? stopTalk() : startTalk())}
-            className={`flex h-40 w-40 flex-col items-center justify-center rounded-full bg-zinc-950 text-white ${
-              listening ? "mic-halo-live" : "mic-halo"
-            }`}
+            className={
+              listening
+                ? "flex min-h-28 w-full max-w-sm flex-col items-center justify-center rounded-2xl bg-red-600 px-6 py-5 text-white shadow-[0_0_0_8px_rgba(220,38,38,0.25)]"
+                : `flex h-40 w-40 flex-col items-center justify-center rounded-full bg-zinc-950 text-white ${
+                    paused ? "mic-halo-live" : "mic-halo"
+                  }`
+            }
           >
-            <MicIcon live={listening} />
-            <span className="mt-2 max-w-[8.5rem] text-center text-sm font-bold leading-tight">
-              {listening ? "Listening… tap to stop" : "Tap to record"}
-            </span>
+            {listening ? (
+              <>
+                <span className="font-mono text-xs uppercase tracking-[0.28em] text-white/80">
+                  Listening
+                </span>
+                <span className="mt-1 font-mono text-3xl font-semibold tabular-nums">
+                  {formatElapsed(elapsed)}
+                </span>
+                <span className="mt-2 text-sm font-bold">Tap to stop</span>
+              </>
+            ) : (
+              <>
+                <MicIcon live={false} />
+                <span className="mt-2 max-w-[8.5rem] text-center text-sm font-bold leading-tight">
+                  {draft.trim() ? "Tap to add more" : "Tap to talk"}
+                </span>
+              </>
+            )}
           </button>
           {listening ? null : (
-            <p className="text-center text-sm font-medium text-zinc-800">
-              your recommendation
+            <p className="max-w-xs text-center text-sm text-zinc-600">
+              {paused
+                ? "The mic paused. Tap to keep going — don’t hold it."
+                : "Tap once to start. Tap again when you’re done. Don’t hold it."}
             </p>
           )}
           {listening && live ? (
@@ -177,6 +211,9 @@ export function DumpBox({
               >
                 use your keyboard
               </button>
+              <span className="block text-xs text-zinc-400">
+                Your phone’s mic on the keyboard is often clearer.
+              </span>
             </p>
           )}
         </div>
@@ -236,6 +273,12 @@ export function DumpBox({
       ) : null}
     </form>
   );
+}
+
+function formatElapsed(sec: number) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return `${m}:${String(s).padStart(2, "0")}`;
 }
 
 function MicIcon({ live }: { live: boolean }) {

@@ -26,7 +26,7 @@ Grok (or another agent) helps in **sessions** using metrics and docs — not uns
 | Production AI | **Off** until John puts `XAI_API_KEY` in env **and** names the monthly $ cap. That is the authorization. |
 | Monthly $ cap | Default **$20** company-wide (`lumen_month_spend_usd`, SQL **011**). Raising it = John. Hard stop. Do not put `service_role` in Next. |
 | User interaction caps | **~4k chars**, **one extract** per story. Daily 3-draft cap **parked** (John 2026-08-25) — restore in a later phase. Raising the $ cap still = John. |
-| Dictate | In-app **Tap to record** (browser speech, $0). Token cost = the text, same as typing. Keyboard is the or. **Paid** xAI STT still = **John**. |
+| Dictate | In-app **Tap to talk** (browser speech, $0). One session — do not auto-restart (that dings). Token cost = the text. Keyboard is the or (phone mic is often clearer). **Paid** STT to match ChatGPT = **John**. |
 | Follow-up | **Holes on the draft form** (Sofia lock). No second model call for dish/zone/hours. **One** spoken/typed Q only if she cannot draft (no city / no place). Not a chat. |
 | SKU / quality upgrades | Imagine quality, extra stills, regen, grok-4.6 on the hot path = **John**. Extract **web_search** (cap 8) is on. Unbounded search still off. |
 | City hero | **One per city.** Lumen spends without asking, inside the $20 cap. She may swap a generated banner for a good crew shot. |

@@ -272,8 +272,11 @@ Public dump does **not** name Lumen. No cartoon. No “I’m an AI.”
 | Lead | Talk it out — one place, a few, or the whole day. Doesn’t have to be pretty. City, plus a real name we can search. We’ll look it up and write it up. You check, then publish. |
 | Box | What did you do? |
 | Talk | Rant. Gab. Messy is fine — we’ll tidy it. Name the restaurant, the shop, the walk. |
-| Record | Tap to record / your recommendation |
-| Listening | Listening… tap to stop |
+| Record | Tap to talk |
+| Hold | Tap once to start. Tap again when you’re done. Don’t hold it. |
+| Listening | Listening · timer · Tap to stop |
+| Paused | The mic paused. Tap to keep going — don’t hold it. |
+| Add more | Tap to add more |
 | Or | or use your keyboard |
 | Heard | What we heard |
 | Placeholder | Los Caracoles in Barcelona — the snails. Or eight hours in BCN: Cal Pep, Ciutat Vella, Aire baths. |

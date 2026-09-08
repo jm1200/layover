@@ -85,9 +85,9 @@ test.describe("email login", () => {
     ).toBeVisible();
     await expect(page.getByText(/real name we can search/i)).toBeVisible();
     await expect(
-      page.getByRole("button", { name: "Tap to record your recommendation" }),
+      page.getByRole("button", { name: /Tap to talk/i }),
     ).toBeVisible();
-    await expect(page.getByText(/your recommendation/i)).toBeVisible();
+    await expect(page.getByText(/Don’t hold/i)).toBeVisible();
     await expect(page.getByText(/Messy is fine/i)).toBeVisible();
     await expect(page.getByText(/No hotel names/i)).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Write it up" })).toHaveCount(0);
