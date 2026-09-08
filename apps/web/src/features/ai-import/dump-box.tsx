@@ -203,7 +203,8 @@ export function DumpBox({
       </div>
 
       {followUp ? null : (
-        <div className="flex flex-col items-center gap-4 py-2">
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex justify-center px-10 py-8">
           <button
             type="button"
             aria-pressed={listening}
@@ -249,6 +250,7 @@ export function DumpBox({
               </>
             )}
           </button>
+          </div>
           {listening || working ? null : (
             <p className="max-w-xs text-center text-sm text-zinc-600">
               Tap once to start. Tap again when you’re done. Don’t hold it.
