@@ -3,16 +3,21 @@
 import { useActionState, useEffect, useRef, useState } from "react";
 import { fillDraft, type ShareState } from "@/features/ai-import/actions";
 import { MAX_STORY_CHARS } from "@/features/ai-import/schema";
-import {
-  foldTranscript,
-  speechCtor,
-  type SpeechEngine,
-} from "@/features/ai-import/speech";
 
 const initial: ShareState = {};
+const MAX_SECONDS = 240;
 
-/** Browser speech dies after a short silence. Restart only inside this window. */
-const LISTEN_GAP_MS = 4500;
+const RECORDER_TYPES = [
+  "audio/webm;codecs=opus",
+  "audio/webm",
+  "audio/mp4",
+  "audio/aac",
+];
+
+function pickMime() {
+  if (typeof MediaRecorder === "undefined") return "";
+  return RECORDER_TYPES.find((t) => MediaRecorder.isTypeSupported(t)) ?? "";
+}
 
 export function DumpBox({
   citySlug,
@@ -25,18 +30,13 @@ export function DumpBox({
   const [draft, setDraft] = useState(state.story ?? "");
   const [keyboard, setKeyboard] = useState(false);
   const [listening, setListening] = useState(false);
-  const [paused, setPaused] = useState(false);
+  const [working, setWorking] = useState(false);
   const [elapsed, setElapsed] = useState(0);
-  const [live, setLive] = useState("");
   const [micError, setMicError] = useState<string | null>(null);
-  const engine = useRef<SpeechEngine | null>(null);
-  const wantListen = useRef(false);
-  const committed = useRef("");
-  /** Text already in the box when this recognition pass started. */
-  const prior = useRef("");
-  const startedAt = useRef(0);
-  const lastResultAt = useRef(0);
-  const restartTimer = useRef<number | null>(null);
+  const recorder = useRef<MediaRecorder | null>(null);
+  const chunks = useRef<Blob[]>([]);
+  const streamRef = useRef<MediaStream | null>(null);
+  const stopTimer = useRef<number | null>(null);
 
   useEffect(() => {
     if (state.story) setDraft(state.story);
@@ -44,9 +44,7 @@ export function DumpBox({
 
   useEffect(() => {
     return () => {
-      wantListen.current = false;
-      if (restartTimer.current) window.clearTimeout(restartTimer.current);
-      engine.current?.abort();
+      tearDown();
     };
   }, []);
 
@@ -64,97 +62,125 @@ export function DumpBox({
 
   const followUp = Boolean(state.question);
   const showBox = keyboard || Boolean(draft.trim()) || followUp;
-  const shown = listening ? live || draft : draft;
+  const busy = pending || working || listening;
 
-  function finishTalk(opts?: { paused?: boolean }) {
-    wantListen.current = false;
-    setListening(false);
-    const next = (committed.current || draft).trim();
-    if (next) setDraft(next.slice(0, MAX_STORY_CHARS));
-    setLive("");
-    setPaused(Boolean(opts?.paused && next));
-  }
-
-  function stopTalk() {
-    wantListen.current = false;
-    if (restartTimer.current) {
-      window.clearTimeout(restartTimer.current);
-      restartTimer.current = null;
+  function tearDown() {
+    if (stopTimer.current) {
+      window.clearTimeout(stopTimer.current);
+      stopTimer.current = null;
     }
-    setPaused(false);
-    engine.current?.stop();
-    finishTalk();
+    const rec = recorder.current;
+    recorder.current = null;
+    if (rec && rec.state !== "inactive") {
+      try {
+        rec.stop();
+      } catch {
+        /* already stopped */
+      }
+    }
+    streamRef.current?.getTracks().forEach((t) => t.stop());
+    streamRef.current = null;
   }
 
-  function startTalk() {
+  async function startTalk() {
     setMicError(null);
-    setPaused(false);
-    engine.current?.abort();
-    const Ctor = speechCtor();
-    if (!Ctor) {
+    if (typeof MediaRecorder === "undefined" || !navigator.mediaDevices?.getUserMedia) {
       setKeyboard(true);
       setMicError("This browser won’t record. Type it, or try Safari or Chrome.");
       return;
     }
-    prior.current = draft.trim();
-    committed.current = prior.current;
-    startedAt.current = Date.now();
-    lastResultAt.current = 0;
-    const rec = new Ctor();
-    rec.continuous = true;
-    rec.interimResults = true;
-    rec.lang = typeof navigator !== "undefined" ? navigator.language : "en-US";
-    rec.onresult = (ev) => {
-      lastResultAt.current = Date.now();
-      const folded = foldTranscript(prior.current, ev.results);
-      committed.current = folded.committed.slice(0, MAX_STORY_CHARS);
-      setLive(folded.live.slice(0, MAX_STORY_CHARS));
-    };
-    rec.onerror = (ev) => {
-      if (ev.error === "not-allowed" || ev.error === "service-not-allowed") {
-        setMicError("Allow the microphone — or type it.");
-        setKeyboard(true);
-        stopTalk();
-        return;
-      }
-      if (ev.error === "no-speech" || ev.error === "aborted") return;
-      setMicError("Couldn’t hear that. Try again, or type it.");
-    };
-    rec.onend = () => {
-      if (engine.current !== rec) return;
-      if (!wantListen.current) {
-        finishTalk();
-        return;
-      }
-      prior.current = committed.current;
-      const quietFor =
-        lastResultAt.current === 0
-          ? Date.now() - startedAt.current
-          : Date.now() - lastResultAt.current;
-      if (quietFor >= LISTEN_GAP_MS) {
-        finishTalk({ paused: true });
-        return;
-      }
-      restartTimer.current = window.setTimeout(() => {
-        restartTimer.current = null;
-        if (!wantListen.current || engine.current !== rec) return;
-        try {
-          rec.start();
-        } catch {
-          finishTalk({ paused: true });
-        }
-      }, 80);
-    };
-    engine.current = rec;
-    wantListen.current = true;
-    setListening(true);
+    let stream: MediaStream;
     try {
-      rec.start();
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     } catch {
-      wantListen.current = false;
-      setListening(false);
       setKeyboard(true);
+      setMicError("Allow the microphone — or type it.");
+      return;
+    }
+    streamRef.current = stream;
+    chunks.current = [];
+    const mime = pickMime();
+    const rec = mime
+      ? new MediaRecorder(stream, { mimeType: mime })
+      : new MediaRecorder(stream);
+    recorder.current = rec;
+    rec.ondataavailable = (e) => {
+      if (e.data.size) chunks.current.push(e.data);
+    };
+    rec.onerror = () => {
       setMicError("Couldn’t start the mic. Type it.");
+      setListening(false);
+      tearDown();
+    };
+    rec.start(1000);
+    setListening(true);
+    stopTimer.current = window.setTimeout(() => {
+      void stopTalk();
+    }, MAX_SECONDS * 1000);
+  }
+
+  async function stopTalk() {
+    const rec = recorder.current;
+    if (!rec || rec.state === "inactive") {
+      setListening(false);
+      tearDown();
+      return;
+    }
+    setListening(false);
+    setWorking(true);
+    const blob = await new Promise<Blob>((resolve) => {
+      rec.onstop = () => {
+        const type = rec.mimeType || chunks.current[0]?.type || "audio/webm";
+        resolve(new Blob(chunks.current, { type }));
+      };
+      try {
+        rec.stop();
+      } catch {
+        resolve(new Blob([]));
+      }
+    });
+    streamRef.current?.getTracks().forEach((t) => t.stop());
+    streamRef.current = null;
+    recorder.current = null;
+    if (stopTimer.current) {
+      window.clearTimeout(stopTimer.current);
+      stopTimer.current = null;
+    }
+    if (blob.size < 200) {
+      setWorking(false);
+      setMicError("Didn’t catch that. Try again.");
+      return;
+    }
+    try {
+      const fd = new FormData();
+      const name = blob.type.includes("mp4") ? "talk.m4a" : "talk.webm";
+      fd.append("audio", blob, name);
+      const res = await fetch("/api/share/transcribe", {
+        method: "POST",
+        body: fd,
+      });
+      const data = (await res.json()) as {
+        text?: string;
+        error?: string;
+        nap?: boolean;
+      };
+      if (data.nap) {
+        setMicError(data.error || "We’re paused. Try again in a bit.");
+        return;
+      }
+      if (!data.text) {
+        setMicError(data.error || "Didn’t catch that. Try again.");
+        return;
+      }
+      const next = [draft.trim(), data.text.trim()]
+        .filter(Boolean)
+        .join(" ")
+        .slice(0, MAX_STORY_CHARS);
+      setDraft(next);
+    } catch {
+      setMicError("Couldn’t hear that. Try again, or type it.");
+    } finally {
+      setWorking(false);
     }
   }
 
@@ -181,23 +207,30 @@ export function DumpBox({
           <button
             type="button"
             aria-pressed={listening}
+            disabled={working}
             aria-label={
               listening
                 ? "Tap to stop listening"
-                : draft.trim()
-                  ? "Tap to add more"
-                  : "Tap to talk. Don’t hold."
+                : working
+                  ? "Writing it down"
+                  : draft.trim()
+                    ? "Tap to add more"
+                    : "Tap to talk. Don’t hold."
             }
-            onClick={() => (listening ? stopTalk() : startTalk())}
+            onClick={() => {
+              if (working) return;
+              if (listening) void stopTalk();
+              else void startTalk();
+            }}
             className={
               listening
                 ? "flex min-h-28 w-full max-w-sm flex-col items-center justify-center rounded-2xl bg-red-600 px-6 py-5 text-white shadow-[0_0_0_8px_rgba(220,38,38,0.25)]"
-                : `flex h-40 w-40 flex-col items-center justify-center rounded-full bg-zinc-950 text-white ${
-                    paused ? "mic-halo-live" : "mic-halo"
-                  }`
+                : "mic-halo flex h-40 w-40 flex-col items-center justify-center rounded-full bg-zinc-950 text-white disabled:opacity-60"
             }
           >
-            {listening ? (
+            {working ? (
+              <span className="text-sm font-bold">Writing it down…</span>
+            ) : listening ? (
               <>
                 <span className="font-mono text-xs uppercase tracking-[0.28em] text-white/80">
                   Listening
@@ -209,23 +242,19 @@ export function DumpBox({
               </>
             ) : (
               <>
-                <MicIcon live={false} />
+                <MicIcon />
                 <span className="mt-2 max-w-[8.5rem] text-center text-sm font-bold leading-tight">
                   {draft.trim() ? "Tap to add more" : "Tap to talk"}
                 </span>
               </>
             )}
           </button>
-          {listening ? null : (
+          {listening || working ? null : (
             <p className="max-w-xs text-center text-sm text-zinc-600">
-              {paused
-                ? "The mic paused. Tap to keep going — don’t hold it."
-                : "Tap once to start. Tap again when you’re done. Don’t hold it."}
+              Tap once to start. Tap again when you’re done. Don’t hold it.
+              Pauses are fine.
             </p>
           )}
-          {listening && live ? (
-            <p className="max-w-lg text-center text-sm text-zinc-600">{live}</p>
-          ) : null}
           {micError ? (
             <p className="max-w-sm text-center text-sm text-red-800" role="alert">
               {micError}
@@ -238,15 +267,13 @@ export function DumpBox({
                 type="button"
                 className="font-medium text-zinc-600 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900"
                 onClick={() => {
-                  stopTalk();
+                  tearDown();
+                  setListening(false);
                   setKeyboard(true);
                 }}
               >
                 use your keyboard
               </button>
-              <span className="block text-xs text-zinc-400">
-                Your phone’s mic on the keyboard is often clearer.
-              </span>
             </p>
           )}
         </div>
@@ -262,8 +289,8 @@ export function DumpBox({
             required={!followUp}
             rows={keyboard && !draft ? 8 : 6}
             maxLength={MAX_STORY_CHARS}
-            value={shown}
-            readOnly={followUp || listening}
+            value={draft}
+            readOnly={followUp || busy}
             onChange={(e) => setDraft(e.target.value)}
             placeholder="Los Caracoles in Barcelona — the snails. Or eight hours in BCN: Cal Pep, Ciutat Vella, Aire baths."
             className="rounded-2xl border border-zinc-300 bg-white px-4 py-3 text-base leading-relaxed outline-none focus:border-zinc-900"
@@ -298,7 +325,7 @@ export function DumpBox({
       {showBox || followUp ? (
         <button
           type="submit"
-          disabled={pending || listening}
+          disabled={busy}
           className="rounded-full bg-zinc-950 px-6 py-3 text-sm font-bold uppercase tracking-wider text-white disabled:opacity-60"
         >
           {pending ? "Writing…" : "Write it up"}
@@ -314,7 +341,7 @@ function formatElapsed(sec: number) {
   return `${m}:${String(s).padStart(2, "0")}`;
 }
 
-function MicIcon({ live }: { live: boolean }) {
+function MicIcon() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -327,7 +354,6 @@ function MicIcon({ live }: { live: boolean }) {
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden
-      className={live ? "text-red-400" : "text-white"}
     >
       <path d="M12 2a3.5 3.5 0 0 0-3.5 3.5v6a3.5 3.5 0 1 0 7 0v-6A3.5 3.5 0 0 0 12 2Z" />
       <path d="M5 11.5a7 7 0 0 0 14 0" />

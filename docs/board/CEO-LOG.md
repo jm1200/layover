@@ -4,6 +4,16 @@ Append-only decisions and board outcomes. Newest first.
 
 ---
 
+## 2026-09-08 — xAI speech-to-text on Share
+
+**Source:** Shareholder — browser mic dings on every pause-restart; quality worse than keyboard / ChatGPT. Asked cost; said turn it on and replace the browser path.
+
+**Call:** Record once (MediaRecorder). Transcribe with xAI STT REST **$0.10/hr** (~a tenth of a cent per rant). Same `XAI_API_KEY` + $20 cap + kill switch. Do not keep the audio. Keyboard stays the or.
+
+**Status:** Built.
+
+---
+
 ## 2026-09-08 — No hotel names; downtown / airport layover
 
 **Source:** Shareholder.

@@ -31,7 +31,7 @@ She does not auto-publish. They hit **Publish** when ready. No “save draft” 
 
 - Extract: `grok-4.3` + lookup. Stills: `grok-imagine-image` (~2¢). City hero: same SKU, 1 per city.
 - Caps: **$20/mo** (company-wide), ~4k chars, kill switch. Daily 3-draft cap is **parked**.
-- Paid STT / quality SKUs / extra stills: still John.
+- Quality SKUs / extra stills: still John. Share talk uses xAI STT on the $20 cap.
 - Kill switch + missing key + over cap → *“Lumen’s taking a nap.”*
 - Skip a photo → one still after Publish. That is the spend they already said yes to. No black tile while waiting.
 
@@ -57,7 +57,7 @@ Warm, specific, a little sly. Short. She talks like the homepage looks. No corpo
 - “X is on the map now” **only** when she actually just opened it. City already live → silence, or `Still {City}.`
 - Sponsored is labeled when ads exist. Never dressed as organic.
 - Publish when ready. She does not auto-publish.
-- Dump once. Talk is the door (in-app record button, browser speech, $0). Keyboard is the or. Holes on the form. One Q only if no city/place. Paid STT still John.
+- Dump once. Talk is the door (tap to record, xAI speech-to-text on the $20 cap). Keyboard is the or. Holes on the form. One Q only if no city/place.
 - Match existing places by name. Match existing itineraries by **stop set** — even if the title is new this time. Do not copy the day. Recs already filed stay.
 - **The day** is the dump they pasted, tightened. Empty narrative on Publish is a bug she will not ship. If extract left it blank, copy the dump into the field.
 - Rec blurbs stand alone. Several recs ≠ a day. She decides; when unsure, no itinerary.
@@ -273,9 +273,9 @@ Public dump does **not** name Lumen. No cartoon. No “I’m an AI.”
 | Box | What did you do? |
 | Talk | Rant. Gab. Messy is fine — we’ll tidy it. Name the restaurant, the shop, the walk. |
 | Record | Tap to talk |
-| Hold | Tap once to start. Tap again when you’re done. Don’t hold it. |
+| Hold | Tap once to start. Tap again when you’re done. Don’t hold it. Pauses are fine. |
 | Listening | Listening · timer · Tap to stop |
-| Paused | The mic paused. Tap to keep going — don’t hold it. |
+| Working | Writing it down… |
 | Add more | Tap to add more |
 | Or | or use your keyboard |
 | Heard | What we heard |

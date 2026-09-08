@@ -40,7 +40,7 @@ test.describe("public browse", () => {
     await expect(page.getByRole("tab", { name: "Buy" })).toBeVisible();
     await expect(page.getByRole("tab", { name: "A day" })).toBeVisible();
     await expect(
-      page.getByRole("button", { name: "Tap to record your recommendation" }),
+      page.getByRole("button", { name: /Tap to talk/i }),
     ).toHaveCount(0);
     await expect(page.getByText("A day, sequenced")).toHaveCount(0);
     await page.getByRole("tab", { name: "A day" }).click();

@@ -10,6 +10,15 @@ const OUTPUT_PER_M = 2.5;
 const SEARCH_PER_CALL = 0.005;
 export const STILL_USD = 0.02;
 export const STILL_MODEL = "grok-imagine-image";
+/** xAI REST speech-to-text. Streaming is $0.20/hr — we use the file call. */
+export const STT_USD_PER_HOUR = 0.10;
+export const STT_RESERVE_USD = 0.02;
+export const MAX_STT_SECONDS = 240;
+
+export function estimateSttUsd(durationSec: number) {
+  const s = Math.max(0, durationSec);
+  return (s / 3600) * STT_USD_PER_HOUR;
+}
 
 /** Cap so a dump cannot browse the internet. */
 export const MAX_SEARCH_CALLS = 8;

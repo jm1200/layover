@@ -25,7 +25,7 @@ Dump a layover → she writes it up → you publish. Trust still beats revenue. 
 | Notes | Lumen reads text + pictures before they go live. Same $20 as dumps. |
 | Buy | **A shop.** The jar is Get this. |
 | Share name | **Share your intel** stays. Louder. Do not rename it in the room. |
-| Dictate | **Tap to record** is the door. Browser speech, $0. Keyboard is the or. Paid STT still off. |
+| Dictate | **Tap to talk.** xAI speech-to-text (~$0.001 per rant) on the $20 cap. Keyboard is the or. |
 
 ## You
 

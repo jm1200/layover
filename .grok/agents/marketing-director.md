@@ -38,7 +38,7 @@ Energetic, visual, specific. What the user sees, feels, does. Not “engagement�
 - No **AI** chip on the landing hero. Rec stills keep the flag. The first screen is mood, not a disclaimer.
 - Next visual: city page gets this mood. Do not go back to writing memos while the screen is ugly.
 - Two jobs on the site: look up vs share. **Share your intel** in the header, not fighting the search pill. Empty city groups should *invite* a share, not hide.
-- Share is hotel-room, one thumb, ~60s: dump once (in-app **Tap to record**, browser speech $0) → one extract → **holes on the form**. Keyboard is the or. Not an interview. One Q only if no city/place. Paid STT is not “dictate.” Pilots could not find the OS keyboard mic — the record button is the door.
+- Share is hotel-room, one thumb, ~60s: dump once (**Tap to talk**, xAI STT) → one extract → **holes on the form**. Keyboard is the or. Not an interview. One Q only if no city/place. Pilots could not find the OS keyboard mic — the record button is the door.
 - John hated “a few days of wiring” as a cost answer. Time-to-build ≠ dollars. Spend lives in OPS: no production $ without his key + cap.
 - Login is Lumen’s: **In from a trip?** Google first. Never “Crew, explorers, and sponsors.”
 - Rec photos are two jobs, not two grey **Add photo** boxes. City card = the outside. Get this = the dish. If both uploads show the same picture, the model is broken.

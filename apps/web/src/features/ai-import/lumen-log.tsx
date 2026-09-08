@@ -303,6 +303,10 @@ function headline(
       return <>Asked which city</>;
     case "need_name":
       return <>What’s the place called?</>;
+    case "stt":
+      return <>Heard the talk</>;
+    case "stt_empty":
+      return <>Didn’t catch the talk</>;
     case "linked":
       return (
         <>

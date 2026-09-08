@@ -22,7 +22,7 @@ Hotel room, one thumb, ~60 seconds. Lumen talks as little as possible.
 
 **Quotas they see (do not hide as a crash):** Over ~4k chars → *“Keep it to one layover.”* Monthly cap / kill switch → *“Lumen’s taking a nap.”* Daily 3-draft cap **parked** (John 2026-08-25) — put back in a later phase.
 
-**Dictate is the default (2026-09-08).** In-app **Tap to record** uses the **browser** speech recognizer ($0 — Safari/Apple, Chrome may use Google). Token cost = the text, same as typing. We do not keep the audio. Keyboard is the *or*. **Paid** xAI STT still = **John**.
+**Dictate is the default (2026-09-08; xAI STT 2026-09-08).** In-app **Tap to talk** records once (MediaRecorder) and transcribes with **xAI `/v1/stt`** at $0.10/hr of audio. Same key + $20 cap + kill switch. We do not keep the audio. Keyboard is the *or*.
 
 **Hotels (2026-09-08):** Do not refuse the dump. Strip the name, map to downtown / airport layover, tell them on check/publish: *I took the hotel name out — airline security. Downtown or airport layover is what we keep.*
 
@@ -85,7 +85,7 @@ Auth required to run extract. Anonymous: no post.
 - Auto-publish
 - Unbounded multi-turn “plan my layover” chat billed to the owner
 - Interview Lumen (dish / zone / hours as spoken Qs)
-- Paid speech-to-text (xAI or other). In-app record uses the **browser** recognizer.
+- Streaming STT ($0.20/hr). Share uses REST file STT ($0.10/hr).
 - Client-side API keys
 - City concierge / browse companion
 - Per-stop extra stills, galleries, or city-hero generation on a user post
@@ -109,7 +109,7 @@ Auth required to run extract. Anonymous: no post.
 - [ ] Two labeled photo jobs (place vs dishes); never copy place onto plate
 - [ ] No **Status: draft** badge; dashboard = this user’s published only
 - [ ] Edit day: one Save → public layover; delete day works
-- [x] Dictate via in-app record button (browser speech, $0). Keyboard is the or. No paid STT
+- [x] Dictate via **Tap to talk** (MediaRecorder + xAI STT REST). Keyboard is the or. Spend on the $20 cap.
 - [x] `AiImportLog` for cost and abuse
 - [x] Admin kill switch respected
 - [x] Failures show safe error; no key leakage
