@@ -11,6 +11,9 @@ import {
 
 const initial: ShareState = {};
 
+/** Browser speech dies after a short silence. Restart only inside this window. */
+const LISTEN_GAP_MS = 4500;
+
 export function DumpBox({
   citySlug,
   cityName,
@@ -31,6 +34,9 @@ export function DumpBox({
   const committed = useRef("");
   /** Text already in the box when this recognition pass started. */
   const prior = useRef("");
+  const startedAt = useRef(0);
+  const lastResultAt = useRef(0);
+  const restartTimer = useRef<number | null>(null);
 
   useEffect(() => {
     if (state.story) setDraft(state.story);
@@ -39,6 +45,7 @@ export function DumpBox({
   useEffect(() => {
     return () => {
       wantListen.current = false;
+      if (restartTimer.current) window.clearTimeout(restartTimer.current);
       engine.current?.abort();
     };
   }, []);
@@ -70,6 +77,10 @@ export function DumpBox({
 
   function stopTalk() {
     wantListen.current = false;
+    if (restartTimer.current) {
+      window.clearTimeout(restartTimer.current);
+      restartTimer.current = null;
+    }
     setPaused(false);
     engine.current?.stop();
     finishTalk();
@@ -87,11 +98,14 @@ export function DumpBox({
     }
     prior.current = draft.trim();
     committed.current = prior.current;
+    startedAt.current = Date.now();
+    lastResultAt.current = 0;
     const rec = new Ctor();
     rec.continuous = true;
     rec.interimResults = true;
     rec.lang = typeof navigator !== "undefined" ? navigator.language : "en-US";
     rec.onresult = (ev) => {
+      lastResultAt.current = Date.now();
       const folded = foldTranscript(prior.current, ev.results);
       committed.current = folded.committed.slice(0, MAX_STORY_CHARS);
       setLive(folded.live.slice(0, MAX_STORY_CHARS));
@@ -103,14 +117,33 @@ export function DumpBox({
         stopTalk();
         return;
       }
-      if (ev.error === "no-speech") return;
+      if (ev.error === "no-speech" || ev.error === "aborted") return;
       setMicError("Couldn’t hear that. Try again, or type it.");
     };
     rec.onend = () => {
-      // Do not restart. Each rec.start() dings on the phone.
       if (engine.current !== rec) return;
-      const stillWanted = wantListen.current;
-      finishTalk({ paused: stillWanted });
+      if (!wantListen.current) {
+        finishTalk();
+        return;
+      }
+      prior.current = committed.current;
+      const quietFor =
+        lastResultAt.current === 0
+          ? Date.now() - startedAt.current
+          : Date.now() - lastResultAt.current;
+      if (quietFor >= LISTEN_GAP_MS) {
+        finishTalk({ paused: true });
+        return;
+      }
+      restartTimer.current = window.setTimeout(() => {
+        restartTimer.current = null;
+        if (!wantListen.current || engine.current !== rec) return;
+        try {
+          rec.start();
+        } catch {
+          finishTalk({ paused: true });
+        }
+      }, 80);
     };
     engine.current = rec;
     wantListen.current = true;
