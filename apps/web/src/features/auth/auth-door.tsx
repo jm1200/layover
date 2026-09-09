@@ -30,7 +30,7 @@ export function AuthDoor({
     <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-950 px-4 text-white">
       <div className="mb-10 max-w-sm text-center">
         <Link href="/" className="text-lg font-semibold tracking-tight">
-          Layover
+          Layover Intel
         </Link>
         <p className="mt-8 font-mono text-xs uppercase tracking-[0.28em] text-white/55">
           {login ? "Log in" : "Sign up"}

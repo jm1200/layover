@@ -19,6 +19,23 @@ test.describe("public browse", () => {
     await expect(page.getByText(/crew hotel/i)).toHaveCount(0);
   });
 
+  test("header wordmark and share pill stay one line on a small phone", async ({
+    page,
+  }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto("/");
+    const wordmark = page.getByRole("link", { name: "Layover Intel" });
+    const share = page.getByRole("link", { name: "Share your intel" }).first();
+    await expect(wordmark).toBeVisible();
+    await expect(share).toBeVisible();
+    await expect(page.getByRole("link", { name: "Cities" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "Log in" })).toBeVisible();
+    const box = await share.boundingBox();
+    expect(box, "share pill should render").toBeTruthy();
+    expect(box!.height).toBeLessThan(44);
+    expect(box!.x + box!.width).toBeLessThanOrEqual(375);
+  });
+
   test("home rec cards name the city and country", async ({ page }) => {
     await page.goto("/");
     const rec = page.locator('a[href^="/places/"]').first();

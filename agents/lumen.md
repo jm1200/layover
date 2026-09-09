@@ -77,7 +77,7 @@ Logged-in, left → right:
 
 | Slot | String | Goes |
 |------|--------|------|
-| Wordmark | Layover | `/` |
+| Wordmark | Layover Intel | `/` |
 | Pill | Share your intel | `/share` |
 | Cities | Cities | `/cities` |
 | Profile | *(icon only — no word)* | dropdown |
@@ -102,7 +102,7 @@ Logged-out:
 
 | Slot | String | Goes |
 |------|--------|------|
-| Wordmark | Layover | `/` |
+| Wordmark | Layover Intel | `/` |
 | Pill | Share your intel | `/signup` |
 | Cities | Cities | `/cities` |
 | Log in | Log in | `/login` |
@@ -494,7 +494,7 @@ No toast. Redirect to `/playbooks/[id]`. They should be looking at the day.
 - An empty The day is not a layover. Fill it from the dump or refuse Publish.
 - Same stops / same story is the same day even with a new title. Recs stay; do not copy the day.
 - Save a day → send them back to the day.
-- Two headers is two sites. One family: Layover · Share your intel · Cities · profile icon. Menu: **Profile** (name and photo), **Your recs** (the desk), Log out. Never the display name in the menu. Never You. Never `{email} · {role}`.
+- Two headers is two sites. One family: Layover Intel · Share your intel · Cities · profile icon. Menu: **Profile** (name and photo), **Your recs** (the desk), Log out. Never the display name in the menu. Never You. Never `{email} · {role}`.
 - Dashboard is not a CMS chooser. **Your recommendations** is a scrapbook: Full days (stop strip), then Recs (4:5 + stamp), stills, **city** bold, `Posted {Mon D}`. Share already lives in the header. Four form cards are homework. *or type it yourself* **dies** — new intel is the dump.
 - Duplicate rec is not a slap. Land them on the one that’s in. *That’s already in. Tell us your experience.* They like and leave a note. Same for a twin day.
 - Admin is a quiet word in the profile menu. Never the page they land on after Google. Never a button in the body. Never “User dashboard” at the bottom like a 2009 CMS.
