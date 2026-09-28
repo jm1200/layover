@@ -74,9 +74,7 @@ export default async function CityLayoversPage({
             No sequenced days in {city.name} yet.{" "}
             <Link
               href={
-                profile
-                  ? `/share?city=${encodeURIComponent(city.slug)}`
-                  : `/signup?next=${encodeURIComponent(`/share?city=${city.slug}`)}`
+                `/share?city=${encodeURIComponent(city.slug)}`
               }
               className="font-medium underline"
             >

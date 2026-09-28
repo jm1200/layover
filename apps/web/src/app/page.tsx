@@ -108,7 +108,7 @@ export default async function HomePage() {
             Dump it. We write it up. You check, then it hits the city.
           </p>
           <Link
-            href={profile ? "/share" : "/signup?next=/share"}
+            href="/share"
             className="mt-8 inline-block rounded-full bg-white px-6 py-3 text-sm font-bold uppercase tracking-wider text-zinc-950 hover:bg-white/90"
           >
             Share your intel

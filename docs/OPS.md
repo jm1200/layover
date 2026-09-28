@@ -95,7 +95,7 @@ v1 upload (when Phase 4 is authorized, same slice as Lumen — not a separate pr
 
 | Control | Intent |
 |---------|--------|
-| Auth required | No anonymous extract |
+| Guest caps (2026-09-28) | Guests may talk + extract, not publish. 3 extracts + 12 talks / network / day, 60 guest calls / hour, **$5/mo guest cap** (`guest_month_cap_usd`, SQL **025**) counted inside the $20. Caps checked and cost reserved in one locked step before the call. Guest rows need `GUEST_LOG_SECRET` (server env). Raising the guest cap = John. |
 | Daily quota per user | **Off for now.** Restore in a later phase (`DAILY_EXTRACT_CAP` in `schema.ts`). |
 | Max input length | ~4k characters |
 | One-shot extract | One request per story. Holes on the form. One Q only if undraftable. |
@@ -198,5 +198,6 @@ CEO/engineer do not own these accounts; document required steps in STACK.
 | 2026-08-24 | Lumen v1 = Grok one-shot extract into existing forms; no auto-publish; no unbounded chat. Phase 4 waits on shareholder yes + `XAI_API_KEY`. |
 | 2026-08-24 | Cheap rails: `grok-4.3` + $0.02 Imagine; 1 still per place; photo-first; generate on publish; layover unpacks to places (no plan still); city hero refresh needs John’s yes; $20/mo default cap. |
 | 2026-08-24 | **Spend lock:** no production AI/cloud spend without John’s yes (key + cap). Tight user caps until measured (3 drafts/day, one extract). Raising quotas / SKUs / stills / STT / search / monthly $ / city-hero = John. Kill switch. |
+| 2026-09-28 | **Sign in at Publish** (John). Guests get the write-up free; publishing needs an account. Guest $5 sub-cap inside the $20; no raise. |
 | 2026-08-25 | Daily 3-draft cap **parked** (John). Restore in a later phase. $20/mo + 4k chars + kill switch stay. |
 | 2026-08-24 | **Share UX (Sofia):** dump once (OS dictate or type) → one extract → holes on the form. One Q only if no city/place. Paid STT not v1. |

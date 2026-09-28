@@ -35,7 +35,7 @@ export function SiteHeader({
         </Link>
         <nav className="flex items-center gap-2 sm:gap-4">
           <Link
-            href={loggedIn ? "/share" : "/signup?next=/share"}
+            href="/share"
             className={pill}
           >
             Share your intel

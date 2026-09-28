@@ -11,7 +11,7 @@ import {
 import { PlaceMap } from "@/features/places/place-map";
 import { stillForPlace } from "@/features/places/rec-media";
 import { shareCard, SITE_NAME } from "@/lib/share-card";
-import { ZoomPhoto } from "@/features/places/zoom-photo";
+import { PhotoSwipe } from "@/features/places/photo-swipe";
 import {
   getPlace,
   listCities,
@@ -193,27 +193,15 @@ export default async function PlacePage({
               <h2 className="font-mono text-sm uppercase tracking-[0.28em] text-zinc-400">
                 Photos
               </h2>
-              <ul className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3">
-                {shown.map((p) => (
-                  <li
-                    key={p.src}
-                    className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-100"
-                  >
-                    <ZoomPhoto src={p.src} alt={p.alt}>
-                      <AiStill
-                        src={p.src}
-                        alt={p.alt}
-                        sizes="30vw"
-                        className="object-cover"
-                        badge={
-                          p.badge ??
-                          (p.src.startsWith("/landing/") ? "ai" : null)
-                        }
-                      />
-                    </ZoomPhoto>
-                  </li>
-                ))}
-              </ul>
+              <div className="mt-4">
+                <PhotoSwipe
+                  photos={shown.map((p) => ({
+                    ...p,
+                    badge:
+                      p.badge ?? (p.src.startsWith("/landing/") ? "ai" : null),
+                  }))}
+                />
+              </div>
             </section>
           ) : null}
           {dishes.length > 0 ? (

@@ -91,9 +91,7 @@ export default async function CityPage({
     }),
   );
 
-  const shareHref = profile
-    ? `/share?city=${encodeURIComponent(city.slug)}`
-    : `/signup?next=${encodeURIComponent(`/share?city=${city.slug}`)}`;
+  const shareHref = `/share?city=${encodeURIComponent(city.slug)}`;
 
   const days: CatalogDay[] = previewPlans.map((pb) => ({
     playbook: pb,

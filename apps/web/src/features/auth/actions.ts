@@ -26,12 +26,16 @@ export async function signUp(
 
   const supabase = await createClient();
   const origin = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+  const next = safeNextPath(String(formData.get("next") ?? ""));
 
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      emailRedirectTo: `${origin}/auth/callback`,
+      // Keep `next` so a guest who confirms by email still lands on /share/claim.
+      emailRedirectTo: next
+        ? `${origin}/auth/callback?next=${encodeURIComponent(next)}`
+        : `${origin}/auth/callback`,
     },
   });
 
@@ -43,7 +47,6 @@ export async function signUp(
   if (data.session) {
     const profile = await getProfile();
     revalidatePath("/", "layout");
-    const next = safeNextPath(String(formData.get("next") ?? ""));
     redirect(next ?? homeForRole(profile?.role ?? "user"));
   }
 

@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import { redirect, unstable_rethrow } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getProfile } from "@/features/auth/get-profile";
 import { EXTRACT_MODEL } from "@/lib/ai/xai";
@@ -18,6 +18,16 @@ import {
 } from "@/features/ai-import/extract";
 import { aiBlocked } from "@/features/ai-import/spend";
 import {
+  claimGuestDraft,
+  clearGuestCookie,
+  restoreGuestCookie,
+  GUEST_EXTRACT_RESERVE_USD,
+  guestIpHash,
+  reserveGuest,
+  settleGuest,
+} from "@/features/ai-import/guest";
+
+import {
   lodgingLeak,
   nameIsOnlyLodging,
   scrubLodging,
@@ -27,9 +37,13 @@ import { listStopsForPlaybook } from "@/features/playbooks/queries";
 import type { City, Place } from "@/features/places/types";
 import type { Playbook } from "@/features/playbooks/types";
 
+type Db = Awaited<ReturnType<typeof createClient>>;
+
 export type ShareState = {
   error?: string;
   nap?: boolean;
+  /** Guest hit a limit that signing in lifts. */
+  signIn?: boolean;
   question?: string;
   story?: string;
   hintSlug?: string;
@@ -42,15 +56,25 @@ function nap(): ShareState {
   };
 }
 
+type LogBase = {
+  user_id: string;
+  model: string;
+  followup: boolean;
+  input_chars: number;
+  input_tokens: number;
+  output_tokens: number;
+  search_calls: number;
+  estimated_usd: number;
+};
+
 export async function fillDraft(
   _prev: ShareState,
   formData: FormData,
 ): Promise<ShareState> {
   const profile = await getProfile();
-  if (!profile || profile.status === "suspended") {
-    return { error: "Log in to dump a layover." };
+  if (profile?.status === "suspended") {
+    return { error: "This account can’t post right now." };
   }
-  const authorId = profile.id;
 
   const story = String(formData.get("story") ?? "").trim();
   const answer = String(formData.get("answer") ?? "").trim();
@@ -70,7 +94,22 @@ export async function fillDraft(
 
   const supabase = await createClient();
 
-  if (await aiBlocked(supabase)) return nap();
+  // Guests get Lumen's write-up; filing waits until they sign in to publish.
+  let guestRow: string | null = null;
+  if (!profile) {
+    const held = await reserveGuest(
+      supabase,
+      await guestIpHash(),
+      "extract",
+      GUEST_EXTRACT_RESERVE_USD,
+    );
+    if (!("id" in held)) {
+      return { ...held, story, hintSlug: hintSlug ?? undefined };
+    }
+    guestRow = held.id;
+  } else if (await aiBlocked(supabase)) {
+    return nap();
+  }
 
   const cities = await listCities();
 
@@ -80,7 +119,12 @@ export async function fillDraft(
     hintSlug,
   });
 
-  const logBase = {
+  if (guestRow) {
+    return guestAfterExtract(supabase, guestRow, result, story, combined, hintSlug);
+  }
+  const authorId = profile!.id;
+
+  const logBase: LogBase = {
     user_id: authorId,
     model: EXTRACT_MODEL,
     followup: Boolean(answer),
@@ -114,8 +158,6 @@ export async function fillDraft(
     };
   }
 
-  const tookOutHotel = extract.took_out_hotel || lodgingLeak(combined);
-
   if (extract.status === "blocked") {
     await supabase.from("ai_import_logs").insert({
       ...logBase,
@@ -137,16 +179,141 @@ export async function fillDraft(
       error_code: extract.status,
       payload: extract as unknown as Record<string, unknown>,
     });
-    const question =
-      extract.status === "need_name"
-        ? NEED_NAME_QUESTION
-        : extract.question || "Which city? Airport code if you have it.";
     return {
-      question,
+      question: needQuestion(extract),
       story,
       hintSlug: hintSlug ?? undefined,
     };
   }
+
+  return fileExtract({
+    supabase,
+    authorId,
+    extract,
+    story,
+    combined,
+    hintSlug,
+    logBase,
+    cities,
+  });
+}
+
+function needQuestion(extract: LumenExtract) {
+  return extract.status === "need_name"
+    ? NEED_NAME_QUESTION
+    : extract.question || "Which city? Airport code if you have it.";
+}
+
+/** Guest: log the cost, keep a usable draft behind their cookie, show the preview. */
+async function guestAfterExtract(
+  supabase: Db,
+  rowId: string,
+  result: Awaited<ReturnType<typeof extractWithLumen>>,
+  story: string,
+  combined: string,
+  hintSlug: string | null,
+): Promise<ShareState> {
+  const extract = result.extract;
+  const usable =
+    !result.error &&
+    Boolean(extract) &&
+    extract!.status !== "blocked" &&
+    extract!.status !== "need_city" &&
+    extract!.status !== "need_name";
+  const saved = await settleGuest(supabase, rowId, {
+    usd: result.estimatedUsd,
+    story: combined,
+    hintSlug,
+    extract: usable ? extract : null,
+    keep: usable,
+  });
+  const back = { story, hintSlug: hintSlug ?? undefined };
+  if (result.error === "missing_key" || result.error === "xai") return nap();
+  if (!extract) {
+    return { error: "Couldn’t read that. Try one more dump.", ...back };
+  }
+  if (extract.status === "blocked") {
+    return { error: extract.question || "I can’t file that.", ...back };
+  }
+  if (extract.status === "need_city" || extract.status === "need_name") {
+    return { question: needQuestion(extract), ...back };
+  }
+  if (!saved) return { error: "Couldn’t save that. Try again.", ...back };
+  redirect(`/share/preview/${rowId}`);
+}
+
+/** Signed in after a guest write-up: file the draft they already saw. No second AI call. */
+export async function claimGuestShare(): Promise<ShareState> {
+  const profile = await getProfile();
+  if (!profile) return { error: "Sign in to publish." };
+  if (profile.status === "suspended") {
+    return { error: "This account can’t post right now." };
+  }
+  const supabase = await createClient();
+  const { draft, failed } = await claimGuestDraft(supabase);
+  // DB hiccup: keep the cookie so Share your intel can retry.
+  if (failed) {
+    return { error: "Couldn’t file that. Tap Share your intel to try again." };
+  }
+  if (!draft?.extract || draft.extract.status !== "draft") {
+    await clearGuestCookie();
+    return {
+      error:
+        "We couldn’t find that write-up. It lives in the browser you started in, for a day. Open Share your intel there, or tell it once more here.",
+    };
+  }
+  const story = draft.story ?? "";
+  // Cleared up front (filing ends in a redirect); put back if filing blows up.
+  const handle = await clearGuestCookie();
+  try {
+    return await fileExtract({
+    supabase,
+    authorId: profile.id,
+    extract: draft.extract,
+    story,
+    combined: story,
+    hintSlug: draft.hint_slug,
+    logBase: {
+      user_id: profile.id,
+      model: EXTRACT_MODEL,
+      followup: false,
+      input_chars: story.length,
+      input_tokens: 0,
+      output_tokens: 0,
+      search_calls: 0,
+      // Already counted on the guest row.
+      estimated_usd: 0,
+    },
+    cities: await listCities(),
+    });
+  } catch (e) {
+    unstable_rethrow(e);
+    console.warn("[claimGuestShare]", e instanceof Error ? e.message : e);
+    await restoreGuestCookie(handle);
+    return { error: "Couldn’t file that. Tap Share your intel to try again." };
+  }
+}
+
+async function fileExtract({
+  supabase,
+  authorId,
+  extract,
+  story,
+  combined,
+  hintSlug,
+  logBase,
+  cities,
+}: {
+  supabase: Db;
+  authorId: string;
+  extract: LumenExtract;
+  story: string;
+  combined: string;
+  hintSlug: string | null;
+  logBase: LogBase;
+  cities: City[];
+}): Promise<ShareState> {
+  const tookOutHotel = extract.took_out_hotel || lodgingLeak(combined);
 
   let city: City | undefined = matchCity(cities, extract, hintSlug);
   if (!city) {

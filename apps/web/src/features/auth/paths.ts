@@ -48,7 +48,9 @@ export function authErrorMessage(code: string | undefined): string | null {
 
 export const PROTECTED_PATH_PREFIXES = [
   "/dashboard",
-  "/share",
+  // /share and /share/preview are open to guests; filing and review are not.
+  "/share/review",
+  "/share/claim",
   "/sponsor",
   "/admin",
 ] as const;

@@ -81,13 +81,24 @@ test.describe("public browse", () => {
     await page.getByRole("button", { name: /View / }).first().click();
     const dialog = page.getByRole("dialog");
     await expect(dialog).toBeVisible();
-    await expect(dialog.locator("img")).toBeVisible();
+    await expect(dialog.locator("img").first()).toBeVisible();
     await page.getByRole("button", { name: "Close" }).click();
     await expect(dialog).toHaveCount(0);
   });
 
-  test("share while logged out sends you to login", async ({ page }) => {
+  test("share while logged out opens the dump box; sign in waits for Publish", async ({
+    page,
+  }) => {
     await page.goto("/share");
+    await expect(page).toHaveURL(/\/share$/);
+    await expect(
+      page.getByText("No account needed to start. You’ll sign in when you publish."),
+    ).toBeVisible();
+    await expect(page.getByRole("button", { name: /Tap to talk/i })).toBeVisible();
+  });
+
+  test("filing and review still need an account", async ({ page }) => {
+    await page.goto("/share/claim");
     await expect(page).toHaveURL(/\/login/);
   });
 

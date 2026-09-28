@@ -122,6 +122,10 @@ ModerationAction / MetricSnapshot            — Phase 6
 | `/dashboard/places/new` | Auth | Redirects to `/share` | Phase 2 |
 | `/dashboard/places/[id]/edit` | Author / admin | Edit rec (Save → rec page; photos/plates persist immediately) | Phase 4 |
 | `/dashboard/playbooks/new` | Auth | Redirects to `/share` | Phase 2 |
+| `/share` | Public | **Share your intel.** Talk or type, no account. Guests: Lumen writes it up → `/share/preview/[id]`. Signed-in: → `/share/review/[id]`. SQL **025** | 2026-09-28 |
+| `/share/preview/[id]` | Guest (cookie) | Read-only write-up + **Continue with Google to publish** / email. Nothing on the site yet | 2026-09-28 |
+| `/share/claim` | Auth | After sign-in: files the guest write-up under the user (no second AI call) → `/share/review/[id]` | 2026-09-28 |
+| `/share/review/[id]` | Author / admin | Edit, photos, Publish | Phase 4 |
 | `/api/...` | Server | Mutations, AI extract, Stripe webhooks | as needed |
 
 Exact paths may adjust; update this table when implementing.
@@ -184,6 +188,8 @@ Exact paths may adjust; update this table when implementing.
 - [x] SQL **021** wipe demo intel (recs/days/notes/likes/photos/dump logs). Keeps accounts, cities, zones, site_settings. John pastes once. Do not re-run 003/005/006/013–015 after. Playwright seed paths skip on 404.
 - [x] Share cards (Open Graph + Twitter) on public pages — `lib/share-card.ts`. Homepage hero; city hero; rec still + blurb; layover narrative. Absolute image URLs via `NEXT_PUBLIC_SITE_URL`. Not a sitemap / Search Console.
 - [x] **Pilot cut 2026-09-07.** Login: Google first, email hidden. Signup submit **Sign up**. New rec/day forms redirect to `/share`. *or type it yourself* gone. Duplicate dump lands on the rec/day (`?already=1`). City catalog: Eat/Do/Buy/A day stamps, small still + title. Homepage share band after the 4:5 cards.
+- [x] **Sign in at Publish (2026-09-28).** `/share` + Tap to talk open to guests. Guest write-up lives in `guest_drafts` (SQL **025**; only our server can write it — RPCs check `GUEST_LOG_SECRET` env against a stored sha256; caps checked + cost reserved under a lock *before* the AI call, settled after; no content-table writes) behind an httpOnly `lo_guest` cookie; `/share/claim` files it after sign-in. Guest caps: 3 write-ups / 12 talks per network per day, 60/hour site-wide, **$5/mo guest cap** inside the $20. Code: `features/ai-import/guest.ts`. All Share links go straight to `/share`.
+- [x] **Rec photo swipe (2026-09-28).** `/places/[id]` album swipes left/right (dots on phone); tap → full screen, swipe or arrows. `features/places/photo-swipe.tsx`.
 - [x] **Talk-first dump (2026-09-08).** `/share` default is **Tap to talk**. Records once, xAI STT (`/api/share/transcribe`, $0.10/hr audio) on the $20 cap. Keyboard is the or.
 - [x] **No hotel names (2026-09-08).** Airline security. Public zones: **downtown** or **airport layover**. Hotels are never recs. Dump is not refused for a hotel mention — she strips it and tells them on check/publish.
 - [x] **City tabs (2026-09-08).** Eat / Do / Buy / A day, one panel. No dump box in empty kinds. Full layover only on A day.

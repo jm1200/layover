@@ -7,7 +7,7 @@ export function AppShell({
   children,
   wide,
 }: {
-  profile: Profile;
+  profile: Profile | null;
   title: string;
   children: React.ReactNode;
   wide?: boolean;

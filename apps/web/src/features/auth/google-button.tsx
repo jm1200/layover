@@ -3,7 +3,13 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
-export function GoogleButton({ next }: { next?: string | null }) {
+export function GoogleButton({
+  next,
+  label = "Continue with Google",
+}: {
+  next?: string | null;
+  label?: string;
+}) {
   const [err, setErr] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
@@ -39,7 +45,7 @@ export function GoogleButton({ next }: { next?: string | null }) {
         className="flex min-h-14 w-full items-center justify-center gap-3 rounded-lg border-2 border-[#747775] bg-white px-4 text-base font-medium text-[#1f1f1f] shadow-sm hover:bg-[#f8faff] disabled:opacity-60"
       >
         <GoogleMark />
-        {pending ? "Opening Google…" : "Continue with Google"}
+        {pending ? "Opening Google…" : label}
       </button>
       {err ? (
         <p className="text-sm text-red-200" role="alert">

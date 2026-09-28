@@ -64,9 +64,7 @@ export default async function CityKindPage({
     (p) => p.status === "published" && recKindFromCategory(p.category) === kind,
   );
   const label = REC_KIND_LABEL[kind];
-  const shareHref = profile
-    ? `/share?city=${encodeURIComponent(city.slug)}`
-    : `/signup?next=${encodeURIComponent(`/share?city=${city.slug}`)}`;
+  const shareHref = `/share?city=${encodeURIComponent(city.slug)}`;
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">

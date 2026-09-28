@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { fillDraft, type ShareState } from "@/features/ai-import/actions";
 import { MAX_STORY_CHARS } from "@/features/ai-import/schema";
@@ -22,11 +23,15 @@ function pickMime() {
 export function DumpBox({
   citySlug,
   cityName,
+  initialState = initial,
 }: {
   citySlug?: string;
   cityName?: string;
+  /** Resume after a claim that needs one more answer. */
+  initialState?: ShareState;
 }) {
-  const [state, action, pending] = useActionState(fillDraft, initial);
+  const [state, action, pending] = useActionState(fillDraft, initialState);
+  const [micSignIn, setMicSignIn] = useState(false);
   const [draft, setDraft] = useState(state.story ?? "");
   const [keyboard, setKeyboard] = useState(false);
   const [listening, setListening] = useState(false);
@@ -84,6 +89,7 @@ export function DumpBox({
 
   async function startTalk() {
     setMicError(null);
+    setMicSignIn(false);
     if (typeof MediaRecorder === "undefined" || !navigator.mediaDevices?.getUserMedia) {
       setKeyboard(true);
       setMicError("This browser won’t record. Type it, or try Safari or Chrome.");
@@ -163,7 +169,13 @@ export function DumpBox({
         text?: string;
         error?: string;
         nap?: boolean;
+        signIn?: boolean;
       };
+      if (data.signIn) {
+        setMicError(data.error || "Sign in to keep going.");
+        setMicSignIn(true);
+        return;
+      }
       if (data.nap) {
         setMicError(data.error || "We’re paused. Try again in a bit.");
         return;
@@ -260,6 +272,12 @@ export function DumpBox({
           {micError ? (
             <p className="max-w-sm text-center text-sm text-red-800" role="alert">
               {micError}
+              {micSignIn ? (
+                <>
+                  {" "}
+                  <SignInLink />
+                </>
+              ) : null}
             </p>
           ) : null}
           {keyboard ? null : (
@@ -321,6 +339,12 @@ export function DumpBox({
       {state.error && !state.nap ? (
         <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-800">
           {state.error}
+          {state.signIn ? (
+            <>
+              {" "}
+              <SignInLink />
+            </>
+          ) : null}
         </p>
       ) : null}
 
@@ -334,6 +358,14 @@ export function DumpBox({
         </button>
       ) : null}
     </form>
+  );
+}
+
+function SignInLink() {
+  return (
+    <Link href="/login?next=/share" className="font-semibold underline">
+      Sign in
+    </Link>
   );
 }
 

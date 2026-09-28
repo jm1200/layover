@@ -57,11 +57,11 @@ Type is required on the rec form today (`eat` / `do` / `shop`). She infers it. W
 
 **She still strips:** crew hotel names, airline lodging → zone if she can, else blank zone. PG-13. She does not require a zone.
 
-Auth required to run extract. Anonymous: no post.
+**Sign in at Publish (John 2026-09-28, supersedes “Auth required to run extract”).** Guests talk/type and see the write-up at `/share/preview/[id]`. Guests never write content tables — the extract waits in `guest_drafts` (SQL **025**) behind an httpOnly cookie. **Continue with Google to publish** (or email) → `/share/claim` files it under them with no second AI call → normal review → Publish. Guest caps: 3 write-ups + 12 talks per network per day, 60/hour site-wide, $5/mo guest cap inside the $20; kill switch applies. Limit copy: *That’s a few from here today. Sign in to keep going.*
 
 ## v1 (locked 2026-08-24; media + unpack 2026-08-24; share UX 2026-08-24)
 
-- Auth required. **One extract per story.** Text model: **`grok-4.3`**. Looks up named places with **web_search** (cap 8). Blurbs = what/where + their voice. Not grok-4.6 on every post.
+- Guests may extract (capped, above); filing and Publish need an account. **One extract per story.** Text model: **`grok-4.3`**. Looks up named places with **web_search** (cap 8). Blurbs = what/where + their voice. Not grok-4.6 on every post.
 - Missing dish / zone / hours → **empty fields.** She writes the blurb. Missing **required** city / name / (layover) title+one stop → one question, then extract.
 - **Share a rec (Eat / Do / Buy):** one place draft.
 - **Share a full layover:** Lumen drafts the **plan and each stop as a place**, then links the stops. Match an existing place in that city by name. Match an existing plan by **stop set** (same city, same places) — title wording is hers, not a new day. Do not copy the day. Cap: **4 stops**. **Narrative comes from the dump** onto the review card. User hits Publish.
@@ -93,7 +93,7 @@ Auth required to run extract. Anonymous: no post.
 
 ## Acceptance criteria
 
-- [x] Authenticated endpoint only (`/share`)
+- [x] ~~Authenticated endpoint only~~ → guest extract + STT behind per-network / global / $5 guest caps; filing + Publish authenticated (2026-09-28)
 - [x] Input length cap (~4k chars). Daily 3-draft quota **parked** — restore later
 - [x] Server calls xAI (`grok-4.3`) **once** per story with structured schema (city, duration, stops, dishes, zones, tips)
 - [x] Full-layover extract also returns place drafts per stop (or links an existing same-city place)

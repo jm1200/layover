@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getProfile } from "@/features/auth/get-profile";
 import { createClient } from "@/lib/supabase/server";
 import { aiBlocked } from "@/features/ai-import/spend";
+import { guestIpHash, reserveGuest, settleGuest } from "@/features/ai-import/guest";
 import { MAX_STORY_CHARS } from "@/features/ai-import/schema";
 import {
   estimateSttUsd,
@@ -27,12 +28,13 @@ function filenameFor(type: string) {
 
 export async function POST(req: Request) {
   const profile = await getProfile();
-  if (!profile || profile.status === "suspended") {
+  if (profile?.status === "suspended") {
     return NextResponse.json(
-      { error: "Log in to dump a layover." },
-      { status: 401 },
+      { error: "This account can’t post right now." },
+      { status: 403 },
     );
   }
+  // No account needed to talk. Guests are capped per network and in total.
 
   let form: FormData;
   try {
@@ -55,10 +57,33 @@ export async function POST(req: Request) {
   }
 
   const supabase = await createClient();
-  const nap = await aiBlocked(supabase, STT_RESERVE_USD);
-  if (nap) {
-    return NextResponse.json({ nap: true, error: nap }, { status: 503 });
+  let guestRow: string | null = null;
+  if (!profile) {
+    const held = await reserveGuest(
+      supabase,
+      await guestIpHash(),
+      "stt",
+      STT_RESERVE_USD,
+    );
+    if (!("id" in held)) {
+      return NextResponse.json(held, { status: held.nap ? 503 : 429 });
+    }
+    guestRow = held.id;
+  } else {
+    const nap = await aiBlocked(supabase, STT_RESERVE_USD);
+    if (nap) {
+      return NextResponse.json({ nap: true, error: nap }, { status: 503 });
+    }
   }
+  const log = (
+    success: boolean,
+    errorCode: string,
+    durationSec: number,
+    usd: number,
+  ) =>
+    guestRow
+      ? settleGuest(supabase, guestRow, { usd }).then(() => undefined)
+      : logStt(supabase, profile!.id, success, errorCode, durationSec, usd);
 
   const key = getXaiKey();
   if (!key) {
@@ -95,7 +120,7 @@ export async function POST(req: Request) {
     }
     if (!res.ok) {
       console.warn("[stt]", res.status, raw.slice(0, 300));
-      await logStt(supabase, profile.id, false, "stt", 0, 0);
+      await log(false, "stt", 0, 0);
       return NextResponse.json(
         { nap: true, error: "Lumen’s taking a nap." },
         { status: 502 },
@@ -105,7 +130,7 @@ export async function POST(req: Request) {
     durationSec = Math.min(MAX_STT_SECONDS, Number(parsed.duration) || 0);
   } catch (e) {
     console.warn("[stt]", e instanceof Error ? e.message : e);
-    await logStt(supabase, profile.id, false, "stt", 0, 0);
+    await log(false, "stt", 0, 0);
     return NextResponse.json(
       { nap: true, error: "Lumen’s taking a nap." },
       { status: 502 },
@@ -113,9 +138,7 @@ export async function POST(req: Request) {
   }
 
   const usd = estimateSttUsd(durationSec || 1);
-  await logStt(
-    supabase,
-    profile.id,
+  await log(
     Boolean(text),
     text ? "stt" : "stt_empty",
     durationSec,

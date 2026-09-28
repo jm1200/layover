@@ -2,7 +2,7 @@
 
 *Updated by CEO / engineer. Target reading time: under 90 seconds.*
 
-**Last updated:** 2026-09-08  
+**Last updated:** 2026-09-28  
 **Company:** Layover (working name)  
 **Stage:** Product is **live**. Two real pilots sat it. Four locks below — build these, do not restyle the homepage, do not add Facebook.
 
@@ -25,13 +25,15 @@ Dump a layover → she writes it up → you publish. Trust still beats revenue. 
 | Notes | Lumen reads text + pictures before they go live. Same $20 as dumps. |
 | Buy | **A shop.** The jar is Get this. |
 | Share name | **Share your intel** stays. Louder. Do not rename it in the room. |
+| Sign in | **At Publish, not the door** (2026-09-28). Anyone talks/types and sees the write-up; Google to publish. Guests capped; $5 of the $20. |
+| Rec photos | Swipe left/right; tap for full screen. |
 | Dictate | **Tap to talk.** xAI speech-to-text (~$0.001 per rant) on the $20 cap. Keyboard is the or. |
 
 ## You
 
-Nothing to buy. Nothing to decide unless you hate a lock.
+**Two things before guests can share:** (1) paste `apps/web/supabase/migrations/025_guest_share.sql` into the Supabase SQL Editor; (2) add `GUEST_LOG_SECRET` to Vercel env (Production) — copy the value from `apps/web/.env.local`. Until both, guests see “We’re paused” (safe, no spend); members are unaffected.
 
-**Next (eng, this order):** (1) Login — Google cannot be missed. (2) Duplicate dump → existing rec + like + comment. (3) Kill new-intel forms; Share is the only door. (4) City page scan — Sofia owns the layout.
+**Next:** fill your top cities yourself, then 5–10 pilots you know (“tap Share your intel, tell it your last layover”), then the forum — ask for their intel, not feedback.
 
 **Not this cut:** Apple/Facebook, homepage restyle, Stripe, follow, a new name for Share your intel.
 
