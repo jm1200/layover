@@ -16,7 +16,7 @@ Hotel room, one thumb, ~60 seconds. Lumen talks as little as possible.
 
 1. **Talk once.** Header **Share your intel**. Public copy does **not** introduce Lumen by name, does **not** put a cartoon or “I’m an AI” on the dump. Lead: *Talk it out — one place, a few, or the whole day. Doesn’t have to be pretty. City, plus a real name we can search. We’ll look it up and write it up. You check, then publish.* Default is a highlighted **Tap to record** button (*your recommendation*). Helper: *Rant. Gab. Messy is fine — we’ll tidy it. Name the restaurant, the shop, the walk.* Soft *or use your keyboard*. After talk, they see **What we heard** and can edit. Button **Write it up**. No Eat/Do/Buy picker first — she still decides place vs places vs day. Sharing from a city page already has the city.
 2. **One extract.** `grok-4.3` fills one rec, several independent recs, or a full layover (standalone recs + plan, max 4). **Do not invent a day.** “Then” alone is not an itinerary. Rec blurbs always stand alone. **No second model call** to chase a dish, zone, or hours.
-3. **Holes are the follow-up.** Draft screen, same fields we have today. Empty bits sit obvious. Lumen one-liner: *“I filled what I heard. Tap the blanks, add a pic, publish.”* They tap. They do not answer her. City-open banner: *“{City} ({IATA}) is on the map now.”* **only** if she actually just opened it. Already live: omit, or *“Still {City}.”* Never *“I’ll put a city hero up when you publish.”* on that line. **The day** is filled from the dump. Empty narrative on Publish = refuse.
+3. **Holes are the follow-up.** Draft screen, same fields we have today. Empty bits sit obvious. Lumen one-liner: *“I filled what I heard. Tap the blanks, add a pic, publish.”* They tap. They do not answer her. City-open banner: *“{City} ({IATA}) is on the map now.”* **only** if she actually just opened it. Already live: omit, or *“Still {City}.”* Never *“I’ll put a city hero up when you publish.”* on that line. **The day** is Lumen’s pitch, written from the dump — never the raw dump (John 2026-09-29). Empty narrative on Publish = refuse.
 4. **Photos on review, max 3**, same album as Edit rec. Tap hero. Skip → she stills on publish. Eat/Buy **Get this** is names only. Never a black rectangle.
 5. **One question only if a required field is missing** (table below). Same screen, one line. They answer once. Then extract. Never a third turn. Never “what dish?” as chat.
 
@@ -46,7 +46,7 @@ Type is required on the rec form today (`eat` / `do` / `shop`). She infers it. W
 
 | Field | Rec | Plan |
 |-------|-----|------|
-| Why / blurb / narrative | she writes; they edit | she writes **from the dump**; they edit. Empty The day on Publish = refuse |
+| Why / blurb / narrative | she writes; they edit | she **rewrites** it as a pitch for the day; they edit. Empty The day on Publish = refuse |
 | Zone | hole (encouraged) | — |
 | Dish / what to get | hole (Eat / Buy) | — |
 | Hours available | — | hole |
@@ -64,7 +64,7 @@ Type is required on the rec form today (`eat` / `do` / `shop`). She infers it. W
 - Guests may extract (capped, above); filing and Publish need an account. **One extract per story.** Text model: **`grok-4.3`**. Looks up named places with **web_search** (cap 8). Blurbs = what/where + their voice. Not grok-4.6 on every post.
 - Missing dish / zone / hours → **empty fields.** She writes the blurb. Missing **required** city / name / (layover) title+one stop → one question, then extract.
 - **Share a rec (Eat / Do / Buy):** one place draft.
-- **Share a full layover:** Lumen drafts the **plan and each stop as a place**, then links the stops. Match an existing place in that city by name. Match an existing plan by **stop set** (same city, same places) — title wording is hers, not a new day. Do not copy the day. Cap: **4 stops**. **Narrative comes from the dump** onto the review card. User hits Publish.
+- **Share a full layover:** Lumen drafts the **plan and each stop as a place**, then links the stops. Match an existing place in that city by name. Match an existing plan by **stop set** (same city, same places) — title wording is hers, not a new day. Do not copy the day. Cap: **4 stops**. **Narrative is Lumen’s pitch of the day** (not the dump) on the review card. User hits Publish.
 - **Duplicate rec (pilot lock 2026-09-07):** same city + same place name (`normName`) → **do not mint a second rec.** Do not return a red error. **Land them on the existing rec** (`/places/[id]`). Banner + like + comment ready. Human line: *That’s already in. Tell us your experience.* They like and comment themselves. **Do not** auto-like. **Do not** paste the dump into the comment (hotels). Twin day (same stop set): land on the existing day, same pattern (*This day’s already in. Tell us how it went.*). Mixed dump (some new, some existing): file the new; do not present the existing as a new card. Matcher stays city + normalized name — no fuzzy chain-matching this cut.
 - **Pictures (photo-first) — 2026-08-26:**
   - **Place (1):** exterior / walk-up. City card. Upload, or she stills **after Publish** if they skip it. One generation. AI flag. No checkbox homework. No black rectangle.
@@ -172,7 +172,7 @@ Do not invent a CMS voice. Login strings also live in `features/auth.md`. Photo 
 **The day**
 
 - Label: `The day`
-- Helper: `Your dump, tightened. Edit if you want.`
+- Helper: `Your day, written up. Edit if you want.`
 - Empty Publish: `I need The day filled. That’s the story you dumped.`
 
 **Twin day**
@@ -207,5 +207,5 @@ One album, max 3. Any shots of the rec. Tap one **hero** = city-page tile + rec 
 
 **Extract prompt (engineering copies into `prompt.ts`)**
 
-For `post_kind=playbook`, `narrative` is the day they dumped — 2–6 sentences, their voice, tightened from the paragraph. Never leave it null if they pitched a day. Rec `blurb`s stay standalone; they are not The day. Same named stops or the same story as an existing plan = do not mint a second itinerary (even with a new title).
+For `post_kind=playbook`, `narrative` is a 3–5 sentence pitch that sells the day — rewritten, never the raw dump: stops in order, one vivid specific each, the payoff; their details and best lines kept, the ramble dropped. Never leave it null if they pitched a day. Rec `blurb`s stay standalone; they are not The day. Same named stops or the same story as an existing plan = do not mint a second itinerary (even with a new title).
 

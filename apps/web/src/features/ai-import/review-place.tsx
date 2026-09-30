@@ -187,7 +187,7 @@ function LayoverPublish({
           <label className="flex flex-col gap-1 text-sm">
             <span className="font-medium">The day</span>
             <span className="text-xs font-normal text-zinc-500">
-              Your dump, tightened. Edit if you want.
+              Your day, written up. Edit if you want.
             </span>
             <textarea
               rows={5}

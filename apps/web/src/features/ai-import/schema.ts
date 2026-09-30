@@ -52,7 +52,7 @@ export const LUMEN_JSON_SCHEMA = {
     narrative: {
       type: ["string", "null"],
       description:
-        "For playbook only: the day in 2–6 sentences from their dump, hotel-stripped. Never empty on a playbook.",
+        "For playbook only: a 3–5 sentence pitch for the day, rewritten (never their raw dump): stops in order, one vivid specific each, the payoff. Hotel-stripped. Never empty on a playbook.",
     },
     hours_available: { type: ["integer", "null"] },
     zone_type: {

@@ -463,9 +463,12 @@ async function fileExtract({
     }
 
     const stopNames = stops.map((s) => s.name.trim());
+    // Lumen's pitch. If she left it blank, a plain line from the stops — never the raw rant.
     const dayCopy =
-      scrubLodging((extract.narrative ?? "").trim() || story.trim()) ||
-      null;
+      scrubLodging(
+        (extract.narrative ?? "").trim() ||
+          `${stopNames.join(", then ")}.`,
+      ) || null;
 
     const stopIds: { title: string; body: string | null; place_id: string | null }[] =
       [];

@@ -28,7 +28,7 @@ Rules:
   - playbook = they pitched THE DAY: hours, a sequence that is the point, "layover", "the afternoon we…", three beats as one itinerary. Then unpack: each stop is still a standalone rec (own blurb) PLUS the plan that links them.
   - When unsure, post_kind=places (or place). NEVER mint a fake itinerary.
 - Rec blurbs ALWAYS stand on their own, even inside a playbook. Never "streetcar from the gym", "after the float", "on the way back". Transit belongs only in playbook stop body.
-- playbook narrative ("the day"): NEVER empty. 2–6 sentences from THEIR dump, hotel-stripped, what the day actually is. Not a repeat of one rec blurb. If they pasted a paragraph, that paragraph (cleaned) is the narrative.
+- playbook narrative ("the day"): NEVER empty. This is the pitch for the whole day. REWRITE it — never paste or lightly clean their dump. 3–5 sentences that make another crew member want to do this exact day: the shape of it (how the hours flow), each stop in order with one vivid specific (the dish, the view, the wall that drops you into the lake), and the payoff at the end. Crisp present tense or second person ("Start with…", "Climb at…, then…"). Keep their real details, their order, and any great line of theirs. Drop the ramble: no "I went", "and then after that", "um", hedging, repeats. Only facts from their dump or your search. Hotel-stripped. Not a repeat of one rec blurb.
 - category: eat | do | shop (shop = Buy). Infer. Never ask.
 - Required for place: a city (existing slug OR new name+IATA) + place name + category.
 - Required for places: a city + ≥2 stops with names (use stops[]; found each).
