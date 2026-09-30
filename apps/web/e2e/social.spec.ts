@@ -7,11 +7,11 @@ const ZRH_DAY = "/playbooks/e1000000-0000-4000-8000-000000000001";
 test.describe("like, comment, byline", () => {
   test("public rec and day show a byline and comments", async ({ page }) => {
     await gotoSeed(page, LIMMAT);
-    await expect(page.getByText(/^Posted by /)).toBeVisible();
+    await expect(page.getByText(/^By .+ · /)).toBeVisible();
     await expect(page.getByText(/^Posted [A-Z][a-z]{2} \d/)).toBeVisible();
     await expect(page.getByRole("heading", { name: "Comments" })).toBeVisible();
     await gotoSeed(page, ZRH_DAY);
-    await expect(page.getByText(/^Posted by /)).toBeVisible();
+    await expect(page.getByText(/^By .+ · /)).toBeVisible();
     await expect(page.getByText(/^Posted [A-Z][a-z]{2} \d/)).toBeVisible();
     await expect(page.getByRole("heading", { name: "Comments" })).toBeVisible();
   });

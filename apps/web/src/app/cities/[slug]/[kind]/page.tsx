@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EmptyShare } from "@/features/places/city-catalog";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProfile } from "@/features/auth/get-profile";
@@ -83,16 +84,13 @@ export default async function CityKindPage({
           {label}
         </h2>
         {list.length === 0 ? (
-          <p className="mt-6 text-zinc-600">
-            Nobody’s filed {label} in {city.name} yet. Click{" "}
-            <Link
-              href={shareHref}
-              className="font-medium text-zinc-900 underline"
-            >
-              Share your intel
-            </Link>{" "}
-            above to add a {label} recommendation.
-          </p>
+          <div className="mt-6">
+            <EmptyShare
+              cityName={city.name}
+              label={label}
+              shareHref={shareHref}
+            />
+          </div>
         ) : (
           <ul className="mt-8 grid gap-3 sm:grid-cols-2">
             {list.map((p) => {

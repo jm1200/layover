@@ -21,7 +21,7 @@ export function Byline({
   return (
     <div className={cls}>
       <p>
-        Posted by{" "}
+        By{" "}
         {href ? (
           <Link href={href} className={linkCls}>
             {name}
@@ -29,8 +29,8 @@ export function Byline({
         ) : (
           name
         )}
+        {posted ? ` · ${posted.replace(/^Posted\s+/, "")}` : null}
       </p>
-      {posted ? <p className="mt-0.5">{posted}</p> : null}
     </div>
   );
 }

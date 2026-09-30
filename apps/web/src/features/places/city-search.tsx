@@ -26,19 +26,6 @@ export function CitySearch({
     );
   }, [q, cities]);
 
-  const codes = useMemo(() => {
-    const seen = new Set<string>();
-    const out: string[] = [];
-    for (const c of cities) {
-      const code = c.airport_code?.trim().toUpperCase();
-      if (!code || seen.has(code)) continue;
-      seen.add(code);
-      out.push(code);
-      if (out.length >= 8) break;
-    }
-    return out;
-  }, [cities]);
-
   function go(slug: string) {
     setOpen(false);
     router.push(`/cities/${slug}`);
@@ -83,17 +70,6 @@ export function CitySearch({
             : "w-full rounded-xl border border-zinc-300 bg-white px-4 py-3 text-base outline-none focus:border-zinc-900 focus-visible:ring-2 focus-visible:ring-zinc-900/20"
         }
       />
-      <p
-        className={
-          hero
-            ? "mt-3 text-xs text-white/70"
-            : "mt-2 text-xs text-zinc-500"
-        }
-      >
-        {codes.length > 0
-          ? `Try an airport code — ${codes.join(", ")}.`
-          : "Try an airport code."}
-      </p>
       {open ? (
         <ul className="absolute z-30 mt-1 max-h-56 w-full overflow-y-auto rounded-xl border border-zinc-200 bg-white text-left text-zinc-900 shadow-lg">
           {matches.length === 0 ? (
@@ -112,8 +88,14 @@ export function CitySearch({
                   onMouseDown={(e) => e.preventDefault()}
                   onClick={() => go(c.slug)}
                 >
-                  {c.name}
-                  {c.airport_code ? ` (${c.airport_code})` : ""}
+                  <span className="flex items-baseline justify-between gap-3">
+                    <span>{c.name}</span>
+                    {c.airport_code ? (
+                      <span className="font-mono text-xs tracking-widest text-zinc-500">
+                        {c.airport_code.toUpperCase()}
+                      </span>
+                    ) : null}
+                  </span>
                 </button>
               </li>
             ))

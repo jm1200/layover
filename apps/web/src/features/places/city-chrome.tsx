@@ -34,6 +34,8 @@ export function CityHero({
             src={hero.src}
             alt={hero.alt}
             sizes="100vw"
+              priority
+              badgeAt="bottom"
             className="object-cover object-[50%_55%]"
             badge={hero.badge === undefined ? "ai" : hero.badge}
           />

@@ -38,10 +38,7 @@ export function StartItinerary({ stops }: { stops: Stop[] }) {
     <section className="mt-12 rounded-2xl bg-zinc-900 px-5 py-6 text-white">
       <h2 className="text-xl font-semibold tracking-tight">Time this day</h2>
       <p className="mt-2 text-sm text-white/70">
-        When do you want to start? We line up the stops from that clock. Exact
-        buses, tickets, and walking directions are the AI step — not live yet.
-        No hotel names — airline security. Downtown or airport layover is
-        fine.
+        Pick a start time and we’ll line up the stops, travel included.
       </p>
       <div className="mt-4 flex flex-wrap items-end gap-3">
         <label className="flex flex-col gap-1 text-sm">

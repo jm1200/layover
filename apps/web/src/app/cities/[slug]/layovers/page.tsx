@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { EmptyShare } from "@/features/places/city-catalog";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getProfile } from "@/features/auth/get-profile";
@@ -70,18 +71,13 @@ export default async function CityLayoversPage({
           Full layovers
         </h2>
         {list.length === 0 ? (
-          <p className="mt-6 text-zinc-600">
-            No sequenced days in {city.name} yet.{" "}
-            <Link
-              href={
-                `/share?city=${encodeURIComponent(city.slug)}`
-              }
-              className="font-medium underline"
-            >
-              Share your intel
-            </Link>
-            .
-          </p>
+          <div className="mt-6">
+            <EmptyShare
+              cityName={city.name}
+              label="day"
+              shareHref={`/share?city=${encodeURIComponent(city.slug)}`}
+            />
+          </div>
         ) : (
           <ul className="mt-8 grid gap-6 lg:grid-cols-3">
             {list.map((pb) => (

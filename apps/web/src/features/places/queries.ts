@@ -12,6 +12,25 @@ const CITY_COLS =
   "id, slug, name, country, airport_code, image_url, image_source";
 const CITY_COLS_LEGACY = "id, slug, name, country, airport_code";
 
+/** Published recs + days per city, for the Cities list. */
+export async function countsByCity(): Promise<
+  Record<string, { spots: number; days: number }>
+> {
+  const supabase = await createClient();
+  const [places, days] = await Promise.all([
+    supabase.from("places").select("city_id").eq("status", "published"),
+    supabase.from("playbooks").select("city_id").eq("status", "published"),
+  ]);
+  const out: Record<string, { spots: number; days: number }> = {};
+  for (const r of places.data ?? []) {
+    (out[r.city_id] ??= { spots: 0, days: 0 }).spots++;
+  }
+  for (const r of days.data ?? []) {
+    (out[r.city_id] ??= { spots: 0, days: 0 }).days++;
+  }
+  return out;
+}
+
 export async function listCities(): Promise<City[]> {
   const supabase = await createClient();
   const first = await supabase

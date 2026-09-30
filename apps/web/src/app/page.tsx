@@ -38,6 +38,8 @@ export default async function HomePage() {
           src="/landing/hero.jpg"
           alt="Evening cafe tables on a cobbled street at blue hour"
           sizes="100vw"
+              priority
+              badgeAt="bottom"
           className="object-cover object-[50%_60%]"
           badge={null}
         />

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import { listCities } from "@/features/places/queries";
+import { countsByCity, listCities } from "@/features/places/queries";
 import { getProfile } from "@/features/auth/get-profile";
 import { SiteHeader } from "@/features/auth/site-header";
 import { AiStill } from "@/features/places/ai-still";
@@ -14,7 +14,16 @@ export const metadata: Metadata = shareCard({
 });
 
 export default async function CitiesPage() {
-  const [cities, profile] = await Promise.all([listCities(), getProfile()]);
+  const [all, profile, counts] = await Promise.all([
+    listCities(),
+    getProfile(),
+    countsByCity(),
+  ]);
+  const size = (id: string) =>
+    (counts[id]?.spots ?? 0) + (counts[id]?.days ?? 0);
+  // Cities with intel first; empty ones wait at the end.
+  const empty = (c: { id: string }) => size(c.id) === 0;
+  const cities = [...all.filter((c) => !empty(c)), ...all.filter(empty)];
 
   return (
     <div className="min-h-screen bg-zinc-50 text-zinc-900">
@@ -22,8 +31,8 @@ export default async function CitiesPage() {
       <main className="mx-auto max-w-6xl px-4 py-10">
         <h1 className="text-2xl font-semibold tracking-tight">Cities</h1>
         <p className="mt-2 text-zinc-600">
-          Eat, do, buy — plus the perfect layover. Downtown or airport
-          layover, never a hotel name.
+          Eat, do, buy — plus the perfect layover. Downtown or airport layover,
+          never a hotel name.
         </p>
         {cities.length === 0 ? (
           <p className="mt-8 text-sm text-zinc-500">
@@ -34,6 +43,20 @@ export default async function CitiesPage() {
             {cities.map((c) => {
               const hero = heroForCity(c);
               const feel = CITY_FEEL[c.slug];
+              const n = counts[c.id] ?? { spots: 0, days: 0 };
+              const tally =
+                n.spots + n.days === 0
+                  ? "Nothing yet — be the first"
+                  : [
+                      n.spots
+                        ? `${n.spots} ${n.spots === 1 ? "spot" : "spots"}`
+                        : null,
+                      n.days
+                        ? `${n.days} ${n.days === 1 ? "day" : "days"}`
+                        : null,
+                    ]
+                      .filter(Boolean)
+                      .join(" · ");
               return (
                 <li key={c.id}>
                   <Link href={`/cities/${c.slug}`} className="group block">
@@ -76,7 +99,9 @@ export default async function CitiesPage() {
                         {c.country ? (
                           <p
                             className={
-                              hero ? "mt-0.5 text-sm text-white/80" : "mt-0.5 text-sm text-zinc-600"
+                              hero
+                                ? "mt-0.5 text-sm text-white/80"
+                                : "mt-0.5 text-sm text-zinc-600"
                             }
                           >
                             {c.country}
@@ -84,8 +109,17 @@ export default async function CitiesPage() {
                         ) : null}
                       </div>
                     </div>
+                    <p
+                      className={
+                        n.spots + n.days === 0
+                          ? "mt-2 text-sm font-medium text-zinc-400"
+                          : "mt-2 text-sm font-medium text-zinc-800"
+                      }
+                    >
+                      {tally}
+                    </p>
                     {feel ? (
-                      <p className="mt-2 text-sm text-zinc-600">{feel}</p>
+                      <p className="mt-1 text-sm text-zinc-600">{feel}</p>
                     ) : null}
                   </Link>
                 </li>

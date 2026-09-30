@@ -44,7 +44,13 @@ export function CityCatalog({
   days: CatalogDay[];
   places: Place[];
 }) {
-  const [tab, setTab] = useState<Tab>("eat");
+  // Open on the first tab with something in it, not an empty Eat.
+  const [tab, setTab] = useState<Tab>(() => {
+    const first = (["eat", "do", "shop"] as RecKind[]).find(
+      (k) => byKind[k]?.length,
+    );
+    return first ?? (days.length ? "day" : "eat");
+  });
 
   return (
     <div>
@@ -125,7 +131,7 @@ export function CityCatalog({
                   </p>
                 ) : null}
                 {placesOf.length === 0 ? (
-                  <EmptyKind
+                  <EmptyShare
                     cityName={cityName}
                     label={label}
                     shareHref={shareHref}
@@ -159,16 +165,11 @@ export function CityCatalog({
       >
         {tab === "day" ? (
           days.length === 0 ? (
-            <p className="max-w-xl text-zinc-600">
-              Nobody’s filed a day in {cityName} yet. Click{" "}
-              <Link
-                href={shareHref}
-                className="font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4"
-              >
-                Share your intel
-              </Link>{" "}
-              above to add one.
-            </p>
+            <EmptyShare
+              cityName={cityName}
+              label="day"
+              shareHref={shareHref}
+            />
           ) : (
             <>
               {days.length > 0 ? (
@@ -233,7 +234,15 @@ function TabBtn({
   );
 }
 
-function EmptyKind({
+const EMPTY_WHAT: Record<string, string> = {
+  Eat: "a place to eat",
+  Do: "something to do",
+  Buy: "a shop",
+  day: "a full day",
+};
+
+/** Empty tab: say so plainly, then one button that already knows the city. */
+export function EmptyShare({
   cityName,
   label,
   shareHref,
@@ -243,15 +252,16 @@ function EmptyKind({
   shareHref: string;
 }) {
   return (
-    <p className="max-w-xl text-zinc-600">
-      Nobody’s filed {label} in {cityName} yet. Click{" "}
+    <div className="max-w-xl">
+      <p className="text-zinc-600">
+        No one’s shared {EMPTY_WHAT[label] ?? label} in {cityName} yet.
+      </p>
       <Link
         href={shareHref}
-        className="font-medium text-zinc-900 underline decoration-zinc-300 underline-offset-4"
+        className="mt-4 inline-flex rounded-full bg-zinc-950 px-5 py-2.5 text-sm font-bold text-white"
       >
-        Share your intel
-      </Link>{" "}
-      above to add a {label} recommendation.
-    </p>
+        Been to {cityName}? Share it
+      </Link>
+    </div>
   );
 }

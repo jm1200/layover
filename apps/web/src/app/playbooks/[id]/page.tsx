@@ -119,6 +119,8 @@ export default async function PlaybookPage({
               src={hero.src}
               alt={hero.alt}
               sizes="100vw"
+              priority
+              badgeAt="bottom"
               className="object-cover"
             />
           </div>
@@ -240,7 +242,7 @@ export default async function PlaybookPage({
                         href={`/places/${s.place_id}`}
                         className="underline"
                       >
-                        Open
+                        See the place
                       </Link>
                     </p>
                   ) : null}

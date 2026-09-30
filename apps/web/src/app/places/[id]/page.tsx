@@ -95,6 +95,8 @@ export default async function PlacePage({
               src={still.src}
               alt={still.alt}
               sizes="100vw"
+              priority
+              badgeAt="bottom"
               className="object-cover"
               badge={still.badge ?? null}
             />
