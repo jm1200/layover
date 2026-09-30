@@ -9,7 +9,7 @@ import {
   REC_KIND_LABEL,
 } from "@/features/places/kind";
 import { PlaceMap } from "@/features/places/place-map";
-import { stillForPlace } from "@/features/places/rec-media";
+import { albumPhotos, stillForPlace } from "@/features/places/rec-media";
 import { shareCard, SITE_NAME } from "@/lib/share-card";
 import { PhotoSwipe } from "@/features/places/photo-swipe";
 import {
@@ -80,31 +80,7 @@ export default async function PlacePage({
     : null;
   const kind = recKindFromCategory(place.category);
   const still = stillForPlace(place);
-  const photos: { src: string; alt: string; badge?: "ai" | null }[] = [];
-  for (const p of album) {
-    if (!photos.some((x) => x.src === p.image_url)) {
-      photos.push({
-        src: p.image_url,
-        alt: place.name,
-        badge: p.image_url.startsWith("/landing/") ? "ai" : null,
-      });
-    }
-  }
-  if (photos.length === 0 && still) {
-    photos.push({
-      src: still.src,
-      alt: still.alt,
-      badge: still.badge ?? null,
-    });
-  } else if (still) {
-    const heroSrc = still.src.split("?")[0];
-    const i = photos.findIndex((x) => x.src.split("?")[0] === heroSrc);
-    if (i > 0) {
-      const [hero] = photos.splice(i, 1);
-      photos.unshift(hero);
-    }
-  }
-  const shown = photos.slice(0, 3);
+  const shown = albumPhotos(album, still, place.name);
   const canEdit = Boolean(profile && profile.id === place.author_id);
   const mapQuery = [place.name, city?.name, city?.country]
     .filter(Boolean)
@@ -194,13 +170,7 @@ export default async function PlacePage({
                 Photos
               </h2>
               <div className="mt-4">
-                <PhotoSwipe
-                  photos={shown.map((p) => ({
-                    ...p,
-                    badge:
-                      p.badge ?? (p.src.startsWith("/landing/") ? "ai" : null),
-                  }))}
-                />
+                <PhotoSwipe photos={shown} />
               </div>
             </section>
           ) : null}

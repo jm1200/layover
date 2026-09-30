@@ -173,6 +173,39 @@ export function stillForStop(
   return seed ? { ...seed, badge: "ai" } : undefined;
 }
 
+/** A rec's album for display: deduped, hero first, max 3. Falls back to the still. */
+export function albumPhotos(
+  album: { image_url: string }[],
+  still: { src: string; alt: string; badge?: "ai" | null } | undefined,
+  name: string,
+): { src: string; alt: string; badge: "ai" | null }[] {
+  const photos: { src: string; alt: string; badge: "ai" | null }[] = [];
+  for (const p of album) {
+    if (!photos.some((x) => x.src === p.image_url)) {
+      photos.push({
+        src: p.image_url,
+        alt: name,
+        badge: p.image_url.startsWith("/landing/") ? "ai" : null,
+      });
+    }
+  }
+  if (photos.length === 0 && still) {
+    photos.push({
+      src: still.src,
+      alt: still.alt,
+      badge: still.badge ?? (still.src.startsWith("/landing/") ? "ai" : null),
+    });
+  } else if (still) {
+    const heroSrc = still.src.split("?")[0];
+    const i = photos.findIndex((x) => x.src.split("?")[0] === heroSrc);
+    if (i > 0) {
+      const [hero] = photos.splice(i, 1);
+      photos.unshift(hero);
+    }
+  }
+  return photos.slice(0, 3);
+}
+
 export const CITY_FEEL: Record<string, string> = {
   zurich:
     "River in summer, raclette when it isn’t, trams instead of taxis.",

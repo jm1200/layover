@@ -336,8 +336,14 @@ async function writeStopOrder(
 ): Promise<string | null> {
   const { data: existing } = await supabase
     .from("playbook_stops")
-    .select("id")
-    .eq("playbook_id", playbookId);
+    .select("id, position")
+    .eq("playbook_id", playbookId)
+    .order("position");
+  // Travel is "from the previous stop" — stale once the previous stop changes.
+  const oldPrev = new Map<string, string | null>();
+  (existing ?? []).forEach((s, i, all) => {
+    oldPrev.set(s.id, i > 0 ? all[i - 1].id : null);
+  });
   const keep = new Set(orderedIds);
   const toDrop = (existing ?? [])
     .map((s) => s.id)
@@ -354,11 +360,21 @@ async function writeStopOrder(
     if (error) return error.message;
   }
   for (let i = 0; i < orderedIds.length; i++) {
-    const { error } = await supabase
+    const prev = i > 0 ? orderedIds[i - 1] : null;
+    const moved = oldPrev.get(orderedIds[i]) !== prev;
+    let { error } = await supabase
       .from("playbook_stops")
-      .update({ position: i + 1 })
+      .update(moved ? { position: i + 1, travel_minutes: null } : { position: i + 1 })
       .eq("id", orderedIds[i])
       .eq("playbook_id", playbookId);
+    if (error && moved && /travel_minutes/.test(error.message)) {
+      // SQL 026 not pasted yet: nothing to clear.
+      ({ error } = await supabase
+        .from("playbook_stops")
+        .update({ position: i + 1 })
+        .eq("id", orderedIds[i])
+        .eq("playbook_id", playbookId));
+    }
     if (error) return error.message;
   }
   return null;

@@ -19,5 +19,7 @@ export type PlaybookStop = {
   title: string | null;
   body: string | null;
   duration_minutes: number | null;
+  /** Minutes from the previous stop. SQL 026. */
+  travel_minutes: number | null;
   cost_note: string | null;
 };

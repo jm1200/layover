@@ -470,8 +470,13 @@ async function fileExtract({
           `${stopNames.join(", then ")}.`,
       ) || null;
 
-    const stopIds: { title: string; body: string | null; place_id: string | null }[] =
-      [];
+    const stopIds: {
+      title: string;
+      body: string | null;
+      place_id: string | null;
+      duration_minutes: number | null;
+      travel_minutes: number | null;
+    }[] = [];
     for (const s of stops) {
       const pid = await ensurePlace({
         name: scrubLodging(s.name.trim()) ?? s.name.trim(),
@@ -484,6 +489,8 @@ async function fileExtract({
         title: scrubLodging(s.name.trim()) ?? s.name.trim(),
         body: scrubLodging(s.body),
         place_id: pid,
+        duration_minutes: s.minutes,
+        travel_minutes: stopIds.length === 0 ? null : s.travel_minutes,
       });
     }
 
@@ -541,15 +548,30 @@ async function fileExtract({
       } else {
         playbookId = pb.id;
         if (stopIds.length) {
-          const { error: stopErr } = await supabase.from("playbook_stops").insert(
-            stopIds.map((s, idx) => ({
-              playbook_id: pb.id,
-              position: idx + 1,
-              title: s.title,
-              body: s.body,
-              place_id: s.place_id,
-            })),
-          );
+          const rows = stopIds.map((s, idx) => ({
+            playbook_id: pb.id,
+            position: idx + 1,
+            title: s.title,
+            body: s.body,
+            place_id: s.place_id,
+            duration_minutes: s.duration_minutes,
+            travel_minutes: s.travel_minutes,
+          }));
+          let { error: stopErr } = await supabase
+            .from("playbook_stops")
+            .insert(rows);
+          if (stopErr && /travel_minutes/.test(stopErr.message)) {
+            // SQL 026 not pasted yet: keep the day, drop the travel estimate.
+            ({ error: stopErr } = await supabase
+              .from("playbook_stops")
+              .insert(
+                rows.map((r) => {
+                  const rest: Partial<typeof r> = { ...r };
+                  delete rest.travel_minutes;
+                  return rest;
+                }),
+              ));
+          }
           if (stopErr) {
             await supabase.from("playbooks").delete().eq("id", pb.id);
             playbookId = null;

@@ -68,10 +68,17 @@ function asExtract(raw: unknown): LumenExtract | null {
         body: typeof st.body === "string" ? st.body : null,
         zone_type: parseZone(st.zone_type),
         dish_name: typeof st.dish_name === "string" ? st.dish_name : null,
+        minutes: clampInt(st.minutes, 1, 720),
+        travel_minutes: clampInt(st.travel_minutes, 0, 240),
         found: st.found === true,
       };
     }),
   };
+}
+
+function clampInt(v: unknown, min: number, max: number): number | null {
+  if (typeof v !== "number" || !Number.isFinite(v)) return null;
+  return Math.min(max, Math.max(min, Math.round(v)));
 }
 
 function parseZone(v: unknown): ZoneType | null {

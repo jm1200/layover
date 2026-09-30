@@ -81,6 +81,65 @@ export function PhotoSwipe({ photos }: { photos: SwipePhoto[] }) {
   );
 }
 
+/** One frame (a layover stop tile): fills its parent, swipes photo to photo, dots on top. */
+export function PhotoFrame({
+  photos,
+  sizes,
+}: {
+  photos: SwipePhoto[];
+  sizes: string;
+}) {
+  const [active, setActive] = useState(0);
+  const [open, setOpen] = useState<number | null>(null);
+  const many = photos.length > 1;
+
+  return (
+    <>
+      <div
+        onScroll={(e) => {
+          const el = e.currentTarget;
+          setActive(Math.round(el.scrollLeft / el.clientWidth));
+        }}
+        className="absolute inset-0 flex snap-x snap-mandatory overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        aria-label="Photos"
+      >
+        {photos.map((p, i) => (
+          <button
+            key={p.src}
+            type="button"
+            onClick={() => setOpen(i)}
+            className="relative h-full w-full shrink-0 snap-center cursor-zoom-in"
+            aria-label={`View photo ${i + 1} of ${photos.length}`}
+          >
+            <AiStill
+              src={p.src}
+              alt={p.alt}
+              sizes={sizes}
+              className="object-cover"
+              badge={p.badge ?? null}
+            />
+          </button>
+        ))}
+      </div>
+      {many ? (
+        <div className="pointer-events-none absolute inset-x-0 bottom-3 z-10 flex justify-center gap-1.5">
+          {photos.map((p, i) => (
+            <span
+              key={p.src}
+              className={`h-1.5 w-1.5 rounded-full shadow ${
+                i === active ? "bg-white" : "bg-white/50"
+              }`}
+            />
+          ))}
+        </div>
+      ) : null}
+      {open !== null ? (
+        <Viewer photos={photos} start={open} onClose={() => setOpen(null)} />
+      ) : null}
+    </>
+  );
+}
+
 function Viewer({
   photos,
   start,

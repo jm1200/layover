@@ -37,6 +37,15 @@ export async function listStopsForPlaybook(
   playbookId: string,
 ): Promise<PlaybookStop[]> {
   const supabase = await createClient();
+  const withTravel = await supabase
+    .from("playbook_stops")
+    .select(
+      "id, playbook_id, position, place_id, title, body, duration_minutes, travel_minutes, cost_note",
+    )
+    .eq("playbook_id", playbookId)
+    .order("position");
+  if (!withTravel.error) return (withTravel.data ?? []) as PlaybookStop[];
+
   const full = await supabase
     .from("playbook_stops")
     .select(
@@ -44,7 +53,12 @@ export async function listStopsForPlaybook(
     )
     .eq("playbook_id", playbookId)
     .order("position");
-  if (!full.error) return (full.data ?? []) as PlaybookStop[];
+  if (!full.error) {
+    return (full.data ?? []).map((row) => ({
+      ...row,
+      travel_minutes: null,
+    })) as PlaybookStop[];
+  }
 
   const basic = await supabase
     .from("playbook_stops")
@@ -58,6 +72,7 @@ export async function listStopsForPlaybook(
   return (basic.data ?? []).map((row) => ({
     ...row,
     duration_minutes: null,
+    travel_minutes: null,
     cost_note: null,
   })) as PlaybookStop[];
 }

@@ -4,8 +4,18 @@ import type { Metadata } from "next";
 import { getProfile } from "@/features/auth/get-profile";
 import { AiStill } from "@/features/places/ai-still";
 import { CityPublicHeader } from "@/features/places/city-chrome";
-import { heroForCity, stillForStop } from "@/features/places/rec-media";
-import { getPlace, listCities } from "@/features/places/queries";
+import {
+  albumPhotos,
+  heroForCity,
+  stillForStop,
+} from "@/features/places/rec-media";
+import { PhotoFrame } from "@/features/places/photo-swipe";
+import { formatMinutes } from "@/features/playbooks/timing";
+import {
+  getPlace,
+  listCities,
+  listPlacePhotos,
+} from "@/features/places/queries";
 import { shareCard, SITE_NAME } from "@/lib/share-card";
 import { StartItinerary } from "@/features/playbooks/start-itinerary";
 import {
@@ -84,12 +94,20 @@ export default async function PlaybookPage({
     }
   }
 
+  const albums: Record<string, Awaited<ReturnType<typeof listPlacePhotos>>> = {};
+  await Promise.all(
+    Object.keys(placesById).map(async (pid) => {
+      albums[pid] = await listPlacePhotos(pid).catch(() => []);
+    }),
+  );
+
   const timedStops = stops.map((s) => ({
     title:
       s.title ||
       (s.place_id ? placesById[s.place_id]?.name : null) ||
       "Stop",
     duration_minutes: s.duration_minutes,
+    travel_minutes: s.travel_minutes,
   }));
 
   return (
@@ -170,21 +188,24 @@ export default async function PlaybookPage({
           {stops.map((s) => {
             const pl = s.place_id ? placesById[s.place_id] : null;
             const still = stillForStop(s, pl);
+            const photos = pl
+              ? albumPhotos(albums[pl.id] ?? [], still, pl.name)
+              : still
+                ? [{ ...still, badge: still.badge ?? null }]
+                : [];
             return (
               <li
                 key={s.id}
                 className="grid gap-6 sm:grid-cols-[minmax(0,16rem)_1fr] sm:items-start"
               >
                 <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-zinc-900">
-                  {still ? (
-                    <AiStill
-                      src={still.src}
-                      alt={still.alt}
+                  {photos.length ? (
+                    <PhotoFrame
+                      photos={photos}
                       sizes="(min-width: 640px) 16rem, 100vw"
-                      badge={still.badge ?? null}
                     />
                   ) : null}
-                  <span className="absolute left-3 top-3 font-mono text-xs uppercase tracking-widest text-white">
+                  <span className="pointer-events-none absolute left-3 top-3 z-10 font-mono text-xs uppercase tracking-widest text-white">
                     Stop {s.position}
                   </span>
                 </div>
@@ -193,11 +214,17 @@ export default async function PlaybookPage({
                     {s.title || pl?.name || "Stop"}
                   </h2>
                   <p className="mt-2 text-sm text-zinc-500">
-                    {s.duration_minutes
-                      ? `~${s.duration_minutes} min`
-                      : null}
-                    {s.duration_minutes && s.cost_note ? " · " : null}
-                    {s.cost_note}
+                    {[
+                      s.duration_minutes
+                        ? `~${formatMinutes(s.duration_minutes)}`
+                        : null,
+                      s.travel_minutes && s.position > 1
+                        ? `${formatMinutes(s.travel_minutes)} from the last stop`
+                        : null,
+                      s.cost_note,
+                    ]
+                      .filter(Boolean)
+                      .join(" · ")}
                   </p>
                   {s.body ? (
                     <p className="mt-3 whitespace-pre-wrap text-zinc-700">

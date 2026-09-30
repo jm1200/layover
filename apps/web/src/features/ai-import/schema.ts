@@ -97,6 +97,16 @@ export const LUMEN_JSON_SCHEMA = {
             ],
           },
           dish_name: { type: ["string", "null"] },
+          minutes: {
+            type: ["integer", "null"],
+            description:
+              "Playbook only: realistic minutes spent AT this stop. Their number if they gave one; else a typical visit (meal ~60–90, climbing session ~120, spa/bath ~150, museum ~90–120, quick shop ~20–30). Null for places.",
+          },
+          travel_minutes: {
+            type: ["integer", "null"],
+            description:
+              "Playbook only: minutes to get here from the previous stop by the way they moved (walk/tram/train/cable car). 0 if next door. Null on the first stop and for places. Never invent precision: round to 5.",
+          },
           found: {
             type: "boolean",
             description:
@@ -110,6 +120,8 @@ export const LUMEN_JSON_SCHEMA = {
           "body",
           "zone_type",
           "dish_name",
+          "minutes",
+          "travel_minutes",
           "found",
         ],
       },
@@ -145,6 +157,10 @@ export type LumenStop = {
   body: string | null;
   zone_type: "airport_strip" | "downtown" | "station" | "other" | null;
   dish_name: string | null;
+  /** Minutes at the stop (playbook). */
+  minutes: number | null;
+  /** Minutes from the previous stop (playbook). */
+  travel_minutes: number | null;
   found: boolean;
 };
 

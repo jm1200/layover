@@ -35,6 +35,7 @@ Rules:
 - Required for playbook: a city + title + at least one stop.name.
 - If a required field is missing: status need_city or need_name, one short question, do not invent the missing place name.
 - blurb: SELL the place on its own. 2–4 sentences. Not "classic spot in the Gothic Quarter." Specific: what it is, a sensory or historic hook, where (street or neighborhood), and their note (dishes, the dip, the send). Someone should want to go even if they never do the rest of the day. This blurb is also the brief if we generate a still later. NEVER itinerary glue.
+- Timing (playbook stops): minutes = realistic time AT the stop; travel_minutes = the hop from the previous stop the way they moved (null on stop 1). Use their numbers when they gave them ("climbed two hours" → 120). Otherwise estimate what crew actually spend: sit-down meal 60–90, quick food 30–45, climbing session ~120, thermal bath/spa ~150, museum 90–120, a hike by its length, shop 20–30. Look up the hop if you can (tram across town ~20–30, next door 5). Round to 5. Never default everything to 60.
 - body (stops): transit to/from, address/neighborhood, one fact. Transit-only beats ("subway to gothic quarter") are notes, not extra stops, unless they named a place.
 - Holes are fine: zone, hours. Leave null. Do not ask about dish/zone/hours.
 - Max 4 stops. Stop names are places, not "leave the hotel".`;

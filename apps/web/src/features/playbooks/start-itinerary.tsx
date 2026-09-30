@@ -1,10 +1,13 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { formatMinutes } from "@/features/playbooks/timing";
 
 type Stop = {
   title: string;
   duration_minutes: number | null;
+  /** Getting here from the previous stop. */
+  travel_minutes: number | null;
 };
 
 function addMinutes(hhmm: string, minutes: number) {
@@ -22,11 +25,12 @@ export function StartItinerary({ stops }: { stops: Stop[] }) {
 
   const timed = useMemo(() => {
     let t = start;
-    return stops.map((s) => {
-      const begin = t;
+    return stops.map((s, i) => {
+      const travel = i > 0 ? (s.travel_minutes ?? 0) : 0;
+      const begin = addMinutes(t, travel);
       const mins = s.duration_minutes ?? 60;
-      t = addMinutes(t, mins);
-      return { ...s, begin, end: t };
+      t = addMinutes(begin, mins);
+      return { ...s, travel, begin, end: t };
     });
   }, [start, stops]);
 
@@ -60,11 +64,18 @@ export function StartItinerary({ stops }: { stops: Stop[] }) {
       {on ? (
         <ol className="mt-6 space-y-2 text-sm">
           {timed.map((s, i) => (
-            <li key={i} className="flex gap-3">
-              <span className="font-mono text-white/80">
-                {s.begin}–{s.end}
-              </span>
-              <span>{s.title}</span>
+            <li key={i}>
+              {s.travel ? (
+                <p className="mb-2 pl-[6.75rem] text-xs text-white/50">
+                  {formatMinutes(s.travel)} to get there
+                </p>
+              ) : null}
+              <p className="flex gap-3">
+                <span className="w-24 shrink-0 font-mono text-white/80">
+                  {s.begin}–{s.end}
+                </span>
+                <span>{s.title}</span>
+              </p>
             </li>
           ))}
         </ol>
