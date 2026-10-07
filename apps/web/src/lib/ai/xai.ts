@@ -44,6 +44,32 @@ export function estimateUsd(
   );
 }
 
+export const XAI_CONSOLE_URL = "https://console.x.ai";
+
+/** xAI prepaid credit left, in USD. Needs a management key + team ID; null when unset or xAI won't say. */
+export async function xaiCreditLeftUsd(): Promise<number | null> {
+  const key = process.env.XAI_MANAGEMENT_KEY?.trim();
+  const team = process.env.XAI_TEAM_ID?.trim();
+  if (!key || !team) return null;
+  try {
+    const res = await fetch(
+      `https://management-api.x.ai/v1/billing/teams/${encodeURIComponent(team)}/prepaid/balance`,
+      {
+        headers: { Authorization: `Bearer ${key}` },
+        cache: "no-store",
+        signal: AbortSignal.timeout(5_000),
+      },
+    );
+    if (!res.ok) return null;
+    const body = (await res.json()) as { total?: { val?: unknown } };
+    const cents = Number(body.total?.val);
+    // xAI books purchases as negative cents and spending as positive.
+    return Number.isFinite(cents) ? -cents / 100 : null;
+  } catch {
+    return null;
+  }
+}
+
 export function xaiClient() {
   const key = getXaiKey();
   if (!key) return null;

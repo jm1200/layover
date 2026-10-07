@@ -27,6 +27,7 @@ Grok (or another agent) helps in **sessions** using metrics and docs — not uns
 | Monthly $ cap | Default **$20** company-wide (`lumen_month_spend_usd`, SQL **011**). Raising it = John. Hard stop. Do not put `service_role` in Next. |
 | User interaction caps | **~4k chars**, **one extract** per story. Daily 3-draft cap **parked** (John 2026-08-25) — restore in a later phase. Raising the $ cap still = John. |
 | Dictate | In-app **Tap to talk**. Record once (MediaRecorder), transcribe with **xAI STT REST** at **$0.10/hr** of audio (~$0.001 per 45s rant). Same `XAI_API_KEY` + **$20/mo** cap + kill switch. Do not keep the audio. Keyboard is the or. |
+| Credit check | `/admin` shows xAI credit left when `XAI_MANAGEMENT_KEY` + `XAI_TEAM_ID` are set (console.x.ai → Settings → Management keys). Read-only balance call, no charge. |
 | Follow-up | **Holes on the draft form** (Sofia lock). No second model call for dish/zone/hours. **One** spoken/typed Q only if she cannot draft (no city / no place). Not a chat. |
 | SKU / quality upgrades | Imagine quality, extra stills, regen, grok-4.6 on the hot path = **John**. Extract **web_search** (cap 8) is on. Unbounded search still off. |
 | City hero | **One per city.** Lumen spends without asking, inside the $20 cap. She may swap a generated banner for a good crew shot. |
