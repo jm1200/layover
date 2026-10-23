@@ -21,17 +21,25 @@ export default async function SharePage({
 
   return (
     <AppShell profile={profile} title="Share your intel">
-      <p className="mb-6 max-w-lg text-zinc-600">
-        Talk it out — one place, a few, or the whole day. Doesn’t have
-        to be pretty. City, plus a real name we can search. We’ll look
-        it up and write it up. You check, then publish.
-      </p>
-      {profile ? null : (
-        <p className="-mt-3 mb-6 text-sm text-zinc-500">
-          No account needed to start. You’ll sign in when you publish.
-        </p>
-      )}
-      <DumpBox citySlug={city?.slug} cityName={city?.name} />
+      <DumpBox
+        citySlug={city?.slug}
+        cityName={city?.name}
+        guest={!profile}
+        intro={
+          <>
+            <p className="mb-6 max-w-lg text-zinc-600">
+              Talk it out — one place, a few, or the whole day. Doesn’t have
+              to be pretty. City, plus a real name we can search. We’ll look
+              it up and write it up.
+            </p>
+            {profile ? null : (
+              <p className="-mt-3 mb-6 text-sm text-zinc-500">
+                No account needed to start. You’ll sign in when you publish.
+              </p>
+            )}
+          </>
+        }
+      />
     </AppShell>
   );
 }

@@ -5,6 +5,7 @@ import { getProfile } from "@/features/auth/get-profile";
 import { GoogleButton } from "@/features/auth/google-button";
 import { TOOK_OUT_HOTEL } from "@/features/ai-import/copy";
 import { readGuestDraft } from "@/features/ai-import/guest";
+import { ShareSteps } from "@/features/ai-import/share-steps";
 import {
   lodgingLeak,
   nameIsOnlyLodging,
@@ -74,6 +75,7 @@ export default async function SharePreviewPage({
 
   return (
     <AppShell profile={null} title="Here’s your write-up">
+      <ShareSteps current={3} guest />
       <p className="max-w-lg text-zinc-700">
         Sign in to publish. It goes on the city and into your collection.
       </p>

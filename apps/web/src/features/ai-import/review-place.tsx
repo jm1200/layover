@@ -98,7 +98,7 @@ function RecPublish({ logId }: { logId: string }) {
             if (r?.error) setMsg(r.error);
           })
         }
-        className="mt-4 rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
+        className="sticky bottom-3 z-10 w-full shadow-lg sm:static sm:w-auto sm:shadow-none mt-4 rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
       >
         {pending ? "Publishing…" : "Publish"}
       </button>
@@ -210,7 +210,7 @@ function LayoverPublish({
                 if (r?.error) setMsg(r.error);
               })
             }
-            className="rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
+            className="sticky bottom-3 z-10 w-full shadow-lg sm:static sm:w-auto sm:shadow-none rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
           >
             {pending ? "Publishing…" : "Publish"}
           </button>
@@ -365,7 +365,7 @@ function ReviewPlaceCard({
             });
           })
         }
-        className="mt-4 rounded-lg bg-zinc-900 px-3 py-2 text-sm text-white disabled:opacity-60"
+        className="sticky bottom-3 z-10 w-full shadow-lg sm:static sm:w-auto sm:shadow-none mt-4 rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
       >
         {pending ? (publishNow ? "Publishing…" : "Saving…") : nextLabel}
       </button>

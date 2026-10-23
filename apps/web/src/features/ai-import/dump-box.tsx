@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { fillDraft, type ShareState } from "@/features/ai-import/actions";
 import { MAX_STORY_CHARS } from "@/features/ai-import/schema";
+import { ShareSteps } from "@/features/ai-import/share-steps";
 
 const initial: ShareState = {};
 const MAX_SECONDS = 240;
@@ -24,9 +25,14 @@ export function DumpBox({
   citySlug,
   cityName,
   initialState = initial,
+  guest = false,
+  intro,
 }: {
   citySlug?: string;
   cityName?: string;
+  guest?: boolean;
+  /** Page copy under the steps. */
+  intro?: React.ReactNode;
   /** Resume after a claim that needs one more answer. */
   initialState?: ShareState;
 }) {
@@ -42,6 +48,10 @@ export function DumpBox({
   const chunks = useRef<Blob[]>([]);
   const streamRef = useRef<MediaStream | null>(null);
   const stopTimer = useRef<number | null>(null);
+  const heardRef = useRef<HTMLLabelElement | null>(null);
+  // Bumps each time words come back from the mic, so the page can move to them.
+  const [heardTick, setHeardTick] = useState(0);
+  const [flash, setFlash] = useState(false);
 
   useEffect(() => {
     if (state.story) setDraft(state.story);
@@ -65,9 +75,25 @@ export function DumpBox({
     return () => window.clearInterval(id);
   }, [listening]);
 
+  useEffect(() => {
+    if (!heardTick) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    heardRef.current?.scrollIntoView({
+      behavior: reduce ? "auto" : "smooth",
+      block: "center",
+    });
+    setFlash(true);
+    const id = window.setTimeout(() => setFlash(false), 1600);
+    return () => window.clearTimeout(id);
+  }, [heardTick]);
+
   const followUp = Boolean(state.question);
   const showBox = keyboard || Boolean(draft.trim()) || followUp;
   const busy = pending || working || listening;
+  const hasWords = Boolean(draft.trim());
+  // Mic stays big until there are words to check; then it's a small Add more.
+  const compactMic = hasWords && !listening && !working;
+  const step = pending ? 3 : hasWords || followUp ? 2 : 1;
 
   function tearDown() {
     if (stopTimer.current) {
@@ -189,6 +215,7 @@ export function DumpBox({
         .join(" ")
         .slice(0, MAX_STORY_CHARS);
       setDraft(next);
+      setHeardTick((n) => n + 1);
     } catch {
       setMicError("Couldn’t hear that. Try again, or type it.");
     } finally {
@@ -197,6 +224,9 @@ export function DumpBox({
   }
 
   return (
+    <>
+    <ShareSteps current={step} guest={guest} />
+    {intro}
     <form action={action} className="flex flex-col gap-5">
       {citySlug ? <input type="hidden" name="city" value={citySlug} /> : null}
       {followUp ? <input type="hidden" name="story" value={draft} /> : null}
@@ -216,7 +246,13 @@ export function DumpBox({
 
       {followUp ? null : (
         <div className="flex flex-col items-center gap-4">
-          <div className="flex justify-center px-10 py-8">
+          <div
+            className={
+              compactMic
+                ? "flex justify-center"
+                : "flex justify-center px-10 py-8"
+            }
+          >
           <button
             type="button"
             aria-pressed={listening}
@@ -236,7 +272,9 @@ export function DumpBox({
               else void startTalk();
             }}
             className={
-              listening
+              compactMic
+                ? "flex items-center gap-2 rounded-full border border-zinc-300 bg-white px-4 py-2 text-sm font-bold text-zinc-800 disabled:opacity-60"
+                : listening
                 ? "flex min-h-28 w-full max-w-sm flex-col items-center justify-center rounded-2xl bg-red-600 px-6 py-5 text-white shadow-[0_0_0_8px_rgba(220,38,38,0.25)]"
                 : "mic-halo flex h-40 w-40 flex-col items-center justify-center rounded-full bg-zinc-950 text-white disabled:opacity-60"
             }
@@ -253,6 +291,11 @@ export function DumpBox({
                 </span>
                 <span className="mt-2 text-sm font-bold">Tap to stop</span>
               </>
+            ) : compactMic ? (
+              <>
+                <MicIcon size={18} />
+                <span>Tap to add more</span>
+              </>
             ) : (
               <>
                 <MicIcon />
@@ -263,7 +306,7 @@ export function DumpBox({
             )}
           </button>
           </div>
-          {listening || working ? null : (
+          {listening || working || compactMic ? null : (
             <p className="max-w-xs text-center text-sm text-zinc-600">
               Tap once to start. Tap again when you’re done. Don’t hold it.
               Pauses are fine.
@@ -280,7 +323,7 @@ export function DumpBox({
               ) : null}
             </p>
           ) : null}
-          {keyboard ? null : (
+          {keyboard || compactMic ? null : (
             <p className="text-center text-sm text-zinc-400">
               or{" "}
               <button
@@ -300,7 +343,14 @@ export function DumpBox({
       )}
 
       {showBox ? (
-        <label className="flex flex-col gap-2">
+        <label
+          ref={heardRef}
+          className={
+            flash
+              ? "heard-flash -mx-2 flex flex-col gap-2 rounded-2xl p-2"
+              : "-mx-2 flex flex-col gap-2 rounded-2xl p-2"
+          }
+        >
           <span className="text-sm font-medium text-zinc-700">
             {followUp ? "What you said" : "What we heard"}
           </span>
@@ -354,10 +404,30 @@ export function DumpBox({
           disabled={busy}
           className="rounded-full bg-zinc-950 px-6 py-3 text-sm font-bold uppercase tracking-wider text-white disabled:opacity-60"
         >
-          {pending ? "Writing…" : "Write it up"}
+          {pending
+            ? "Writing it up…"
+            : hasWords && !keyboard && !followUp
+              ? "Looks right, write it up"
+              : "Write it up"}
         </button>
       ) : null}
+      {showBox && !pending && !followUp ? (
+        <p className="-mt-2 text-center text-sm text-zinc-500">
+          Fix any word we got wrong first. Next, we write it up and you check
+          it.
+        </p>
+      ) : null}
+      {pending ? (
+        <p
+          className="-mt-2 text-center text-sm text-zinc-600"
+          role="status"
+        >
+          Looking up the places and writing it up. Takes a few seconds — then
+          you check it.
+        </p>
+      ) : null}
     </form>
+    </>
   );
 }
 
@@ -375,13 +445,13 @@ function formatElapsed(sec: number) {
   return `${m}:${String(s).padStart(2, "0")}`;
 }
 
-function MicIcon() {
+function MicIcon({ size = 40 }: { size?: number }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
-      width="40"
-      height="40"
+      width={size}
+      height={size}
       fill="none"
       stroke="currentColor"
       strokeWidth="1.8"

@@ -3,6 +3,7 @@ import { AppShell } from "@/features/auth/shell";
 import { requireUser } from "@/features/auth/get-profile";
 import { createClient } from "@/lib/supabase/server";
 import { ReviewQueue } from "@/features/ai-import/review-place";
+import { ShareSteps } from "@/features/ai-import/share-steps";
 import { TOOK_OUT_HOTEL } from "@/features/ai-import/copy";
 import {
   getPlace,
@@ -75,6 +76,7 @@ export default async function ShareReviewPage({
       profile={profile}
       title={playbook ? "The day" : "Check this"}
     >
+      <ShareSteps current={3} />
       <p className="max-w-lg text-zinc-700">
         {n > 0 && playbook
           ? `Check each stop, then the day that strings them.`
