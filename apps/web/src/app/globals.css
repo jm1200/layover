@@ -70,3 +70,23 @@ body {
       0 0 0 14px rgba(251, 191, 36, 0.2);
   }
 }
+
+/* Share: words just came back from the mic. */
+@keyframes heard-flash {
+  0% {
+    background-color: rgba(251, 191, 36, 0.35);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.heard-flash {
+  animation: heard-flash 1.6s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heard-flash {
+    animation: none;
+  }
+}

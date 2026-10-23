@@ -194,6 +194,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] **Rec photo swipe (2026-09-28).** `/places/[id]` album swipes left/right (dots on phone); tap → full screen, swipe or arrows. `features/places/photo-swipe.tsx`.
 - [x] **Talk-first dump (2026-09-08).** `/share` default is **Tap to talk**. Records once, xAI STT (`/api/share/transcribe`, $0.10/hr audio) on the $20 cap. Keyboard is the or.
 - [x] **No hotel names (2026-09-08).** Airline security. Public zones: **downtown** or **airport layover**. Hotels are never recs. Dump is not refused for a hotel mention — she strips it and tells them on check/publish.
+- [x] **Share steps (2026-10-23).** Strip on `/share`, guest preview, review: *1 Talk · 2 Check what we heard · 3 Check the write-up · 4 Publish* (guests: *Sign in to publish*). `features/ai-import/share-steps.tsx`. After the mic: big button shrinks to *Tap to add more*, page scrolls to **What we heard** + brief highlight, button **Looks right, write it up** (typed = **Write it up**). Wait copy while writing. Next/Publish pinned to the bottom on phones. No auto write-up on stop (John 2026-10-23: no extra xAI spend, names get checked first).
 - [x] **City tabs (2026-09-08).** Eat / Do / Buy / A day, one panel. No dump box in empty kinds. Full layover only on A day.
 
 ## Session checklist for agents

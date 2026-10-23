@@ -98,7 +98,7 @@ function RecPublish({ logId }: { logId: string }) {
             if (r?.error) setMsg(r.error);
           })
         }
-        className="mt-4 rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
+        className="sticky bottom-3 z-10 w-full shadow-lg sm:static sm:w-auto sm:shadow-none mt-4 rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
       >
         {pending ? "Publishing…" : "Publish"}
       </button>
@@ -137,9 +137,10 @@ function LayoverPublish({
         The day that strings those stops. Publish when you’re ready — stills
         generate after that, if you asked for them.
       </p>
-      <div className="mt-4 overflow-hidden rounded-2xl bg-white ring-1 ring-zinc-200">
+      {/* No overflow-hidden here: it would trap the sticky Publish below. */}
+      <div className="mt-4 rounded-2xl bg-white ring-1 ring-zinc-200">
         <div
-          className="grid gap-0.5 bg-zinc-950"
+          className="grid gap-0.5 overflow-hidden rounded-t-2xl bg-zinc-950"
           style={{ gridTemplateColumns: `repeat(${n}, minmax(0, 1fr))` }}
         >
           {tiles.map((p) => (
@@ -210,7 +211,7 @@ function LayoverPublish({
                 if (r?.error) setMsg(r.error);
               })
             }
-            className="rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
+            className="sticky bottom-3 z-10 w-full shadow-lg sm:static sm:w-auto sm:shadow-none rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
           >
             {pending ? "Publishing…" : "Publish"}
           </button>
@@ -365,7 +366,7 @@ function ReviewPlaceCard({
             });
           })
         }
-        className="mt-4 rounded-lg bg-zinc-900 px-3 py-2 text-sm text-white disabled:opacity-60"
+        className="sticky bottom-3 z-10 w-full shadow-lg sm:static sm:w-auto sm:shadow-none mt-4 rounded-lg bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white disabled:opacity-60"
       >
         {pending ? (publishNow ? "Publishing…" : "Saving…") : nextLabel}
       </button>
