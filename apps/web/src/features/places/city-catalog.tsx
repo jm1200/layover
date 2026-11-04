@@ -57,7 +57,7 @@ export function CityCatalog({
       <div className="sticky top-0 z-20 -mx-4 mb-8 border-b border-zinc-200 bg-zinc-50/95 px-4 backdrop-blur">
         <div
           role="tablist"
-          aria-label="Eat, do, buy, a day"
+          aria-label="Eat, Do, Buy, The Perfect Layover"
           className="flex"
           onKeyDown={(e) => {
             const order: Tab[] = ["eat", "do", "shop", "day"];
@@ -89,7 +89,9 @@ export function CityCatalog({
             selected={tab === "day"}
             onSelect={() => setTab("day")}
           >
-            A day
+            <abbr title="The Perfect Layover" className="no-underline">
+              TPL
+            </abbr>
           </TabBtn>
         </div>
       </div>
@@ -164,24 +166,27 @@ export function CityCatalog({
         className="scroll-mt-24"
       >
         {tab === "day" ? (
-          days.length === 0 ? (
-            <EmptyShare
-              cityName={cityName}
-              label="day"
-              shareHref={shareHref}
-            />
-          ) : (
-            <>
+          <>
+            <div className="mb-6 flex items-baseline justify-between gap-4">
+              <h2 className="text-2xl font-bold tracking-tight text-zinc-950 sm:text-3xl">
+                The Perfect Layover
+              </h2>
               {days.length > 0 ? (
-                <p className="mb-4 text-right text-sm">
-                  <Link
-                    href={`/cities/${citySlug}/layovers`}
-                    className="text-zinc-600 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900"
-                  >
-                    All layovers
-                  </Link>
-                </p>
+                <Link
+                  href={`/cities/${citySlug}/layovers`}
+                  className="shrink-0 text-sm text-zinc-600 underline decoration-zinc-300 underline-offset-4 hover:text-zinc-900"
+                >
+                  All layovers
+                </Link>
               ) : null}
+            </div>
+            {days.length === 0 ? (
+              <EmptyShare
+                cityName={cityName}
+                label="day"
+                shareHref={shareHref}
+              />
+            ) : (
               <ul className="grid gap-6 lg:grid-cols-3">
                 {days.map(({ playbook, stops }) => (
                   <li key={playbook.id}>
@@ -193,8 +198,8 @@ export function CityCatalog({
                   </li>
                 ))}
               </ul>
-            </>
-          )
+            )}
+          </>
         ) : null}
       </section>
     </div>
