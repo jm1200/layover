@@ -55,16 +55,19 @@ test.describe("public browse", () => {
     await expect(page.getByRole("tab", { name: "Eat" })).toBeVisible();
     await expect(page.getByRole("tab", { name: "Do" })).toBeVisible();
     await expect(page.getByRole("tab", { name: "Buy" })).toBeVisible();
-    await expect(page.getByRole("tab", { name: "A day" })).toBeVisible();
+    await expect(page.getByRole("tab", { name: "TPL" })).toBeVisible();
     await expect(
       page.getByRole("button", { name: /Tap to talk/i }),
     ).toHaveCount(0);
     await expect(page.getByText("A day, sequenced")).toHaveCount(0);
-    await page.getByRole("tab", { name: "A day" }).click();
-    await expect(page.getByRole("tab", { name: "A day" })).toHaveAttribute(
+    await page.getByRole("tab", { name: "TPL" }).click();
+    await expect(page.getByRole("tab", { name: "TPL" })).toHaveAttribute(
       "aria-selected",
       "true",
     );
+    await expect(
+      page.getByRole("heading", { name: "The Perfect Layover" }),
+    ).toBeVisible();
     await expect(page.getByText(/crew hotel/i)).toHaveCount(0);
     await expect(page.getByText(/airline hotel/i)).toHaveCount(0);
   });

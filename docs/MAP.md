@@ -112,7 +112,7 @@ ModerationAction / MetricSnapshot            — Phase 6
 | `/admin` | Admin | Kill switch + Lumen log. Tab: Lumen. Full queue is Phase 6 | Phase 4 slice |
 | `/admin/people` | Admin | People (last in, what they posted) + what’s new. SQL **022** | 022 |
 | `/cities` | Public | City list. Share card: site hero | Phase 2 |
-| `/cities/[slug]` | Public | Dark hero · tabs Eat / Do / Buy / A day · small still + title. Empty: point at header Share. Full day only on A day. Share card: city hero + feel line | Phase 2 |
+| `/cities/[slug]` | Public | Dark hero · tabs Eat / Do / Buy / TPL · small still + title. Empty: point at header Share. Full day only on TPL (panel opens with **The Perfect Layover** heading). Share card: city hero + feel line | Phase 2 |
 | `/cities/[slug]/eat` `/do` `/buy` | Public | Full list for one verb. Share card: city hero | Phase 2 |
 | `/cities/[slug]/layovers` | Public | All sequenced days. Share card: city hero | Phase 2 |
 | `/playbooks/[id]` | Public | Playbook detail. Share card: city hero + narrative | Phase 2 |
@@ -196,6 +196,7 @@ Exact paths may adjust; update this table when implementing.
 - [x] **No hotel names (2026-09-08).** Airline security. Public zones: **downtown** or **airport layover**. Hotels are never recs. Dump is not refused for a hotel mention — she strips it and tells them on check/publish.
 - [x] **Share steps (2026-10-23).** Strip on `/share`, guest preview, review: *1 Talk · 2 Check what we heard · 3 Check the write-up · 4 Publish* (guests: *Sign in to publish*). `features/ai-import/share-steps.tsx`. After the mic: big button shrinks to *Tap to add more*, page scrolls to **What we heard** + brief highlight, button **Looks right, write it up** (typed = **Write it up**). Wait copy while writing. Next/Publish pinned to the bottom on phones. No auto write-up on stop (John 2026-10-23: no extra xAI spend, names get checked first).
 - [x] **City tabs (2026-09-08).** Eat / Do / Buy / A day, one panel. No dump box in empty kinds. Full layover only on A day.
+- [x] **TPL tab (2026-11-04).** "A day" tab renamed **TPL**; its panel opens with **The Perfect Layover**.
 
 ## Session checklist for agents
 
