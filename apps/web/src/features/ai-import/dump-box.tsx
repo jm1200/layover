@@ -354,6 +354,12 @@ export function DumpBox({
           <span className="text-sm font-medium text-zinc-700">
             {followUp ? "What you said" : "What we heard"}
           </span>
+          {followUp ? null : (
+            <span className="-mt-1 text-sm text-zinc-500">
+              Rough is fine. Names, spelling and accents get cleaned up in the
+              next step.
+            </span>
+          )}
           <textarea
             name={followUp ? undefined : "story"}
             required={!followUp}
@@ -413,8 +419,7 @@ export function DumpBox({
       ) : null}
       {showBox && !pending && !followUp ? (
         <p className="-mt-2 text-center text-sm text-zinc-500">
-          Fix any word we got wrong first. Next, we write it up and you check
-          it.
+          Next, we write it up and you check it.
         </p>
       ) : null}
       {pending ? (
